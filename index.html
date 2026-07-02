@@ -202,6 +202,18 @@ nav.tabs button:hover{color:var(--teal)}
 .linkrow a{display:inline-flex;align-items:center;gap:6px;background:var(--teal-tint);color:var(--teal-deep);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:600;text-decoration:none}
 .linkrow a:hover{background:var(--teal);color:#fff}
 
+/* ---------- cheatsheet ---------- */
+.cheat-card{margin-bottom:14px}
+.cheat-card h3{font-size:1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+table.ftable{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+table.ftable th{text-align:left;font-family:var(--font-head);color:var(--teal-deep);border-bottom:2px solid var(--line);padding:6px 8px;font-size:.85rem}
+table.ftable td{border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
+table.ftable tr:last-child td{border-bottom:none}
+table.ftable .formula{display:inline-block;margin:1px 0}
+.factgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:8px}
+.fact{background:var(--parchment-deep);border-radius:10px;padding:10px 14px;font-size:.85rem}
+.fact b{color:var(--teal-deep)}
+
 /* misc */
 .viewhead{margin:6px 0 16px}
 .viewhead h2{font-size:1.55rem;font-weight:900}
@@ -273,6 +285,7 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
   <button data-view="mock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Mock Test</button>
   <button data-view="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
   <button data-view="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13"/></svg>Study</button>
+  <button data-view="cheat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/><path d="M8 3v2M16 3v2"/></svg>Cheatsheet</button>
 </nav>
 
 <div id="toast" class="toast"></div>
@@ -463,7 +476,48 @@ const BANK = [
 {id:"P27",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which strategy best supports English language learners in math while maintaining rigor?",opts:["Removing all word problems","Visuals, anchor charts, and structured peer talk alongside grade-level tasks","Having them work alone with a dictionary","Postponing math until English is fluent"],ans:1,exp:"ELLs need language support (visuals, vocabulary scaffolds, talk structures) with the same rich mathematics — support, not simplification."},
 {id:"P28",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which teacher question most promotes deep mathematical thinking?",opts:["'What answer did you get?'","'Is everyone done?'","'How do you know your answer is reasonable?'","'Did you use the formula?'"],ans:2,exp:"'How do you know?' presses for reasoning and justification — the heart of mathematical thinking."},
 {id:"P29",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A 'spiralled' math program is one where:",opts:["Concepts are revisited throughout the year with increasing depth","Each topic is taught once in a single block, then closed","Students choose all topics themselves","Lessons literally follow a spiral seating pattern"],ans:0,exp:"Spiralling interleaves and revisits concepts over time, strengthening retention compared with single-block units."},
-{id:"P30",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The 'gradual release of responsibility' model moves through which sequence?",opts:["You do → we do → I do","I do → we do → you do","We do → test → reteach","Watch video → quiz → grade"],ans:1,exp:"Teacher models (I do), guided practice together (we do), then independent application (you do)."}
+{id:"P30",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The 'gradual release of responsibility' model moves through which sequence?",opts:["You do → we do → I do","I do → we do → you do","We do → test → reteach","Watch video → quiz → grade"],ans:1,exp:"Teacher models (I do), guided practice together (we do), then independent application (you do)."},
+// ---------- EXPANSION SET (aligned to official MPT Framework scope) ----------
+{id:"N41",sec:"content",strand:"Number",grade:"7–9",q:"3² × 3³ = ?",opts:["3⁶","243","9⁵","96"],ans:1,exp:"Same base: add the exponents. 3² × 3³ = 3⁵ = 243."},
+{id:"N42",sec:"content",strand:"Number",grade:"7–9",q:"(18 − 6) ÷ 3 + 2 × 4 = ?",opts:["24","20","12","16"],ans:2,exp:"Brackets first: 12 ÷ 3 = 4. Then 2 × 4 = 8. Finally 4 + 8 = 12."},
+{id:"N43",sec:"content",strand:"Number",grade:"7–9",q:"A $100 item is discounted 20%, then a further 10% is taken off the reduced price. What is the final price?",opts:["$70","$72","$68","$75"],ans:1,exp:"100 × 0.80 = 80, then 80 × 0.90 = $72. Successive discounts multiply — they don't simply add to 30%."},
+{id:"N44",sec:"content",strand:"Number",grade:"7–9",q:"Three friends share $40 in the ratio 2:3:5. How much is the largest share?",opts:["$25","$16","$18","$20"],ans:3,exp:"2+3+5 = 10 parts, so each part is $4. The largest share is 5 × 4 = $20."},
+{id:"N45",sec:"content",strand:"Number",grade:"7–9",q:"What is 2/3 of 3/4 of 24?",opts:["12","16","18","9"],ans:0,exp:"3/4 of 24 = 18, then 2/3 of 18 = 12."},
+{id:"N46",sec:"content",strand:"Number",grade:"7–9",q:"10⁻² = ?",opts:["−100","−20","0.01","0.1"],ans:2,exp:"A negative exponent means the reciprocal: 10⁻² = 1/10² = 1/100 = 0.01."},
+{id:"N47",sec:"content",strand:"Number",grade:"7–9",q:"Which number is NOT a perfect square?",opts:["121","144","150","169"],ans:2,exp:"11² = 121, 12² = 144, 13² = 169 — but 150 falls between 12² and 13²."},
+{id:"N48",sec:"content",strand:"Number",grade:"7–9",q:"Potatoes cost $12.50 for a 5 kg bag. What is the price per kilogram?",opts:["$2.50","$2.25","$3.00","$1.85"],ans:0,exp:"12.50 ÷ 5 = $2.50 per kg."},
+{id:"N49",sec:"content",strand:"Number",grade:"3–6",q:"Sam reads 45 pages every day. How many days will it take to finish a 630-page book?",opts:["12","13","14","15"],ans:2,exp:"630 ÷ 45 = 14 days."},
+{id:"N50",sec:"content",strand:"Number",grade:"3–6",q:"What is the value of the digit 8 in 3.482?",opts:["8 tenths","8 hundredths","8 ones","8 thousandths"],ans:1,exp:"Places after the decimal: tenths (4), hundredths (8), thousandths (2)."},
+{id:"A26",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve: 4(x + 2) = 3x + 14",opts:["x = 4","x = 6","x = 8","x = 12"],ans:1,exp:"Expand: 4x + 8 = 3x + 14. Subtract 3x: x + 8 = 14, so x = 6."},
+{id:"A27",sec:"content",strand:"Algebra",grade:"7–9",q:"A pattern has 5 tiles in figure 1, 9 in figure 2, and 13 in figure 3. How many tiles are in figure 10?",opts:["40","45","41","53"],ans:2,exp:"It grows by 4 each time: rule = 4n + 1. Figure 10: 4(10) + 1 = 41."},
+{id:"A28",sec:"content",strand:"Algebra",grade:"7–9",q:"Evaluate 2a + 3b when a = 5 and b = −2.",opts:["16","4","−4","11"],ans:1,exp:"2(5) + 3(−2) = 10 − 6 = 4."},
+{id:"A29",sec:"content",strand:"Algebra",grade:"7–9",q:"Which inequality means 'x is at most 12'?",opts:["x < 12","x > 12","x ≥ 12","x ≤ 12"],ans:3,exp:"'At most' includes 12 itself: x ≤ 12."},
+{id:"A30",sec:"content",strand:"Algebra",grade:"7–9",q:"A line crosses the y-axis at 3 and has a slope of −2. What is its equation?",opts:["y = 3x − 2","y = −2x + 3","y = 2x + 3","y = −3x − 2"],ans:1,exp:"y = mx + b with m = −2 and b = 3: y = −2x + 3."},
+{id:"D19",sec:"content",strand:"Data & Probability",grade:"7–9",q:"You flip a coin and roll a six-sided die. What is P(heads AND a 6)?",opts:["1/8","1/6","1/12","2/6"],ans:2,exp:"Independent events multiply: 1/2 × 1/6 = 1/12."},
+{id:"D20",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Five families have 1, 2, 2, 3, and 4 pets. What is the mean number of pets?",opts:["2","2.4","2.5","3"],ans:1,exp:"Total = 12 pets ÷ 5 families = 2.4."},
+{id:"D21",sec:"content",strand:"Data & Probability",grade:"7–9",q:"In a stem-and-leaf plot, the row '2 | 3 5 8' represents 23, 25, 28. What is the median of these three values?",opts:["23","25","28","5"],ans:1,exp:"The middle of 23, 25, 28 is 25."},
+{id:"D22",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A category takes up 25% of a circle graph. What is its central angle?",opts:["25°","45°","120°","90°"],ans:3,exp:"25% of 360° = 90°."},
+{id:"S26",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A trapezoid has parallel sides of 6 cm and 10 cm and a height of 4 cm. What is its area?",opts:["40 cm²","32 cm²","64 cm²","24 cm²"],ans:1,exp:"A = (a + b) ÷ 2 × h = (6 + 10) ÷ 2 × 4 = 8 × 4 = 32 cm²."},
+{id:"S27",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A rhombus has diagonals of 6 cm and 8 cm. What is its area?",opts:["48 cm²","28 cm²","24 cm²","14 cm²"],ans:2,exp:"For a rhombus (or kite): A = (d₁ × d₂) ÷ 2 = (6 × 8) ÷ 2 = 24 cm² — this formula is on the MPT Formula Sheet."},
+{id:"S28",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A triangular prism has a triangular base 6 cm wide and 4 cm high, and is 10 cm long. What is its volume?",opts:["240 cm³","120 cm³","60 cm³","100 cm³"],ans:1,exp:"V = area of base × length = (6 × 4 ÷ 2) × 10 = 12 × 10 = 120 cm³."},
+{id:"S29",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A square-based pyramid has a 6 cm × 6 cm base and a height of 5 cm. What is its volume?",opts:["180 cm³","90 cm³","60 cm³","45 cm³"],ans:2,exp:"V = (1/3) × base area × height = (1/3) × 36 × 5 = 60 cm³."},
+{id:"S30",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"On a map, 1 cm represents 5 km. Two towns are 7.4 cm apart on the map. What is the actual distance?",opts:["37 km","74 km","12.4 km","35 km"],ans:0,exp:"7.4 × 5 = 37 km."},
+{id:"F13",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"Interest that is calculated on both the original principal AND previously earned interest is called:",opts:["simple interest","compound interest","prime interest","fixed interest"],ans:1,exp:"Compound interest earns 'interest on interest'; simple interest is only ever calculated on the principal."},
+{id:"F14",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A household earns $3,000 a month and pays $900 rent. What percent of income goes to rent?",opts:["25%","30%","33%","35%"],ans:1,exp:"900/3000 = 0.30 = 30%."},
+{id:"F15",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"Which juice is the better buy?",opts:["2 L for $3.60","1.5 L for $2.85","1 L for $1.95","750 mL for $1.55"],ans:0,exp:"Per litre: $1.80, $1.90, $1.95, ≈$2.07. The 2 L bottle is cheapest per litre."},
+{id:"F16",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"What is the HST rate in Ontario?",opts:["5%","10%","13%","15%"],ans:2,exp:"Ontario's Harmonized Sales Tax is 13% (5% federal + 8% provincial)."},
+{id:"F17",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"'Net pay' is best described as:",opts:["total earnings before any deductions","earnings after taxes and other deductions","overtime earnings only","earnings plus benefits"],ans:1,exp:"Gross pay is before deductions; net pay is the amount actually received after deductions."},
+{id:"F18",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A TV costs $480 cash. On a payment plan you pay a $50 deposit plus 10 monthly payments of $45. How much MORE does the plan cost?",opts:["$10","$15","$20","$25"],ans:2,exp:"Plan total = 50 + 450 = $500, which is $20 more than $480."},
+{id:"P31",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Growing Success organizes achievement into four categories. Which set is correct?",opts:["Reading, Writing, Oral, Media","Knowledge & Understanding, Thinking, Communication, Application","Memory, Speed, Accuracy, Neatness","Effort, Behaviour, Attendance, Homework"],ans:1,exp:"The achievement chart in Growing Success uses Knowledge and Understanding, Thinking, Communication, and Application across all subjects."},
+{id:"P32",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"In Ontario's achievement levels, Level 3 represents:",opts:["achievement below the standard","the provincial standard (roughly 70–79%)","a failing grade","achievement that surpasses the standard"],ans:1,exp:"Level 3 is the provincial standard; Level 4 surpasses it, Levels 1–2 approach it."},
+{id:"P33",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"In Learning for All's tiered approach, Tier 1 refers to:",opts:["intensive individualized intervention","small-group remediation withdrawn from class","good, universal instruction and assessment for ALL students","special education placement"],ans:2,exp:"Tier 1 is high-quality universal instruction for everyone; Tiers 2 and 3 add increasingly intensive, more personalized support."},
+{id:"P34",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"On Ontario report cards, learning skills and work habits (e.g., responsibility, self-regulation) are:",opts:["averaged into the subject grade","reported separately from subject achievement","only reported in secondary school","optional for teachers to assess"],ans:1,exp:"Growing Success requires the six learning skills to be assessed and reported separately, not blended into marks."},
+{id:"P35",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"When determining a report card grade, Growing Success directs teachers to consider evidence that is:",opts:["averaged equally across the whole term","the most consistent, with special consideration for more recent evidence","only from formal tests","chosen by the student"],ans:1,exp:"Grades reflect the most consistent level of achievement, with emphasis on the more recent evidence of learning."},
+{id:"P36",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Learning for All recommends class profiles and student profiles primarily to:",opts:["rank students for streaming","plan instruction that responds to learners' strengths and needs","report to parents","assign detentions consistently"],ans:1,exp:"Profiles gather knowledge about learners so instruction and assessment can be planned responsively (the basis of differentiation and UDL)."},
+{id:"P37",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A student chooses a number line instead of counters to solve an integer problem. Which mathematical process is this?",opts:["Communicating","Selecting tools and strategies","Reflecting","Connecting"],ans:1,exp:"Choosing appropriate tools, representations, and strategies is the 'selecting tools and strategies' process."},
+{id:"P38",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Descriptive feedback has the greatest impact on learning when it is given:",opts:["with the final grade at the end of a unit","during the learning, in time for students to act on it","only at parent interviews","once per term"],ans:1,exp:"Feedback works best while learning is still in progress — students need time and opportunity to use it."},
+{id:"P39",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Peer- and self-assessment against co-constructed criteria are best classified as:",opts:["assessment OF learning","assessment FOR learning only","assessment AS learning","summative evaluation"],ans:2,exp:"When students assess their own or peers' work to monitor and adjust their learning, that is assessment AS learning."},
+{id:"P40",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A Grade 6 student works on Grade 3 curriculum expectations in math, as set out in their IEP. This is an example of:",opts:["an accommodation","a modification","differentiated instruction","universal design"],ans:1,exp:"Changing the grade level of the expectations themselves is a modification. Accommodations change how a student learns, not what."}
 ];
 </script>
 
@@ -552,12 +606,16 @@ function draw(poolKey, pool, n){
   persist();
   return picked;
 }
-function buildMock(){
-  const per = { "Number": 8, "Algebra": 5, "Spatial Sense": 5, "Data & Probability": 4, "Financial Literacy": 3 };
+function buildMock(kind){
+  // mini: 25 content + 10 pedagogy · full: 50 content + 21 pedagogy (the real MPT's scored split)
+  const per = kind === "full"
+    ? { "Number": 17, "Algebra": 10, "Spatial Sense": 10, "Data & Probability": 7, "Financial Literacy": 6 }
+    : { "Number": 8, "Algebra": 5, "Spatial Sense": 5, "Data & Probability": 4, "Financial Literacy": 3 };
+  const pedN = kind === "full" ? 21 : 10;
   let qs = [];
   for (const [strand, n] of Object.entries(per)) qs = qs.concat(draw("mock-" + strand, poolFor(strand), n));
   qs = shuffle(qs);
-  const ped = draw("mock-Pedagogy", poolFor("Pedagogy"), 10);
+  const ped = draw("mock-Pedagogy", poolFor("Pedagogy"), pedN);
   return qs.concat(shuffle(ped));   // content first, then pedagogy — like the real test's two sections
 }
 
@@ -633,6 +691,7 @@ function go(view){
   else if (view === "mock") quizState && quizState.kind === "mock" && !quizState.done ? renderQuestion() : renderMockIntro();
   else if (view === "progress") renderProgress();
   else if (view === "study") renderStudy();
+  else if (view === "cheat") renderCheat();
   window.scrollTo({ top: 0 });
 }
 
@@ -657,9 +716,10 @@ function renderHome(){
   </div>
   <div class="homegrid">
     <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>A fresh set of questions every time — pick a strand or mix it up. Instant feedback with friendly explanations.</p><div class="go">Start a quiz →</div></div>
-    <div class="card homecard c-mock" data-go="mock"><h3>📝 Mock Test</h3><p>A 35-question practice run in the real MPT's two-section format. Feedback comes at the end, just like test day.</p><div class="go">Take a mock →</div></div>
+    <div class="card homecard c-mock" data-go="mock"><h3>📝 Mock Test</h3><p>Full 71-question runs in the real MPT format (50 content + 21 pedagogy, 70% each) — or a lighter 35-question mini.</p><div class="go">Take a mock →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your scores, strand-by-strand strengths, and history — synced to your account so it follows you everywhere.</p><div class="go">See progress →</div></div>
-    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts, formulas, and the best free resources for each strand — plus pedagogy essentials.</p><div class="go">Open study hub →</div></div>
+    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts, official EQAO resources, and the best free materials for each strand — plus pedagogy essentials.</p><div class="go">Open study hub →</div></div>
+    <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>The MPT Formula Sheet plus quick-reference facts for every strand and the pedagogy component — everything on one page.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
 }
@@ -697,13 +757,18 @@ function renderMockIntro(){
   views.innerHTML = `
   <div class="viewhead"><h2>Mock Test</h2><p>A gentle dress rehearsal for the real thing.</p></div>
   <div class="card">
-    <h3 style="margin-bottom:10px">How it works</h3>
-    <p style="font-size:.93rem">The real MPT has two sections — <b>math content</b> (Grades 3–9) and <b>pedagogy</b> — and you need <b>70% on each</b>. This mock mirrors that: <b>25 content questions</b> followed by <b>10 pedagogy questions</b>, scored separately.</p>
-    <p style="font-size:.93rem;margin-top:8px">No feedback until the end (just like test day), but there's <b>no time limit</b> — the timer just counts up so you can see your natural pace. You can do this. 💪</p>
+    <h3 style="margin-bottom:10px">The real MPT format</h3>
+    <p style="font-size:.93rem">The official test has <b>75 questions</b>, of which <b>71 count</b>: <b>50 mathematics content</b> (70% of the test) and <b>21 pedagogy</b> (30%), plus 4 unscored field-test questions. You need <b>70% or higher on each component in the same attempt</b>. An on-screen calculator and the Formula Sheet (see the Cheatsheet tab) are provided, and once a section is submitted you can't go back to it.</p>
+    <p style="font-size:.93rem;margin-top:8px">No feedback until the end (just like test day), but there's <b>no time limit</b> here — the timer just counts up so you can see your natural pace. You can do this. 💪</p>
     <div class="spacer"></div>
-    <button class="btn coral" id="btn-startmock">Begin mock test</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn coral" id="btn-startfull">Full mock · 71 questions</button>
+      <button class="btn ghost" id="btn-startmock">Mini mock · 35 questions</button>
+    </div>
+    <p class="note" style="margin-top:10px">Both use the real 70/30 content-to-pedagogy split and score each component against the 70% line. The mini is perfect for a lighter day.</p>
   </div>`;
-  $("#btn-startmock").onclick = () => startSession("mock", buildMock(), "Mock Test");
+  $("#btn-startmock").onclick = () => startSession("mock", buildMock("mini"), "Mini Mock Test");
+  $("#btn-startfull").onclick = () => startSession("mock", buildMock("full"), "Full Mock Test");
 }
 
 /* ================= session engine ================= */
@@ -960,17 +1025,44 @@ const STUDY = [
   <li>Accommodation = how (same expectations); modification = changed expectations.</li>
   <li>UDL: design flexibility for all from the start. Scaffold, then fade.</li></ul>
   <div class="linkrow"><a href="https://www.oct.ca" target="_blank" rel="noopener">OCT</a><a href="https://quizlet.com" target="_blank" rel="noopener">Pedagogy flashcards</a></div>`},
-{ title: "🔗 Official Resources", body: `
+{ title: "🏛 Official EQAO Practice Tests & Test Info", body: `
+  <h4>The two official practice tests — do these!</h4>
   <ul>
-  <li><b>mathproficiencytest.ca</b> — practice in the REAL test interface. The single best prep source.</li>
-  <li><b>EQAO</b> — released questions for Grades 3, 6, 9.</li>
-  <li><b>Ontario Math Curriculum (2020)</b> — the six strands that define the content section.</li>
-  <li><b>OntarioMath.Support (OAME)</b> — how each concept grows Grade 1→8 (great for pedagogy).</li></ul>
+  <li>EQAO provides <b>two full practice tests, 75 questions each</b>, on the REAL test platform — same interface, on-screen calculator, Formula Sheet, and accessibility tools (text-to-speech, zoom, line reader, high contrast) as test day.</li>
+  <li>Ideal timing: one around Week 8 of the study plan, the second in the final simulation week.</li>
+  <li>Remember: once you submit a section you can't return to it — practice that review habit.</li></ul>
+  <h4>The real test format</h4>
+  <ul>
+  <li>75 questions; <b>71 scored</b>: 50 mathematics content (70%) + 21 pedagogy (30%); 4 unscored field-test questions mixed in.</li>
+  <li>To pass: <b>70%+ on each component in the same attempt</b>.</li></ul>
   <div class="linkrow">
-    <a href="https://mathproficiencytest.ca" target="_blank" rel="noopener">MPT official practice</a>
+    <a href="https://mathproficiencytest.ca/#/en/applicant/explore/before:practice" target="_blank" rel="noopener">🎯 Official practice tests</a>
+    <a href="https://mathproficiencytest.ca/#/en/applicant/explore/about" target="_blank" rel="noopener">About the test</a>
+    <a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/4331748/authoring/MPT+Framework+-+March+2026-s/1771613655146/MPT_Framework_March2026_s.pdf" target="_blank" rel="noopener">📄 MPT Framework (PDF)</a>
+    <a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/4331748/authoring/MPT_Formula_Sheet_July_2025/1754063707208/MPT_Formula_Sheet_July_2025.pdf" target="_blank" rel="noopener">📄 Formula Sheet (PDF)</a>
+  </div>`},
+{ title: "📖 Official Pedagogy Source Documents", body: `
+  <p style="font-size:.9rem">EQAO lists these as THE sources for the pedagogy component — the 21 pedagogy questions are drawn from the ideas in these documents:</p>
+  <ul>
+  <li><b>Growing Success (2010)</b> — assessment for/as/of learning, the achievement chart categories, levels 1–4, learning skills, grading principles. The single most important pedagogy document.</li>
+  <li><b>Learning for All (2013)</b> — the tiered approach, UDL, differentiated instruction, class and student profiles.</li>
+  <li><b>Ontario Curriculum Grades 1–8: Curriculum Context (2020)</b> — the vision, principles, and seven mathematical processes.</li>
+  <li><b>Grade 9 Mathematics MTH1W (2021)</b> — introduction, program planning considerations, and assessment sections.</li></ul>
+  <div class="linkrow">
+    <a href="http://www.edu.gov.on.ca/eng/policyfunding/growsuccess.pdf" target="_blank" rel="noopener">📄 Growing Success</a>
+    <a href="https://files.ontario.ca/edu-learning-for-all-2013-en-2022-01-28.pdf" target="_blank" rel="noopener">📄 Learning for All</a>
+    <a href="https://www.dcp.edu.gov.on.ca/en/curriculum/elementary-mathematics" target="_blank" rel="noopener">Curriculum Gr 1–8</a>
+    <a href="https://www.dcp.edu.gov.on.ca/en/curriculum/secondary-mathematics/courses/mth1w" target="_blank" rel="noopener">Grade 9 MTH1W</a>
+  </div>`},
+{ title: "🔗 More Good Resources", body: `
+  <ul>
+  <li><b>EQAO</b> — released questions for Grades 3, 6, 9 (authentic item style).</li>
+  <li><b>OntarioMath.Support (OAME)</b> — how each concept grows Grade 1→8 (great for pedagogy thinking).</li>
+  <li><b>Math Antics / Khan Academy / Math with Mr. J</b> — short video refreshers, matched to strands in each section above.</li></ul>
+  <div class="linkrow">
     <a href="https://www.eqao.com" target="_blank" rel="noopener">EQAO</a>
-    <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
     <a href="https://ontariomath.support" target="_blank" rel="noopener">OntarioMath.Support</a>
+    <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
   </div>`}
 ];
 function renderStudy(){
@@ -978,6 +1070,110 @@ function renderStudy(){
   <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
   ${STUDY.map((s, i) => `<div class="acc" data-i="${i}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body}</div></div>`).join("")}`;
   views.querySelectorAll(".acc > button").forEach(b => b.onclick = () => b.parentElement.classList.toggle("open"));
+}
+
+/* ================= cheatsheet ================= */
+function renderCheat(){
+  views.innerHTML = `
+  <div class="viewhead"><h2>Cheatsheet</h2><p>The formulas provided on test day, plus quick-reference facts. On the real MPT you get this Formula Sheet and an on-screen calculator — everything else lives in your head.</p></div>
+
+  <div class="card cheat-card">
+    <h3>🎯 The test at a glance</h3>
+    <div class="factgrid">
+      <div class="fact"><b>75 questions</b> — 71 scored + 4 unscored field-test questions</div>
+      <div class="fact"><b>50 math content</b> (70%) + <b>21 pedagogy</b> (30%) scored questions</div>
+      <div class="fact"><b>Pass = 70%+ on EACH component</b> in the same attempt</div>
+      <div class="fact"><b>Provided:</b> on-screen calculator + this Formula Sheet</div>
+      <div class="fact"><b>Sections lock</b> once submitted — review before moving on</div>
+      <div class="fact"><b>Accessibility tools</b> built in: text-to-speech, zoom, line reader, high contrast</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>📐 Formula Sheet — 2D shapes <span class="note">(provided on the test)</span></h3>
+    <table class="ftable"><tr><th>Shape</th><th>Perimeter</th><th>Area</th></tr>
+      <tr><td>Circle</td><td><span class="formula">C = πd</span> or <span class="formula">C = 2πr</span></td><td><span class="formula">A = πr²</span></td></tr>
+      <tr><td>Triangle</td><td><span class="formula">P = a + b + c</span></td><td><span class="formula">A = bh ÷ 2</span></td></tr>
+      <tr><td>Rectangle</td><td><span class="formula">P = 2(l + w)</span></td><td><span class="formula">A = lw</span></td></tr>
+      <tr><td>Parallelogram</td><td><span class="formula">P = 2(b + c)</span></td><td><span class="formula">A = bh</span></td></tr>
+      <tr><td>Trapezoid</td><td><span class="formula">P = a + b + c + d</span></td><td><span class="formula">A = (a + b) ÷ 2 × h</span></td></tr>
+      <tr><td>Rhombus</td><td><span class="formula">P = 4s</span></td><td><span class="formula">A = bh</span> or <span class="formula">A = (d₁ × d₂) ÷ 2</span></td></tr>
+      <tr><td>Kite</td><td><span class="formula">P = 2(a + b)</span></td><td><span class="formula">A = (c × d) ÷ 2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>📦 Formula Sheet — 3D objects <span class="note">(provided on the test)</span></h3>
+    <table class="ftable"><tr><th>Object</th><th>Surface area</th><th>Volume</th></tr>
+      <tr><td>Cube</td><td><span class="formula">SA = 6s²</span></td><td><span class="formula">V = s³</span></td></tr>
+      <tr><td>Rectangular prism</td><td><span class="formula">SA = 2(lw + lh + wh)</span></td><td><span class="formula">V = lwh</span></td></tr>
+      <tr><td>Triangular prism</td><td><span class="formula">SA = bh + (a+b+c)L</span></td><td><span class="formula">V = (bh ÷ 2) × L</span></td></tr>
+      <tr><td>Cylinder</td><td><span class="formula">SA = 2πr² + 2πrh</span></td><td><span class="formula">V = πr²h</span></td></tr>
+      <tr><td>Square-based pyramid</td><td><span class="formula">SA = b² + 2bs</span></td><td><span class="formula">V = (1/3)b²h</span></td></tr>
+      <tr><td>Sphere</td><td><span class="formula">SA = 4πr²</span></td><td><span class="formula">V = (4/3)πr³</span></td></tr>
+    </table>
+    <div class="linkrow" style="margin-top:12px"><a href="https://s3.ca-central-1.amazonaws.com/authoring.mathproficiencytest.ca/user_uploads/4331748/authoring/MPT_Formula_Sheet_July_2025/1754063707208/MPT_Formula_Sheet_July_2025.pdf" target="_blank" rel="noopener">📄 Official MPT Formula Sheet (PDF)</a></div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>🔢 Number & operations</h3>
+    <div class="factgrid">
+      <div class="fact"><b>BEDMAS:</b> Brackets → Exponents → Divide/Multiply (L→R) → Add/Subtract (L→R)</div>
+      <div class="fact"><b>Fractions:</b> ± needs common denominator · × straight across · ÷ multiply by reciprocal</div>
+      <div class="fact"><b>Percent:</b> of = multiply · % change = change ÷ original × 100 · find 10% first, then build</div>
+      <div class="fact"><b>Integers:</b> same signs → positive; different signs → negative (× and ÷)</div>
+      <div class="fact"><b>Exponents:</b> aᵐ × aⁿ = aᵐ⁺ⁿ · a⁻ⁿ = 1/aⁿ · a⁰ = 1</div>
+      <div class="fact"><b>Divisibility:</b> by 3/9 → digit sum · by 4 → last two digits · by 5 → ends in 0/5</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>🧮 Algebra & relations</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Line:</b> y = mx + b · m = rise ÷ run · b = y-intercept</div>
+      <div class="fact"><b>Solving:</b> undo operations in reverse order; whatever you do to one side, do to the other</div>
+      <div class="fact"><b>Patterns:</b> constant difference d → rule dn + (start − d)</div>
+      <div class="fact"><b>Inequalities:</b> flip the sign when × or ÷ by a negative</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>📊 Data, probability & geometry facts</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Mean</b> = sum ÷ count · <b>Median</b> = middle (order first!) · <b>Mode</b> = most frequent · <b>Range</b> = max − min</div>
+      <div class="fact"><b>P(event)</b> = favourable ÷ total · independent events multiply · P(not A) = 1 − P(A)</div>
+      <div class="fact"><b>Angles:</b> triangle 180° · quadrilateral 360° · straight line 180° · complementary 90°</div>
+      <div class="fact"><b>Pythagorean:</b> a² + b² = c² · know 3-4-5 · 6-8-10 · 5-12-13</div>
+      <div class="fact"><b>Circle graph:</b> percent × 360° = central angle</div>
+      <div class="fact"><b>Metric:</b> km→m ×1000 · m→cm ×100 · L→mL ×1000 · kg→g ×1000</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>💰 Financial literacy</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Simple interest:</b> I = P × r × t · compound = interest on interest</div>
+      <div class="fact"><b>Ontario HST = 13%</b> · total = price × 1.13</div>
+      <div class="fact"><b>Sale price</b> = original × (1 − discount%) · successive discounts multiply</div>
+      <div class="fact"><b>Gross pay</b> = before deductions · <b>net pay</b> = what you take home</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>🍎 Pedagogy quick reference</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Assessment:</b> FOR = teacher plans next steps · AS = student self-monitors · OF = summative judgment · diagnostic = before learning</div>
+      <div class="fact"><b>Achievement chart:</b> Knowledge & Understanding · Thinking · Communication · Application</div>
+      <div class="fact"><b>Levels:</b> Level 3 = provincial standard (≈70–79%) · Level 4 surpasses it</div>
+      <div class="fact"><b>Grading:</b> most consistent evidence, emphasis on more recent (Growing Success)</div>
+      <div class="fact"><b>Three-part lesson:</b> Minds-On → Working On It → Consolidation</div>
+      <div class="fact"><b>Accommodation</b> = HOW they learn changes · <b>Modification</b> = the expectations change</div>
+      <div class="fact"><b>Tiered approach:</b> Tier 1 universal for all → Tier 2 targeted → Tier 3 intensive (Learning for All)</div>
+      <div class="fact"><b>7 math processes:</b> problem solving · reasoning & proving · reflecting · connecting · communicating · representing · selecting tools & strategies</div>
+      <div class="fact"><b>Triangulation:</b> observations + conversations + products</div>
+      <div class="fact"><b>6 learning skills:</b> responsibility · organization · independent work · collaboration · initiative · self-regulation (reported separately)</div>
+    </div>
+  </div>`;
 }
 
 /* ================= boot ================= */

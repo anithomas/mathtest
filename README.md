@@ -6,10 +6,11 @@ live at **https://mathtest.logicmanse.ca**.
 ## Features
 
 - **Quick Quiz** — freshly randomized every start, non-repeating until the full bank is seen; instant feedback with explanations. Filter by strand or pedagogy.
-- **Mock Test** — 35 questions (25 content + 10 pedagogy) mirroring the real MPT's two-section, 70%-each format; feedback at the end with full review.
+- **Mock Tests** — Full 71-question mocks in the real MPT scored format (50 math content + 21 pedagogy, 70% needed on each component), plus a lighter 35-question mini. Feedback at the end with full review.
+- **Cheatsheet** — the MPT Formula Sheet (2D + 3D) plus quick-reference facts for every strand and the pedagogy component.
 - **Score tracking** — every session saved, strand-mastery bars, history, synced across devices via Firestore.
-- **Study Hub** — key concepts and formulas per strand, pedagogy essentials, and curated official resources (mathproficiencytest.ca, EQAO, Ontario curriculum).
-- **Private** — Google sign-in restricted to two accounts, enforced by Firestore security rules.
+- **Study Hub** — key concepts per strand, official EQAO practice tests and framework, pedagogy source documents (Growing Success, Learning for All), and curated free resources.
+- **Private** — Google sign-in restricted to allowlisted accounts, enforced server-side by Firestore security rules.
 
 ## Stack
 
@@ -23,5 +24,7 @@ See [SETUP.md](SETUP.md). No secrets live in this repo.
 
 ## Question bank
 
-150 questions in the `BANK` array in `index.html`:
-Number 40 · Algebra 25 · Data & Probability 18 · Spatial Sense 25 · Financial Literacy 12 · Pedagogy 30.
+190 original questions in the `BANK` array in `index.html`, aligned to the official MPT Framework:
+Number 50 · Algebra 30 · Data & Probability 22 · Spatial Sense 30 · Financial Literacy 18 · Pedagogy 40.
+
+Questions are written for this app — official EQAO practice questions stay on [mathproficiencytest.ca](https://mathproficiencytest.ca), where the Study Hub links to them.
