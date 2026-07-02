@@ -717,7 +717,7 @@ function renderHome(){
   <div class="homegrid">
     <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>A fresh set of questions every time — pick a strand or mix it up. Instant feedback with friendly explanations.</p><div class="go">Start a quiz →</div></div>
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Mock Test</h3><p>Full 71-question runs in the real MPT format (50 content + 21 pedagogy, 70% each) — or a lighter 35-question mini.</p><div class="go">Take a mock →</div></div>
-    <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your scores, strand-by-strand strengths, and history — synced to your account so it follows you everywhere.</p><div class="go">See progress →</div></div>
+    <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your readiness report vs the 70% pass line, strand strengths, focus recommendations, and full history — synced to your account.</p><div class="go">See progress →</div></div>
     <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts, official EQAO resources, and the best free materials for each strand — plus pedagogy essentials.</p><div class="go">Open study hub →</div></div>
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>The MPT Formula Sheet plus quick-reference facts for every strand and the pedagogy component — everything on one page.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
@@ -932,6 +932,50 @@ function renderResults(a, st){
 }
 
 /* ================= progress ================= */
+function recentAccuracy(filterFn, n){
+  let c = 0, t = 0;
+  store.attempts.slice(-(n || 10)).forEach(a => Object.entries(a.strands || {}).forEach(([s, v]) => {
+    if (filterFn(s)){ c += v.c; t += v.t; }
+  }));
+  return t ? { p: Math.round(100 * c / t), c, t } : null;
+}
+function readinessReport(agg){
+  const content = recentAccuracy(s => s !== "Pedagogy");
+  const ped = recentAccuracy(s => s === "Pedagogy");
+  if (!content && !ped) return `<div class="card breakdown"><h3 style="margin-bottom:6px">📋 Readiness report</h3>
+    <div class="emptystate">Complete a quiz or mock and your readiness report appears here — tracking both components against the real test's 70% pass line. 🌱</div></div>`;
+  const row = (name, r) => {
+    if (!r) return `<div class="bar-row"><span><b>${name}</b> <span class="note">(no data yet)</span></span><div class="bar-track"></div><span class="bar-pct">—</span></div>`;
+    return `<div class="bar-row"><span><b>${name}</b> <span class="note">(last ${r.t} Qs)</span></span><div class="bar-track"><div class="bar-fill ${r.p >= 70 ? "" : r.p >= 55 ? "warn" : "low"}" style="width:${r.p}%"></div></div><span class="bar-pct">${r.p}%</span></div>`;
+  };
+  // verdict
+  let verdict, cls;
+  const both = content && ped;
+  if (both && content.p >= 70 && ped.p >= 70){ verdict = "✔ On track to pass — both components are at or above the 70% line. Keep this rhythm."; cls = "pass"; }
+  else if (both && (content.p >= 62 && ped.p >= 62)){ verdict = "Almost there — one steady push on the focus areas below tips you over the line."; cls = "close"; }
+  else if (!ped) { verdict = "Good start on content! Add some pedagogy quizzes so we can track both components."; cls = "close"; }
+  else { verdict = "Building the foundation — every session counts. Start with the focus areas below and re-check in a week."; cls = "keep"; }
+  // focus areas: weakest strands with enough data
+  const focus = Object.entries(agg).filter(([, v]) => v.t >= 6)
+    .map(([s, v]) => ({ s, p: Math.round(100 * v.c / v.t) }))
+    .sort((a, b) => a.p - b.p).filter(x => x.p < 80).slice(0, 2);
+  // mock trend
+  const mocks = store.attempts.filter(a => a.kind === "mock");
+  let trend = "";
+  if (mocks.length >= 2){
+    const last = mocks[mocks.length - 1].pct, prev = Math.round(mocks.slice(0, -1).reduce((x, a) => x + a.pct, 0) / (mocks.length - 1));
+    const d = last - prev;
+    trend = `<p class="note" style="margin-top:8px">Mock trend: latest ${last}% vs ${prev}% average before — ${d >= 3 ? "trending up 📈" : d <= -3 ? "a dip; totally normal, review the misses 💛" : "holding steady"}.</p>`;
+  }
+  return `<div class="card breakdown">
+    <h3 style="margin-bottom:6px">📋 Readiness report <span class="note">(recent sessions vs the real 70% pass line)</span></h3>
+    ${row("Math content", content)}
+    ${row("Pedagogy", ped)}
+    <div style="margin-top:10px"><span class="passline ${cls}">${verdict}</span></div>
+    ${focus.length ? `<p style="font-size:.88rem;margin-top:10px"><b>Focus next:</b> ${focus.map(f => esc(f.s) + " (" + f.p + "%)").join(" · ")} — a Study Hub refresher plus one focused quiz each is the fastest way up.</p>` : ""}
+    ${trend}
+  </div><div class="spacer"></div>`;
+}
 function renderProgress(){
   const att = store.attempts.slice().reverse();
   const agg = {};
@@ -951,6 +995,7 @@ function renderProgress(){
   }).join("");
   views.innerHTML = `
   <div class="viewhead"><h2>Progress</h2><p>Everything is saved to your account${cloud ? " and synced across devices" : " on this device"}.</p></div>
+  ${readinessReport(agg)}
   ${Object.keys(agg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Strand mastery <span class="note">(all-time)</span></h3>${mastery}</div><div class="spacer"></div>` : ""}
   <div class="card">
     <h3 style="margin-bottom:8px">History</h3>
