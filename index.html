@@ -214,6 +214,35 @@ table.ftable .formula{display:inline-block;margin:1px 0}
 .fact{background:var(--parchment-deep);border-radius:10px;padding:10px 14px;font-size:.85rem}
 .fact b{color:var(--teal-deep)}
 
+/* ---------- test-day tools ---------- */
+.toolbtn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:4px 13px;font-size:.82rem;font-weight:600;color:var(--teal-deep);cursor:pointer}
+.toolbtn:hover{border-color:var(--teal);background:var(--teal-tint)}
+#calc{position:fixed;right:16px;bottom:90px;width:230px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:12px;z-index:80}
+#calc .cdisp{font-family:var(--font-mono);font-size:1.15rem;background:var(--parchment-deep);border-radius:8px;padding:8px 10px;text-align:right;min-height:38px;word-break:break-all;margin-bottom:8px}
+#calc .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+#calc button{background:var(--parchment-deep);border-radius:8px;padding:9px 0;font-size:1rem;font-weight:600;color:var(--ink)}
+#calc button:hover{background:var(--teal-tint)}
+#calc button.op{background:var(--teal-tint);color:var(--teal-deep)}
+#calc button.eq{background:var(--teal);color:#fff}
+#calc .chead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.78rem;font-weight:700;color:var(--ink-soft)}
+#calc .chead button{background:none;padding:0 6px;color:var(--coral);font-size:.9rem}
+#fsheet{position:fixed;inset:0;background:rgba(43,58,58,.45);z-index:85;display:flex;align-items:center;justify-content:center;padding:20px}
+#fsheet .fbox{background:var(--card);border-radius:16px;max-width:640px;width:100%;max-height:85vh;overflow:auto;padding:22px;box-shadow:var(--shadow-lift)}
+#fsheet h3{margin-bottom:4px}
+/* ---------- gamification ---------- */
+.xpwrap{margin-top:16px}
+.xprow{display:flex;justify-content:space-between;align-items:baseline;font-size:.8rem;margin-bottom:4px}
+.xprow .lvl{font-weight:700;font-size:.9rem}
+.xpbar{height:10px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden}
+.xpbar>div{height:100%;background:var(--gold);border-radius:999px;transition:width .6s}
+.streakchip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.13);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600}
+.badgegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.badge{background:var(--parchment-deep);border-radius:12px;padding:12px;text-align:center;font-size:.78rem}
+.badge .bi{font-size:1.6rem}
+.badge .bn{font-weight:700;margin-top:3px;color:var(--teal-deep)}
+.badge.locked{opacity:.38;filter:grayscale(1)}
+.trailweek{margin-top:10px;font-size:.85rem;background:rgba(255,255,255,.13);border-radius:10px;padding:8px 14px;display:inline-block}
+
 /* misc */
 .viewhead{margin:6px 0 16px}
 .viewhead h2{font-size:1.55rem;font-weight:900}
@@ -289,6 +318,43 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
 </nav>
 
 <div id="toast" class="toast"></div>
+
+<!-- Test-day tools: on-screen calculator + formula sheet (like the real MPT toolbar) -->
+<div id="calc" class="hidden">
+  <div class="chead"><span>🧮 Calculator</span><button id="calc-close" title="Close">✕</button></div>
+  <div class="cdisp" id="calc-disp">0</div>
+  <div class="cgrid">
+    <button data-k="C" class="op">C</button><button data-k="(" class="op">(</button><button data-k=")" class="op">)</button><button data-k="⌫" class="op">⌫</button>
+    <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button><button data-k="÷" class="op">÷</button>
+    <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button><button data-k="×" class="op">×</button>
+    <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button><button data-k="−" class="op">−</button>
+    <button data-k="0">0</button><button data-k=".">.</button><button data-k="√" class="op">√</button><button data-k="+" class="op">+</button>
+    <button data-k="=" class="eq" style="grid-column:span 4">=</button>
+  </div>
+</div>
+<div id="fsheet" class="hidden">
+  <div class="fbox">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3>📐 Formula Sheet</h3><button class="btn soft" id="fsheet-close" style="padding:6px 14px">Close</button></div>
+    <p class="note" style="margin-bottom:8px">Provided on the real test, exactly like this.</p>
+    <table class="ftable"><tr><th>Shape</th><th>Perimeter</th><th>Area</th></tr>
+      <tr><td>Circle</td><td>C = πd = 2πr</td><td>A = πr²</td></tr>
+      <tr><td>Triangle</td><td>P = a + b + c</td><td>A = bh ÷ 2</td></tr>
+      <tr><td>Rectangle</td><td>P = 2(l + w)</td><td>A = lw</td></tr>
+      <tr><td>Parallelogram</td><td>P = 2(b + c)</td><td>A = bh</td></tr>
+      <tr><td>Trapezoid</td><td>P = a + b + c + d</td><td>A = (a + b) ÷ 2 × h</td></tr>
+      <tr><td>Rhombus</td><td>P = 4s</td><td>A = bh = (d₁ × d₂) ÷ 2</td></tr>
+      <tr><td>Kite</td><td>P = 2(a + b)</td><td>A = (c × d) ÷ 2</td></tr>
+    </table>
+    <table class="ftable" style="margin-top:12px"><tr><th>Object</th><th>Surface area</th><th>Volume</th></tr>
+      <tr><td>Cube</td><td>SA = 6s²</td><td>V = s³</td></tr>
+      <tr><td>Rectangular prism</td><td>SA = 2(lw + lh + wh)</td><td>V = lwh</td></tr>
+      <tr><td>Triangular prism</td><td>SA = bh + (a+b+c)L</td><td>V = (bh ÷ 2) × L</td></tr>
+      <tr><td>Cylinder</td><td>SA = 2πr² + 2πrh</td><td>V = πr²h</td></tr>
+      <tr><td>Square-based pyramid</td><td>SA = b² + 2bs</td><td>V = (1/3)b²h</td></tr>
+      <tr><td>Sphere</td><td>SA = 4πr²</td><td>V = (4/3)πr³</td></tr>
+    </table>
+  </div>
+</div>
 
 <script>
 /* =====================================================================
@@ -695,6 +761,105 @@ function go(view){
   window.scrollTo({ top: 0 });
 }
 
+/* ================= test-day tools ================= */
+// Questions where reaching for the calculator is realistic on test day.
+// (On the real MPT the calculator is available on EVERY question — these badges
+// are practice guidance: build number sense on the rest.)
+const CALC_IDS = new Set(["N13","N22","N23","N30","N33","N43","N48","N49","S05","S06","S07","S08","S09","S16","S23","S25","S26","S28","S29","S30","F01","F02","F03","F04","F05","F06","F09","F10","F11","F14","F15","F18","D11","D20","D22","A25"]);
+function initTools(){
+  const panel = $("#calc"), disp = $("#calc-disp");
+  let expr = "";
+  const show = () => { disp.textContent = expr === "" ? "0" : expr; };
+  panel.querySelectorAll("[data-k]").forEach(b => b.onclick = () => {
+    const k = b.dataset.k;
+    if (k === "C") expr = "";
+    else if (k === "⌫") expr = expr.slice(0, -1);
+    else if (k === "=") {
+      try {
+        if (!/^[0-9+−×÷().√ ]*$/.test(expr)) throw 0;
+        const js = expr.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/√/g,"Math.sqrt");
+        const v = Function('"use strict";return (' + js + ')')();
+        expr = (typeof v === "number" && isFinite(v)) ? String(Math.round(v * 1e9) / 1e9) : "";
+      } catch(e){ expr = ""; disp.textContent = "Hmm — try again"; return; }
+    }
+    else if (k === "√") expr += "√(";
+    else expr += k;
+    show();
+  });
+  $("#calc-close").onclick = () => panel.classList.add("hidden");
+  $("#fsheet-close").onclick = () => $("#fsheet").classList.add("hidden");
+  $("#fsheet").onclick = e => { if (e.target.id === "fsheet") e.target.classList.add("hidden"); };
+}
+
+/* ================= gamification ================= */
+const LEVELS = [[0,"Trailhead 🥾"],[300,"Meadow Walker 🌼"],[800,"Creek Crosser 🌊"],[1500,"Hill Climber ⛰"],[2500,"Ridge Runner 🏃"],[4000,"Summit Seeker 🌄"],[6000,"Peak Finisher 🏔"]];
+function studyStreak(){
+  const days = [...new Set(store.attempts.map(a => new Date(a.t).toDateString()))].map(d => new Date(d).getTime()).sort((a,b)=>b-a);
+  if (!days.length) return 0;
+  const DAY = 86400000, today = new Date(new Date().toDateString()).getTime();
+  if (today - days[0] > DAY) return 0;  // streak broken if no session yesterday/today
+  let s = 1;
+  for (let i = 1; i < days.length; i++){ if (days[i-1] - days[i] === DAY) s++; else break; }
+  return s;
+}
+function gameStats(){
+  const att = store.attempts;
+  const totalC = att.reduce((x,a)=>x+a.score,0), totalQ = att.reduce((x,a)=>x+a.total,0);
+  const mocks = att.filter(a=>a.kind==="mock");
+  const mockPass = mocks.filter(a=>a.sections && ["content","pedagogy"].every(k=>100*a.sections[k].c/a.sections[k].t>=70));
+  const strandsSeen = new Set(); att.forEach(a=>Object.keys(a.strands||{}).forEach(s=>strandsSeen.add(s)));
+  let pedC=0,pedT=0; att.forEach(a=>{const p=(a.strands||{})["Pedagogy"]; if(p){pedC+=p.c;pedT+=p.t;}});
+  const streak = studyStreak();
+  const badges = [
+    {i:"🥾",n:"First Steps",d:"Complete your first session",e:att.length>=1},
+    {i:"🔥",n:"Three-Day Rhythm",d:"Study 3 days in a row",e:streak>=3},
+    {i:"🚶",n:"Trail Blazer",d:"Complete 5 sessions",e:att.length>=5},
+    {i:"💯",n:"Century Club",d:"Answer 100 questions",e:totalQ>=100},
+    {i:"🎯",n:"Sharp Shooter",d:"Score 90%+ on a 10+ question session",e:att.some(a=>a.total>=10&&a.pct>=90)},
+    {i:"🧭",n:"Strand Explorer",d:"Try all 6 strands",e:strandsSeen.size>=6},
+    {i:"✅",n:"Over the Line",d:"Pass both sections of any mock (70%+)",e:mockPass.length>=1},
+    {i:"🍎",n:"Pedagogy Pro",d:"80%+ over 20+ pedagogy questions",e:pedT>=20&&100*pedC/pedT>=80},
+    {i:"📅",n:"Week Walker",d:"Study 7 days in a row",e:streak>=7},
+    {i:"⛰",n:"Question Mountain",d:"Answer 250 questions",e:totalQ>=250},
+    {i:"🏔",n:"Summit!",d:"Pass both sections of a FULL 71-question mock",e:mockPass.some(a=>a.total>=71)},
+    {i:"🌟",n:"Seasoned Hiker",d:"Complete 15 sessions",e:att.length>=15}
+  ];
+  const xp = totalC*10 + mocks.length*50 + badges.filter(b=>b.e).length*100;
+  let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
+  const next = LEVELS[li+1];
+  return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges };
+}
+
+/* ================= trail plan (Kevin: mid-July start → September course) ================= */
+const PLAN_START = new Date("2026-07-13T00:00:00");
+const PLAN_WEEKS = [
+  ["Gentle restart 🌱","Number sense only. One 5-question quiz per sitting, 15 min max. Re-read the Number cheatsheet. Rest is still part of recovery."],
+  ["Number & money 💰","Number + Financial Literacy quizzes. Short sittings. Try the calculator tool — it's the same idea as test day."],
+  ["Patterns & equations 🧮","Algebra week. One 10-question quiz per day at most. Peek at the Algebra cheatsheet before each."],
+  ["Shapes & space 📐","Spatial Sense week. Open the Formula Sheet overlay while you practice — on the real test it's always there."],
+  ["Data week + first mini mock 📊","Data & Probability quizzes, then one 35-question mini mock at the weekend. No pressure on the score — it's a baseline."],
+  ["Pedagogy week 🍎","Pedagogy quizzes + skim Growing Success (assessment chapters). The Pedagogy cheatsheet covers the essentials."],
+  ["Dress rehearsal 🎭","Mixed quizzes early in the week, then Official Practice Test 1 (Study Hub link) and one FULL 71-question mock."],
+  ["Taper & trust 🌄","Light review of weak strands, Official Practice Test 2, one last full mock if you feel fresh. Then rest — the course starts soon and you've earned it."]
+];
+function trailWeekLine(){
+  const now = new Date();
+  const wk = Math.floor((now - PLAN_START) / (7*86400000));
+  if (wk < 0){ const d = Math.ceil((PLAN_START - now)/86400000); return "Trail opens July 13 — " + d + " day" + (d===1?"":"s") + " to rest up first. Recovery comes first. ❤️"; }
+  if (wk >= PLAN_WEEKS.length) return "Plan complete — you're in consolidation territory. Light reviews only. 🌄";
+  return "Week " + (wk+1) + " of 8: " + PLAN_WEEKS[wk][0] + " — " + PLAN_WEEKS[wk][1].split(".")[0] + ".";
+}
+const CHEERS = [
+  "Healing and learning use the same muscle: patience.",
+  "Five questions today beats fifty tomorrow.",
+  "The trail doesn't care how fast you walk it.",
+  "Every wrong answer here is one you won't miss on test day.",
+  "Rest days are training days for the brain.",
+  "70% is the goal. You don't need perfect — you need steady.",
+  "Small steps, taken often, climb mountains.",
+  "You've recovered from harder things than fractions."
+];
+
 /* ================= home ================= */
 function renderHome(){
   const att = store.attempts;
@@ -702,16 +867,26 @@ function renderHome(){
   const mocks = att.filter(a => a.kind === "mock");
   const bestMock = mocks.length ? Math.max(...mocks.map(a => a.pct)) : null;
   const days = new Set(att.map(a => new Date(a.t).toDateString())).size;
+  const g = gameStats();
+  const xpPct = g.next ? Math.round(100 * (g.xp - g.prev) / (g.next - g.prev)) : 100;
+  const cheer = CHEERS[new Date().getDate() % CHEERS.length];
   views.innerHTML = `
   <div class="card hero">
     <svg class="deco" viewBox="0 0 100 100"><path d="M10 80 Q30 40 50 60 T90 20" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 12"/></svg>
     <h2>${esc(greeting())} 👋</h2>
-    <p>One small step at a time down the trail. No rush, no pressure — every question you try is progress.</p>
+    <p>${esc(cheer)}</p>
+    <div class="trailweek">📍 ${esc(trailWeekLine())}</div>
+    <div class="xpwrap">
+      <div class="xprow"><span class="lvl">${g.level}</span><span class="mono">${g.xp} XP${g.next ? " · " + (g.next - g.xp) + " to next level" : " · max level!"}</span></div>
+      <div class="xpbar"><div style="width:${xpPct}%"></div></div>
+    </div>
     <div class="statrow">
       <div class="stat"><div class="v">${att.length}</div><div class="l">sessions</div></div>
       <div class="stat"><div class="v">${last ? last.pct + "%" : "—"}</div><div class="l">last score</div></div>
       <div class="stat"><div class="v">${bestMock !== null ? bestMock + "%" : "—"}</div><div class="l">best mock</div></div>
       <div class="stat"><div class="v">${days}</div><div class="l">study days</div></div>
+      <div class="stat"><div class="v">${g.streak > 0 ? "🔥 " + g.streak : "—"}</div><div class="l">day streak</div></div>
+      <div class="stat"><div class="v">${g.badges.filter(b=>b.e).length}/${g.badges.length}</div><div class="l">badges</div></div>
     </div>
   </div>
   <div class="homegrid">
@@ -759,7 +934,7 @@ function renderMockIntro(){
   <div class="card">
     <h3 style="margin-bottom:10px">The real MPT format</h3>
     <p style="font-size:.93rem">The official test has <b>75 questions</b>, of which <b>71 count</b>: <b>50 mathematics content</b> (70% of the test) and <b>21 pedagogy</b> (30%), plus 4 unscored field-test questions. You need <b>70% or higher on each component in the same attempt</b>. An on-screen calculator and the Formula Sheet (see the Cheatsheet tab) are provided, and once a section is submitted you can't go back to it.</p>
-    <p style="font-size:.93rem;margin-top:8px">No feedback until the end (just like test day), but there's <b>no time limit</b> here — the timer just counts up so you can see your natural pace. You can do this. 💪</p>
+    <p style="font-size:.93rem;margin-top:8px">The 🧮 calculator and 📐 Formula Sheet buttons are available on every question — exactly like the real test's toolbar. No feedback until the end (just like test day), but there's <b>no time limit</b> here — the timer just counts up so you can see your natural pace. You can do this. 💪</p>
     <div class="spacer"></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn coral" id="btn-startfull">Full mock · 71 questions</button>
@@ -802,9 +977,14 @@ function renderQuestion(){
     <div class="qmeta">
       <span class="pill ${q.sec === "pedagogy" ? "sage" : "teal"}">${esc(q.strand)}</span>
       ${q.grade !== "—" ? `<span class="pill gold">Gr ${q.grade}</span>` : ""}
+      ${q.sec === "content" ? `<span class="pill ${CALC_IDS.has(q.id) ? "coral" : "sage"}" title="On the real test the calculator is always available — this is practice guidance">${CALC_IDS.has(q.id) ? "🧮 calculator-friendly" : "🧠 mental-math friendly"}</span>` : ""}
       <span class="note mono">${st.i + 1} / ${st.qs.length}</span>
     </div>
-    <span class="timerchip" id="timer">⏱ ${fmtDur(elapsed)}</span>
+    <span>
+      <button class="toolbtn" id="tool-calc" title="On-screen calculator — provided on the real test">🧮</button>
+      <button class="toolbtn" id="tool-fs" title="Formula Sheet — provided on the real test">📐</button>
+      <span class="timerchip" id="timer">⏱ ${fmtDur(elapsed)}</span>
+    </span>
   </div>
   <div class="qprog">${dots}</div>
   <div class="card" style="margin-top:14px">
@@ -839,12 +1019,16 @@ function renderQuestion(){
   });
   $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); } };
   const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
-  $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
+  $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
+  $("#tool-calc").onclick = () => $("#calc").classList.toggle("hidden");
+  $("#tool-fs").onclick = () => $("#fsheet").classList.remove("hidden");
 }
 
 /* ================= results ================= */
 function finishSession(){
   clearInterval(window.__qt);
+  $("#calc").classList.add("hidden");
+  const badgesBefore = gameStats().badges.filter(b => b.e).map(b => b.n);
   const st = quizState;
   st.done = true;
   const dur = Math.floor((Date.now() - st.started) / 1000);
@@ -868,6 +1052,8 @@ function finishSession(){
   store.attempts.push(attempt);
   persist();
   renderResults(attempt, st);
+  const newBadges = gameStats().badges.filter(b => b.e && !badgesBefore.includes(b.n));
+  if (newBadges.length) setTimeout(() => toast("🏅 Badge earned: " + newBadges.map(b => b.i + " " + b.n).join(" · ")), 800);
 }
 
 function ringSVG(pct, color){
@@ -1001,6 +1187,11 @@ function renderProgress(){
     <h3 style="margin-bottom:8px">History</h3>
     ${history || `<div class="emptystate">No sessions yet — your story starts with the first quiz. 🌱</div>`}
   </div>
+  <div class="card">
+    <h3 style="margin-bottom:4px">🏅 Trail badges</h3>
+    <p class="note">Collect them all on the way to the summit.</p>
+    <div class="badgegrid">${gameStats().badges.map(b => `<div class="badge ${b.e ? "" : "locked"}"><div class="bi">${b.i}</div><div class="bn">${b.n}</div><div>${b.d}</div></div>`).join("")}</div>
+  </div>
   <div class="spacer"></div>
   <button class="btn soft" id="btn-resetseen">↻ Reset question rotation</button>
   <p class="note" style="margin-top:6px">Makes all questions available again without touching your score history.</p>`;
@@ -1009,6 +1200,14 @@ function renderProgress(){
 
 /* ================= study hub ================= */
 const STUDY = [
+{ title: "🗓 Kevin's Trail Plan — July 13 → Sept 6 (recovery-paced)", body: `
+  <p style="font-size:.9rem">Eight gentle weeks from mid-July to the start of the course. The golden rules: <b>sessions of 15–25 minutes</b>, <b>skip days freely</b> (the trail waits), and <b>never cram</b>. The Home page always shows which week you're in.</p>
+  ${PLAN_WEEKS.map((w, i) => {
+    const start = new Date(PLAN_START.getTime() + i*7*86400000);
+    const label = start.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
+    return `<h4>Week ${i+1} · ${label} — ${w[0]}</h4><ul><li>${w[1]}</li></ul>`;
+  }).join("")}
+  <p style="font-size:.88rem;margin-top:10px"><b>Remember:</b> this plan bends around recovery, not the other way round. A missed week just shifts things — the only non-negotiable is kindness to yourself. 💛</p>`},
 { title: "🔢 Number", body: `
   <h4>Fractions</h4><ul>
   <li>Add/subtract: common denominator first. <span class="formula">5/8 + 1/4 = 5/8 + 2/8 = 7/8</span></li>
@@ -1222,6 +1421,7 @@ function renderCheat(){
 }
 
 /* ================= boot ================= */
+initTools();
 if (configured){
   startFirebase().catch(e => signinError("Couldn't reach Firebase: " + esc(e.message) + "<br>Check FIREBASE_CONFIG in index.html."));
 } else {
