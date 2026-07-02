@@ -1,5 +1,7 @@
 # MathTest Trail
 
+*v2 — July 2, 2026*
+
 A private, single-file study web app for the **Ontario Mathematics Proficiency Test (MPT)**,
 live at **https://mathtest.logicmanse.ca**.
 
