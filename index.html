@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>MathTest · Kevin's MPT Study Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment:#faf5ec;
+  --parchment-deep:#f3ecdd;
+  --card:#fffdf8;
+  --ink:#2b3a3a;
+  --ink-soft:#5c6b6b;
+  --teal:#0f6b6e;
+  --teal-deep:#0a4f52;
+  --teal-tint:#e3efef;
+  --coral:#e76f51;
+  --coral-tint:#fbe9e3;
+  --sage:#7fa37f;
+  --sage-tint:#eaf1e8;
+  --gold:#d9a441;
+  --gold-tint:#f9efd9;
+  --line:#e6dcc8;
+  --shadow:0 2px 10px rgba(43,58,58,.08), 0 1px 3px rgba(43,58,58,.06);
+  --shadow-lift:0 8px 28px rgba(43,58,58,.12);
+  --radius:16px;
+  --font-head:'Fraunces',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--parchment);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
+  radial-gradient(ellipse 60% 40% at 15% 0%, rgba(217,164,65,.07), transparent 60%),
+  radial-gradient(ellipse 50% 40% at 90% 100%, rgba(15,107,110,.06), transparent 60%);z-index:0}
+h1,h2,h3{font-family:var(--font-head);color:var(--teal-deep);line-height:1.2}
+button{font-family:var(--font-body);cursor:pointer;border:none}
+.mono{font-family:var(--font-mono)}
+.hidden{display:none!important}
+
+/* ---------- layout ---------- */
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:20px 20px 90px}
+header.app{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{width:44px;height:44px;flex:0 0 44px}
+.brand h1{font-size:1.45rem;font-weight:900}
+.brand .sub{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.userchip{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px;box-shadow:var(--shadow)}
+.userchip img{width:28px;height:28px;border-radius:50%}
+.userchip .name{font-size:.85rem;font-weight:600}
+.userchip button{background:none;color:var(--coral);font-size:.78rem;font-weight:600;padding:2px 4px}
+
+/* ---------- bottom nav ---------- */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+nav.tabs button{flex:0 1 150px;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border-radius:12px;padding:7px 6px;font-size:.72rem;font-weight:600;color:var(--ink-soft);transition:all .15s}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button.active{color:var(--teal);background:var(--teal-tint)}
+nav.tabs button:hover{color:var(--teal)}
+
+/* ---------- cards & common ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 11px}
+.pill.teal{background:var(--teal-tint);color:var(--teal-deep)}
+.pill.coral{background:var(--coral-tint);color:#b34a2f}
+.pill.sage{background:var(--sage-tint);color:#4c6b4c}
+.pill.gold{background:var(--gold-tint);color:#96690f}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 22px;font-size:.95rem;font-weight:600;transition:transform .12s, box-shadow .12s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--teal);color:#fff;box-shadow:var(--shadow)}
+.btn.primary:hover{background:var(--teal-deep);box-shadow:var(--shadow-lift)}
+.btn.coral{background:var(--coral);color:#fff}
+.btn.coral:hover{background:#d05b3e}
+.btn.ghost{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:var(--teal-tint)}
+.btn.soft{background:var(--parchment-deep);color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.note{font-size:.85rem;color:var(--ink-soft)}
+
+/* ---------- sign-in ---------- */
+#view-signin{min-height:88vh;display:flex;align-items:center;justify-content:center}
+.signin-card{max-width:430px;width:100%;text-align:center;padding:44px 34px}
+.signin-card .logo{width:84px;height:84px;margin:0 auto 18px}
+.signin-card h1{font-size:2rem;font-weight:900;margin-bottom:6px}
+.signin-card p{color:var(--ink-soft);font-size:.95rem;margin-bottom:26px}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px;font-size:.98rem;font-weight:600;color:var(--ink);box-shadow:var(--shadow);transition:box-shadow .15s}
+.gbtn:hover{box-shadow:var(--shadow-lift)}
+.gbtn img{width:22px;height:22px}
+.signin-foot{margin-top:22px;font-size:.78rem;color:var(--ink-soft)}
+.errbox{background:var(--coral-tint);border:1px solid #ecc4b6;color:#a03d24;border-radius:12px;padding:12px 16px;font-size:.88rem;margin-top:16px;text-align:left}
+
+/* ---------- home ---------- */
+.hero{padding:26px 26px 22px;background:linear-gradient(135deg,var(--teal) 0%,var(--teal-deep) 100%);color:#fff;border:none;position:relative;overflow:hidden}
+.hero h2{color:#fff;font-size:1.6rem;font-weight:900;margin-bottom:4px}
+.hero p{opacity:.92;font-size:.92rem;max-width:32em}
+.hero .deco{position:absolute;right:-30px;top:-30px;width:180px;height:180px;opacity:.14}
+.statrow{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.13);border-radius:12px;padding:10px 16px;min-width:110px}
+.stat .v{font-family:var(--font-mono);font-size:1.3rem;font-weight:600}
+.stat .l{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;opacity:.85}
+.homegrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:640px){.homegrid{grid-template-columns:1fr}}
+.homecard{display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .15s, box-shadow .15s;border-top:4px solid var(--teal)}
+.homecard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.homecard.c-quiz{border-top-color:var(--teal)}
+.homecard.c-mock{border-top-color:var(--coral)}
+.homecard.c-prog{border-top-color:var(--gold)}
+.homecard.c-study{border-top-color:var(--sage)}
+.homecard h3{font-size:1.18rem;display:flex;align-items:center;gap:9px}
+.homecard p{font-size:.88rem;color:var(--ink-soft)}
+.homecard .go{margin-top:auto;font-size:.85rem;font-weight:700;color:var(--teal)}
+
+/* ---------- quiz setup ---------- */
+.secgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:14px}
+.secbtn{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px 14px;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:4px}
+.secbtn:hover{border-color:var(--teal);box-shadow:var(--shadow)}
+.secbtn.sel{border-color:var(--teal);background:var(--teal-tint)}
+.secbtn .t{font-weight:700;font-size:.95rem;color:var(--teal-deep)}
+.secbtn .d{font-size:.76rem;color:var(--ink-soft)}
+.lenrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.lenbtn{background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:8px 20px;font-weight:600;font-size:.9rem}
+.lenbtn.sel{border-color:var(--teal);background:var(--teal-tint);color:var(--teal-deep)}
+
+/* ---------- question ---------- */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.qprog{display:flex;gap:5px;flex-wrap:wrap}
+.qdot{width:11px;height:11px;border-radius:50%;background:var(--line)}
+.qdot.cur{background:var(--teal);transform:scale(1.25)}
+.qdot.ok{background:var(--sage)}
+.qdot.bad{background:var(--coral)}
+.qdot.done{background:var(--gold)}
+.qmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qtext{font-size:1.12rem;font-weight:600;line-height:1.55;margin:12px 0 18px;white-space:pre-line}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;text-align:left;font-size:.98rem;transition:all .12s;color:var(--ink)}
+.opt:hover{border-color:var(--teal)}
+.opt .key{font-family:var(--font-mono);font-weight:600;color:var(--ink-soft);flex:0 0 auto}
+.opt.sel{border-color:var(--teal);background:var(--teal-tint)}
+.opt.correct{border-color:var(--sage);background:var(--sage-tint)}
+.opt.wrong{border-color:var(--coral);background:var(--coral-tint)}
+.opt:disabled{cursor:default}
+.explain{margin-top:16px;border-radius:12px;padding:14px 18px;font-size:.92rem;line-height:1.6}
+.explain.good{background:var(--sage-tint);border:1px solid #cfe0cc}
+.explain.bad{background:var(--gold-tint);border:1px solid #ecd9ae}
+.explain b{font-family:var(--font-head)}
+.qactions{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.timerchip{font-family:var(--font-mono);font-size:.85rem;color:var(--ink-soft);background:var(--parchment-deep);border-radius:999px;padding:4px 13px}
+
+/* ---------- results ---------- */
+.result-hero{text-align:center;padding:34px 24px}
+.ring{position:relative;width:160px;height:160px;margin:0 auto 14px}
+.ring svg{transform:rotate(-90deg)}
+.ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .pct .n{font-family:var(--font-mono);font-size:2.1rem;font-weight:600;color:var(--teal-deep)}
+.ring .pct .s{font-size:.72rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.result-hero h2{font-size:1.5rem}
+.result-hero .msg{color:var(--ink-soft);max-width:30em;margin:6px auto 0}
+.passline{display:inline-block;margin-top:12px;font-size:.82rem;font-weight:600;border-radius:999px;padding:5px 16px}
+.passline.pass{background:var(--sage-tint);color:#43663f}
+.passline.close{background:var(--gold-tint);color:#96690f}
+.passline.keep{background:var(--coral-tint);color:#b34a2f}
+.breakdown{margin-top:18px}
+.bar-row{display:grid;grid-template-columns:170px 1fr 62px;gap:12px;align-items:center;padding:7px 0;font-size:.88rem}
+@media(max-width:560px){.bar-row{grid-template-columns:120px 1fr 56px;font-size:.8rem}}
+.bar-track{height:12px;background:var(--parchment-deep);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:var(--teal);transition:width .6s ease}
+.bar-fill.warn{background:var(--gold)}
+.bar-fill.low{background:var(--coral)}
+.bar-pct{font-family:var(--font-mono);text-align:right;color:var(--ink-soft)}
+.review-item{border-left:4px solid var(--coral);background:var(--card);border-radius:10px;padding:14px 16px;margin-top:12px;font-size:.9rem}
+.review-item.right{border-left-color:var(--sage)}
+.review-item .rq{font-weight:600;white-space:pre-line}
+.review-item .ra{margin-top:6px;color:var(--ink-soft)}
+
+/* ---------- progress ---------- */
+.attempt-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 4px;border-bottom:1px solid var(--line);font-size:.9rem;flex-wrap:wrap}
+.attempt-row:last-child{border-bottom:none}
+.attempt-row .when{color:var(--ink-soft);font-size:.78rem}
+.attempt-row .score{font-family:var(--font-mono);font-weight:600}
+.score.good{color:#43663f}.score.mid{color:#96690f}.score.low{color:#b34a2f}
+.emptystate{text-align:center;color:var(--ink-soft);padding:34px 16px;font-size:.92rem}
+
+/* ---------- study ---------- */
+.acc{border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:12px;overflow:hidden}
+.acc>button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:none;padding:16px 20px;font-size:1.02rem;font-weight:700;color:var(--teal-deep);font-family:var(--font-head)}
+.acc>button .chev{transition:transform .2s;color:var(--ink-soft)}
+.acc.open>button .chev{transform:rotate(90deg)}
+.acc .body{display:none;padding:0 20px 18px;font-size:.92rem}
+.acc.open .body{display:block}
+.acc .body h4{font-family:var(--font-head);color:var(--teal-deep);margin:14px 0 4px;font-size:.98rem}
+.acc .body ul{padding-left:20px;margin:4px 0}
+.acc .body li{margin:3px 0}
+.acc .body a{color:var(--teal);font-weight:600}
+.formula{font-family:var(--font-mono);font-size:.85rem;background:var(--parchment-deep);border-radius:8px;padding:2px 8px;white-space:nowrap}
+.linkrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.linkrow a{display:inline-flex;align-items:center;gap:6px;background:var(--teal-tint);color:var(--teal-deep);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:600;text-decoration:none}
+.linkrow a:hover{background:var(--teal);color:#fff}
+
+/* misc */
+.viewhead{margin:6px 0 16px}
+.viewhead h2{font-size:1.55rem;font-weight:900}
+.viewhead p{color:var(--ink-soft);font-size:.9rem}
+.spacer{height:16px}
+footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-soft)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:var(--teal-deep);color:#fff;border-radius:999px;padding:9px 22px;font-size:.85rem;box-shadow:var(--shadow-lift);z-index:99;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+@keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
+.view{animation:pop .22s ease}
+</style>
+</head>
+<body>
+
+<!-- ===================== SIGN-IN ===================== -->
+<div id="view-signin" class="wrap">
+  <div class="card signin-card">
+    <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="#e3efef"/>
+      <path d="M18 66 Q34 40 50 54 T82 34" fill="none" stroke="#0f6b6e" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 10"/>
+      <circle cx="18" cy="66" r="7" fill="#e76f51"/>
+      <circle cx="50" cy="54" r="7" fill="#d9a441"/>
+      <circle cx="82" cy="34" r="9" fill="#0f6b6e"/>
+      <path d="M78 30 l3 4 6 -7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1>MathTest Trail</h1>
+    <p>Kevin's study companion for the Ontario Mathematics Proficiency Test. Quizzes, mock tests, and progress tracking — one gentle step at a time.</p>
+    <button id="btn-google" class="gbtn">
+      <img alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+      Continue with Google
+    </button>
+    <div id="signin-err" class="errbox hidden"></div>
+    <div class="signin-foot">Private study site · authorized users only<br>Scores sync securely to your account.</div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="app" class="wrap hidden">
+  <header class="app">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="#e3efef"/>
+        <path d="M18 66 Q34 40 50 54 T82 34" fill="none" stroke="#0f6b6e" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 10"/>
+        <circle cx="18" cy="66" r="7" fill="#e76f51"/>
+        <circle cx="50" cy="54" r="7" fill="#d9a441"/>
+        <circle cx="82" cy="34" r="9" fill="#0f6b6e"/>
+        <path d="M78 30 l3 4 6 -7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>MathTest Trail</h1>
+        <div class="sub">MPT PREP · GRADES 3–9 + PEDAGOGY</div>
+      </div>
+    </div>
+    <div class="userchip">
+      <img id="user-photo" alt="" src="">
+      <span class="name" id="user-name"></span>
+      <button id="btn-signout" title="Sign out">Sign out</button>
+    </div>
+  </header>
+
+  <main id="views"></main>
+
+  <footer class="foot">MathTest Trail · built with care for Kevin · logicmanse.ca</footer>
+</div>
+
+<nav class="tabs hidden" id="tabs">
+  <button data-view="home" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
+  <button data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.7 2.2c-.8.5-1.2 1-1.2 1.8"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>Quiz</button>
+  <button data-view="mock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Mock Test</button>
+  <button data-view="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
+  <button data-view="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13"/></svg>Study</button>
+</nav>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* =====================================================================
+   CONFIGURATION — the only section you need to edit before deploying
+   ===================================================================== */
+
+// 1) Paste your Firebase web-app config here (Firebase console → Project
+//    settings → Your apps → SDK setup and configuration → Config).
+//    These values are public identifiers, NOT secrets — security is
+//    enforced by Firebase Auth + the Firestore rules in firestore.rules.
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAsqv14Cx9ChmC4NLuVRcHKLznz_Od4_Tw",
+  authDomain: "mathtest-logicmanse.firebaseapp.com",
+  projectId: "mathtest-logicmanse",
+  storageBucket: "mathtest-logicmanse.firebasestorage.app",
+  messagingSenderId: "410255439162",
+  appId: "1:410255439162:web:b2a850e024371c0bb4cc03"
+};
+
+// 2) Access control lives entirely in firestore.rules (server-side email
+//    allowlist). No emails are stored in this public file — after sign-in,
+//    the app probes Firestore; accounts not on the allowlist are rejected
+//    by the security rules and signed out.
+
+/* ===================================================================== */
+</script>
+
+<!-- QUESTION BANK -->
+<script>
+"use strict";
+// Each question: id, sec ("content"|"pedagogy"), strand, grade band, q, opts[4], ans (index), exp
+const BANK = [
+// ---------- NUMBER (N01–N40) ----------
+{id:"N01",sec:"content",strand:"Number",grade:"3–6",q:"In the number 47,382, what is the value of the digit 7?",opts:["700","7,000","70,000","7"],ans:1,exp:"The 7 is in the thousands place: 47,382 = 40,000 + 7,000 + 300 + 80 + 2."},
+{id:"N02",sec:"content",strand:"Number",grade:"3–6",q:"Round 6,485 to the nearest hundred.",opts:["6,400","6,480","6,500","7,000"],ans:2,exp:"The tens digit is 8, which rounds the hundreds up: 6,485 → 6,500."},
+{id:"N03",sec:"content",strand:"Number",grade:"3–6",q:"Which fraction is equivalent to 3/4?",opts:["6/9","9/12","12/15","4/6"],ans:1,exp:"Multiply top and bottom by 3: 3/4 = 9/12. The others simplify to 2/3, 4/5, and 2/3."},
+{id:"N04",sec:"content",strand:"Number",grade:"3–6",q:"Which fraction is the largest?",opts:["3/5","1/2","2/3","7/12"],ans:2,exp:"As decimals: 3/5 = 0.6, 1/2 = 0.5, 2/3 ≈ 0.667, 7/12 ≈ 0.583. So 2/3 is largest."},
+{id:"N05",sec:"content",strand:"Number",grade:"3–6",q:"Write 0.6 as a fraction in simplest form.",opts:["6/100","3/5","6/10","2/3"],ans:1,exp:"0.6 = 6/10, and dividing top and bottom by 2 gives 3/5."},
+{id:"N06",sec:"content",strand:"Number",grade:"3–6",q:"5/8 + 1/4 = ?",opts:["6/12","7/8","3/4","6/8"],ans:1,exp:"Use a common denominator of 8: 1/4 = 2/8, so 5/8 + 2/8 = 7/8."},
+{id:"N07",sec:"content",strand:"Number",grade:"7–9",q:"2 1/3 − 5/6 = ?",opts:["1 1/2","1 2/3","1 1/3","1 5/6"],ans:0,exp:"2 1/3 = 14/6. Then 14/6 − 5/6 = 9/6 = 1 1/2."},
+{id:"N08",sec:"content",strand:"Number",grade:"7–9",q:"3/5 × 2/3 = ?",opts:["6/8","5/8","2/5","1/2"],ans:2,exp:"Multiply straight across: (3×2)/(5×3) = 6/15 = 2/5."},
+{id:"N09",sec:"content",strand:"Number",grade:"7–9",q:"3/4 ÷ 1/2 = ?",opts:["3/8","1 1/2","2/3","1 1/4"],ans:1,exp:"Dividing by 1/2 means multiplying by 2: 3/4 × 2 = 3/2 = 1 1/2. (How many halves fit in three-quarters? One and a half.)"},
+{id:"N10",sec:"content",strand:"Number",grade:"3–6",q:"Write 0.35 as a percent.",opts:["3.5%","0.35%","350%","35%"],ans:3,exp:"To convert a decimal to a percent, multiply by 100: 0.35 = 35%."},
+{id:"N11",sec:"content",strand:"Number",grade:"7–9",q:"What is 15% of 80?",opts:["12","15","8","20"],ans:0,exp:"10% of 80 is 8, and 5% is 4, so 15% = 8 + 4 = 12."},
+{id:"N12",sec:"content",strand:"Number",grade:"7–9",q:"24 is 30% of what number?",opts:["72","80","96","60"],ans:1,exp:"If 30% = 24, then 10% = 8, so 100% = 80. Check: 0.30 × 80 = 24. ✓"},
+{id:"N13",sec:"content",strand:"Number",grade:"7–9",q:"A jacket costs $60. The price increases by 25%. What is the new price?",opts:["$85","$65","$75","$80"],ans:2,exp:"25% of 60 is 15, so the new price is 60 + 15 = $75."},
+{id:"N14",sec:"content",strand:"Number",grade:"7–9",q:"−8 + 5 = ?",opts:["−13","−3","3","13"],ans:1,exp:"Start at −8 and move 5 to the right on the number line: −8 + 5 = −3."},
+{id:"N15",sec:"content",strand:"Number",grade:"7–9",q:"(−4) × (−6) = ?",opts:["−24","−10","10","24"],ans:3,exp:"A negative times a negative is positive: (−4) × (−6) = 24."},
+{id:"N16",sec:"content",strand:"Number",grade:"7–9",q:"(−12) ÷ 3 = ?",opts:["−4","4","−9","−36"],ans:0,exp:"Negative divided by positive is negative: (−12) ÷ 3 = −4."},
+{id:"N17",sec:"content",strand:"Number",grade:"7–9",q:"3 + 4 × 2² = ?",opts:["28","19","49","11"],ans:1,exp:"Order of operations (BEDMAS): exponents first (2² = 4), then multiply (4 × 4 = 16), then add: 3 + 16 = 19."},
+{id:"N18",sec:"content",strand:"Number",grade:"7–9",q:"Which number is prime?",opts:["51","57","61","63"],ans:2,exp:"61 has no factors except 1 and itself. 51 = 3 × 17, 57 = 3 × 19, 63 = 7 × 9."},
+{id:"N19",sec:"content",strand:"Number",grade:"7–9",q:"What is the greatest common factor (GCF) of 24 and 36?",opts:["6","8","12","72"],ans:2,exp:"Factors of 24: 1,2,3,4,6,8,12,24. Factors of 36: 1,2,3,4,6,9,12,18,36. The greatest shared factor is 12."},
+{id:"N20",sec:"content",strand:"Number",grade:"7–9",q:"What is the lowest common multiple (LCM) of 6 and 8?",opts:["14","48","2","24"],ans:3,exp:"Multiples of 8: 8, 16, 24… and 24 is also a multiple of 6 (6 × 4). So LCM = 24."},
+{id:"N21",sec:"content",strand:"Number",grade:"7–9",q:"Juice concentrate is mixed with water in a ratio of 3:5. If you use 12 cups of concentrate, how much water do you need?",opts:["15 cups","20 cups","18 cups","25 cups"],ans:1,exp:"12 ÷ 3 = 4, so scale both parts by 4: water = 5 × 4 = 20 cups."},
+{id:"N22",sec:"content",strand:"Number",grade:"7–9",q:"A car travels 240 km in 3 hours. What is its average speed?",opts:["70 km/h","75 km/h","80 km/h","85 km/h"],ans:2,exp:"Unit rate: 240 ÷ 3 = 80 km/h."},
+{id:"N23",sec:"content",strand:"Number",grade:"7–9",q:"Which is the best buy for rice?",opts:["500 g for $4.00","750 g for $5.70","300 g for $2.55","1 kg for $8.20"],ans:1,exp:"Cost per 100 g: $0.80, $0.76, $0.85, $0.82. The 750 g bag is cheapest per 100 g."},
+{id:"N24",sec:"content",strand:"Number",grade:"7–9",q:"2⁴ = ?",opts:["8","6","16","32"],ans:2,exp:"2⁴ = 2 × 2 × 2 × 2 = 16."},
+{id:"N25",sec:"content",strand:"Number",grade:"7–9",q:"√81 = ?",opts:["8","9","40.5","81"],ans:1,exp:"9 × 9 = 81, so the square root of 81 is 9."},
+{id:"N26",sec:"content",strand:"Number",grade:"7–9",q:"√50 is between which two whole numbers?",opts:["5 and 6","6 and 7","7 and 8","8 and 9"],ans:2,exp:"7² = 49 and 8² = 64, and 50 sits between them — just above 7."},
+{id:"N27",sec:"content",strand:"Number",grade:"7–9",q:"3.4 × 10⁵ written in standard form is:",opts:["34,000","340,000","3,400,000","3,400"],ans:1,exp:"Move the decimal 5 places right: 3.4 → 340,000."},
+{id:"N28",sec:"content",strand:"Number",grade:"7–9",q:"Write 45,000 in scientific notation.",opts:["45 × 10³","4.5 × 10⁴","4.5 × 10³","0.45 × 10⁵"],ans:1,exp:"Scientific notation uses one non-zero digit before the decimal: 4.5 × 10⁴ = 45,000."},
+{id:"N29",sec:"content",strand:"Number",grade:"7–9",q:"Solve the proportion: 5/8 = x/40",opts:["x = 20","x = 24","x = 25","x = 32"],ans:2,exp:"40 ÷ 8 = 5, so multiply the numerator by 5 too: x = 5 × 5 = 25."},
+{id:"N30",sec:"content",strand:"Number",grade:"7–9",q:"A plant's height dropped from 80 cm to 68 cm after pruning. What is the percent decrease?",opts:["12%","15%","17%","20%"],ans:1,exp:"Decrease = 12 cm. Percent decrease = 12/80 = 0.15 = 15%."},
+{id:"N31",sec:"content",strand:"Number",grade:"3–6",q:"Maya has 24 hockey cards and 18 are Canadian players. What fraction of her cards are Canadian players, in simplest form?",opts:["18/24","2/3","3/4","4/5"],ans:2,exp:"18/24 — divide both by 6 to get 3/4."},
+{id:"N32",sec:"content",strand:"Number",grade:"3–6",q:"Which decimal is the largest?",opts:["0.09","0.101","0.11","0.1009"],ans:2,exp:"Compare place by place: 0.11 = 0.110, which beats 0.101, 0.1009, and 0.09."},
+{id:"N33",sec:"content",strand:"Number",grade:"7–9",q:"7.2 ÷ 0.9 = ?",opts:["0.8","8","80","0.08"],ans:1,exp:"Multiply both numbers by 10: 72 ÷ 9 = 8."},
+{id:"N34",sec:"content",strand:"Number",grade:"7–9",q:"0.4 × 0.3 = ?",opts:["1.2","0.12","0.012","12"],ans:1,exp:"4 × 3 = 12, and there are two decimal places in total, so 0.12."},
+{id:"N35",sec:"content",strand:"Number",grade:"7–9",q:"The temperature was −6°C in the morning and rose 9°C by noon. What was the noon temperature?",opts:["−15°C","−3°C","3°C","15°C"],ans:2,exp:"−6 + 9 = 3. The temperature climbs past zero to 3°C."},
+{id:"N36",sec:"content",strand:"Number",grade:"7–9",q:"Which number is divisible by 9?",opts:["4,258","7,222","3,140","5,346"],ans:3,exp:"A number is divisible by 9 when its digits sum to a multiple of 9: 5+3+4+6 = 18. ✓"},
+{id:"N37",sec:"content",strand:"Number",grade:"3–6",q:"Write 3 2/5 as an improper fraction.",opts:["17/5","32/5","11/5","15/2"],ans:0,exp:"3 × 5 + 2 = 17, so 3 2/5 = 17/5."},
+{id:"N38",sec:"content",strand:"Number",grade:"3–6",q:"Write 40% as a fraction in simplest form.",opts:["4/10","40/100","2/5","1/4"],ans:2,exp:"40% = 40/100 = 2/5 after dividing top and bottom by 20."},
+{id:"N39",sec:"content",strand:"Number",grade:"7–9",q:"Which decimal is equivalent to 5/8?",opts:["0.58","0.625","0.65","0.675"],ans:1,exp:"5 ÷ 8 = 0.625. (Half of 1.25, since 5/8 is half of 10/8.)"},
+{id:"N40",sec:"content",strand:"Number",grade:"7–9",q:"A square garden has an area of 144 m². How long is each side?",opts:["36 m","14 m","12 m","24 m"],ans:2,exp:"Side = √144 = 12 m, because 12 × 12 = 144."},
+// ---------- ALGEBRA (A01–A25) ----------
+{id:"A01",sec:"content",strand:"Algebra",grade:"3–6",q:"What is the next number in the pattern 4, 7, 10, 13, …?",opts:["15","16","17","14"],ans:1,exp:"The pattern adds 3 each time: 13 + 3 = 16."},
+{id:"A02",sec:"content",strand:"Algebra",grade:"7–9",q:"A pattern follows the rule 'term value = 3n + 1' where n is the term number. What is the 10th term?",opts:["30","13","31","34"],ans:2,exp:"Substitute n = 10: 3(10) + 1 = 31."},
+{id:"A03",sec:"content",strand:"Algebra",grade:"3–6",q:"Solve: x + 7 = 15",opts:["x = 22","x = 8","x = 7","x = 9"],ans:1,exp:"Subtract 7 from both sides: x = 15 − 7 = 8."},
+{id:"A04",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve: 3x = 27",opts:["x = 24","x = 81","x = 9","x = 30"],ans:2,exp:"Divide both sides by 3: x = 27 ÷ 3 = 9."},
+{id:"A05",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve: 2x + 5 = 17",opts:["x = 6","x = 11","x = 12","x = 5"],ans:0,exp:"Subtract 5: 2x = 12. Divide by 2: x = 6."},
+{id:"A06",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve: x/4 = 6",opts:["x = 1.5","x = 10","x = 2","x = 24"],ans:3,exp:"Multiply both sides by 4: x = 6 × 4 = 24."},
+{id:"A07",sec:"content",strand:"Algebra",grade:"7–9",q:"Evaluate 5a − 3 when a = 4.",opts:["17","23","12","54"],ans:0,exp:"5(4) − 3 = 20 − 3 = 17."},
+{id:"A08",sec:"content",strand:"Algebra",grade:"7–9",q:"Simplify: 3x + 5x − 2",opts:["8x − 2","6x","15x − 2","8x + 2"],ans:0,exp:"Combine like terms: 3x + 5x = 8x, giving 8x − 2."},
+{id:"A09",sec:"content",strand:"Algebra",grade:"7–9",q:"Expand: 4(x + 3)",opts:["4x + 3","x + 12","4x + 12","4x + 7"],ans:2,exp:"Distribute the 4 to both terms: 4·x + 4·3 = 4x + 12."},
+{id:"A10",sec:"content",strand:"Algebra",grade:"7–9",q:"Simplify: 7y − 2y + 4",opts:["9y + 4","5y + 4","5y − 4","9y"],ans:1,exp:"7y − 2y = 5y, so the expression is 5y + 4."},
+{id:"A11",sec:"content",strand:"Algebra",grade:"7–9",q:"Which expression means 'five more than twice a number'?",opts:["5n + 2","2n + 5","2(n + 5)","5n − 2"],ans:1,exp:"'Twice a number' is 2n; 'five more than' adds 5: 2n + 5."},
+{id:"A12",sec:"content",strand:"Algebra",grade:"7–9",q:"A table shows x: 1, 2, 3, 4 and y: 5, 8, 11, 14. Which rule connects x and y?",opts:["y = x + 4","y = 2x + 3","y = 3x + 2","y = 4x + 1"],ans:2,exp:"y increases by 3 each step (slope 3), and when x = 1, y = 5 = 3(1) + 2. So y = 3x + 2."},
+{id:"A13",sec:"content",strand:"Algebra",grade:"7–9",q:"What is the slope of the line through (0, 2) and (1, 5)?",opts:["2","3","5","1/3"],ans:1,exp:"Slope = rise ÷ run = (5 − 2)/(1 − 0) = 3."},
+{id:"A14",sec:"content",strand:"Algebra",grade:"7–9",q:"What is the y-intercept of y = 2x − 7?",opts:["2","7","−7","−2"],ans:2,exp:"The y-intercept is the constant term: when x = 0, y = −7."},
+{id:"A15",sec:"content",strand:"Algebra",grade:"7–9",q:"Which point lies on the line y = 4x − 1?",opts:["(1, 5)","(2, 7)","(0, 1)","(3, 13)"],ans:1,exp:"Test (2, 7): y = 4(2) − 1 = 7. ✓ The others give 3, −1, and 11."},
+{id:"A16",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve: 5x − 4 = 3x + 10",opts:["x = 3","x = 7","x = 6","x = 14"],ans:1,exp:"Subtract 3x from both sides: 2x − 4 = 10. Add 4: 2x = 14, so x = 7."},
+{id:"A17",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve the inequality: x + 3 < 8",opts:["x < 5","x > 5","x < 11","x > 11"],ans:0,exp:"Subtract 3 from both sides: x < 5."},
+{id:"A18",sec:"content",strand:"Algebra",grade:"7–9",q:"A tile pattern has 2n + 1 tiles in figure n. How many tiles are in figure 6?",opts:["12","11","14","13"],ans:3,exp:"2(6) + 1 = 13 tiles."},
+{id:"A19",sec:"content",strand:"Algebra",grade:"3–6",q:"Three identical boxes plus 4 loose marbles weigh the same as 19 marbles. How many marbles does one box equal?",opts:["5","6","4","7"],ans:0,exp:"3b + 4 = 19 → 3b = 15 → b = 5."},
+{id:"A20",sec:"content",strand:"Algebra",grade:"7–9",q:"On a distance–time graph, a flat (horizontal) segment means the object is:",opts:["speeding up","moving at constant speed","stopped","moving backward"],ans:2,exp:"Distance isn't changing while time passes — the object is stopped."},
+{id:"A21",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve: 2(x − 3) = 10",opts:["x = 5","x = 6.5","x = 8","x = 13"],ans:2,exp:"Divide by 2: x − 3 = 5, so x = 8. (Or expand: 2x − 6 = 10 → 2x = 16.)"},
+{id:"A22",sec:"content",strand:"Algebra",grade:"7–9",q:"A plumber charges a $25 base fee plus $10 per hour. Which equation gives the total cost C for h hours?",opts:["C = 35h","C = 10 + 25h","C = 25 + 10h","C = 25h + 10h"],ans:2,exp:"The $25 is fixed (constant) and $10 repeats per hour: C = 25 + 10h."},
+{id:"A23",sec:"content",strand:"Algebra",grade:"3–6",q:"What is the next number in the pattern 1, 2, 4, 8, …?",opts:["12","10","16","24"],ans:2,exp:"Each term doubles: 8 × 2 = 16."},
+{id:"A24",sec:"content",strand:"Algebra",grade:"7–9",q:"In which quadrant is the point (−3, 2)?",opts:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],ans:1,exp:"Negative x, positive y = upper-left = Quadrant II."},
+{id:"A25",sec:"content",strand:"Algebra",grade:"7–9",q:"A plant grows from 12 cm to 30 cm in 6 weeks at a steady rate. What is the rate of change?",opts:["2 cm/week","3 cm/week","5 cm/week","18 cm/week"],ans:1,exp:"Change = 30 − 12 = 18 cm over 6 weeks: 18 ÷ 6 = 3 cm/week."},
+// ---------- DATA & PROBABILITY (D01–D18) ----------
+{id:"D01",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Find the mean of 4, 7, 9, 12, 8.",opts:["7","8","9","40"],ans:1,exp:"Sum = 40; divide by 5 values: 40 ÷ 5 = 8."},
+{id:"D02",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Find the median of 3, 8, 5, 11, 9.",opts:["5","7.2","8","9"],ans:2,exp:"Order first: 3, 5, 8, 9, 11. The middle value is 8."},
+{id:"D03",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Find the mode of 2, 4, 4, 6, 7, 4, 6.",opts:["4","6","2","7"],ans:0,exp:"4 appears three times — more than any other value."},
+{id:"D04",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Find the range of 15, 22, 9, 30, 17.",opts:["18","15","21","30"],ans:2,exp:"Range = highest − lowest = 30 − 9 = 21."},
+{id:"D05",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A bag has 3 red, 5 blue, and 2 green marbles. What is P(blue)?",opts:["5/10","3/10","1/5","5/8"],ans:0,exp:"5 blue out of 10 total: P(blue) = 5/10 = 1/2."},
+{id:"D06",sec:"content",strand:"Data & Probability",grade:"3–6",q:"A spinner has 8 equal sections and 3 are shaded. What is the probability of landing on a shaded section?",opts:["3/5","1/3","3/8","5/8"],ans:2,exp:"3 favourable outcomes out of 8 equally likely sections: 3/8."},
+{id:"D07",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A coin is flipped twice. What is the probability of getting two heads?",opts:["1/2","1/3","1/4","2/4"],ans:2,exp:"Outcomes: HH, HT, TH, TT. Only one of four is HH: 1/4."},
+{id:"D08",sec:"content",strand:"Data & Probability",grade:"7–9",q:"What is the probability of rolling a number greater than 4 on a standard six-sided die?",opts:["1/6","1/3","1/2","2/3"],ans:1,exp:"Favourable outcomes: 5 and 6 — that's 2 out of 6 = 1/3."},
+{id:"D09",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Which graph is best for showing how temperature changes over a day?",opts:["Bar graph","Broken-line graph","Pictograph","Circle graph"],ans:1,exp:"Broken-line graphs show continuous change over time — ideal for temperature."},
+{id:"D10",sec:"content",strand:"Data & Probability",grade:"3–6",q:"On a pictograph, each book symbol represents 4 books. A row shows 3½ symbols. How many books is that?",opts:["12","7","14","16"],ans:2,exp:"3½ × 4 = 14 books."},
+{id:"D11",sec:"content",strand:"Data & Probability",grade:"7–9",q:"Priya scored 70, 80, and 90 on three tests. What must she score on the fourth test to have a mean of 85?",opts:["90","95","100","85"],ans:2,exp:"A mean of 85 over 4 tests needs 340 total. She has 240, so she needs 340 − 240 = 100."},
+{id:"D12",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A data set of house prices includes one extremely expensive mansion. Which measure is most affected by this outlier?",opts:["Median","Mode","Mean","Range of the middle half"],ans:2,exp:"The mean uses every value, so one extreme value pulls it strongly. The median resists outliers."},
+{id:"D13",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A school wants student opinions on new cafeteria menus. Which sample is LEAST biased?",opts:["Students in the cafeteria line at lunch","The first 30 students who arrive early","Randomly selected students from every grade","Members of the cooking club"],ans:2,exp:"Random selection across all grades gives every student an equal chance — the other groups over-represent particular interests."},
+{id:"D14",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A die is rolled 60 times and lands on '6' fifteen times. What is the experimental probability of rolling a 6?",opts:["1/6","1/4","15/100","1/5"],ans:1,exp:"Experimental probability = results ÷ trials = 15/60 = 1/4. (Theoretical would be 1/6.)"},
+{id:"D15",sec:"content",strand:"Data & Probability",grade:"7–9",q:"If the probability of rain tomorrow is 0.3, what is the probability it does NOT rain?",opts:["0.3","0.6","0.7","0.97"],ans:2,exp:"Complementary events sum to 1: 1 − 0.3 = 0.7."},
+{id:"D16",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A bar graph's vertical axis starts at 50 instead of 0. What effect does this have?",opts:["It makes differences between bars look bigger than they are","It makes the data more accurate","It has no effect on interpretation","It makes differences look smaller"],ans:0,exp:"Truncating the axis visually exaggerates small differences — a classic misleading-graph technique."},
+{id:"D17",sec:"content",strand:"Data & Probability",grade:"3–6",q:"Sam has 3 shirts and 2 pairs of pants. How many different outfits can he make?",opts:["5","6","8","9"],ans:1,exp:"Each shirt pairs with each pair of pants: 3 × 2 = 6 outfits (a tree diagram shows all six)."},
+{id:"D18",sec:"content",strand:"Data & Probability",grade:"7–9",q:"Asking EVERY student in the school one question is an example of a:",opts:["sample","census","biased survey","random draw"],ans:1,exp:"A census collects data from the entire population; a sample uses only part of it."},
+// ---------- SPATIAL SENSE & MEASUREMENT (S01–S25) ----------
+{id:"S01",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"Find the perimeter of a rectangle 8 cm long and 5 cm wide.",opts:["13 cm","40 cm","26 cm","21 cm"],ans:2,exp:"Perimeter = 2(l + w) = 2(8 + 5) = 26 cm."},
+{id:"S02",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"Find the area of a rectangle 8 cm long and 5 cm wide.",opts:["26 cm²","40 cm²","13 cm²","80 cm²"],ans:1,exp:"Area = length × width = 8 × 5 = 40 cm²."},
+{id:"S03",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the area of a triangle with base 10 cm and height 6 cm.",opts:["60 cm²","16 cm²","30 cm²","36 cm²"],ans:2,exp:"Area = (base × height) ÷ 2 = (10 × 6) ÷ 2 = 30 cm²."},
+{id:"S04",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the area of a parallelogram with base 9 m and height 4 m.",opts:["36 m²","13 m²","26 m²","18 m²"],ans:0,exp:"Area = base × height = 9 × 4 = 36 m²."},
+{id:"S05",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the circumference of a circle with radius 5 cm. (Use π ≈ 3.14)",opts:["15.7 cm","31.4 cm","78.5 cm","62.8 cm"],ans:1,exp:"C = 2πr = 2 × 3.14 × 5 = 31.4 cm."},
+{id:"S06",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the area of a circle with radius 4 cm. (Use π ≈ 3.14)",opts:["25.1 cm²","12.6 cm²","50.2 cm²","100.5 cm²"],ans:2,exp:"A = πr² = 3.14 × 16 ≈ 50.2 cm²."},
+{id:"S07",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the volume of a rectangular prism 5 cm × 4 cm × 3 cm.",opts:["12 cm³","60 cm³","94 cm³","47 cm³"],ans:1,exp:"V = l × w × h = 5 × 4 × 3 = 60 cm³."},
+{id:"S08",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the volume of a cylinder with radius 3 cm and height 10 cm. (Use π ≈ 3.14)",opts:["94.2 cm³","188.4 cm³","282.6 cm³","565.2 cm³"],ans:2,exp:"V = πr²h = 3.14 × 9 × 10 = 282.6 cm³."},
+{id:"S09",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Find the surface area of a cube with edge length 4 cm.",opts:["64 cm²","96 cm²","48 cm²","16 cm²"],ans:1,exp:"Each face is 4 × 4 = 16 cm², and a cube has 6 faces: 6 × 16 = 96 cm²."},
+{id:"S10",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Two angles of a triangle measure 65° and 48°. What is the third angle?",opts:["57°","67°","77°","113°"],ans:1,exp:"Angles in a triangle sum to 180°: 180 − 65 − 48 = 67°."},
+{id:"S11",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Two angles form a straight line. One measures 112°. What is the other?",opts:["68°","78°","88°","248°"],ans:0,exp:"Angles on a straight line sum to 180°: 180 − 112 = 68°."},
+{id:"S12",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Two angles are complementary. One measures 35°. What is the other?",opts:["145°","55°","65°","325°"],ans:1,exp:"Complementary angles sum to 90°: 90 − 35 = 55°."},
+{id:"S13",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"What is the sum of the interior angles of any quadrilateral?",opts:["180°","270°","360°","540°"],ans:2,exp:"A quadrilateral splits into two triangles: 2 × 180° = 360°."},
+{id:"S14",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"A triangle has sides 5 cm, 5 cm, and 8 cm. What type of triangle is it?",opts:["Equilateral","Scalene","Isosceles","Right"],ans:2,exp:"Exactly two equal sides makes it isosceles."},
+{id:"S15",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A right triangle has legs of 6 cm and 8 cm. How long is the hypotenuse?",opts:["10 cm","14 cm","12 cm","48 cm"],ans:0,exp:"Pythagorean theorem: 6² + 8² = 36 + 64 = 100, and √100 = 10 cm."},
+{id:"S16",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A right triangle has a hypotenuse of 13 cm and one leg of 5 cm. Find the other leg.",opts:["8 cm","18 cm","12 cm","144 cm"],ans:2,exp:"13² − 5² = 169 − 25 = 144, and √144 = 12 cm."},
+{id:"S17",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"Convert 3.5 m to centimetres.",opts:["35 cm","350 cm","3,500 cm","0.35 cm"],ans:1,exp:"1 m = 100 cm, so 3.5 × 100 = 350 cm."},
+{id:"S18",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"Convert 2,500 mL to litres.",opts:["0.25 L","25 L","250 L","2.5 L"],ans:3,exp:"1 L = 1,000 mL, so 2,500 ÷ 1,000 = 2.5 L."},
+{id:"S19",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"Convert 4 km to metres.",opts:["40 m","400 m","4,000 m","40,000 m"],ans:2,exp:"1 km = 1,000 m, so 4 km = 4,000 m."},
+{id:"S20",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"A movie starts at 10:45 a.m. and ends at 1:20 p.m. How long is it?",opts:["2 h 35 min","3 h 35 min","2 h 25 min","1 h 35 min"],ans:0,exp:"10:45 → 12:45 is 2 h; 12:45 → 1:20 is 35 min. Total 2 h 35 min."},
+{id:"S21",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"A shape is flipped over a line to create a mirror image. This transformation is a:",opts:["translation","rotation","reflection","dilation"],ans:2,exp:"A flip is a reflection. A slide is a translation; a turn is a rotation."},
+{id:"S22",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"The point (2, 3) is rotated 90° clockwise about the origin. Where does it land?",opts:["(−3, 2)","(3, −2)","(−2, −3)","(3, 2)"],ans:1,exp:"90° clockwise sends (x, y) → (y, −x): (2, 3) → (3, −2)."},
+{id:"S23",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"Two similar triangles have corresponding sides 4 cm and 10 cm. If another side of the small triangle is 6 cm, what is the corresponding side of the large one?",opts:["12 cm","15 cm","16 cm","24 cm"],ans:1,exp:"Scale factor = 10/4 = 2.5, so 6 × 2.5 = 15 cm."},
+{id:"S24",sec:"content",strand:"Spatial Sense",grade:"3–6",q:"How many faces does the net of a cube have?",opts:["4 squares","6 squares","8 squares","12 squares"],ans:1,exp:"A cube has 6 square faces, so its net unfolds into 6 connected squares."},
+{id:"S25",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"An L-shaped floor is a 10 m × 6 m rectangle with a 4 m × 3 m rectangular corner missing. What is its area?",opts:["72 m²","60 m²","48 m²","54 m²"],ans:2,exp:"Full rectangle 10 × 6 = 60 m², minus the missing 4 × 3 = 12 m²: 60 − 12 = 48 m²."},
+// ---------- FINANCIAL LITERACY (F01–F12) ----------
+{id:"F01",sec:"content",strand:"Financial Literacy",grade:"3–6",q:"You pay for a $13.45 item with a $20 bill. How much change do you receive?",opts:["$7.55","$6.55","$6.45","$7.45"],ans:1,exp:"20.00 − 13.45 = 6.55. (Count up: 13.45 → 14 is $0.55, then $6 more to 20.)"},
+{id:"F02",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A $50 purchase is subject to 13% HST. What is the total cost?",opts:["$56.50","$63.00","$55.30","$51.30"],ans:0,exp:"Tax = 0.13 × 50 = $6.50, so total = 50 + 6.50 = $56.50."},
+{id:"F03",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A sweater priced at $80 is 30% off. What is the sale price?",opts:["$50","$24","$56","$60"],ans:2,exp:"Discount = 0.30 × 80 = $24, so sale price = 80 − 24 = $56."},
+{id:"F04",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"You deposit $500 in an account paying 4% simple interest per year. How much interest do you earn in 2 years?",opts:["$20","$40","$80","$540"],ans:1,exp:"Simple interest = P × r × t = 500 × 0.04 × 2 = $40."},
+{id:"F05",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A household's monthly income is $2,400 and expenses total $1,850. How much can they save each month?",opts:["$650","$450","$550","$4,250"],ans:2,exp:"Savings = income − expenses = 2,400 − 1,850 = $550."},
+{id:"F06",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"Kevin earns $17 per hour and works 12 hours this week. What are his earnings before deductions?",opts:["$204","$194","$214","$170"],ans:0,exp:"17 × 12 = 204. (17 × 10 = 170, plus 17 × 2 = 34.)"},
+{id:"F07",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"Paying only the minimum payment on a credit card each month generally means:",opts:["the debt is paid off fastest","you pay more interest over time","interest stops accumulating","your credit limit increases"],ans:1,exp:"Minimum payments leave most of the balance unpaid, so interest keeps compounding on it."},
+{id:"F08",sec:"content",strand:"Financial Literacy",grade:"3–6",q:"Which of these is a NEED rather than a want?",opts:["A streaming subscription","Concert tickets","Housing","A new video game"],ans:2,exp:"Needs are essentials for living — shelter, food, basic clothing. The rest are wants."},
+{id:"F09",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A $40 item is 25% off, and 13% tax is added to the sale price. What is the final cost?",opts:["$33.90","$30.00","$35.20","$34.50"],ans:0,exp:"Sale price = 40 × 0.75 = $30. With tax: 30 × 1.13 = $33.90."},
+{id:"F10",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"If 1 CAD = 0.74 USD, how many US dollars do you get for 200 CAD?",opts:["$270 USD","$148 USD","$164 USD","$135 USD"],ans:1,exp:"200 × 0.74 = 148 USD."},
+{id:"F11",sec:"content",strand:"Financial Literacy",grade:"3–6",q:"You want to save $360 for a bike and can save $30 each month. How many months will it take?",opts:["10","11","12","14"],ans:2,exp:"360 ÷ 30 = 12 months."},
+{id:"F12",sec:"content",strand:"Financial Literacy",grade:"3–6",q:"What is the key difference between a debit card and a credit card?",opts:["Debit cards borrow money; credit cards use your own","Debit takes money directly from your bank account; credit borrows it to repay later","Credit cards can't charge interest","There is no difference"],ans:1,exp:"Debit = your own money, immediately withdrawn. Credit = borrowed money you must repay, possibly with interest."},
+// ---------- PEDAGOGY (P01–P30) ----------
+{id:"P01",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Assessment FOR learning is best described as:",opts:["Assigning final grades at the end of a unit","Gathering evidence during learning to adjust instruction","Students memorizing success criteria","Standardized testing across a school board"],ans:1,exp:"Assessment FOR learning is formative — the teacher uses ongoing evidence to plan next instructional steps."},
+{id:"P02",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Assessment AS learning happens when:",opts:["The teacher records observations in a checklist","Students monitor their own learning and set goals","Report card marks are calculated","Parents review homework"],ans:1,exp:"In assessment AS learning, students become their own assessors — self-monitoring, self-assessing, and goal-setting."},
+{id:"P03",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Assessment OF learning refers to:",opts:["Summative judgment of achievement at a point in time","Daily descriptive feedback","Student self-reflection journals","Diagnostic questioning before a unit"],ans:0,exp:"Assessment OF learning is summative — evaluating achievement against curriculum standards, typically at the end of a learning period."},
+{id:"P04",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"When is diagnostic assessment most appropriately used?",opts:["After the final unit test","Before instruction begins, to uncover prior knowledge","Only for students with IEPs","During parent–teacher interviews"],ans:1,exp:"Diagnostic assessment happens before new learning, revealing prior knowledge, gaps, and misconceptions to inform planning."},
+{id:"P05",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which is the best example of effective descriptive feedback?",opts:["'Good job! 7/10.'","'Try harder next time.'","'Your model shows the equal groups clearly. Next, try labelling what each group represents.'","'See me after class.'"],ans:2,exp:"Effective feedback is specific, references criteria, and gives a concrete next step — not just a score or vague praise."},
+{id:"P06",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"In Ontario's three-part math lesson, the purpose of the 'Minds-On' phase is to:",opts:["Assign homework","Activate prior knowledge and spark engagement","Evaluate the previous day's quiz","Present the full solution method"],ans:1,exp:"Minds-On (getting started) activates prior knowledge and sets a purpose, usually via a short, engaging prompt."},
+{id:"P07",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"During the 'Working On It' phase of a three-part lesson, the teacher's main role is to:",opts:["Demonstrate the correct algorithm step by step","Observe, question, and note student strategies while they solve the problem","Mark completed worksheets","Keep students silent and independent"],ans:1,exp:"Students grapple with a rich problem (often in pairs/groups) while the teacher circulates, observes, and probes thinking."},
+{id:"P08",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The 'Consolidation' phase of a three-part lesson is primarily for:",opts:["Starting the next unit","Collecting homework","Sharing and connecting student strategies to highlight the key math ideas","Silent practice drills"],ans:2,exp:"Consolidation makes the math explicit — students share strategies and the teacher connects them to the lesson's big idea."},
+{id:"P09",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Differentiated instruction means:",opts:["Giving every student identical tasks and timing","Lowering expectations for some students","Adjusting content, process, or product based on student readiness, interest, and learning profile","Teaching only to the middle of the class"],ans:2,exp:"DI keeps learning goals high for all while varying how students access, work with, and demonstrate learning."},
+{id:"P10",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which is the best example of an OPEN question (in Marian Small's sense)?",opts:["'What is 12 × 8?'","'The answer is 24. What could the question be?'","'Which is bigger: 1/2 or 1/3?'","'What is the perimeter of a 3 by 5 rectangle?'"],ans:1,exp:"Open questions allow many valid responses at different levels — every student can enter the task and show thinking."},
+{id:"P11",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Parallel tasks are:",opts:["Two unrelated worksheets done at the same time","Tasks that address the same big idea at different levels of difficulty, with students choosing","Identical tasks done in parallel rows","Timed fact races between table groups"],ans:1,exp:"Parallel tasks target one big idea with two (or more) difficulty options so all students discuss the same math afterwards."},
+{id:"P12",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which statement best reflects a growth mindset about mathematics?",opts:["'Some people are just born math people.'","'Speed is the best sign of math ability.'","'Mistakes and effort are how mathematical ability develops.'","'If it's hard, it's not for you.'"],ans:2,exp:"Growth mindset holds that ability grows through effort, effective strategies, and learning from mistakes."},
+{id:"P13",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which of the following is one of the seven mathematical processes in the Ontario curriculum?",opts:["Memorizing","Reasoning and proving","Grading","Streaming"],ans:1,exp:"The processes include problem solving, reasoning and proving, reflecting, connecting, communicating, representing, and selecting tools/strategies."},
+{id:"P14",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The main purpose of manipulatives (e.g., base-ten blocks, fraction strips) is to:",opts:["Keep early finishers busy","Give a concrete representation that builds understanding of abstract concepts","Replace the need for practice","Reward good behaviour"],ans:1,exp:"Manipulatives let students see and handle mathematical structure before moving to symbols — concrete before abstract."},
+{id:"P15",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The recommended progression for developing new math concepts is:",opts:["Abstract → concrete → pictorial","Concrete → representational (pictorial) → abstract","Worksheet → test → reteach","Lecture → notes → quiz"],ans:1,exp:"CRA: start with concrete materials, move to drawings/diagrams, then symbolic notation."},
+{id:"P16",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Scaffolding is best described as:",opts:["Permanently simplifying the curriculum","Temporary, adjustable support that is gradually removed as competence grows","Doing the work for struggling students","Grouping by ability all year"],ans:1,exp:"Scaffolds (prompts, models, sentence starters, tools) support learners now and fade as independence develops."},
+{id:"P17",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The 'zone of proximal development' refers to:",opts:["What a student can do with guidance but not yet alone","The classroom seating arrangement","Skills a student has fully mastered","Material two grades above level"],ans:0,exp:"Vygotsky's ZPD is the sweet spot between independent ability and frustration — where guided learning is most effective."},
+{id:"P18",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Universal Design for Learning (UDL) asks teachers to:",opts:["Design supports for all learners from the start, offering multiple ways to access and show learning","Create separate lessons only for identified students","Use one representation so no one is confused","Assess everyone with identical timed tests"],ans:0,exp:"UDL builds flexibility in from the outset — multiple means of representation, action/expression, and engagement — benefiting everyone."},
+{id:"P19",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Culturally responsive mathematics pedagogy involves:",opts:["Avoiding word problems entirely","Connecting mathematics to students' identities, communities, and lived experiences","Using only historical European examples","Translating tests word for word"],ans:1,exp:"It affirms student identity and makes math meaningful by rooting tasks in contexts students know and care about."},
+{id:"P20",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A student shows strong math anxiety. Which teacher response is most helpful?",opts:["More frequent timed drills to build tolerance","Excusing them from all assessments","Low-stakes practice, normalizing mistakes, and focusing on growth over speed","Telling them the test counts double so they focus"],ans:2,exp:"Reducing time pressure, treating errors as learning, and emphasizing growth reduces anxiety while keeping expectations high."},
+{id:"P21",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Success criteria are most effective when they are:",opts:["Kept secret until after marking","Written in complex technical language","Co-constructed with students and described in student-friendly language","Identical for every subject"],ans:2,exp:"When students help build and understand the criteria, they can self-assess and aim their efforts accurately."},
+{id:"P22",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Learning goals should be:",opts:["Based on curriculum expectations and shared with students in language they understand","A surprise to keep students curious","Only shared with parents","The same as the activity instructions"],ans:0,exp:"Growing Success: learning goals come from curriculum expectations and are shared in student-friendly terms at or near the start of learning."},
+{id:"P23",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"'Triangulation of evidence' in assessment means gathering evidence from:",opts:["Three different unit tests","Observations, conversations, and student products","Three different students","The teacher, principal, and parent"],ans:1,exp:"Ontario's Growing Success encourages balancing what students do, say, and make — not relying on products alone."},
+{id:"P24",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A 'number talk' is:",opts:["A short, mental-math discussion where students share and compare strategies","A parent information night about numeracy","A written test of number facts","A lecture on the history of numbers"],ans:0,exp:"Number talks build flexible thinking and communication: students solve mentally, then discuss the different strategies used."},
+{id:"P25",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A student says 0.25 is greater than 0.5 'because 25 is bigger than 5.' The most likely issue is:",opts:["A careless slip they will self-correct","A misconception about place value in decimals","Poor eyesight","Weak multiplication facts"],ans:1,exp:"The student is treating decimals like whole numbers — a classic place-value misconception worth addressing with models (e.g., hundredths grids)."},
+{id:"P26",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"For a student with an IEP, an ACCOMMODATION differs from a MODIFICATION because an accommodation:",opts:["Changes the curriculum expectations being assessed","Changes HOW the student learns/shows learning, but not the grade-level expectations","Lowers the passing grade","Removes the subject entirely"],ans:1,exp:"Accommodations (extra time, assistive tech, quiet space) keep expectations the same; modifications change the expectations themselves."},
+{id:"P27",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which strategy best supports English language learners in math while maintaining rigor?",opts:["Removing all word problems","Visuals, anchor charts, and structured peer talk alongside grade-level tasks","Having them work alone with a dictionary","Postponing math until English is fluent"],ans:1,exp:"ELLs need language support (visuals, vocabulary scaffolds, talk structures) with the same rich mathematics — support, not simplification."},
+{id:"P28",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"Which teacher question most promotes deep mathematical thinking?",opts:["'What answer did you get?'","'Is everyone done?'","'How do you know your answer is reasonable?'","'Did you use the formula?'"],ans:2,exp:"'How do you know?' presses for reasoning and justification — the heart of mathematical thinking."},
+{id:"P29",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A 'spiralled' math program is one where:",opts:["Concepts are revisited throughout the year with increasing depth","Each topic is taught once in a single block, then closed","Students choose all topics themselves","Lessons literally follow a spiral seating pattern"],ans:0,exp:"Spiralling interleaves and revisits concepts over time, strengthening retention compared with single-block units."},
+{id:"P30",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"The 'gradual release of responsibility' model moves through which sequence?",opts:["You do → we do → I do","I do → we do → you do","We do → test → reteach","Watch video → quiz → grade"],ans:1,exp:"Teacher models (I do), guided practice together (we do), then independent application (you do)."}
+];
+</script>
+
+<!-- APP LOGIC -->
+<script type="module">
+"use strict";
+
+/* ================= state ================= */
+const $ = s => document.querySelector(s);
+const views = $("#views");
+let user = null;             // {uid, name, email, photo}
+let cloud = null;            // {db, fns} when Firebase is live
+let store = { attempts: [], seen: {} };
+let quizState = null;        // active quiz/mock session
+let saveTimer = null;
+
+const configured = !String(FIREBASE_CONFIG.apiKey || "").startsWith("PASTE_");
+const isLocalPreview = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
+
+const CONTENT_STRANDS = ["Number", "Algebra", "Data & Probability", "Spatial Sense", "Financial Literacy"];
+const STRAND_DESC = {
+  "Number": "Fractions, decimals, percents, integers, ratios",
+  "Algebra": "Patterns, equations, linear relations",
+  "Data & Probability": "Mean/median/mode, graphs, probability",
+  "Spatial Sense": "Area, volume, angles, Pythagorean theorem",
+  "Financial Literacy": "Money, budgets, interest, smart buying",
+  "Pedagogy": "Assessment, differentiation, three-part lesson"
+};
+
+/* ================= helpers ================= */
+function shuffle(arr){ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"), 2600); }
+function fmtDate(ts){ return new Date(ts).toLocaleDateString("en-CA",{month:"short",day:"numeric"}) + " · " + new Date(ts).toLocaleTimeString("en-CA",{hour:"numeric",minute:"2-digit"}); }
+function fmtDur(sec){ const m = Math.floor(sec/60), s = sec%60; return m + ":" + String(s).padStart(2,"0"); }
+function pctClass(p){ return p >= 70 ? "good" : p >= 55 ? "mid" : "low"; }
+function greeting(){
+  const h = new Date().getHours();
+  const first = (user?.name || "there").split(" ")[0];
+  return (h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening") + ", " + first;
+}
+
+/* ================= persistence ================= */
+const lsKey = () => "mathtest-" + (user?.uid || "anon");
+function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} }
+function persist(){
+  try { localStorage.setItem(lsKey(), JSON.stringify(store)); } catch(e){}
+  if (cloud){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+      try {
+        await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid),
+          { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, updated: Date.now() });
+      } catch(e){ console.warn("Cloud save failed (kept locally):", e.message); }
+    }, 600);
+  }
+}
+async function loadCloud(){
+  try {
+    const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid));
+    if (snap.exists()){
+      const d = snap.data();
+      const cloudN = (d.attempts || []).length, localN = store.attempts.length;
+      if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {} };
+    }
+    persist();
+  } catch(e){ console.warn("Cloud load failed, using local data:", e.message); }
+}
+
+/* ================= question drawing ================= */
+function poolFor(key){
+  if (key === "mixed") return BANK.filter(q => q.sec === "content");
+  if (key === "Pedagogy") return BANK.filter(q => q.sec === "pedagogy");
+  return BANK.filter(q => q.strand === key);
+}
+function draw(poolKey, pool, n){
+  const seen = new Set(store.seen[poolKey] || []);
+  let unseen = pool.filter(q => !seen.has(q.id));
+  if (unseen.length < n){
+    store.seen[poolKey] = [];
+    unseen = pool.slice();
+    if (pool.length > n) toast("Full cycle complete — starting fresh questions!");
+  }
+  const picked = shuffle(unseen).slice(0, n);
+  store.seen[poolKey] = (store.seen[poolKey] || []).concat(picked.map(q => q.id));
+  persist();
+  return picked;
+}
+function buildMock(){
+  const per = { "Number": 8, "Algebra": 5, "Spatial Sense": 5, "Data & Probability": 4, "Financial Literacy": 3 };
+  let qs = [];
+  for (const [strand, n] of Object.entries(per)) qs = qs.concat(draw("mock-" + strand, poolFor(strand), n));
+  qs = shuffle(qs);
+  const ped = draw("mock-Pedagogy", poolFor("Pedagogy"), 10);
+  return qs.concat(shuffle(ped));   // content first, then pedagogy — like the real test's two sections
+}
+
+/* ================= auth ================= */
+async function startFirebase(){
+  const [{ initializeApp }, authMod, fsMod] = await Promise.all([
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"),
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
+  ]);
+  const app = initializeApp(FIREBASE_CONFIG);
+  const auth = authMod.getAuth(app);
+  const db = fsMod.getFirestore(app);
+  cloud = { db, fns: { doc: fsMod.doc, getDoc: fsMod.getDoc, setDoc: fsMod.setDoc } };
+
+  authMod.onAuthStateChanged(auth, async (u) => {
+    if (!u){ showSignin(); return; }
+    const email = (u.email || "").toLowerCase();
+    user = { uid: u.uid, name: u.displayName || email, email, photo: u.photoURL || "" };
+    // Access probe: the server-side rules allowlist decides who gets in.
+    try {
+      await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", u.uid));
+    } catch(e){
+      if (e.code === "permission-denied"){
+        user = null;
+        await authMod.signOut(auth);
+        signinError("Sorry — the account " + esc(email) + " isn't on the access list for this study site.");
+        return;
+      }
+      console.warn("Access probe inconclusive (offline?), continuing:", e.message);
+    }
+    loadLocal();
+    await loadCloud();
+    enterApp();
+  });
+
+  $("#btn-google").onclick = async () => {
+    try { await authMod.signInWithPopup(auth, new authMod.GoogleAuthProvider()); }
+    catch(e){
+      if (e.code === "auth/popup-blocked") await authMod.signInWithRedirect(auth, new authMod.GoogleAuthProvider());
+      else if (e.code !== "auth/popup-closed-by-user") signinError("Sign-in hiccup: " + esc(e.message));
+    }
+  };
+  $("#btn-signout").onclick = () => authMod.signOut(auth).then(() => location.reload());
+}
+function signinError(msg){ const b = $("#signin-err"); b.innerHTML = msg; b.classList.remove("hidden"); }
+function showSignin(){ $("#view-signin").classList.remove("hidden"); $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); }
+
+function startLocalPreview(){
+  user = { uid: "local-preview", name: "Kevin (preview)", email: "preview@local", photo: "" };
+  loadLocal();
+  enterApp();
+  toast("Local preview — scores stay on this device");
+}
+
+function enterApp(){
+  $("#view-signin").classList.add("hidden");
+  $("#app").classList.remove("hidden");
+  $("#tabs").classList.remove("hidden");
+  $("#user-name").textContent = (user.name || "").split(" ")[0];
+  const ph = $("#user-photo");
+  if (user.photo){ ph.src = user.photo; ph.style.display = ""; } else ph.style.display = "none";
+  go("home");
+}
+
+/* ================= navigation ================= */
+const tabs = document.querySelectorAll("nav.tabs button");
+tabs.forEach(b => b.onclick = () => go(b.dataset.view));
+function go(view){
+  tabs.forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  if (view === "home") renderHome();
+  else if (view === "quiz") quizState && quizState.kind === "quiz" && !quizState.done ? renderQuestion() : renderQuizSetup();
+  else if (view === "mock") quizState && quizState.kind === "mock" && !quizState.done ? renderQuestion() : renderMockIntro();
+  else if (view === "progress") renderProgress();
+  else if (view === "study") renderStudy();
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= home ================= */
+function renderHome(){
+  const att = store.attempts;
+  const last = att[att.length - 1];
+  const mocks = att.filter(a => a.kind === "mock");
+  const bestMock = mocks.length ? Math.max(...mocks.map(a => a.pct)) : null;
+  const days = new Set(att.map(a => new Date(a.t).toDateString())).size;
+  views.innerHTML = `
+  <div class="card hero">
+    <svg class="deco" viewBox="0 0 100 100"><path d="M10 80 Q30 40 50 60 T90 20" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 12"/></svg>
+    <h2>${esc(greeting())} 👋</h2>
+    <p>One small step at a time down the trail. No rush, no pressure — every question you try is progress.</p>
+    <div class="statrow">
+      <div class="stat"><div class="v">${att.length}</div><div class="l">sessions</div></div>
+      <div class="stat"><div class="v">${last ? last.pct + "%" : "—"}</div><div class="l">last score</div></div>
+      <div class="stat"><div class="v">${bestMock !== null ? bestMock + "%" : "—"}</div><div class="l">best mock</div></div>
+      <div class="stat"><div class="v">${days}</div><div class="l">study days</div></div>
+    </div>
+  </div>
+  <div class="homegrid">
+    <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>A fresh set of questions every time — pick a strand or mix it up. Instant feedback with friendly explanations.</p><div class="go">Start a quiz →</div></div>
+    <div class="card homecard c-mock" data-go="mock"><h3>📝 Mock Test</h3><p>A 35-question practice run in the real MPT's two-section format. Feedback comes at the end, just like test day.</p><div class="go">Take a mock →</div></div>
+    <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your scores, strand-by-strand strengths, and history — synced to your account so it follows you everywhere.</p><div class="go">See progress →</div></div>
+    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts, formulas, and the best free resources for each strand — plus pedagogy essentials.</p><div class="go">Open study hub →</div></div>
+  </div>`;
+  views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
+}
+
+/* ================= quiz setup ================= */
+let quizSel = { key: "mixed", len: 10 };
+function renderQuizSetup(){
+  quizState = null;
+  const opts = [["mixed", "Mixed Content", "A bit of everything, Grades 3–9"]]
+    .concat(CONTENT_STRANDS.map(s => [s, s, STRAND_DESC[s]]))
+    .concat([["Pedagogy", "Pedagogy", STRAND_DESC["Pedagogy"]]]);
+  views.innerHTML = `
+  <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus and a length. Questions won't repeat until you've seen the whole set.</p></div>
+  <div class="card">
+    <div class="pill teal">1 · Focus</div>
+    <div class="secgrid">${opts.map(([k, t, d]) => `<button class="secbtn ${quizSel.key === k ? "sel" : ""}" data-key="${k}"><span class="t">${t}</span><span class="d">${d}</span></button>`).join("")}</div>
+    <div class="spacer"></div>
+    <div class="pill teal">2 · Length</div>
+    <div class="lenrow">${[5, 10, 15].map(n => `<button class="lenbtn ${quizSel.len === n ? "sel" : ""}" data-len="${n}">${n} questions</button>`).join("")}</div>
+    <div class="spacer"></div>
+    <button class="btn primary" id="btn-startquiz">Start quiz ✨</button>
+  </div>`;
+  views.querySelectorAll(".secbtn").forEach(b => b.onclick = () => { quizSel.key = b.dataset.key; renderQuizSetup(); });
+  views.querySelectorAll(".lenbtn").forEach(b => b.onclick = () => { quizSel.len = +b.dataset.len; renderQuizSetup(); });
+  $("#btn-startquiz").onclick = () => {
+    const pool = poolFor(quizSel.key);
+    const n = Math.min(quizSel.len, pool.length);
+    startSession("quiz", draw("quiz-" + quizSel.key, pool, n), quizSel.key === "mixed" ? "Mixed Content" : quizSel.key);
+  };
+}
+
+/* ================= mock intro ================= */
+function renderMockIntro(){
+  quizState = null;
+  views.innerHTML = `
+  <div class="viewhead"><h2>Mock Test</h2><p>A gentle dress rehearsal for the real thing.</p></div>
+  <div class="card">
+    <h3 style="margin-bottom:10px">How it works</h3>
+    <p style="font-size:.93rem">The real MPT has two sections — <b>math content</b> (Grades 3–9) and <b>pedagogy</b> — and you need <b>70% on each</b>. This mock mirrors that: <b>25 content questions</b> followed by <b>10 pedagogy questions</b>, scored separately.</p>
+    <p style="font-size:.93rem;margin-top:8px">No feedback until the end (just like test day), but there's <b>no time limit</b> — the timer just counts up so you can see your natural pace. You can do this. 💪</p>
+    <div class="spacer"></div>
+    <button class="btn coral" id="btn-startmock">Begin mock test</button>
+  </div>`;
+  $("#btn-startmock").onclick = () => startSession("mock", buildMock(), "Mock Test");
+}
+
+/* ================= session engine ================= */
+function startSession(kind, questions, label){
+  quizState = {
+    kind, label,
+    qs: questions.map(q => {
+      const order = shuffle([0, 1, 2, 3]);
+      return { q, order, sel: null, correct: null };
+    }),
+    i: 0, done: false, started: Date.now()
+  };
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const st = quizState;
+  const item = st.qs[st.i];
+  const q = item.q;
+  const answered = item.sel !== null;
+  const showFeedback = st.kind === "quiz" && answered;
+  const elapsed = Math.floor((Date.now() - st.started) / 1000);
+  const dots = st.qs.map((it, idx) => {
+    let c = "qdot";
+    if (idx === st.i) c += " cur";
+    else if (it.sel !== null) c += st.kind === "quiz" ? (it.correct ? " ok" : " bad") : " done";
+    return `<span class="${c}"></span>`;
+  }).join("");
+  views.innerHTML = `
+  <div class="qtop">
+    <div class="qmeta">
+      <span class="pill ${q.sec === "pedagogy" ? "sage" : "teal"}">${esc(q.strand)}</span>
+      ${q.grade !== "—" ? `<span class="pill gold">Gr ${q.grade}</span>` : ""}
+      <span class="note mono">${st.i + 1} / ${st.qs.length}</span>
+    </div>
+    <span class="timerchip" id="timer">⏱ ${fmtDur(elapsed)}</span>
+  </div>
+  <div class="qprog">${dots}</div>
+  <div class="card" style="margin-top:14px">
+    <div class="qtext">${esc(q.q)}</div>
+    <div class="opts">
+      ${item.order.map((oi, di) => {
+        let cls = "opt";
+        if (showFeedback){
+          if (oi === q.ans) cls += " correct";
+          else if (di === item.sel) cls += " wrong";
+        } else if (di === item.sel) cls += " sel";
+        return `<button class="${cls}" data-di="${di}" ${showFeedback ? "disabled" : ""}><span class="key">${"ABCD"[di]}</span><span>${esc(q.opts[oi])}</span></button>`;
+      }).join("")}
+    </div>
+    ${showFeedback ? `<div class="explain ${item.correct ? "good" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b><br>${esc(q.exp)}</div>` : ""}
+    <div class="qactions">
+      <button class="btn soft" id="btn-quit">Save &amp; exit</button>
+      <span>
+        ${st.i > 0 && st.kind === "mock" ? `<button class="btn ghost" id="btn-back">← Back</button>` : ""}
+        <button class="btn primary" id="btn-next" ${answered ? "" : "disabled"}>${st.i === st.qs.length - 1 ? "Finish" : "Next →"}</button>
+      </span>
+    </div>
+  </div>`;
+  clearInterval(window.__qt);
+  window.__qt = setInterval(() => { const t = $("#timer"); if (t) t.textContent = "⏱ " + fmtDur(Math.floor((Date.now() - st.started) / 1000)); else clearInterval(window.__qt); }, 1000);
+
+  views.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (st.kind === "quiz" && item.sel !== null) return;
+    item.sel = +b.dataset.di;
+    item.correct = item.order[item.sel] === q.ans;
+    renderQuestion();
+  });
+  $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); } };
+  const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
+  $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
+}
+
+/* ================= results ================= */
+function finishSession(){
+  clearInterval(window.__qt);
+  const st = quizState;
+  st.done = true;
+  const dur = Math.floor((Date.now() - st.started) / 1000);
+  const strands = {};
+  let correct = 0;
+  st.qs.forEach(it => {
+    const s = it.q.strand;
+    strands[s] = strands[s] || { c: 0, t: 0 };
+    strands[s].t++;
+    if (it.correct){ strands[s].c++; correct++; }
+  });
+  const pct = Math.round(100 * correct / st.qs.length);
+  const attempt = { t: Date.now(), kind: st.kind, label: st.label, score: correct, total: st.qs.length, pct, dur, strands };
+  if (st.kind === "mock"){
+    const c = st.qs.filter(it => it.q.sec === "content"), p = st.qs.filter(it => it.q.sec === "pedagogy");
+    attempt.sections = {
+      content: { c: c.filter(i => i.correct).length, t: c.length },
+      pedagogy: { c: p.filter(i => i.correct).length, t: p.length }
+    };
+  }
+  store.attempts.push(attempt);
+  persist();
+  renderResults(attempt, st);
+}
+
+function ringSVG(pct, color){
+  const r = 70, circ = 2 * Math.PI * r;
+  return `<div class="ring"><svg width="160" height="160" viewBox="0 0 160 160">
+    <circle cx="80" cy="80" r="${r}" fill="none" stroke="var(--parchment-deep)" stroke-width="13"/>
+    <circle cx="80" cy="80" r="${r}" fill="none" stroke="${color}" stroke-width="13" stroke-linecap="round"
+      stroke-dasharray="${(pct / 100 * circ).toFixed(1)} ${circ.toFixed(1)}"/>
+  </svg><div class="pct"><span class="n">${pct}%</span><span class="s">score</span></div></div>`;
+}
+function encouragement(pct, kind){
+  if (pct >= 85) return "Outstanding! You're well above the 70% pass line. Keep this rhythm going.";
+  if (pct >= 70) return "That's a passing score! Steady, solid work — exactly what the trail is for.";
+  if (pct >= 55) return "So close to the 70% line. Peek at the review below — a couple of concepts will tip you over.";
+  return "Every attempt teaches you something. Check the explanations below, maybe revisit the Study Hub, and try again fresh. You've got time.";
+}
+function renderResults(a, st){
+  const color = a.pct >= 70 ? "var(--sage)" : a.pct >= 55 ? "var(--gold)" : "var(--coral)";
+  let sectionsHTML = "";
+  if (a.sections){
+    const rows = [["Math Content", a.sections.content], ["Pedagogy", a.sections.pedagogy]].map(([name, s]) => {
+      const p = Math.round(100 * s.c / s.t);
+      return `<div class="bar-row"><span><b>${name}</b> (${s.c}/${s.t})</span><div class="bar-track"><div class="bar-fill ${p >= 70 ? "" : p >= 55 ? "warn" : "low"}" style="width:${p}%"></div></div><span class="bar-pct">${p}%</span></div>`;
+    }).join("");
+    const bothPass = ["content", "pedagogy"].every(k => 100 * a.sections[k].c / a.sections[k].t >= 70);
+    sectionsHTML = `<div class="card breakdown"><h3 style="margin-bottom:6px">Section scores <span class="note">(the real MPT needs 70% on each)</span></h3>${rows}
+      <div style="margin-top:10px"><span class="passline ${bothPass ? "pass" : "close"}">${bothPass ? "✔ Both sections at 70%+ — that's a pass!" : "Aim: 70% on both sections"}</span></div></div>`;
+  }
+  const strandRows = Object.entries(a.strands).map(([name, s]) => {
+    const p = Math.round(100 * s.c / s.t);
+    return `<div class="bar-row"><span>${esc(name)} (${s.c}/${s.t})</span><div class="bar-track"><div class="bar-fill ${p >= 70 ? "" : p >= 55 ? "warn" : "low"}" style="width:${p}%"></div></div><span class="bar-pct">${p}%</span></div>`;
+  }).join("");
+  const review = st.qs.map((it, i) => {
+    const q = it.q;
+    return `<div class="review-item ${it.correct ? "right" : ""}">
+      <div class="rq">${i + 1}. ${esc(q.q)}</div>
+      <div class="ra">${it.correct ? "✔ You answered correctly: " + esc(q.opts[q.ans]) :
+        "✘ Your answer: " + esc(it.sel !== null ? q.opts[it.order[it.sel]] : "—") + " · Correct: <b>" + esc(q.opts[q.ans]) + "</b>"}<br><span class="note">${esc(q.exp)}</span></div>
+    </div>`;
+  }).join("");
+  views.innerHTML = `
+  <div class="card result-hero">
+    ${ringSVG(a.pct, color)}
+    <h2>${esc(a.label)} complete</h2>
+    <div class="msg">${encouragement(a.pct, a.kind)}</div>
+    <div style="margin-top:10px"><span class="timerchip">⏱ ${fmtDur(a.dur)}</span> <span class="timerchip mono">${a.score}/${a.total} correct</span></div>
+    <div class="passline ${a.pct >= 70 ? "pass" : a.pct >= 55 ? "close" : "keep"}" >${a.pct >= 70 ? "✔ At or above the 70% pass line" : "Pass line: 70%"}</div>
+  </div>
+  ${sectionsHTML}
+  <div class="card breakdown"><h3 style="margin-bottom:6px">By strand</h3>${strandRows}</div>
+  <h3 style="margin:20px 0 4px">Review ${a.kind === "mock" ? "all answers" : "your answers"}</h3>
+  ${review}
+  <div class="spacer"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn primary" id="btn-again">${a.kind === "mock" ? "Another mock" : "Another quiz"}</button>
+    <button class="btn ghost" id="btn-home">Back home</button>
+  </div>`;
+  quizState = null;
+  $("#btn-again").onclick = () => go(a.kind === "mock" ? "mock" : "quiz");
+  $("#btn-home").onclick = () => go("home");
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= progress ================= */
+function renderProgress(){
+  const att = store.attempts.slice().reverse();
+  const agg = {};
+  store.attempts.forEach(a => Object.entries(a.strands || {}).forEach(([s, v]) => {
+    agg[s] = agg[s] || { c: 0, t: 0 }; agg[s].c += v.c; agg[s].t += v.t;
+  }));
+  const mastery = Object.entries(agg).map(([name, s]) => {
+    const p = Math.round(100 * s.c / s.t);
+    return `<div class="bar-row"><span>${esc(name)} <span class="note">(${s.c}/${s.t})</span></span><div class="bar-track"><div class="bar-fill ${p >= 70 ? "" : p >= 55 ? "warn" : "low"}" style="width:${p}%"></div></div><span class="bar-pct">${p}%</span></div>`;
+  }).join("");
+  const history = att.map(a => {
+    const sec = a.sections ? ` <span class="note mono">C:${Math.round(100 * a.sections.content.c / a.sections.content.t)}% · P:${Math.round(100 * a.sections.pedagogy.c / a.sections.pedagogy.t)}%</span>` : "";
+    return `<div class="attempt-row">
+      <span><span class="pill ${a.kind === "mock" ? "coral" : "teal"}">${a.kind}</span> ${esc(a.label)}${sec}<br><span class="when">${fmtDate(a.t)} · ${fmtDur(a.dur || 0)}</span></span>
+      <span class="score ${pctClass(a.pct)}">${a.score}/${a.total} · ${a.pct}%</span>
+    </div>`;
+  }).join("");
+  views.innerHTML = `
+  <div class="viewhead"><h2>Progress</h2><p>Everything is saved to your account${cloud ? " and synced across devices" : " on this device"}.</p></div>
+  ${Object.keys(agg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Strand mastery <span class="note">(all-time)</span></h3>${mastery}</div><div class="spacer"></div>` : ""}
+  <div class="card">
+    <h3 style="margin-bottom:8px">History</h3>
+    ${history || `<div class="emptystate">No sessions yet — your story starts with the first quiz. 🌱</div>`}
+  </div>
+  <div class="spacer"></div>
+  <button class="btn soft" id="btn-resetseen">↻ Reset question rotation</button>
+  <p class="note" style="margin-top:6px">Makes all questions available again without touching your score history.</p>`;
+  $("#btn-resetseen").onclick = () => { store.seen = {}; persist(); toast("Question rotation reset — everything's fresh again"); };
+}
+
+/* ================= study hub ================= */
+const STUDY = [
+{ title: "🔢 Number", body: `
+  <h4>Fractions</h4><ul>
+  <li>Add/subtract: common denominator first. <span class="formula">5/8 + 1/4 = 5/8 + 2/8 = 7/8</span></li>
+  <li>Multiply: straight across, then simplify. Divide: multiply by the reciprocal.</li>
+  <li>Compare by converting to decimals or common denominators.</li></ul>
+  <h4>Percents</h4><ul><li>Find 10% first, then build: 15% of 80 → 8 + 4 = 12.</li>
+  <li>Percent change = <span class="formula">change ÷ original × 100</span></li></ul>
+  <h4>Integers</h4><ul><li>Same signs multiply/divide to positive; different signs to negative.</li>
+  <li>BEDMAS: Brackets, Exponents, Divide/Multiply, Add/Subtract.</li></ul>
+  <h4>Ratio &amp; rate</h4><ul><li>Scale both parts equally; unit rates make comparisons easy (price per 100 g).</li></ul>
+  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics</a><a href="https://www.khanacademy.org/math/arithmetic" target="_blank" rel="noopener">Khan Academy</a></div>`},
+{ title: "🧮 Algebra", body: `
+  <h4>Solving equations</h4><ul>
+  <li>Undo operations in reverse order; keep both sides balanced.</li>
+  <li><span class="formula">2x + 5 = 17 → 2x = 12 → x = 6</span></li>
+  <li>Variables on both sides: gather x's on one side first.</li></ul>
+  <h4>Linear relations</h4><ul>
+  <li><span class="formula">y = mx + b</span> — m is slope (rise ÷ run), b is the y-intercept.</li>
+  <li>From a table: the constant difference in y is the slope.</li></ul>
+  <h4>Patterns</h4><ul><li>Find what changes each step; write the rule with the term number n.</li></ul>
+  <div class="linkrow"><a href="https://www.khanacademy.org/math/algebra-basics" target="_blank" rel="noopener">Khan: Algebra Basics</a></div>`},
+{ title: "📊 Data & Probability", body: `
+  <h4>Central tendency</h4><ul>
+  <li>Mean = sum ÷ count · Median = middle of ordered list · Mode = most frequent · Range = max − min.</li>
+  <li>Outliers drag the <b>mean</b>; the median resists them.</li></ul>
+  <h4>Probability</h4><ul>
+  <li><span class="formula">P = favourable ÷ total</span>, always between 0 and 1.</li>
+  <li>Independent events multiply: two heads = ½ × ½ = ¼.</li>
+  <li>Complement: P(not A) = 1 − P(A). Experimental = observed results ÷ trials.</li></ul>
+  <h4>Graphs</h4><ul><li>Line graph = change over time; bar = categories; circle = parts of a whole. Watch for truncated axes!</li></ul>
+  <div class="linkrow"><a href="https://www.eqao.com" target="_blank" rel="noopener">EQAO released questions</a></div>`},
+{ title: "📐 Spatial Sense & Measurement", body: `
+  <h4>Area &amp; perimeter</h4><ul>
+  <li>Rectangle: <span class="formula">A = l × w</span> · Triangle: <span class="formula">A = b × h ÷ 2</span> · Parallelogram: <span class="formula">A = b × h</span></li>
+  <li>Circle: <span class="formula">C = 2πr</span>, <span class="formula">A = πr²</span></li>
+  <li>Composite shapes: split into pieces, add or subtract.</li></ul>
+  <h4>Volume &amp; surface area</h4><ul>
+  <li>Prism: <span class="formula">V = area of base × height</span> · Cylinder: <span class="formula">V = πr²h</span> · Cube SA: <span class="formula">6s²</span></li></ul>
+  <h4>Angles &amp; triangles</h4><ul>
+  <li>Triangle angles sum to 180°, quadrilateral 360°. Straight line 180°, complementary 90°.</li>
+  <li>Pythagorean: <span class="formula">a² + b² = c²</span> (right triangles only). Know 3-4-5, 6-8-10, 5-12-13.</li></ul>
+  <h4>Metric</h4><ul><li>km → m ×1000 · m → cm ×100 · L → mL ×1000.</li></ul>
+  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics: Geometry</a></div>`},
+{ title: "💰 Financial Literacy", body: `
+  <ul><li>Sale price = original × (1 − discount%). Then tax: × 1.13 for HST in Ontario.</li>
+  <li>Simple interest: <span class="formula">I = P × r × t</span></li>
+  <li>Unit price finds the best buy; budget = income − expenses.</li>
+  <li>Debit = your money now; credit = borrowed, minimum payments cost more interest over time.</li></ul>`},
+{ title: "🍎 Pedagogy Essentials", body: `
+  <h4>Assessment (Growing Success)</h4><ul>
+  <li><b>For</b> learning: teacher gathers evidence to plan next steps (formative).</li>
+  <li><b>As</b> learning: students self-assess and set goals.</li>
+  <li><b>Of</b> learning: summative judgment (grades). Diagnostic comes <i>before</i> learning.</li>
+  <li>Triangulate: observations + conversations + products.</li></ul>
+  <h4>Three-part lesson</h4><ul><li>Minds-On (activate) → Working On It (students solve, teacher observes) → Consolidation (connect strategies to the big idea).</li></ul>
+  <h4>Reaching every learner</h4><ul>
+  <li>Differentiation: vary content/process/product — keep expectations high.</li>
+  <li>Open questions &amp; parallel tasks (Marian Small). CRA: concrete → pictorial → abstract.</li>
+  <li>Accommodation = how (same expectations); modification = changed expectations.</li>
+  <li>UDL: design flexibility for all from the start. Scaffold, then fade.</li></ul>
+  <div class="linkrow"><a href="https://www.oct.ca" target="_blank" rel="noopener">OCT</a><a href="https://quizlet.com" target="_blank" rel="noopener">Pedagogy flashcards</a></div>`},
+{ title: "🔗 Official Resources", body: `
+  <ul>
+  <li><b>mathproficiencytest.ca</b> — practice in the REAL test interface. The single best prep source.</li>
+  <li><b>EQAO</b> — released questions for Grades 3, 6, 9.</li>
+  <li><b>Ontario Math Curriculum (2020)</b> — the six strands that define the content section.</li>
+  <li><b>OntarioMath.Support (OAME)</b> — how each concept grows Grade 1→8 (great for pedagogy).</li></ul>
+  <div class="linkrow">
+    <a href="https://mathproficiencytest.ca" target="_blank" rel="noopener">MPT official practice</a>
+    <a href="https://www.eqao.com" target="_blank" rel="noopener">EQAO</a>
+    <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
+    <a href="https://ontariomath.support" target="_blank" rel="noopener">OntarioMath.Support</a>
+  </div>`}
+];
+function renderStudy(){
+  views.innerHTML = `
+  <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
+  ${STUDY.map((s, i) => `<div class="acc" data-i="${i}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body}</div></div>`).join("")}`;
+  views.querySelectorAll(".acc > button").forEach(b => b.onclick = () => b.parentElement.classList.toggle("open"));
+}
+
+/* ================= boot ================= */
+if (configured){
+  startFirebase().catch(e => signinError("Couldn't reach Firebase: " + esc(e.message) + "<br>Check FIREBASE_CONFIG in index.html."));
+} else {
+  if (isLocalPreview){
+    signinError("Firebase isn't configured yet, so sign-in is off. You can still <b>preview locally</b> below — scores stay on this device.");
+    const b = document.createElement("button");
+    b.className = "btn primary"; b.style.marginTop = "14px"; b.style.width = "100%";
+    b.textContent = "Preview locally (no sign-in)";
+    b.onclick = startLocalPreview;
+    $("#signin-err").after(b);
+    $("#btn-google").onclick = () => signinError("Firebase isn't configured yet — follow SETUP.md first, then sign-in will work.");
+  } else {
+    signinError("This site isn't fully configured yet (missing Firebase settings). See SETUP.md in the repo.");
+  }
+}
+</script>
+
+</body>
+</html>
