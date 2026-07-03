@@ -1,9 +1,9 @@
 # MathTest Trail
 
-*v2 — July 2, 2026*
+*v4 — July 2026 · “Every trail leads to the summit.”*
 
 A private, single-file study web app for the **Ontario Mathematics Proficiency Test (MPT)**,
-live at **https://mathtest.logicmanse.ca**.
+live at **https://mathtest.logicmanse.ca**. A [LogicManse](https://logicmanse.ca) product.
 
 ## Features
 
@@ -12,7 +12,9 @@ live at **https://mathtest.logicmanse.ca**.
 - **Cheatsheet** — the MPT Formula Sheet (2D + 3D) plus quick-reference facts for every strand and the pedagogy component.
 - **Score tracking** — every session saved, strand-mastery bars, history, synced across devices via Firestore.
 - **Study Hub** — key concepts per strand, official EQAO practice tests and framework, pedagogy source documents (Growing Success, Learning for All), and curated free resources.
-- **Private** — Google sign-in restricted to allowlisted accounts, enforced server-side by Firestore security rules.
+- **Test-day tools** — on-screen calculator and Formula Sheet overlay on every question, like the real test's toolbar; per-question calculator/mental-math guidance and 🌱/🌿/🌋 difficulty modes.
+- **Personal** — profile with display name, optional age, preferred difficulty; flexible 8-week plan anchored to your own start date; XP, levels, badges, and streaks.
+- **Private & managed** — Google sign-in restricted to an allowlist enforced server-side by Firestore security rules, managed in-app through an admin panel.
 
 ## Stack
 

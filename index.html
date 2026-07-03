@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>MathTest · Kevin's MPT Study Trail</title>
+<title>MathTest Trail · MPT Study Companion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -269,7 +269,7 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
       <path d="M78 30 l3 4 6 -7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <h1>MathTest Trail</h1>
-    <p>Kevin's study companion for the Ontario Mathematics Proficiency Test. Quizzes, mock tests, and progress tracking — one gentle step at a time.</p>
+    <p>Your study companion for the Ontario Mathematics Proficiency Test. Quizzes, mock tests, and progress tracking — one gentle step at a time.</p>
     <button id="btn-google" class="gbtn">
       <img alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
       Continue with Google
@@ -299,13 +299,14 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
     <div class="userchip">
       <img id="user-photo" alt="" src="">
       <span class="name" id="user-name"></span>
+      <button id="btn-profile" title="Edit profile" style="color:var(--teal)">⚙</button>
       <button id="btn-signout" title="Sign out">Sign out</button>
     </div>
   </header>
 
   <main id="views"></main>
 
-  <footer class="foot">MathTest Trail · built with care for Kevin · logicmanse.ca</footer>
+  <footer class="foot">MathTest Trail · a <b>LogicManse</b> product · <a href="#" id="link-about" style="color:var(--teal);font-weight:600">About</a></footer>
 </div>
 
 <nav class="tabs hidden" id="tabs">
@@ -315,6 +316,7 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
   <button data-view="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
   <button data-view="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13"/></svg>Study</button>
   <button data-view="cheat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/><path d="M8 3v2M16 3v2"/></svg>Cheatsheet</button>
+  <button data-view="admin" class="hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 10-6.3"/><path d="M17 14v6M14 17h6"/></svg>Admin</button>
 </nav>
 
 <div id="toast" class="toast"></div>
@@ -505,7 +507,7 @@ const BANK = [
 {id:"F03",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A sweater priced at $80 is 30% off. What is the sale price?",opts:["$50","$24","$56","$60"],ans:2,exp:"Discount = 0.30 × 80 = $24, so sale price = 80 − 24 = $56."},
 {id:"F04",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"You deposit $500 in an account paying 4% simple interest per year. How much interest do you earn in 2 years?",opts:["$20","$40","$80","$540"],ans:1,exp:"Simple interest = P × r × t = 500 × 0.04 × 2 = $40."},
 {id:"F05",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A household's monthly income is $2,400 and expenses total $1,850. How much can they save each month?",opts:["$650","$450","$550","$4,250"],ans:2,exp:"Savings = income − expenses = 2,400 − 1,850 = $550."},
-{id:"F06",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"Kevin earns $17 per hour and works 12 hours this week. What are his earnings before deductions?",opts:["$204","$194","$214","$170"],ans:0,exp:"17 × 12 = 204. (17 × 10 = 170, plus 17 × 2 = 34.)"},
+{id:"F06",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A student earns $17 per hour and works 12 hours this week. What are their earnings before deductions?",opts:["$204","$194","$214","$170"],ans:0,exp:"17 × 12 = 204. (17 × 10 = 170, plus 17 × 2 = 34.)"},
 {id:"F07",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"Paying only the minimum payment on a credit card each month generally means:",opts:["the debt is paid off fastest","you pay more interest over time","interest stops accumulating","your credit limit increases"],ans:1,exp:"Minimum payments leave most of the balance unpaid, so interest keeps compounding on it."},
 {id:"F08",sec:"content",strand:"Financial Literacy",grade:"3–6",q:"Which of these is a NEED rather than a want?",opts:["A streaming subscription","Concert tickets","Housing","A new video game"],ans:2,exp:"Needs are essentials for living — shelter, food, basic clothing. The rest are wants."},
 {id:"F09",sec:"content",strand:"Financial Literacy",grade:"7–9",q:"A $40 item is 25% off, and 13% tax is added to the sale price. What is the final cost?",opts:["$33.90","$30.00","$35.20","$34.50"],ans:0,exp:"Sale price = 40 × 0.75 = $30. With tax: 30 × 1.13 = $33.90."},
@@ -596,7 +598,8 @@ const $ = s => document.querySelector(s);
 const views = $("#views");
 let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
-let store = { attempts: [], seen: {} };
+let store = { attempts: [], seen: {}, profile: null };
+let adminMode = false;
 let quizState = null;        // active quiz/mock session
 let saveTimer = null;
 
@@ -622,7 +625,7 @@ function fmtDur(sec){ const m = Math.floor(sec/60), s = sec%60; return m + ":" +
 function pctClass(p){ return p >= 70 ? "good" : p >= 55 ? "mid" : "low"; }
 function greeting(){
   const h = new Date().getHours();
-  const first = (user?.name || "there").split(" ")[0];
+  const first = (store.profile?.name || user?.name || "there").split(" ")[0];
   return (h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening") + ", " + first;
 }
 
@@ -636,7 +639,7 @@ function persist(){
     saveTimer = setTimeout(async () => {
       try {
         await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid),
-          { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, updated: Date.now() });
+          { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, updated: Date.now() });
       } catch(e){ console.warn("Cloud save failed (kept locally):", e.message); }
     }, 600);
   }
@@ -647,7 +650,8 @@ async function loadCloud(){
     if (snap.exists()){
       const d = snap.data();
       const cloudN = (d.attempts || []).length, localN = store.attempts.length;
-      if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {} };
+      if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null };
+      else if (d.profile && !store.profile) store.profile = d.profile;
     }
     persist();
   } catch(e){ console.warn("Cloud load failed, using local data:", e.message); }
@@ -695,7 +699,7 @@ async function startFirebase(){
   const app = initializeApp(FIREBASE_CONFIG);
   const auth = authMod.getAuth(app);
   const db = fsMod.getFirestore(app);
-  cloud = { db, fns: { doc: fsMod.doc, getDoc: fsMod.getDoc, setDoc: fsMod.setDoc } };
+  cloud = { db, fns: { doc: fsMod.doc, getDoc: fsMod.getDoc, setDoc: fsMod.setDoc, collection: fsMod.collection, getDocs: fsMod.getDocs, deleteDoc: fsMod.deleteDoc } };
 
   authMod.onAuthStateChanged(auth, async (u) => {
     if (!u){ showSignin(); return; }
@@ -713,6 +717,9 @@ async function startFirebase(){
       }
       console.warn("Access probe inconclusive (offline?), continuing:", e.message);
     }
+    // admin check: only admins may read the allowedUsers collection
+    try { await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers")); adminMode = true; }
+    catch(e){ adminMode = false; }
     loadLocal();
     await loadCloud();
     enterApp();
@@ -741,10 +748,48 @@ function enterApp(){
   $("#view-signin").classList.add("hidden");
   $("#app").classList.remove("hidden");
   $("#tabs").classList.remove("hidden");
-  $("#user-name").textContent = (user.name || "").split(" ")[0];
   const ph = $("#user-photo");
   if (user.photo){ ph.src = user.photo; ph.style.display = ""; } else ph.style.display = "none";
-  go("home");
+  const ab = document.querySelector('[data-view="admin"]');
+  if (ab) ab.classList.toggle("hidden", !adminMode);
+  refreshChip();
+  if (!store.profile || !store.profile.name) renderProfileSetup();
+  else go("home");
+}
+function refreshChip(){ $("#user-name").textContent = ((store.profile?.name || user.name) || "").split(" ")[0]; }
+
+/* ================= profile ================= */
+function renderProfileSetup(edit){
+  const p = store.profile || {};
+  views.innerHTML = `
+  <div class="viewhead"><h2>${edit ? "Your profile" : "Welcome to the trail! 🥾"}</h2><p>${edit ? "Tune things to your liking." : "A few quick details — everything except your name is optional."}</p></div>
+  <div class="card" style="max-width:480px">
+    <label style="font-weight:600;font-size:.9rem">Display name</label>
+    <input id="pf-name" type="text" value="${esc(p.name || user.name || "")}" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body);margin:6px 0 14px">
+    <label style="font-weight:600;font-size:.9rem">Age <span class="note">(optional)</span></label>
+    <input id="pf-age" type="number" min="5" max="120" value="${p.age || ""}" placeholder="—" style="width:110px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-mono);margin:6px 0 14px;display:block">
+    <label style="font-weight:600;font-size:.9rem">Preferred quiz difficulty</label>
+    <div class="lenrow" id="pf-diff">
+      ${[["any","🎲 Any"],["1","🌱 Easy"],["2","🌿 Medium"],["3","🌋 Tough"]].map(([v,l]) => `<button class="lenbtn ${(p.diff || "any") === v ? "sel" : ""}" data-v="${v}">${l}</button>`).join("")}
+    </div>
+    <div class="spacer"></div>
+    <button class="btn primary" id="pf-save">${edit ? "Save changes" : "Start my trail ✨"}</button>
+  </div>`;
+  let diff = p.diff || "any";
+  views.querySelectorAll("#pf-diff .lenbtn").forEach(b => b.onclick = () => {
+    diff = b.dataset.v;
+    views.querySelectorAll("#pf-diff .lenbtn").forEach(x => x.classList.toggle("sel", x === b));
+  });
+  $("#pf-save").onclick = () => {
+    const name = $("#pf-name").value.trim();
+    if (!name) return toast("A display name helps the app greet you properly!");
+    const age = parseInt($("#pf-age").value, 10);
+    store.profile = { ...(store.profile || {}), name, age: (age >= 5 && age <= 120) ? age : null, diff };
+    persist();
+    refreshChip();
+    toast(edit ? "Profile updated ✓" : "Welcome aboard, " + name.split(" ")[0] + "! 🌟");
+    go("home");
+  };
 }
 
 /* ================= navigation ================= */
@@ -758,8 +803,15 @@ function go(view){
   else if (view === "progress") renderProgress();
   else if (view === "study") renderStudy();
   else if (view === "cheat") renderCheat();
+  else if (view === "admin") renderAdmin();
+  else if (view === "about") renderAbout();
   window.scrollTo({ top: 0 });
 }
+
+/* ================= difficulty ================= */
+const TOUGH_IDS = new Set(["N07","N12","N26","N30","N36","N43","N45","N46","A12","A15","A16","A21","A26","A27","D11","D12","D13","D19","S08","S09","S16","S22","S23","S25","S26","S28","S29","F04","F09","F18","P25","P26","P35","P40"]);
+function qDiff(q){ return TOUGH_IDS.has(q.id) ? 3 : (q.grade === "3–6" ? 1 : 2); }
+const DIFF_LABEL = {1:"🌱 easy", 2:"🌿 medium", 3:"🌋 tough"};
 
 /* ================= test-day tools ================= */
 // Questions where reaching for the calculator is realistic on test day.
@@ -768,22 +820,34 @@ function go(view){
 const CALC_IDS = new Set(["N13","N22","N23","N30","N33","N43","N48","N49","S05","S06","S07","S08","S09","S16","S23","S25","S26","S28","S29","S30","F01","F02","F03","F04","F05","F06","F09","F10","F11","F14","F15","F18","D11","D20","D22","A25"]);
 function initTools(){
   const panel = $("#calc"), disp = $("#calc-disp");
-  let expr = "";
+  let expr = "", justEval = false;
+  const OPS = ["+","−","×","÷"];
   const show = () => { disp.textContent = expr === "" ? "0" : expr; };
   panel.querySelectorAll("[data-k]").forEach(b => b.onclick = () => {
     const k = b.dataset.k;
-    if (k === "C") expr = "";
-    else if (k === "⌫") expr = expr.slice(0, -1);
-    else if (k === "=") {
+    if (k === "C"){ expr = ""; justEval = false; }
+    else if (k === "⌫"){ expr = expr.slice(0, -1); justEval = false; }
+    else if (k === "="){
       try {
-        if (!/^[0-9+−×÷().√ ]*$/.test(expr)) throw 0;
+        if (!/^[0-9+−×÷().√ ]*$/.test(expr) || expr === "") throw 0;
         const js = expr.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/√/g,"Math.sqrt");
         const v = Function('"use strict";return (' + js + ')')();
         expr = (typeof v === "number" && isFinite(v)) ? String(Math.round(v * 1e9) / 1e9) : "";
-      } catch(e){ expr = ""; disp.textContent = "Hmm — try again"; return; }
+        justEval = true;
+      } catch(e){ expr = ""; justEval = false; disp.textContent = "Hmm — try again"; return; }
     }
-    else if (k === "√") expr += "√(";
-    else expr += k;
+    else if (OPS.includes(k)){
+      // continuing with a result is natural; swap the operator if one is already pending
+      justEval = false;
+      if (OPS.includes(expr.slice(-1))) expr = expr.slice(0, -1) + k;
+      else if (expr === "" && k !== "−") return;   // can't start with + × ÷
+      else expr += k;
+    }
+    else { // digit, ".", "(", ")", "√"
+      if (justEval){ expr = ""; }                   // fresh start after "=" when typing a number
+      justEval = false;
+      expr += (k === "√") ? "√(" : k;
+    }
     show();
   });
   $("#calc-close").onclick = () => panel.classList.add("hidden");
@@ -830,34 +894,36 @@ function gameStats(){
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges };
 }
 
-/* ================= trail plan (Kevin: mid-July start → September course) ================= */
-const PLAN_START = new Date("2026-07-13T00:00:00");
+/* ================= trail plan (personal, date-flexible) ================= */
 const PLAN_WEEKS = [
-  ["Gentle restart 🌱","Number sense only. One 5-question quiz per sitting, 15 min max. Re-read the Number cheatsheet. Rest is still part of recovery."],
+  ["Gentle start 🌱","Number sense only. One 5-question quiz per sitting, 15–20 minutes max. Re-read the Number cheatsheet. Short and sweet beats long and exhausting."],
   ["Number & money 💰","Number + Financial Literacy quizzes. Short sittings. Try the calculator tool — it's the same idea as test day."],
   ["Patterns & equations 🧮","Algebra week. One 10-question quiz per day at most. Peek at the Algebra cheatsheet before each."],
   ["Shapes & space 📐","Spatial Sense week. Open the Formula Sheet overlay while you practice — on the real test it's always there."],
   ["Data week + first mini mock 📊","Data & Probability quizzes, then one 35-question mini mock at the weekend. No pressure on the score — it's a baseline."],
   ["Pedagogy week 🍎","Pedagogy quizzes + skim Growing Success (assessment chapters). The Pedagogy cheatsheet covers the essentials."],
   ["Dress rehearsal 🎭","Mixed quizzes early in the week, then Official Practice Test 1 (Study Hub link) and one FULL 71-question mock."],
-  ["Taper & trust 🌄","Light review of weak strands, Official Practice Test 2, one last full mock if you feel fresh. Then rest — the course starts soon and you've earned it."]
+  ["Taper & trust 🌄","Light review of weak strands, Official Practice Test 2, one last full mock if you feel fresh. Then rest — arrive at test day fresh; you've earned it."]
 ];
+function planStartDate(){ return store.profile?.planStart ? new Date(store.profile.planStart + "T00:00:00") : null; }
 function trailWeekLine(){
+  const start = planStartDate();
+  if (!start) return "Set your plan start date in the Study Hub to activate the 8-week trail — or just start quizzing!";
   const now = new Date();
-  const wk = Math.floor((now - PLAN_START) / (7*86400000));
-  if (wk < 0){ const d = Math.ceil((PLAN_START - now)/86400000); return "Trail opens July 13 — " + d + " day" + (d===1?"":"s") + " to rest up first. Recovery comes first. ❤️"; }
-  if (wk >= PLAN_WEEKS.length) return "Plan complete — you're in consolidation territory. Light reviews only. 🌄";
+  const wk = Math.floor((now - start) / (7*86400000));
+  if (wk < 0){ const d = Math.ceil((start - now)/86400000); return "Your trail opens in " + d + " day" + (d===1?"":"s") + " — rest up. The mountain will wait. ❤️"; }
+  if (wk >= PLAN_WEEKS.length) return "Plan complete — consolidation territory. Light reviews only. 🌄";
   return "Week " + (wk+1) + " of 8: " + PLAN_WEEKS[wk][0] + " — " + PLAN_WEEKS[wk][1].split(".")[0] + ".";
 }
 const CHEERS = [
-  "Healing and learning use the same muscle: patience.",
+  "Consistency beats intensity, every single week.",
   "Five questions today beats fifty tomorrow.",
   "The trail doesn't care how fast you walk it.",
   "Every wrong answer here is one you won't miss on test day.",
   "Rest days are training days for the brain.",
   "70% is the goal. You don't need perfect — you need steady.",
   "Small steps, taken often, climb mountains.",
-  "You've recovered from harder things than fractions."
+  "Patience is a study skill."
 ];
 
 /* ================= home ================= */
@@ -900,29 +966,47 @@ function renderHome(){
 }
 
 /* ================= quiz setup ================= */
-let quizSel = { key: "mixed", len: 10 };
+let quizSel = { key: "mixed", len: 10, diff: null };
 function renderQuizSetup(){
   quizState = null;
+  if (quizSel.diff === null) quizSel.diff = store.profile?.diff || "any";
   const opts = [["mixed", "Mixed Content", "A bit of everything, Grades 3–9"]]
     .concat(CONTENT_STRANDS.map(s => [s, s, STRAND_DESC[s]]))
     .concat([["Pedagogy", "Pedagogy", STRAND_DESC["Pedagogy"]]]);
   views.innerHTML = `
-  <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus and a length. Questions won't repeat until you've seen the whole set.</p></div>
+  <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, difficulty, and length. Questions won't repeat until you've seen the whole set.</p></div>
   <div class="card">
     <div class="pill teal">1 · Focus</div>
     <div class="secgrid">${opts.map(([k, t, d]) => `<button class="secbtn ${quizSel.key === k ? "sel" : ""}" data-key="${k}"><span class="t">${t}</span><span class="d">${d}</span></button>`).join("")}</div>
     <div class="spacer"></div>
-    <div class="pill teal">2 · Length</div>
-    <div class="lenrow">${[5, 10, 15].map(n => `<button class="lenbtn ${quizSel.len === n ? "sel" : ""}" data-len="${n}">${n} questions</button>`).join("")}</div>
+    <div class="pill teal">2 · Difficulty</div>
+    <div class="lenrow">${[["any","🎲 Any"],["1","🌱 Easy"],["2","🌿 Medium"],["3","🌋 Tough"]].map(([v,l]) => `<button class="lenbtn diffbtn ${quizSel.diff === v ? "sel" : ""}" data-diff="${v}">${l}</button>`).join("")}</div>
+    <div class="spacer"></div>
+    <div class="pill teal">3 · Length</div>
+    <div class="lenrow">${[5, 10, 15].map(n => `<button class="lenbtn lnbtn ${quizSel.len === n ? "sel" : ""}" data-len="${n}">${n} questions</button>`).join("")}</div>
     <div class="spacer"></div>
     <button class="btn primary" id="btn-startquiz">Start quiz ✨</button>
+    <p class="note" id="poolnote" style="margin-top:8px"></p>
   </div>`;
+  const updateNote = () => {
+    const pool = quizPool();
+    $("#poolnote").textContent = pool.length + " questions match this focus + difficulty.";
+  };
+  const quizPool = () => {
+    let pool = poolFor(quizSel.key);
+    if (quizSel.diff !== "any") pool = pool.filter(q => qDiff(q) === +quizSel.diff);
+    return pool;
+  };
   views.querySelectorAll(".secbtn").forEach(b => b.onclick = () => { quizSel.key = b.dataset.key; renderQuizSetup(); });
-  views.querySelectorAll(".lenbtn").forEach(b => b.onclick = () => { quizSel.len = +b.dataset.len; renderQuizSetup(); });
+  views.querySelectorAll(".diffbtn").forEach(b => b.onclick = () => { quizSel.diff = b.dataset.diff; renderQuizSetup(); });
+  views.querySelectorAll(".lnbtn").forEach(b => b.onclick = () => { quizSel.len = +b.dataset.len; renderQuizSetup(); });
+  updateNote();
   $("#btn-startquiz").onclick = () => {
-    const pool = poolFor(quizSel.key);
+    const pool = quizPool();
+    if (!pool.length) return toast("No questions match — try another difficulty");
     const n = Math.min(quizSel.len, pool.length);
-    startSession("quiz", draw("quiz-" + quizSel.key, pool, n), quizSel.key === "mixed" ? "Mixed Content" : quizSel.key);
+    const label = (quizSel.key === "mixed" ? "Mixed Content" : quizSel.key) + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
+    startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
 }
 
@@ -977,6 +1061,7 @@ function renderQuestion(){
     <div class="qmeta">
       <span class="pill ${q.sec === "pedagogy" ? "sage" : "teal"}">${esc(q.strand)}</span>
       ${q.grade !== "—" ? `<span class="pill gold">Gr ${q.grade}</span>` : ""}
+      <span class="pill gold">${DIFF_LABEL[qDiff(q)]}</span>
       ${q.sec === "content" ? `<span class="pill ${CALC_IDS.has(q.id) ? "coral" : "sage"}" title="On the real test the calculator is always available — this is practice guidance">${CALC_IDS.has(q.id) ? "🧮 calculator-friendly" : "🧠 mental-math friendly"}</span>` : ""}
       <span class="note mono">${st.i + 1} / ${st.qs.length}</span>
     </div>
@@ -1200,14 +1285,11 @@ function renderProgress(){
 
 /* ================= study hub ================= */
 const STUDY = [
-{ title: "🗓 Kevin's Trail Plan — July 13 → Sept 6 (recovery-paced)", body: `
-  <p style="font-size:.9rem">Eight gentle weeks from mid-July to the start of the course. The golden rules: <b>sessions of 15–25 minutes</b>, <b>skip days freely</b> (the trail waits), and <b>never cram</b>. The Home page always shows which week you're in.</p>
-  ${PLAN_WEEKS.map((w, i) => {
-    const start = new Date(PLAN_START.getTime() + i*7*86400000);
-    const label = start.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
-    return `<h4>Week ${i+1} · ${label} — ${w[0]}</h4><ul><li>${w[1]}</li></ul>`;
-  }).join("")}
-  <p style="font-size:.88rem;margin-top:10px"><b>Remember:</b> this plan bends around recovery, not the other way round. A missed week just shifts things — the only non-negotiable is kindness to yourself. 💛</p>`},
+{ title: "🗓 The 8-Week Trail Plan (paced your way)", body: `
+  <p style="font-size:.9rem">Eight gentle weeks to the summit. The golden rules: <b>sessions of 15–25 minutes</b>, <b>skip days freely</b> (the trail waits), and <b>never cram</b>. Pick your start date below and the Home page will always show which week you're in.</p>
+  <p style="font-size:.9rem;margin:8px 0"><b>My start date:</b> <input type="date" id="plan-start-input" style="font-family:var(--font-body);padding:5px 8px;border:1.5px solid var(--line);border-radius:8px"> <button class="btn primary" id="plan-start-save" style="padding:7px 16px;font-size:.85rem">Save</button></p>
+  ${PLAN_WEEKS.map((w, i) => `<h4>Week ${i+1} — ${w[0]}</h4><ul><li>${w[1]}</li></ul>`).join("")}
+  <p style="font-size:.88rem;margin-top:10px"><b>Remember:</b> this plan bends around your life and health, not the other way round. A missed week just shifts things — the only non-negotiable is kindness to yourself. 💛</p>`},
 { title: "🔢 Number", body: `
   <h4>Fractions</h4><ul>
   <li>Add/subtract: common denominator first. <span class="formula">5/8 + 1/4 = 5/8 + 2/8 = 7/8</span></li>
@@ -1314,6 +1396,17 @@ function renderStudy(){
   <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
   ${STUDY.map((s, i) => `<div class="acc" data-i="${i}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body}</div></div>`).join("")}`;
   views.querySelectorAll(".acc > button").forEach(b => b.onclick = () => b.parentElement.classList.toggle("open"));
+  const psi = $("#plan-start-input"), pss = $("#plan-start-save");
+  if (psi){
+    if (store.profile?.planStart) psi.value = store.profile.planStart;
+    pss.onclick = () => {
+      if (!psi.value) return toast("Pick a date first");
+      store.profile = store.profile || {};
+      store.profile.planStart = psi.value;
+      persist();
+      toast("Trail plan anchored to " + psi.value + " 🗓");
+    };
+  }
 }
 
 /* ================= cheatsheet ================= */
@@ -1420,8 +1513,97 @@ function renderCheat(){
   </div>`;
 }
 
+/* ================= admin ================= */
+async function renderAdmin(){
+  if (!adminMode){ go("home"); return; }
+  views.innerHTML = `<div class="viewhead"><h2>Admin</h2><p>Manage who can use MathTest Trail. Access is enforced server-side — removals take effect on the person's next sign-in or data sync.</p></div>
+  <div class="card"><div class="emptystate">Loading users…</div></div>`;
+  let rows = [];
+  try {
+    const snap = await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers"));
+    snap.forEach(d => rows.push({ email: d.id, ...d.data() }));
+    rows.sort((a, b) => a.email.localeCompare(b.email));
+  } catch(e){ views.innerHTML += `<div class="errbox">Couldn't load users: ${esc(e.message)}</div>`; return; }
+  views.innerHTML = `
+  <div class="viewhead"><h2>Admin</h2><p>Manage who can use MathTest Trail. Your founder accounts are permanent super-admins and can't be locked out.</p></div>
+  <div class="card">
+    <h3 style="margin-bottom:8px">Add a user</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <input id="ad-email" type="email" placeholder="their.email@gmail.com" style="flex:1;min-width:220px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
+      <input id="ad-name" type="text" placeholder="Name (optional)" style="width:160px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
+      <label style="font-size:.85rem;display:flex;align-items:center;gap:5px"><input type="checkbox" id="ad-admin"> admin</label>
+      <button class="btn primary" id="ad-add" style="padding:10px 20px">Add</button>
+    </div>
+    <p class="note" style="margin-top:8px">Must be the Google account email they'll sign in with.</p>
+  </div>
+  <div class="spacer"></div>
+  <div class="card">
+    <h3 style="margin-bottom:4px">Allowed users <span class="note">(${rows.length})</span></h3>
+    ${rows.length ? rows.map(r => `
+      <div class="attempt-row">
+        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""}<br>
+        <span class="when">${r.added ? "added " + fmtDate(r.added) + (r.addedBy ? " by " + esc(r.addedBy) : "") : ""}</span></span>
+        <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">Remove</button>
+      </div>`).join("") : `<div class="emptystate">No users in the list yet — add your first one above.<br>(Your founder accounts always have access regardless.)</div>`}
+  </div>`;
+  $("#ad-add").onclick = async () => {
+    const email = $("#ad-email").value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast("That doesn't look like an email address");
+    const name = $("#ad-name").value.trim();
+    try {
+      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email),
+        { name: name || null, admin: $("#ad-admin").checked, added: Date.now(), addedBy: user.email });
+      toast("✓ " + email + " can now sign in");
+      renderAdmin();
+    } catch(e){ toast("Couldn't add: " + e.message); }
+  };
+  views.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => {
+    const email = b.dataset.rm;
+    if (!confirm("Remove access for " + email + "?\n\nTheir scores stay saved; they just can't sign in until re-added.")) return;
+    try { await cloud.fns.deleteDoc(cloud.fns.doc(cloud.db, "allowedUsers", email)); toast(email + " removed"); renderAdmin(); }
+    catch(e){ toast("Couldn't remove: " + e.message); }
+  });
+}
+
+/* ================= about ================= */
+function renderAbout(){
+  tabs.forEach(b => b.classList.remove("active"));
+  views.innerHTML = `
+  <div class="card hero" style="text-align:center;padding:44px 26px">
+    <h2 style="font-size:2rem">MathTest Trail</h2>
+    <p style="font-family:var(--font-head);font-size:1.15rem;font-style:italic;opacity:.95;max-width:26em;margin:6px auto 0">“Every trail leads to the summit.”</p>
+  </div>
+  <div class="spacer"></div>
+  <div class="card cheat-card">
+    <h3>⛰ The app</h3>
+    <p style="font-size:.93rem">MathTest Trail is a private study companion for Ontario's <b>Mathematics Proficiency Test (MPT)</b> — the certification test administered by EQAO for the Ontario College of Teachers. It mirrors the real test faithfully: the same two-component format (50 math content + 21 pedagogy scored questions, 70% needed on each), the same on-screen calculator and Formula Sheet, and questions aligned to the official MPT Framework.</p>
+    <p style="font-size:.93rem;margin-top:8px">But it walks its own path: a 190-question original bank that never repeats until exhausted, difficulty modes from 🌱 easy to 🌋 tough, an honest readiness report, and a trail of XP, levels, and badges — because steady, kind practice is what actually gets people over the line.</p>
+  </div>
+  <div class="card cheat-card">
+    <h3>🧭 The philosophy</h3>
+    <p style="font-size:.93rem">Most test prep shouts. This app doesn't. Sessions are short, feedback is warm, mistakes are treated as trail markers rather than failures, and the plan bends around your life — never the other way round. Progress is private: your scores belong to you, synced securely to your own account, visible to no one else.</p>
+  </div>
+  <div class="grid2">
+    <div class="card cheat-card">
+      <h3>🏛 LogicManse</h3>
+      <p style="font-size:.93rem"><b>LogicManse</b> is a tech consultancy &amp; product studio crafting thoughtful digital tools — from productivity trackers to learning companions — each living on its own corner of <a href="https://logicmanse.ca" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600">logicmanse.ca</a>.</p>
+    </div>
+    <div class="card cheat-card">
+      <h3 style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--font-head);font-weight:700">AT</span> Ani Thomas</h3>
+      <p style="font-size:.93rem"><b>Founder &amp; Product Owner.</b> Builder of purposeful tools and believer in gentle, persistent progress. MathTest Trail began as a labour of love for family — and grew into a product anyone can walk with.</p>
+    </div>
+  </div>
+  <div class="card cheat-card" style="text-align:center">
+    <p style="font-size:.9rem">Built in Ontario, Canada 🇨🇦 · One HTML file, zero trackers, all heart.</p>
+    <p class="note" style="margin-top:4px">© ${new Date().getFullYear()} LogicManse · MathTest Trail is an independent study tool and is not affiliated with EQAO or the Ontario College of Teachers.</p>
+  </div>`;
+  window.scrollTo({ top: 0 });
+}
+
 /* ================= boot ================= */
 initTools();
+$("#link-about").onclick = (e) => { e.preventDefault(); go("about"); };
+$("#btn-profile").onclick = () => renderProfileSetup(true);
 if (configured){
   startFirebase().catch(e => signinError("Couldn't reach Firebase: " + esc(e.message) + "<br>Check FIREBASE_CONFIG in index.html."));
 } else {
