@@ -757,7 +757,7 @@ function signinError(msg){ const b = $("#signin-err"); b.innerHTML = msg; b.clas
 function showSignin(){ $("#view-signin").classList.remove("hidden"); $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); }
 
 function startLocalPreview(){
-  user = { uid: "local-preview", name: "Kevin (preview)", email: "preview@local", photo: "" };
+  user = { uid: "local-preview", name: "Preview User", email: "preview@local", photo: "" };
   loadLocal();
   enterApp();
   toast("Local preview — scores stay on this device");
@@ -1684,8 +1684,8 @@ function renderAbout(){
       <p style="font-size:.93rem"><b>LogicManse</b> is a tech consultancy &amp; product studio crafting thoughtful digital tools — from productivity trackers to learning companions — each living on its own corner of <a href="https://logicmanse.ca" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600">logicmanse.ca</a>.</p>
     </div>
     <div class="card cheat-card">
-      <h3 style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--font-head);font-weight:700">AT</span> Ani Thomas</h3>
-      <p style="font-size:.93rem"><b>Founder &amp; Product Owner.</b> Builder of purposeful tools and believer in gentle, persistent progress. MathTest Trail began as a labour of love for family — and grew into a product anyone can walk with.</p>
+      <h3 style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--font-head);font-weight:700">⛰</span> Our approach</h3>
+      <p style="font-size:.93rem">Built by a small product studio that believes in gentle, persistent progress over cramming. MathTest Trail started as a personal project — and grew into a tool anyone preparing for the MPT can walk with.</p>
     </div>
   </div>
   <div class="card cheat-card" style="text-align:center">
