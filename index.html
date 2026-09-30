@@ -316,7 +316,7 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
 
   <main id="views"></main>
 
-  <footer class="foot">MathTest Trail · a <b>LogicManse</b> product · <a href="#" id="link-about" style="color:var(--teal);font-weight:600">About</a></footer>
+  <footer class="foot">MathTest Trail · a <b>LogicManse</b> product · <a href="/MHF4U/" style="color:var(--teal);font-weight:600">Grade 12 MHF4U course</a> · <a href="#" id="link-about" style="color:var(--teal);font-weight:600">About</a></footer>
 </div>
 
 <nav class="tabs hidden" id="tabs">
@@ -657,7 +657,8 @@ function persist(){
     saveTimer = setTimeout(async () => {
       try {
         await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid),
-          { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), updated: Date.now() });
+          { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), updated: Date.now() },
+          { mergeFields: ["email", "attempts", "seen", "profile", "notes", "updated"] });   // leaves other courses' fields (e.g. mhf4u) intact
       } catch(e){ console.warn("Cloud save failed (kept locally):", e.message); }
     }, 600);
   }
@@ -736,6 +737,12 @@ async function startFirebase(){
       }
       console.warn("Access probe inconclusive (offline?), continuing:", e.message);
     }
+    // Course assignment: students an admin assigned to Grade 12 MHF4U go straight to that course.
+    // Needs the allowedUsers self-read rule in MHF4U-SETUP.md; without it this silently does nothing.
+    try {
+      const me = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "allowedUsers", email));
+      if (me.exists() && me.data().course === "MHF4U" && !/[?&]mpt\b/.test(location.search)){ location.replace("/MHF4U/"); return; }
+    } catch(e){ /* not readable for this user: stay on MPT */ }
     // admin check: only admins may read the allowedUsers collection
     try { await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers")); adminMode = true; }
     catch(e){ adminMode = false; }
@@ -1626,6 +1633,7 @@ async function renderAdmin(){
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <input id="ad-email" type="email" placeholder="their.email@gmail.com" style="flex:1;min-width:220px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
       <input id="ad-name" type="text" placeholder="Name (optional)" style="width:160px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
+      <select id="ad-course" style="padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)"><option value="MPT">MPT prep</option><option value="MHF4U">Grade 12 · MHF4U</option></select>
       <label style="font-size:.85rem;display:flex;align-items:center;gap:5px"><input type="checkbox" id="ad-admin"> admin</label>
       <button class="btn primary" id="ad-add" style="padding:10px 20px">Add</button>
     </div>
@@ -1636,9 +1644,10 @@ async function renderAdmin(){
     <h3 style="margin-bottom:4px">Allowed users <span class="note">(${rows.length})</span></h3>
     ${rows.length ? rows.map(r => `
       <div class="attempt-row">
-        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""}<br>
+        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""} ${r.course === "MHF4U" ? '<span class="pill teal">Grade 12 · MHF4U</span>' : ""}<br>
         <span class="when">${r.added ? "added " + fmtDate(r.added) + (r.addedBy ? " by " + esc(r.addedBy) : "") : ""}</span></span>
-        <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">Remove</button>
+        <span style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn soft" data-course="${esc(r.email)}" data-to="${r.course === "MHF4U" ? "MPT" : "MHF4U"}" style="padding:7px 14px">${r.course === "MHF4U" ? "Move to MPT prep" : "Assign Grade 12 · MHF4U"}</button>
+        <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">Remove</button></span>
       </div>`).join("") : `<div class="emptystate">No users in the list yet — add your first one above.<br>(Your founder accounts always have access regardless.)</div>`}
   </div>`;
   $("#ad-add").onclick = async () => {
@@ -1647,11 +1656,16 @@ async function renderAdmin(){
     const name = $("#ad-name").value.trim();
     try {
       await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email),
-        { name: name || null, admin: $("#ad-admin").checked, added: Date.now(), addedBy: user.email });
+        { name: name || null, admin: $("#ad-admin").checked, course: $("#ad-course").value, grade: $("#ad-course").value === "MHF4U" ? 12 : null, added: Date.now(), addedBy: user.email });
       toast("✓ " + email + " can now sign in");
       renderAdmin();
     } catch(e){ toast("Couldn't add: " + e.message); }
   };
+  views.querySelectorAll("[data-course]").forEach(b => b.onclick = async () => {
+    const email = b.dataset.course, to = b.dataset.to;
+    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: to === "MHF4U" ? 12 : null }, { merge: true }); toast(email + (to === "MHF4U" ? " assigned to Grade 12 · MHF4U" : " moved to MPT prep")); renderAdmin(); }
+    catch(e){ toast("Couldn't update: " + e.message); }
+  });
   views.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => {
     const email = b.dataset.rm;
     if (!confirm("Remove access for " + email + "?\n\nTheir scores stay saved; they just can't sign in until re-added.")) return;

@@ -296,6 +296,12 @@ input[type=range]{accent-color:var(--teal);width:100%}
 .tablewrap{overflow-x:auto}
 table.ftable td:first-child{min-width:130px;font-weight:600;color:var(--teal-deep)}
 .fsh{font-family:var(--font-head);color:var(--teal-deep);margin:16px 0 4px;font-size:1rem}
+.syncrow{display:flex;justify-content:flex-end;margin:-8px 0 10px}
+.syncchip{font-size:.75rem;font-weight:600;border-radius:999px;padding:3px 12px;color:var(--ink-soft)}
+.syncchip:empty{display:none}
+.syncchip.ok{background:var(--sage-tint);color:#43663f}
+.syncchip.saving,.syncchip.retry{background:var(--parchment-deep)}
+.syncchip.local{background:var(--gold-tint);color:#96690f}
 .syncbanner{background:var(--gold-tint);border:1px solid #ecd9ae;color:#6e4f0c;border-radius:12px;padding:10px 14px;font-size:.86rem;margin-bottom:14px}
 .syncbanner code,.errbox code{font-family:var(--font-mono);font-size:.85em}
 #calc{width:272px}
@@ -357,6 +363,7 @@ table.ftable td:first-child{min-width:130px;font-weight:600;color:var(--teal-dee
       <button id="btn-signout" title="Sign out">Sign out</button>
     </div>
   </header>
+  <div class="syncrow"><span id="syncchip" class="syncchip" role="status" aria-live="polite"></span></div>
   <div id="syncbanner" class="syncbanner hidden" role="status"></div>
   <main id="views"></main>
   <footer class="foot">MathTest Trail · MHF4U · a <b>LogicManse</b> product · <a href="#" id="link-about" style="color:var(--teal);font-weight:600">About</a></footer>
@@ -468,7 +475,7 @@ MHF4U.FORMULAS = [
  ['u1','Finite differences','Degree n: the nth differences are constant and equal to a · n! (x-values 1 apart).'],
  ['u1','Multiplicity','Odd: crosses the x-axis. Even: touches and turns. Degree n: at most n zeros and n − 1 turning points.'],
  ['u1','Family of polynomials','f(x) = k(x − r_{1})(x − r_{2})…; use one extra point to find k.'],
- ['u1','Sum and difference of cubes','a^{3} + b^{3} = (a + b)(a^{2} − ab + b^{2}).  a^{3} − b^{3} = (a − b)(a^{2} + ab + b^{2}).'],
+ ['u1','Sum and difference of cubes (often taught)','a^{3} + b^{3} = (a + b)(a^{2} − ab + b^{2}).  a^{3} − b^{3} = (a − b)(a^{2} + ab + b^{2}).'],
  ['u2','Reciprocal function y = {1|f(x)}','Zeros of f become vertical asymptotes. Points where f = ±1 stay. Large |f| gives values near 0. A max of f becomes a min of {1|f}.'],
  ['u2','y = {ax + b|cx + d}','Vertical asymptote x = −{d|c}. Horizontal asymptote y = {a|c}. x-intercept −{b|a}. y-intercept {b|d}.'],
  ['u2','Hole','A factor cancels from top and bottom. Hole at x = a; find y from the simplified function.'],
@@ -480,12 +487,12 @@ MHF4U.FORMULAS = [
  ['u3','Degrees ↔ radians','× {π|180} to get radians; × {180|π} to get degrees. π rad = 180°.'],
  ['u3','Arc length and angular velocity','a = rθ (θ in radians). ω = {θ|t}. n revolutions = 2πn radians.'],
  ['u3','Reciprocal and quotient ratios','csc θ = {1|sin θ}, sec θ = {1|cos θ}, cot θ = {1|tan θ}, tan θ = {sin θ|cos θ}.'],
- ['u3','CAST rule','Positive in Q1: All. Q2: Sine. Q3: Tangent. Q4: Cosine. Reference angles: π − θ, θ − π, 2π − θ.'],
+ ['u3','CAST rule','Positive in Q1: All. Q2: Sine. Q3: Tangent. Q4: Cosine. Reference angles: Q2: π − θ, Q3: θ − π, Q4: 2π − θ.'],
  ['u3','Exact values','sin: 0, {1|2}, {√2|2}, {√3|2}, 1 at 0, {π|6}, {π|4}, {π|3}, {π|2}. cos: the same list reversed. tan: 0, {√3|3}, 1, √3, undefined.'],
  ['u3','Graphs of sin and cos','Period 2π, range −1 ≤ y ≤ 1. sin x = 0 at nπ. cos x = 0 at {π|2} + nπ.'],
  ['u3','Graph of tan','Period π. Vertical asymptotes x = {π|2} + nπ. Zeros at nπ. Range: all real numbers.'],
  ['u3','Graphs of csc, sec, cot','csc: asymptotes x = nπ. sec: asymptotes x = {π|2} + nπ. Range of both: y ≤ −1 or y ≥ 1. cot: asymptotes x = nπ, period π.'],
- ['u3','y = a sin(k(x − d)) + c','Amplitude |a|. Period {2π|k}. Phase shift d. Midline y = c. Max c + |a|, min c − |a|.'],
+ ['u3','y = a sin(k(x − d)) + c','Amplitude |a|. Period 2π ÷ |k|. Phase shift d. Midline y = c. Max c + |a|, min c − |a|.'],
  ['u3','Building a model','a = {max − min|2}. c = {max + min|2}. k = {2π|period}. Start at max: cos. At min: −cos. On midline rising: sin.'],
  ['u3','Pythagorean identities','sin^{2}θ + cos^{2}θ = 1.  1 + tan^{2}θ = sec^{2}θ.  1 + cot^{2}θ = csc^{2}θ.'],
  ['u3','Compound angle: sine','sin(A ± B) = sin A cos B ± cos A sin B.'],
@@ -516,7 +523,7 @@ MHF4U.FORMULAS = [
 
 MHF4U.GLOSSARY = [
  ['Amplitude','Half the distance between the maximum and minimum of a periodic function.'],
- ['Asymptote','A line the graph gets closer and closer to without reaching (vertical or horizontal).'],
+ ['Asymptote','A line the graph approaches more and more closely as x or y grows without bound. A graph never crosses a vertical asymptote, but it can cross a horizontal one.'],
  ['CAST rule','Tells which trig ratios are positive in each quadrant: Cosine, All, Sine, Tangent.'],
  ['Composition','Using the output of one function as the input of another: f(g(x)).'],
  ['Degree','The highest exponent of x in a polynomial.'],
@@ -538,7 +545,7 @@ MHF4U.GLOSSARY = [
  ['Reference angle','The acute angle between the terminal arm and the x-axis.'],
  ['Secant line','A line through two points on a curve; its slope is the average rate of change.'],
  ['Sign chart','A number line showing where an expression is positive, negative, zero or undefined.'],
- ['Tangent line','A line that touches a curve at one point and matches its steepness there.'],
+ ['Tangent line','A line that touches a curve at a point and has the same steepness as the curve there.'],
  ['Turning point','A point where the graph changes from increasing to decreasing, or the reverse.']
 ];
 
@@ -656,7 +663,7 @@ MHF4U.LESSONS = [
  check:{p:'What is the range of y = sec x?',o:['−1 ≤ y ≤ 1','y ≥ 1','y ≤ −1 or y ≥ 1','all real numbers'],a:2,why:'cos x is between −1 and 1, so 1 ÷ cos x is at least 1 or at most −1.'}},
 {id:'u3-5',u:'u3',t:'Transformations: y = a sin(k(x − d)) + c',
  big:'Each parameter changes one feature of the wave. a sets the height, k squeezes it sideways, d slides it left or right, and c moves the middle line up or down.',
- how:['Factor k out of the bracket first: sin(2x − {π|2}) = sin(2(x − {π|4})).','Amplitude = |a|. If a < 0, the graph is reflected in the x-axis.','Period = {2π|k}.','Phase shift = d (to the right if d > 0).','Midline y = c. Maximum c + |a|, minimum c − |a|.'],
+ how:['Factor k out of the bracket first: sin(2x − {π|2}) = sin(2(x − {π|4})).','Amplitude = |a|. If a < 0, the graph is reflected in the x-axis.','Period = 2π ÷ |k|.','Phase shift = d (to the right if d > 0).','Midline y = c. Maximum c + |a|, minimum c − |a|.'],
  ex:{p:'Describe y = 3 sin(2(x − {π|4})) − 1.',s:['Amplitude 3.','Period {2π|2} = π.','Phase shift {π|4} to the right.','Midline y = −1, maximum 2, minimum −4.']},
  watch:'In sin(2x − π) the phase shift is {π|2}, not π. Factor first: sin(2(x − {π|2})).',
  check:{p:'What is the period of y = cos({π|6}x)?',o:['{π|6}','6','12','{π|3}'],a:2,why:'Period = {2π|k} = 2π ÷ {π|6} = 12.'}},
@@ -680,7 +687,7 @@ MHF4U.LESSONS = [
  check:{p:'sin({5π|12}) = sin({π|4} + {π|6}) equals',o:['{√6 + √2|4}','{√6 − √2|4}','{√3 + 1|4}','{√2|2}'],a:0,why:'({√2|2})({√3|2}) + ({√2|2})({1|2}) = {√6|4} + {√2|4}.'}},
 {id:'u3-9',u:'u3',t:'Solving trig equations',
  big:'A trig equation usually has several solutions in 0 ≤ x ≤ 2π, because each ratio value appears in two quadrants. Solve for the ratio first, then find every angle.',
- how:['Isolate the trig ratio. For quadratics, factor as if sin x or cos x were a variable.','If needed, use an identity so there is one kind of ratio (for example sin 2x = 2 sin x cos x).','For each value, find the reference angle, then use CAST to find the quadrants.','List all solutions in the interval, including 0 and 2π if they work.','Never divide by sin x or cos x. Factor instead, or you lose solutions.'],
+ how:['Isolate the trig ratio. For quadratics, factor as if sin x or cos x were a variable.','If needed, use an identity so there is one kind of ratio (for example sin 2x = 2 sin x cos x).','For each value, find the reference angle, then use CAST to find the quadrants.','List all solutions in the interval, including 0 and 2π if they work.','Don\'t divide by sin x or cos x: you can lose solutions where it equals 0. Factor instead.'],
  ex:{p:'Solve sin 2x = sin x for 0 ≤ x ≤ 2π.',s:['2 sin x cos x − sin x = 0.','sin x(2 cos x − 1) = 0.','sin x = 0: x = 0, π, 2π.','cos x = {1|2}: x = {π|3}, {5π|3}.','Solutions: 0, {π|3}, π, {5π|3}, 2π.']},
  watch:'Dividing by sin x at the start loses 0, π and 2π.',
  check:{p:'Solve tan x = 1 for 0 ≤ x ≤ 2π.',o:['{π|4}','{π|4}, {5π|4}','{π|4}, {3π|4}','{π|4}, {7π|4}'],a:1,why:'Reference angle {π|4}. Tangent is positive in Q1 and Q3.'}},
@@ -722,7 +729,7 @@ MHF4U.LESSONS = [
  watch:'A negative answer is not automatically wrong: only the log arguments must be positive. Test each answer in the original equation.',
  check:{p:'Solve log_{2}(x + 6) − log_{2} x = 2.',o:['x = 2','x = 4','x = 6','x = −2'],a:0,why:'log_{2}({x + 6|x}) = 2, so {x + 6|x} = 4. Then x + 6 = 4x and x = 2, which is allowed.'}},
 {id:'u4-7',u:'u4',t:'Applications: growth, decay and log scales',
- big:'Exponential models describe populations, investments, radioactive decay and cooling. Logarithmic scales (pH, decibels and earthquake magnitude) squeeze huge ranges into small numbers, where each step of 1 means 10 times as much.',
+ big:'Exponential models describe populations, investments, radioactive decay and cooling. Logarithmic scales (pH, decibels and earthquake magnitude) squeeze huge ranges into small numbers: each step of 1 in pH or magnitude, or each 10 dB on the decibel scale, means 10 times as much.',
  how:['Doubling: A = A_{0}(2)^{t/d}. Half-life: A = A_{0}({1|2})^{t/h}.','Percent growth r per period: A = A_{0}(1 + r)^{n}. Decay: A_{0}(1 − r)^{n}.','Compound interest: A = P(1 + i)^{n}, with i and n per compounding period.','pH = −log[H^{+}]. Sound: L = 10 log({I|I_{0}}) dB. Magnitude: M = log({I|I_{0}}).','Comparing two readings: intensity ratio = 10^{difference} (for decibels, 10^{difference ÷ 10}).'],
  ex:{p:'How many times as intense is a magnitude 7.2 earthquake as a magnitude 5.9 earthquake?',s:['The difference is 7.2 − 5.9 = 1.3.','Ratio = 10^{1.3} ≈ 20.','About 20 times as intense.']},
  watch:'For 4% per year compounded monthly, i = {0.04|12} and n = 12 × the number of years.',
@@ -766,7 +773,7 @@ MHF4U.LESSONS = [
  check:{p:'The inverse of f(x) = 3x − 5 is',o:['{x − 5|3}','{x + 5|3}','3x + 5','{1|3x − 5}'],a:1,why:'x = 3y − 5, so y = {x + 5|3}.'}},
 {id:'u5-7',u:'u5',t:'Transformations of any function',
  big:'The same four parameters transform every type of function: y = a f(k(x − d)) + c. Learn the mapping rule once and use it for polynomial, rational, trig, exponential and log functions.',
- how:['a: vertical stretch by |a|; reflect in the x-axis if a < 0.','k: horizontal compression by a factor of {1|k}; reflect in the y-axis if k < 0.','d: shift right by d. c: shift up by c.','Mapping rule: (x, y) → ({x|k} + d, ay + c).','Apply stretches and reflections before translations.'],
+ how:['a: vertical stretch or compression by a factor of |a|; reflect in the x-axis if a < 0.','k: horizontal stretch or compression by a factor of 1 ÷ |k|; reflect in the y-axis if k < 0.','d: shift right by d. c: shift up by c.','Mapping rule: (x, y) → ({x|k} + d, ay + c).','Apply stretches and reflections before translations.'],
  ex:{p:'(4, 1) is on y = f(x). Find its image on y = 3f(2(x + 1)) − 5.',s:['k = 2, d = −1, a = 3, c = −5.','x: {4|2} + (−1) = 1.','y: 3(1) − 5 = −2.','Image point: (1, −2).']},
  watch:'f(2x + 4) = f(2(x + 2)): the shift is 2 left, not 4 left.',
  check:{p:'(2, −3) is on y = f(x). What is its image on y = {1|2}f(−x) + 1?',o:['(−2, −{1|2})','(2, −{1|2})','(−2, −2)','(−2, 2.5)'],a:0,why:'k = −1 reflects in the y-axis: x → −2. y → {1|2}(−3) + 1 = −{1|2}.'}},
@@ -873,8 +880,13 @@ MHF4U.Q = [
  {id:'p113',u:'u1',c:'T',t:'mc',p:'Solve x^{4} − 5x^{2} + 4 ≥ 0.',o:['−2 ≤ x ≤ −1 or 1 ≤ x ≤ 2','x ≤ −2 or x ≥ 2','−1 ≤ x ≤ 1','x ≤ −2, or −1 ≤ x ≤ 1, or x ≥ 2'],a:3,h:'Treat it as a quadratic in x^{2}, then factor again.',s:['(x^{2} − 1)(x^{2} − 4) = (x − 1)(x + 1)(x − 2)(x + 2).','Zeros −2, −1, 1, 2. Degree 4, a > 0: positive far left.','Signs: + , − , + , − , + across the five intervals.','≥ 0 and zeros included: x ≤ −2, or −1 ≤ x ≤ 1, or x ≥ 2.']},
  {id:'p114',u:'u1',c:'T',t:'num',p:'A cubic function has a zero at x = −1, a double zero at x = 2, and a y-intercept of 8. Find f(4).',ans:40,h:'Write f(x) = a(x + 1)(x − 2)^{2} and use f(0) = 8.',s:['f(x) = a(x + 1)(x − 2)^{2}.','f(0) = a(1)(4) = 4a = 8, so a = 2.','f(4) = 2(5)(2)^{2} = 40.']},
  {id:'p115',u:'u1',c:'T',t:'num',p:'When x^{3} − kx^{2} + 2x + 5 is divided by x − 2, the remainder is 1. Find k.',ans:4,h:'The remainder is P(2). Set P(2) = 1.',s:['P(2) = 8 − 4k + 4 + 5 = 17 − 4k.','17 − 4k = 1, so k = 4.']},
+ {id:'p117',u:'u1',c:'K',t:'mc',p:'Which of these is a polynomial function?',o:['f(x) = 3x^{4} − 2x + 7','g(x) = 2^{x} + 1','h(x) = √x + 3','k(x) = {1|x} + x^{2}'],a:0,h:'Every term must be a constant times x to a whole-number power (0, 1, 2, …).',s:['3x^{4} − 2x + 7 has powers 4, 1 and 0: all whole numbers, so it is a polynomial.','2^{x} has the variable in the exponent (exponential). √x = x^{1/2} has a fractional power. {1|x} = x^{−1} has a negative power.']},
+ {id:'p118',u:'u1',c:'K',t:'mc',p:'How is the graph of y = −2(x + 3)^{3} + 1 obtained from y = x^{3}?',o:['Vertical stretch by a factor of 2, reflection in the x-axis, shift 3 left and 1 up','Vertical stretch by a factor of 2, reflection in the x-axis, shift 3 right and 1 up','Horizontal compression by a factor of {1|2}, shift 3 left and 1 up','Vertical compression by a factor of {1|2}, reflection in the x-axis, shift 3 left and 1 up'],a:0,h:'Match y = a f(k(x − d)) + c: here a = −2, k = 1, d = −3, c = 1.',s:['a = −2: vertical stretch by a factor of 2 and a reflection in the x-axis.','x + 3 = x − (−3), so d = −3: shift 3 units left.','c = 1: shift 1 unit up.']},
+ {id:'p119',u:'u1',c:'A',t:'num',p:'A family of cubic functions has zeros 5, −3 and −2. Find k for the member f(x) = k(x − 5)(x + 3)(x + 2) that passes through (−1, 24).',ans:-2,h:'Substitute x = −1 and f(x) = 24.',s:['f(−1) = k(−1 − 5)(−1 + 3)(−1 + 2) = k(−6)(2)(1) = −12k.','−12k = 24, so k = −2.','f(x) = −2(x − 5)(x + 3)(x + 2).']},
+ {id:'p120',u:'u1',c:'T',t:'num',p:'For y = x^{3} + 6x^{2} + kx − 4, find k so that the remainder is the same when the polynomial is divided by x − 1 and by x + 2.',ans:3,h:'Remainder Theorem twice: set P(1) = P(−2).',s:['P(1) = 1 + 6 + k − 4 = k + 3.','P(−2) = −8 + 24 − 2k − 4 = 12 − 2k.','k + 3 = 12 − 2k, so 3k = 9 and k = 3.']},
  {id:'p116',u:'u1',c:'T',t:'mc',p:'Solve x^{3} − 2x^{2} − 9x + 18 < 0.',o:['x < −3 or 2 < x < 3','−3 < x < 2 or x > 3','x < 2','−3 < x < 3'],a:0,h:'Factor by grouping.',s:['x^{2}(x − 2) − 9(x − 2) = (x − 2)(x − 3)(x + 3).','Zeros −3, 2, 3. Degree 3, a > 0: negative far left.','Signs: − on (−∞, −3), + on (−3, 2), − on (2, 3), + on (3, ∞).','< 0: x < −3 or 2 < x < 3.']},
 /* ---------- Unit 2 ---------- */
+ {id:'p220',u:'u2',c:'T',t:'mc',p:'On which intervals is y = {1|x^{2} − 4} increasing?',o:['x < −2 and −2 < x < 0','0 < x < 2 and x > 2','−2 < x < 2 only','x > 2 only'],a:0,h:'Where x^{2} − 4 decreases, its reciprocal increases (on each piece of the domain).',s:['f(x) = x^{2} − 4 decreases for x < 0 and increases for x > 0.','So {1|f} increases for x < 0 and decreases for x > 0, skipping the asymptotes x = ±2.','Increasing on x < −2 and −2 < x < 0. Decreasing on 0 < x < 2 and x > 2.']},
  {id:'p201',u:'u2',c:'K',t:'mc',p:'For f(x) = {x^{2} − 4|x^{2} − x − 2}, which statement is correct?',o:['Vertical asymptotes x = 2 and x = −1, no hole','Hole at x = −1, vertical asymptote x = 2','Hole at (2, {4|3}) and vertical asymptote x = −1','Hole at (−2, 0) and vertical asymptote x = 1'],a:2,h:'Factor the top and bottom first.',s:['f(x) = {(x − 2)(x + 2)|(x − 2)(x + 1)}.','(x − 2) cancels: hole at x = 2. Simplified: {x + 2|x + 1}, so the hole is (2, {4|3}).','(x + 1) remains: vertical asymptote x = −1.']},
  {id:'p202',u:'u2',c:'K',t:'mc',p:'The horizontal asymptote of f(x) = {3x^{2} + 1|2x^{2} − 5} is',o:['y = 0','y = {2|3}','y = {3|2}','there is none'],a:2,h:'Compare the degrees of the top and bottom.',s:['The degrees are equal (2 and 2).','Horizontal asymptote = ratio of leading coefficients = {3|2}.']},
  {id:'p203',u:'u2',c:'K',t:'mc',p:'The asymptotes of f(x) = {2x − 5|x + 4} are',o:['x = −4 and y = 2','x = 4 and y = 2','x = −4 and y = −{5|4}','x = {5|2} and y = 2'],a:0,h:'Vertical: denominator = 0. Horizontal: ratio of x-coefficients.',s:['x + 4 = 0 gives x = −4.','y = {2|1} = 2.']},
@@ -895,11 +907,13 @@ MHF4U.Q = [
  {id:'p218',u:'u2',c:'T',t:'num',p:'Find a so that f(x) = {ax + 3|2x − 1} has the horizontal asymptote y = 4.',ans:8,h:'The horizontal asymptote is the ratio of the x-coefficients.',s:['Horizontal asymptote y = {a|2}.','{a|2} = 4, so a = 8.']},
  {id:'p219',u:'u2',c:'T',t:'mc',p:'Solve {2|x} ≥ x − 1.',o:['x ≤ −1 or 0 < x ≤ 2','−1 ≤ x ≤ 2','x ≤ −1 or x ≥ 2','−1 ≤ x < 0 or x ≥ 2'],a:0,h:'Move everything to one side and combine into one fraction.',s:['{2|x} − (x − 1) = {2 − x^{2} + x|x} = {−(x − 2)(x + 1)|x} ≥ 0.','Equivalent: {(x − 2)(x + 1)|x} ≤ 0. Critical values −1, 0, 2.','x = −2: {(−4)(−1)|−2} = −2 ≤ 0 ✓. x = −0.5: positive ✗. x = 1: {(−1)(2)|1} = −2 ✓. x = 3: positive ✗.','x ≤ −1 or 0 < x ≤ 2 (0 excluded; −1 and 2 included).']},
 /* ---------- Unit 3 ---------- */
+ {id:'p322',u:'u3',c:'K',t:'num',p:'Use a calculator in radian mode to find sin(1.2), to three decimal places.',ans:0.9320390859672263,tol:0.0006,h:'Check the calculator says RAD, not DEG.',s:['In radian mode, sin(1.2) ≈ 0.932.','(In degree mode you would get sin 1.2° ≈ 0.021, which is wrong here.)']},
+ {id:'p323',u:'u3',c:'A',w:1,t:'num',p:'A mass on a spring bobs between 15 cm and 25 cm above a table, taking 2 s for each full bounce. It is at its highest point at t = 0. Find its height at t = {1|3} s.',ans:22.5,un:'cm',h:'Build h(t) = a cos(kt) + c from the max, min and period.',s:['Amplitude {25 − 15|2} = 5. Midline {25 + 15|2} = 20. Period 2 s, so k = {2π|2} = π.','Starts at the maximum: h(t) = 5 cos(πt) + 20.','h({1|3}) = 5 cos({π|3}) + 20 = 5({1|2}) + 20 = 22.5 cm.']},
  {id:'p301',u:'u3',c:'K',t:'num',p:'Convert {5π|12} radians to degrees.',ans:75,un:'°',h:'Multiply by {180|π}.',s:['{5π|12} × {180|π} = {5 × 180|12} = 75°.']},
  {id:'p302',u:'u3',c:'K',t:'mc',p:'The exact value of tan({2π|3}) is',o:['√3','−√3','−{√3|3}','−{1|2}'],a:1,h:'Find the quadrant and reference angle.',s:['{2π|3} is in Q2 with reference angle {π|3}.','tan({π|3}) = √3, and tangent is negative in Q2, so the value is −√3.']},
  {id:'p303',u:'u3',c:'K',t:'mc',p:'The exact value of sin({π|12}) is',o:['{√6 + √2|4}','{√6 − √2|4}','{√3 − 1|2}','{√2 − √3|4}'],a:1,h:'{π|12} = {π|3} − {π|4}.',s:['sin(A − B) = sin A cos B − cos A sin B.','= ({√3|2})({√2|2}) − ({1|2})({√2|2}) = {√6 − √2|4}.']},
  {id:'p304',u:'u3',c:'K',t:'num',p:'Find the exact value of sec({4π|3}).',ans:-2,h:'Find cos({4π|3}) first.',s:['{4π|3} is in Q3, reference angle {π|3}. cos({4π|3}) = −{1|2}.','sec({4π|3}) = 1 ÷ (−{1|2}) = −2.']},
- {id:'p305',u:'u3',c:'K',t:'num',p:'Convert 150° to radians. (You can type 5pi/6.)',ans:2.6179938779914944,h:'Multiply by {π|180}.',s:['150 × {π|180} = {5π|6} ≈ 2.618.']},
+ {id:'p305',u:'u3',c:'K',t:'num',p:'Convert 150° to radians. Round to two decimal places, or type the exact value 5pi/6.',ans:2.6179938779914944,tol:0.006,h:'Multiply by {π|180}.',s:['150 × {π|180} = {5π|6} ≈ 2.618.']},
  {id:'p306',u:'u3',c:'K',t:'num',p:'Find the arc length of a sector with radius 12 cm and central angle {5π|6}. Round to one decimal place.',ans:31.41592653589793,tol:0.06,un:'cm',h:'a = rθ, with θ in radians.',s:['a = 12 × {5π|6} = 10π.','10π ≈ 31.4 cm.']},
  {id:'p307',u:'u3',c:'K',t:'mc',p:'The period of y = −2 cos(3x) + 1 is',o:['3','{2π|3}','6π','{π|3}'],a:1,h:'Period = {2π|k}.',s:['k = 3, so the period is {2π|3}.','The values a = −2 and c = 1 do not change the period.']},
  {id:'p308',u:'u3',c:'K',t:'mc',p:'Where does y = csc x have vertical asymptotes?',o:['x = {π|2} + nπ','x = nπ','x = 2nπ only','it has none'],a:1,h:'csc x = {1|sin x}. Where is sin x = 0?',s:['sin x = 0 at x = nπ (0, π, 2π, …).','So csc x has vertical asymptotes at x = nπ.']},
@@ -917,6 +931,8 @@ MHF4U.Q = [
  {id:'p320',u:'u3',c:'T',t:'num',p:'sin A = {3|5} and cos B = {5|13}, with A and B both in Q1. Find sin(A + B) as a decimal (or fraction).',ans:0.9692307692307692,h:'Find cos A and sin B with the Pythagorean identity first.',s:['cos A = {4|5} and sin B = {12|13}.','sin(A + B) = sin A cos B + cos A sin B = ({3|5})({5|13}) + ({4|5})({12|13}).','= {15|65} + {48|65} = {63|65} ≈ 0.969.']},
  {id:'p321',u:'u3',c:'T',t:'num',p:'cos x = −{3|5} and x is in Q2. Find sin 2x.',ans:-0.96,h:'Find sin x (positive in Q2), then use sin 2x = 2 sin x cos x.',s:['sin x = {4|5} (positive in Q2).','sin 2x = 2({4|5})(−{3|5}) = −{24|25} = −0.96.']},
 /* ---------- Unit 4 ---------- */
+ {id:'p422',u:'u4',c:'K',t:'num',p:'log_{3} 29 is between 3 and 4, because 3^{3} = 27 and 3^{4} = 81. Use change of base to find it to two decimal places.',ans:3.0650447880,tol:0.006,h:'log_{3} 29 = {log 29|log 3}.',s:['log_{3} 29 = {log 29|log 3} ≈ {1.4624|0.4771}.','≈ 3.07, which fits between 3 and 4 (and is close to 3, since 29 is close to 27).']},
+ {id:'p423',u:'u4',c:'K',t:'mc',p:'For y = log(x − 4) + 1, which statement is true?',o:['Vertical asymptote x = 4; the graph passes through (5, 1) and (14, 2)','Vertical asymptote x = −4; the graph passes through (−3, 1)','Horizontal asymptote y = 1; the graph passes through (5, 1)','Vertical asymptote x = 4; the graph passes through (5, 0)'],a:0,h:'Shift y = log x right 4 and up 1. Key points of log x: (1, 0) and (10, 1).',s:['x − 4 > 0, so the domain is x > 4 and the vertical asymptote is x = 4.','(1, 0) → (5, 1) and (10, 1) → (14, 2).']},
  {id:'p401',u:'u4',c:'K',t:'num',p:'Evaluate log_{2} 40 − log_{2} 5.',ans:3,h:'Quotient law.',s:['log_{2}({40|5}) = log_{2} 8 = 3.']},
  {id:'p402',u:'u4',c:'K',t:'num',p:'Solve 5^{x} = 20. Round to two decimal places.',ans:1.8613531161467862,tol:0.006,h:'Take log of both sides.',s:['x log 5 = log 20.','x = {log 20|log 5} ≈ 1.86.']},
  {id:'p403',u:'u4',c:'K',t:'num',p:'Evaluate log_{4} 8 without a calculator.',ans:1.5,h:'Write 4 and 8 as powers of 2.',s:['4^{x} = 8 means 2^{2x} = 2^{3}.','2x = 3, so x = {3|2}.']},
@@ -931,7 +947,7 @@ MHF4U.Q = [
  {id:'p412',u:'u4',c:'A',w:1,t:'num',p:'How many times as intense is a magnitude 7.2 earthquake as a magnitude 5.9 earthquake? Round to the nearest whole number.',ans:19.952623149688797,tol:0.51,un:'times',h:'Intensity ratio = 10^{difference}.',s:['7.2 − 5.9 = 1.3.','10^{1.3} ≈ 20 times as intense.']},
  {id:'p413',u:'u4',c:'A',w:1,t:'num',p:'A concert is 85 dB and a conversation is 60 dB. How many times as intense is the concert? Round to the nearest whole number.',ans:316.22776601683796,tol:0.6,un:'times',h:'For decibels, ratio = 10^{difference ÷ 10}.',s:['Difference: 25 dB.','Ratio = 10^{25/10} = 10^{2.5} ≈ 316.']},
  {id:'p414',u:'u4',c:'A',w:1,t:'num',p:'A town of 25 000 grows by 3.5% per year. How many years until it reaches 40 000? Round to one decimal place.',ans:13.662448289487,tol:0.06,un:'years',h:'25 000(1.035)^{n} = 40 000.',s:['1.035^{n} = 1.6.','n = {log 1.6|log 1.035} ≈ 13.7 years.']},
- {id:'p415',u:'u4',c:'A',w:1,t:'num',p:'$5000 is invested at 6% per year, compounded quarterly, for 8 years. Find the final amount, to the nearest cent.',ans:8051.62,tol:0.51,un:'$',h:'i = {0.06|4} = 0.015 per quarter, n = 4 × 8 = 32.',s:['A = 5000(1.015)^{32}.','A ≈ 5000 × 1.610324 ≈ $8051.62.']},
+ {id:'p415',u:'u4',c:'A',w:1,t:'num',p:'$5000 is invested at 6% per year, compounded quarterly, for 8 years. Find the final amount, to the nearest cent.',ans:8051.62,tol:0.011,un:'$',h:'i = {0.06|4} = 0.015 per quarter, n = 4 × 8 = 32.',s:['A = 5000(1.015)^{32}.','A ≈ 5000 × 1.610324 ≈ $8051.62.']},
  {id:'p416',u:'u4',c:'T',t:'mc',p:'Solve log(x + 3) + log(x − 3) = 1.',o:['x = ±√19','x = 7','x = √19 only','x = 4'],a:2,h:'Write the restriction, then use the product law.',s:['Restriction: x > 3.','log[(x + 3)(x − 3)] = 1, so x^{2} − 9 = 10 and x^{2} = 19.','x = √19 ≈ 4.36 works. x = −√19 breaks the restriction.']},
  {id:'p417',u:'u4',c:'T',t:'mc',p:'Solve 2^{2x} − 6(2^{x}) + 8 = 0.',o:['x = 2, 4','x = 1, 2','x = 1 only','x = 4, 16'],a:1,h:'Let u = 2^{x}.',s:['u^{2} − 6u + 8 = 0, so (u − 2)(u − 4) = 0.','2^{x} = 2 gives x = 1. 2^{x} = 4 gives x = 2.']},
  {id:'p418',u:'u4',c:'T',t:'num',p:'Solve 3^{x+2} = 7^{x}. Round to two decimal places.',ans:2.5932446234307606,tol:0.006,h:'Take logs and collect the x-terms.',s:['(x + 2) log 3 = x log 7.','x(log 7 − log 3) = 2 log 3.','x = {2 log 3|log 7 − log 3} ≈ 2.59.']},
@@ -939,6 +955,11 @@ MHF4U.Q = [
  {id:'p420',u:'u4',c:'T',t:'num',p:'y = a · b^{x} passes through (1, 6) and (3, 54), with b > 0. Find a.',ans:2,h:'Divide the two equations to eliminate a.',s:['ab = 6 and ab^{3} = 54.','Divide: b^{2} = 9, so b = 3.','a = {6|3} = 2.']},
  {id:'p421',u:'u4',c:'T',t:'num',p:'Solve 2^{x+3} = 5^{x−1}. Round to two decimal places.',ans:4.02588318946412,tol:0.006,h:'Take logs of both sides and collect x-terms.',s:['(x + 3) log 2 = (x − 1) log 5.','x log 2 + 3 log 2 = x log 5 − log 5.','x(log 5 − log 2) = 3 log 2 + log 5.','x = {3 log 2 + log 5|log 5 − log 2} = {log 40|log 2.5} ≈ 4.03.']},
 /* ---------- Unit 5 ---------- */
+ {id:'p520',u:'u5',c:'K',t:'mc',p:'On a graph of distance against time, which situation has a rate of change of zero for the whole time interval?',o:['A car parked for 10 minutes','A car driving at a steady 60 km/h','A ball rolling down a ramp','A car slowing down as it approaches a red light'],a:0,h:'Zero rate means the quantity is not changing.',s:['A parked car covers no distance: the graph is flat, so the rate is 0.','Steady 60 km/h is a constant, non-zero rate. The rolling ball speeds up and the braking car slows down, so their rates keep changing.']},
+ {id:'p521',u:'u5',c:'A',w:1,t:'num',p:'The temperature t hours after midnight is T(t) = 8 sin({π|12}(t − 9)) + 16 °C. Find the average rate of change from 9 a.m. to 3 p.m. Round to two decimal places.',ans:1.3333333333333333,tol:0.006,un:'°C/h',h:'Evaluate T(9) and T(15), then divide by 6 hours.',s:['T(9) = 8 sin(0) + 16 = 16 °C.','T(15) = 8 sin({π|2}) + 16 = 24 °C.','Average rate = {24 − 16|15 − 9} = {8|6} ≈ 1.33 °C per hour.']},
+ {id:'p522',u:'u5',c:'T',t:'mc',p:'f and g are both odd functions. The product (fg)(x) = f(x)g(x) is',o:['even','odd','neither even nor odd','impossible to tell'],a:0,h:'Find (fg)(−x) using f(−x) = −f(x) and g(−x) = −g(x).',s:['(fg)(−x) = f(−x)g(−x) = (−f(x))(−g(x)) = f(x)g(x).','So (fg)(−x) = (fg)(x): the product is even. Example: x · x^{3} = x^{4}.']},
+ {id:'p523',u:'u5',c:'K',t:'num',p:'A table gives f(0) = 3, f(1) = 2, f(2) = 0, f(3) = 1 and g(0) = 1, g(1) = 3, g(2) = 2, g(3) = 0. Find f(g(1)).',ans:1,h:'Inside first: find g(1), then use that as the input to f.',s:['g(1) = 3.','f(3) = 1, so f(g(1)) = 1.']},
+ {id:'p524',u:'u5',c:'A',w:1,t:'num',p:'An oil spill spreads in a circle whose radius after t hours is r(t) = 2t + 1 metres. The area is A(r) = πr^{2}. Find the area after 3 hours, to one decimal place.',ans:153.93804002589985,tol:0.06,un:'m²',h:'Compose: find r(3), then A of that radius.',s:['r(3) = 2(3) + 1 = 7 m.','A(r(3)) = π(7)^{2} = 49π ≈ 153.9 m².','As one function: A(r(t)) = π(2t + 1)^{2}.']},
  {id:'p501',u:'u5',c:'K',t:'num',p:'Find the average rate of change of f(x) = x^{2} − 3x on [1, 4].',ans:2,h:'{f(4) − f(1)|4 − 1}.',s:['f(4) = 4 and f(1) = −2.','{4 − (−2)|3} = 2.']},
  {id:'p502',u:'u5',c:'K',t:'num',p:'f(x) = x^{2} and g(x) = x + 3. Find f(g(2)).',ans:25,h:'Find g(2) first.',s:['g(2) = 5.','f(5) = 25.']},
  {id:'p503',u:'u5',c:'K',t:'mc',p:'The inverse of f(x) = {2x + 1|x − 3} is',o:['{x − 3|2x + 1}','{3x + 1|x − 2}','{3x − 1|x + 2}','{x + 3|2x − 1}'],a:1,h:'Swap x and y, then solve for y.',s:['x = {2y + 1|y − 3}, so xy − 3x = 2y + 1.','y(x − 2) = 3x + 1, so f^{−1}(x) = {3x + 1|x − 2}.']},
@@ -947,7 +968,7 @@ MHF4U.Q = [
  {id:'p506',u:'u5',c:'A',w:1,t:'num',p:'University tuition was $6400 in 2016 and $7700 in 2024. Find the average rate of change in dollars per year.',ans:162.5,un:'$/year',h:'Change in cost ÷ change in years.',s:['{7700 − 6400|2024 − 2016} = {1300|8}.','= $162.50 per year.']},
  {id:'p507',u:'u5',c:'A',w:1,t:'mc',p:'A cart\'s distance s (m) at t = 0, 1, 2, 3, 4 s is 0, 4, 14, 30, 52. The best estimate of its speed at t = 2 s is',o:['10 m/s','13 m/s','16 m/s','26 m/s'],a:1,h:'Use the interval centred on t = 2 from the table.',s:['Centred interval [1, 3]: {30 − 4|3 − 1} = 13 m/s.','The one-sided slopes are 10 and 16; their average is also 13.']},
  {id:'p508',u:'u5',c:'A',w:1,t:'num',p:'A ball has height h(t) = −5t^{2} + 20t metres. Estimate the instantaneous rate of change of height at t = 3 s.',ans:-10,tol:0.06,un:'m/s',h:'Use the interval [2.99, 3.01].',s:['h(3.01) = 14.8995 and h(2.99) = 15.0995.','Slope ≈ {14.8995 − 15.0995|0.02} = −10 m/s.','The ball is falling at about 10 m/s.']},
- {id:'p509',u:'u5',c:'A',w:1,t:'num',p:'Coffee cools according to T(t) = 20 + 70(0.9)^{t} °C, t in minutes. Find the average rate of change over the first 10 minutes. Round to two decimal places.',ans:-4.559215599,tol:0.006,un:'°C/min',h:'{T(10) − T(0)|10}.',s:['T(0) = 90. T(10) = 20 + 70(0.9)^{10} ≈ 44.41.','{44.41 − 90|10} ≈ −4.56 °C/min.']},
+ {id:'p509',u:'u5',c:'A',w:1,t:'num',p:'Coffee cools according to T(t) = 20 + 70(0.9)^{t} °C, t in minutes. Find the average rate of change over the first 10 minutes. Round to two decimal places.',ans:-4.559250919,tol:0.006,un:'°C/min',h:'{T(10) − T(0)|10}.',s:['T(0) = 90. T(10) = 20 + 70(0.9)^{10} ≈ 44.41.','{44.41 − 90|10} ≈ −4.56 °C/min.']},
  {id:'p510',u:'u5',c:'A',w:1,t:'num',p:'For the coffee T(t) = 20 + 70(0.9)^{t}, estimate the instantaneous rate of change at t = 5 minutes. Round to two decimal places.',ans:-4.355,tol:0.02,un:'°C/min',h:'Use [4.99, 5.01] and keep 4 decimal places.',s:['T(5.01) ≈ 61.2908 and T(4.99) ≈ 61.3779.','Slope ≈ {61.2908 − 61.3779|0.02} ≈ −4.36 °C/min.']},
  {id:'p511',u:'u5',c:'A',w:1,t:'mc',p:'A graph of distance travelled against time curves upward, getting steeper. What does this say about the object?',o:['It is slowing down','It is moving at constant speed','It is speeding up','It is moving backward'],a:2,h:'The slope of a distance–time graph is the speed.',s:['The graph gets steeper, so the slope (the speed) is increasing.','The object is speeding up: distance is increasing at an increasing rate.']},
  {id:'p512',u:'u5',c:'T',t:'mc',p:'f(x) = 2x + 1 and g(x) = x^{2}. Then g(f(x)) equals',o:['2x^{2} + 1','4x^{2} + 1','(2x + 1)^{2}','x^{2} + 2x + 1'],a:2,h:'Put f(x) inside g.',s:['g(f(x)) = g(2x + 1) = (2x + 1)^{2} = 4x^{2} + 4x + 1.','2x^{2} + 1 is f(g(x)), the other order.']},
@@ -959,6 +980,7 @@ MHF4U.Q = [
  {id:'p518',u:'u5',c:'T',t:'mc',p:'f(x) = 3x − 1 and g(x) = x^{2} + 1. For which x is f(g(x)) = g(f(x))?',o:['x = 0 only','x = 0 and x = 1','x = 1 only','no x'],a:1,h:'Write both compositions and set them equal.',s:['f(g(x)) = 3(x^{2} + 1) − 1 = 3x^{2} + 2.','g(f(x)) = (3x − 1)^{2} + 1 = 9x^{2} − 6x + 2.','3x^{2} + 2 = 9x^{2} − 6x + 2, so 6x^{2} − 6x = 0 and x = 0 or 1.']},
  {id:'p519',u:'u5',c:'T',t:'mc',p:'For f(x) = 3^{x} and g(x) = log_{3} x, f(g(x)) equals',o:['x, for x > 0','x, for all real x','3x','log_{3}(3x)'],a:0,h:'f and g are inverses. Watch the domain of the inner function.',s:['f(g(x)) = 3^{log_{3} x} = x.','g needs x > 0, so the result holds for x > 0.']},
 /* ---------- Communication ---------- */
+ {id:'c9',u:'u1',c:'C',t:'write',p:'Using the graph of y = x^{2} − 4, explain the difference between solving x^{2} − 4 = 0 and solving x^{2} − 4 < 0.',model:'The equation asks where the graph meets the x-axis, which happens at exactly two values: x = −2 and x = 2. The inequality asks where the graph is below the x-axis. That is a whole interval, −2 < x < 2, which contains infinitely many values. The endpoints are not included because the values there equal 0, not less than 0.',chk:['Equation: the specific x-values where y = 0 (x = ±2)','Inequality: an interval where the graph is below the axis','Gives −2 < x < 2 with the endpoints excluded, and says why']},
  {id:'c1',u:'u2',c:'C',t:'write',p:'Explain why {x^{2} − 1|x − 1} has a hole at x = 1 but {1|x − 1} has a vertical asymptote at x = 1.',model:'In the first function, (x − 1) cancels from the numerator and denominator, so f(x) = x + 1 everywhere except x = 1. One point is missing: a hole at (1, 2). In the second function nothing cancels. The denominator approaches 0 while the numerator stays 1, so the values grow without bound: a vertical asymptote.',chk:['Factors and cancels (x − 1)','Gives the hole as the point (1, 2)','Says the asymptote comes from a denominator zero that does not cancel']},
  {id:'c2',u:'u4',c:'C',t:'write',p:'A student solves log_{2} x + log_{2}(x − 2) = 3 and writes "x = 4 or x = −2". Explain what is wrong and what the student should do.',model:'x = −2 is extraneous. Substituting it gives log_{2}(−2), which is undefined because a logarithm needs a positive argument. The student should state the restriction x > 2 before solving (or check each root) and give only x = 4.',chk:['Names x = −2 as extraneous','Says log arguments must be positive','Gives the final answer x = 4']},
  {id:'c3',u:'u5',c:'C',t:'write',p:'Using a car trip as an example, explain the difference between an average rate of change and an instantaneous rate of change.',model:'The average rate of change is total distance ÷ total time, such as 150 km in 2 h = 75 km/h. It is the slope of a secant line. The instantaneous rate of change is the speed at one moment, like the speedometer reading at 1:30 p.m. It is the slope of the tangent line, and we estimate it using a very short time interval.',chk:['Average: change over an interval (secant slope)','Instantaneous: rate at one moment (tangent slope)','Includes units such as km/h','Says instantaneous rates are estimated with a very short interval']},
@@ -1021,7 +1043,6 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {} };
 let adminMode = false;
-let syncBlocked = false;     // true when Firestore rules don't yet allow mhf4u/{uid}
 function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; }
 let quizState = null;
 let saveTimer = null;
@@ -1085,49 +1106,73 @@ function parseNum(input){
 const tolOf = q => q.tol || Math.max(0.005, 0.001 * Math.abs(q.ans));
 const numOk = (q, v) => isFinite(v) && Math.abs(v - q.ans) <= tolOf(q);
 
-/* ================= persistence ================= */
+/* ================= persistence =================
+   Cloud-first. Primary home: mhf4u/{uid}. If the Firestore rules don't allow that
+   collection yet, fall back to a "mhf4u" field inside the student's existing
+   users/{uid} record (already allowed for every signed-in, allowlisted user).
+   The MPT app saves users/{uid} with mergeFields, so it never erases that field. */
+let syncMode = "local";          // "primary" | "fallback" | "local"
+let lastSync = 0, syncState = "idle";
 const lsKey = () => "mhf4u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, updated: Date.now() }; }
+async function writeCloud(mode){
+  if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
+  return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, mhf4u: payload() }, { mergeFields: ["email", "mhf4u"] });
+}
 function persist(){
   try { localStorage.setItem(lsKey(), JSON.stringify(store)); } catch(e){}
-  if (cloud && !syncBlocked){
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(async () => {
-      try {
-        await cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid),
-          { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, updated: Date.now() });
-      } catch(e){
-        if (e.code === "permission-denied") markSyncBlocked();
-        console.warn("Cloud save failed (kept locally):", e.message);
+  if (!cloud || syncMode === "local") return;
+  clearTimeout(saveTimer);
+  setSync("saving");
+  saveTimer = setTimeout(async () => {
+    try { await writeCloud(syncMode); setSync("ok"); }
+    catch(e){
+      if (e.code === "permission-denied" && syncMode === "primary"){
+        try { await writeCloud("fallback"); syncMode = "fallback"; setSync("ok"); return; } catch(e2){}
       }
-    }, 600);
-  }
+      if (e.code === "permission-denied"){ syncMode = "local"; markSyncBlocked(); }
+      else setSync("retry");
+      console.warn("Cloud save failed (kept on this device):", e.message);
+    }
+  }, 600);
+}
+function setSync(state){
+  syncState = state; if (state === "ok") lastSync = Date.now();
+  const c = $("#syncchip"); if (!c) return;
+  const t = lastSync ? new Date(lastSync).toLocaleTimeString("en-CA", { hour: "numeric", minute: "2-digit" }) : "";
+  c.textContent = state === "ok" ? "☁️ Synced " + t : state === "saving" ? "☁️ Saving…" : state === "retry" ? "☁️ Offline — will retry" : state === "local" ? "⚠️ This device only" : "";
+  c.className = "syncchip " + state;
+  c.title = state === "ok" ? "Your progress is saved to your account and available on any device you sign in with." : state === "local" ? "Cloud sync is off; progress is saved in this browser only." : "";
+  if (state === "retry"){ clearTimeout(window.__retry); window.__retry = setTimeout(() => persist(), 15000); }
 }
 function markSyncBlocked(){
-  if (syncBlocked) return;
-  syncBlocked = true;
+  setSync("local");
   const b = $("#syncbanner");
   if (b){
-    b.innerHTML = "☁️ Cloud sync for MHF4U isn't switched on yet, so progress is saved on this device only." +
-      (adminMode ? " <b>Admin:</b> add the <code>mhf4u</code> rule to your Firestore security rules (see MHF4U-SETUP.md in the repo)." : " Your admin is setting it up.");
+    b.innerHTML = "⚠️ Cloud sync isn't available for this account yet, so progress is saved on this device only." +
+      (adminMode ? " <b>Admin:</b> add the Firestore rules in MHF4U-SETUP.md." : " Let your admin know.");
     b.classList.remove("hidden");
   }
 }
+function mergeInto(d){
+  if (!d) return;
+  const cloudN = (d.attempts || []).length, localN = store.attempts.length;
+  if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}) };
+  else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); }
+}
 async function loadCloud(){
-  try {
-    const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid));
-    if (snap.exists()){
-      const d = snap.data();
-      const cloudN = (d.attempts || []).length, localN = store.attempts.length;
-      if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}) };
-      else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); }
-    }
-    normalizeStore();
-    persist();
-  } catch(e){
-    if (e.code === "permission-denied") markSyncBlocked();
-    console.warn("Cloud load failed, using local data:", e.message);
-  }
+  let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
+  try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid)); primaryOK = true; if (snap.exists()) primaryData = snap.data(); }
+  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (mhf4u):", e.message); }
+  try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data().mhf4u) fallbackData = snap.data().mhf4u; }
+  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (users):", e.message); }
+  // use whichever copy has the most history (e.g. progress saved before the mhf4u rule was added)
+  [fallbackData, primaryData].forEach(mergeInto);
+  normalizeStore();
+  syncMode = primaryOK ? "primary" : fallbackOK ? "fallback" : "local";
+  if (syncMode === "local") markSyncBlocked();
+  else persist();
 }
 
 /* ================= question drawing ================= */
@@ -1222,7 +1267,7 @@ function enterApp(){
   if (user.photo){ ph.src = user.photo; ph.style.display = ""; } else ph.style.display = "none";
   const ab = document.querySelector('[data-view="admin"]');
   if (ab) ab.classList.toggle("hidden", !adminMode);
-  if (syncBlocked){ syncBlocked = false; markSyncBlocked(); }
+  if (cloud && syncMode === "local") markSyncBlocked(); else if (cloud) setSync(syncState === "ok" ? "ok" : "saving");
   refreshChip();
   if (!store.profile || !store.profile.name) renderProfileSetup();
   else go("home");
@@ -1818,7 +1863,7 @@ function renderProgress(){
     </div>`).join("");
   const g = gameStats();
   views.innerHTML = `
-  <div class="viewhead"><h2>Progress</h2><p>Everything is saved to your account${cloud && !syncBlocked ? " and synced across devices" : " on this device"}.</p></div>
+  <div class="viewhead"><h2>Progress</h2><p>${cloud && syncMode !== "local" ? "Everything is saved to your account and syncs to any device you sign in with" + (lastSync ? " · last synced " + fmtDate(lastSync) : "") : "Progress is saved on this device only"}.</p></div>
   ${readinessReport(agg)}
   ${Object.keys(agg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Unit mastery <span class="note">(all-time)</span></h3>${barRows(agg)}</div><div class="spacer"></div>` : ""}
   ${Object.keys(cagg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Achievement categories <span class="note">(all-time)</span></h3>${barRows(cagg, k => k + " · " + KN[k])}</div><div class="spacer"></div>` : ""}
@@ -2217,25 +2262,27 @@ async function renderAdmin(){
   } catch(e){ views.innerHTML += `<div class="errbox">Couldn't load users: ${esc(e.message)}</div>`; return; }
   views.innerHTML = `
   <div class="viewhead"><h2>Admin</h2><p>This is the same access list as MathTest Trail — anyone added here can open both courses. Access is enforced server-side.</p></div>
-  ${syncBlocked ? `<div class="errbox" style="margin-bottom:14px">MHF4U cloud sync is off because the Firestore rules don't yet include the <code>mhf4u</code> collection. See <b>MHF4U-SETUP.md</b> in the repo for the rule to add.</div>` : ""}
+  <div class="card" style="margin-bottom:14px;padding:14px 18px"><b>Your MHF4U sync mode:</b> ${syncMode === "primary" ? "☁️ own record (mhf4u) — ideal" : syncMode === "fallback" ? "☁️ inside the user record — working; add the mhf4u rule from MHF4U-SETUP.md to move to the dedicated record" : "⚠️ device only — add the rules in MHF4U-SETUP.md"}</div>
   <div class="card">
     <h3 style="margin-bottom:8px">Add a user</h3>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <input id="ad-email" type="email" placeholder="their.email@gmail.com" class="field" style="flex:1;min-width:220px">
       <input id="ad-name" type="text" placeholder="Name (optional)" class="field" style="width:160px">
+      <select id="ad-course" class="field" style="width:auto"><option value="MHF4U">Grade 12 · MHF4U</option><option value="MPT">MPT prep</option></select>
       <label style="font-size:.85rem;display:flex;align-items:center;gap:5px"><input type="checkbox" id="ad-admin"> admin</label>
       <button class="btn primary" id="ad-add" style="padding:10px 20px">Add</button>
     </div>
-    <p class="note" style="margin-top:8px">Must be the Google account email they'll sign in with.</p>
+    <p class="note" style="margin-top:8px">Must be the Google account email they'll sign in with. Students assigned to <b>Grade 12 · MHF4U</b> go straight to this course when they sign in at mathtest.logicmanse.ca.</p>
   </div>
   <div class="spacer"></div>
   <div class="card">
     <h3 style="margin-bottom:4px">Allowed users <span class="note">(${rows.length})</span></h3>
     ${rows.length ? rows.map(r => `
       <div class="attempt-row">
-        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""}<br>
+        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""} ${r.course === "MHF4U" ? '<span class="pill teal">Grade 12 · MHF4U</span>' : '<span class="pill sage">MPT prep</span>'}<br>
         <span class="when">${r.added ? "added " + fmtDate(r.added) + (r.addedBy ? " by " + esc(r.addedBy) : "") : ""}</span></span>
-        <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">${rmArm === r.email ? "Tap again to remove" : "Remove"}</button>
+        <span style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn soft" data-course="${esc(r.email)}" data-to="${r.course === "MHF4U" ? "MPT" : "MHF4U"}" style="padding:7px 14px">${r.course === "MHF4U" ? "Move to MPT prep" : "Assign Grade 12 · MHF4U"}</button>
+        <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">${rmArm === r.email ? "Tap again to remove" : "Remove"}</button></span>
       </div>`).join("") : `<div class="emptystate">No users in the list yet — add your first one above.</div>`}
   </div>`;
   $("#ad-add").onclick = async () => {
@@ -2243,10 +2290,16 @@ async function renderAdmin(){
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast("That doesn't look like an email address");
     const name = $("#ad-name").value.trim();
     try {
-      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { name: name || null, admin: $("#ad-admin").checked, added: Date.now(), addedBy: user.email });
+      const course = $("#ad-course").value;
+      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { name: name || null, admin: $("#ad-admin").checked, course, grade: course === "MHF4U" ? 12 : null, added: Date.now(), addedBy: user.email });
       toast("✓ " + email + " can now sign in"); renderAdmin();
     } catch(e){ toast("Couldn't add: " + e.message); }
   };
+  views.querySelectorAll("[data-course]").forEach(b => b.onclick = async () => {
+    const email = b.dataset.course, to = b.dataset.to;
+    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: to === "MHF4U" ? 12 : null }, { merge: true }); toast(email + (to === "MHF4U" ? " assigned to Grade 12 · MHF4U" : " moved to MPT prep")); renderAdmin(); }
+    catch(e){ toast("Couldn't update: " + e.message); }
+  });
   views.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => {
     const email = b.dataset.rm;
     if (rmArm !== email){ rmArm = email; renderAdmin(); setTimeout(() => { if (rmArm === email) rmArm = null; }, 4000); return; }
