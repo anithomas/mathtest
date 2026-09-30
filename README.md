@@ -5,6 +5,9 @@
 A private, single-file study web app for the **Ontario Mathematics Proficiency Test (MPT)**,
 live at **https://mathtest.logicmanse.ca**. A [LogicManse](https://logicmanse.ca) product.
 
+**Second course:** Grade 12 Advanced Functions (MHF4U) at **https://mathtest.logicmanse.ca/MHF4U/**. It has the same
+engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
+
 ## Features
 
 - **Quick Quiz** — freshly randomized every start, non-repeating until the full bank is seen; instant feedback with explanations. Filter by strand or pedagogy.
