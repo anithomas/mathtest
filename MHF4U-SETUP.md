@@ -40,8 +40,8 @@ Student names and emails live only in the private Firestore allowlist, never in 
 All MHF4U content is in the `MHF4U` object inside `MHF4U/index.html`:
 
 - 5 units and 38 lessons, mapped to every specific expectation (A1.1–D3.3) of the Ontario MHF4U curriculum (2007).
-- 119 practice questions: multiple choice, typed numeric answers checked with a tolerance, and 9 written
-  Communication items that students self-mark against a model answer.
+- 150 practice questions: multiple choice, typed numeric answers checked with a tolerance, and 15 written
+  Communication items (3 per unit) that students self-mark against a model answer.
 - 15 worked examples, a formula sheet, a glossary and an 8-week plan.
 
 ## Adding courses
