@@ -2,11 +2,15 @@
 
 *v4 — July 2026 · “Every trail leads to the summit.”*
 
-A private, single-file study web app for the **Ontario Mathematics Proficiency Test (MPT)**,
-live at **https://mathtest.logicmanse.ca**. A [LogicManse](https://logicmanse.ca) product.
+A private study platform with a course catalogue at **https://mathtest.logicmanse.ca**. A [LogicManse](https://logicmanse.ca) product.
 
-**Second course:** Grade 12 Advanced Functions (MHF4U) at **https://mathtest.logicmanse.ca/MHF4U/**. It has the same
+**MPT prep:** https://mathtest.logicmanse.ca/MPT/.
+
+**Grade 12 Advanced Functions (MHF4U):** https://mathtest.logicmanse.ca/MHF4U/. It has the same
 engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
+
+The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
+can be added by creating a course folder and adding a card to the catalogue. Chemistry is listed as coming soon.
 
 ## Features
 
@@ -17,13 +21,21 @@ engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. 
 - **Study Hub** — key concepts per strand, official EQAO practice tests and framework, pedagogy source documents (Growing Success, Learning for All), and curated free resources.
 - **Test-day tools** — on-screen calculator and Formula Sheet overlay on every question, like the real test's toolbar; per-question calculator/mental-math guidance and 🌱/🌿/🌋 difficulty modes.
 - **Personal** — profile with display name, optional age, preferred difficulty; flexible 8-week plan anchored to your own start date; XP, levels, badges, and streaks.
-- **Private & managed** — Google sign-in restricted to an allowlist enforced server-side by Firestore security rules, managed in-app through an admin panel.
+- **Private & managed** — Google sign-in and Firestore course data, currently access-managed through the admin allowlist.
 
 ## Stack
 
-One deployable `index.html` (no build step) · GitHub Pages · Firebase Auth + Firestore (free tier) · GoDaddy DNS.
+Static HTML with no build step · GitHub Pages · Firebase Auth + Firestore · GoDaddy DNS.
 
-Fonts: Fraunces / Inter / IBM Plex Mono · Palette: teal, coral, sage, gold on warm parchment.
+The site uses system fonts, LogicManse branding and a teal / coral / sage / gold palette on warm parchment. MHF4U links to the optional Desmos graphing calculator; opening it contacts Desmos directly.
+
+## Analytics and privacy
+
+`analytics.js` contains an optional Google Analytics 4 integration using the LogicManse Study measurement ID.
+It asks for opt-in consent, sends only fixed page/course and study-tool events, uses canonical URLs, and does not
+send names, emails, answers, or scores. The GA property is configured with Google Signals and Enhanced Measurement
+off, ad personalization disabled in all regions, and user/event retention set to two months. The browser cookie is
+limited to 60 days. See [privacy.html](privacy.html).
 
 ## Setup
 
@@ -31,7 +43,7 @@ See [SETUP.md](SETUP.md). No secrets live in this repo.
 
 ## Question bank
 
-190 original questions in the `BANK` array in `index.html`, aligned to the official MPT Framework:
+190 original questions in the `BANK` array in `MPT/index.html`, aligned to the official MPT Framework:
 Number 50 · Algebra 30 · Data & Probability 22 · Spatial Sense 30 · Financial Literacy 18 · Pedagogy 40.
 
 Questions are written for this app — official EQAO practice questions stay on [mathproficiencytest.ca](https://mathproficiencytest.ca), where the Study Hub links to them.

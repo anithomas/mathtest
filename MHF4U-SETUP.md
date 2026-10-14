@@ -19,8 +19,8 @@ The Admin tab in MHF4U shows which mode your own account is using.
 
 ## One-time Firebase step (recommended)
 
-Firebase console → project **mathtest-logicmanse** → **Firestore Database** → **Rules**. Add these two blocks
-inside `match /databases/{database}/documents { … }`, next to your existing blocks, then click **Publish**.
+Firebase console → project **mathtest-logicmanse** → **Firestore Database** → **Rules**. Add this block
+inside `match /databases/{database}/documents { … }`, next to your existing user record rule, then click **Publish**.
 
 ```
 // 1) MHF4U progress: use EXACTLY the same condition as your existing users/{uid} block.
@@ -28,23 +28,17 @@ match /mhf4u/{uid} {
   allow read, write: if <the same condition your users/{uid} rule uses>;
 }
 
-// 2) Let each signed-in person read ONLY their own allowlist entry,
-//    so a student assigned to Grade 12 MHF4U is sent straight to the course.
-match /allowedUsers/{email} {
-  allow get: if request.auth != null && request.auth.token.email.lower() == email;
-}
 ```
 
-Rule 2 only adds a read of the person's own entry. Your existing admin rules for `allowedUsers` stay as they are:
-Firestore grants access if any matching rule allows it.
+The root page is a public course catalogue. Course sign-in and content access continue to use the existing Firebase setup.
 
 ## Assigning a Grade 12 student
 
 1. Sign in (MPT or MHF4U) and open **Admin**.
 2. Enter the student's Google sign-in email and name, choose **Grade 12 · MHF4U**, and click **Add**.
    For someone already on the list, click **Assign Grade 12 · MHF4U** next to their email.
-3. With rule 2 in place, that student lands on `/MHF4U/` whenever they sign in at mathtest.logicmanse.ca.
-   Without it, send them the `/MHF4U/` link directly. Admins can still open the MPT app at `/?mpt`.
+3. Share the course URL directly: `https://mathtest.logicmanse.ca/MHF4U/`. The root URL is now a course catalogue;
+   the MPT course lives at `https://mathtest.logicmanse.ca/MPT/`.
 
 Student names and emails live only in the private Firestore allowlist, never in this public repo.
 
@@ -56,6 +50,14 @@ All MHF4U content is in the `MHF4U` object inside `MHF4U/index.html`:
 - 119 practice questions: multiple choice, typed numeric answers checked with a tolerance, and 9 written
   Communication items that students self-mark against a model answer.
 - 15 worked examples, a formula sheet, a glossary and an 8-week plan.
+
+## Adding courses
+
+Each course has its own URL and app folder (for example, `/MPT/` and `/MHF4U/`). To add a course, create a new
+folder with its own `index.html`, course content and progress collection, then add an available course card to the
+root `index.html`. Before inviting students into multiple courses, update the allowlist from the current single
+`course` field to a `courses` array and enforce each course's entitlement in Firestore rules. A URL by itself is
+navigation, not access control.
 
 Every numeric answer is recomputed by script. The whole bank was also reviewed independently for correctness,
 ambiguous options and curriculum scope. There is no calculus: rates of change use secant estimates only, as the
