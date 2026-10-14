@@ -10,7 +10,8 @@
   const pages = {
     catalog: { path: "/", title: "LogicManse Study · Courses" },
     MPT: { path: "/MPT/", title: "MathTest Trail · MPT Prep" },
-    MHF4U: { path: "/MHF4U/", title: "MathTest Trail · MHF4U" }
+    MHF4U: { path: "/MHF4U/", title: "MathTest Trail · MHF4U" },
+    LMCA: { path: "/LMCA/", title: "MathTest Trail · Lakehead Math Competency" }
   };
   const events = new Set(["study_hub_opened", "desmos_opened", "practice_started"]);
   let currentPage = "";

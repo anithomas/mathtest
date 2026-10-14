@@ -9,6 +9,12 @@ A private study platform with a course catalogue at **https://mathtest.logicmans
 **Grade 12 Advanced Functions (MHF4U):** https://mathtest.logicmanse.ca/MHF4U/. It has the same
 engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
 
+**Lakehead Math Competency (LMCA):** https://mathtest.logicmanse.ca/LMCA/. An independent study aid for
+Lakehead University's Mathematics Competency Assessment (Primary/Junior division, EDUC 0450) — Grade 6/7-level
+math practice across five strands, built on the same engine. Not affiliated with or endorsed by Lakehead
+University; the real assessment's exact format (question count, timing, calculator policy) isn't publicly
+published, so this is generic, evenly-spread practice rather than a claimed simulation.
+
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
 can be added by creating a course folder and adding a card to the catalogue. Chemistry is listed as coming soon.
 
@@ -57,3 +63,7 @@ service-account keys, or other credentials.
 Number 50 · Algebra 30 · Data & Probability 22 · Spatial Sense 30 · Financial Literacy 18 · Pedagogy 40.
 
 Questions are written for this app — official EQAO practice questions stay on [mathproficiencytest.ca](https://mathproficiencytest.ca), where the Study Hub links to them.
+
+80 original questions in the `BANK` array in `LMCA/index.html`, covering Grade 6/7-level Ontario elementary
+math: Number Sense 16 · Proportional Reasoning 16 · Algebra Reasoning 16 · Measurement & Geometry 16 ·
+Data & Probability 16.
