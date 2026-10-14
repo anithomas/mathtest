@@ -2397,6 +2397,8 @@ let rmArm = null;
 async function renderAdmin(){
   if (!adminMode){ go("home"); return; }
   views.innerHTML = `<div class="viewhead"><h2>Admin</h2><p>Loading users…</p></div>`;
+  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"]];
+  const courseLabel = id => (COURSE_INFO.find(c => c[0] === id) || [id, id])[1];
   let rows = [];
   try {
     const snap = await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers"));
@@ -2415,19 +2417,18 @@ async function renderAdmin(){
       profileSnap.forEach(d => profiles.push({ uid: d.id, ...d.data() }));
       enrollmentSnap.forEach(d => enrollments.set(d.id, d.data()));
       profiles.sort((a, b) => String(a.email || "").localeCompare(String(b.email || "")));
-      const courseInfo = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"]];
-      enrollmentPanel = `<div class="card"><h3 style="margin-bottom:4px">Student enrollments <span class="note">(${profiles.length})</span></h3><p class="note" style="margin:0 0 10px">Grant or revoke course access for registered students. Each course is a separate entitlement.</p>${profiles.length ? profiles.map(p => `<div class="attempt-row"><span><b>${esc(p.email || "")}</b>${p.displayName ? " · " + esc(p.displayName) : ""}<br>${courseInfo.map(([id, label]) => { const r = enrollments.get(p.uid + "__" + id), active = r?.status === "active"; return `<span class="pill ${active ? "teal" : ""}">${esc(label)} · ${active ? "active" : "not enrolled"}</span> <button class="btn soft" data-enroll-action="${active ? "revoke" : "grant"}" data-uid="${esc(p.uid)}" data-course-id="${id}" style="padding:5px 9px;margin:2px">${active ? "Revoke" : "Grant"}</button>`; }).join(" ")}</span></div>`).join("") : `<div class="emptystate">No student profiles yet. Profiles appear after a student joins a course.</div>`}</div><div class="spacer"></div>`;
+      enrollmentPanel = `<div class="card"><h3 style="margin-bottom:4px">Student enrollments <span class="note">(${profiles.length})</span></h3><p class="note" style="margin:0 0 10px">Grant or revoke course access for registered students. Each course is a separate entitlement.</p>${profiles.length ? profiles.map(p => `<div class="attempt-row"><span><b>${esc(p.email || "")}</b>${p.displayName ? " · " + esc(p.displayName) : ""}<br>${COURSE_INFO.map(([id, label]) => { const r = enrollments.get(p.uid + "__" + id), active = r?.status === "active"; return `<span class="pill ${active ? "teal" : ""}">${esc(label)} · ${active ? "active" : "not enrolled"}</span> <button class="btn soft" data-enroll-action="${active ? "revoke" : "grant"}" data-uid="${esc(p.uid)}" data-course-id="${id}" style="padding:5px 9px;margin:2px">${active ? "Revoke" : "Grant"}</button>`; }).join(" ")}</span></div>`).join("") : `<div class="emptystate">No student profiles yet. Profiles appear after a student joins a course.</div>`}</div><div class="spacer"></div>`;
     } catch(e){ enrollmentPanel = `<div class="errbox">Couldn't load enrollment roster: ${esc(e.message)}</div>`; }
   }
   views.innerHTML = `
-  <div class="viewhead"><h2>Admin</h2><p>This is the same access list as MathTest Trail — anyone added here can open both courses. Access is enforced server-side.</p></div>
-  <div class="card" style="margin-bottom:14px;padding:14px 18px"><b>Your MHF4U sync mode:</b> ${syncMode === "primary" ? "☁️ own record (mhf4u) — ideal" : syncMode === "fallback" ? "☁️ inside the user record — working; add the mhf4u rule from MHF4U-SETUP.md to move to the dedicated record" : "⚠️ device only — add the rules in MHF4U-SETUP.md"}</div>
+  <div class="viewhead"><h2>Admin</h2><p>This is the same access list as MathTest Trail — anyone added here can open any course. Access is enforced server-side.</p></div>
+  <div class="card" style="margin-bottom:14px;padding:14px 18px"><b>Your ${COURSE_ID} sync mode:</b> ${syncMode === "primary" ? `☁️ own record (${COLL}) — ideal` : syncMode === "fallback" ? `☁️ inside the user record — working; add the ${COLL} rule from ${COURSE_ID}-SETUP.md to move to the dedicated record` : `⚠️ device only — add the rules in ${COURSE_ID}-SETUP.md`}</div>
   <div class="card">
     <h3 style="margin-bottom:8px">Add a user</h3>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <input id="ad-email" type="email" placeholder="their.email@gmail.com" class="field" style="flex:1;min-width:220px">
       <input id="ad-name" type="text" placeholder="Name (optional)" class="field" style="width:160px">
-      <select id="ad-course" class="field" style="width:auto"><option value="MHF4U">Grade 12 · MHF4U</option><option value="MPT">MPT prep</option></select>
+      <select id="ad-course" class="field" style="width:auto">${COURSE_INFO.map(([id, label]) => `<option value="${id}" ${id === COURSE_ID ? "selected" : ""}>${esc(label)}</option>`).join("")}</select>
       <label style="font-size:.85rem;display:flex;align-items:center;gap:5px"><input type="checkbox" id="ad-admin"> admin</label>
       <button class="btn primary" id="ad-add" style="padding:10px 20px">Add</button>
     </div>
@@ -2439,9 +2440,9 @@ async function renderAdmin(){
     <h3 style="margin-bottom:4px">Allowed users <span class="note">(${rows.length})</span></h3>
     ${rows.length ? rows.map(r => `
       <div class="attempt-row">
-        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""} ${r.course === "MHF4U" ? '<span class="pill teal">Grade 12 · MHF4U</span>' : '<span class="pill sage">MPT prep</span>'}<br>
+        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""} <span class="pill ${r.course === "MPT" ? "sage" : "teal"}">${esc(courseLabel(r.course))}</span><br>
         <span class="when">${r.added ? "added " + fmtDate(r.added) + (r.addedBy ? " by " + esc(r.addedBy) : "") : ""}</span></span>
-        <span style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn soft" data-course="${esc(r.email)}" data-to="${r.course === "MHF4U" ? "MPT" : "MHF4U"}" style="padding:7px 14px">${r.course === "MHF4U" ? "Move to MPT prep" : "Assign Grade 12 · MHF4U"}</button>
+        <span style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><select class="field" data-course-select="${esc(r.email)}" style="padding:7px 10px;width:auto">${COURSE_INFO.map(([id, label]) => `<option value="${id}" ${r.course === id ? "selected" : ""}>${esc(label)}</option>`).join("")}</select>
         <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">${rmArm === r.email ? "Tap again to remove" : "Remove"}</button></span>
       </div>`).join("") : `<div class="emptystate">No users in the list yet — add your first one above.</div>`}
   </div>`;
@@ -2451,7 +2452,7 @@ async function renderAdmin(){
     const name = $("#ad-name").value.trim();
     try {
       const course = $("#ad-course").value;
-      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { name: name || null, admin: $("#ad-admin").checked, course, grade: course === "MHF4U" ? 12 : null, added: Date.now(), addedBy: user.email });
+      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { name: name || null, admin: $("#ad-admin").checked, course, grade: (course === "MHF4U" || course === "SCH4U") ? 12 : null, added: Date.now(), addedBy: user.email });
       toast("✓ " + email + " can now sign in"); renderAdmin();
     } catch(e){ toast("Couldn't add: " + e.message); }
   };
@@ -2465,9 +2466,9 @@ async function renderAdmin(){
       toast(action === "grant" ? "Course access granted" : "Course access revoked"); renderAdmin();
     } catch(e){ toast("Couldn't update enrollment: " + e.message); }
   });
-  views.querySelectorAll("[data-course]").forEach(b => b.onclick = async () => {
-    const email = b.dataset.course, to = b.dataset.to;
-    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: to === "MHF4U" ? 12 : null }, { merge: true }); toast(email + (to === "MHF4U" ? " assigned to Grade 12 · MHF4U" : " moved to MPT prep")); renderAdmin(); }
+  views.querySelectorAll("[data-course-select]").forEach(sel => sel.onchange = async () => {
+    const email = sel.dataset.courseSelect, to = sel.value;
+    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: (to === "MHF4U" || to === "SCH4U") ? 12 : null }, { merge: true }); toast(email + " assigned to " + courseLabel(to)); renderAdmin(); }
     catch(e){ toast("Couldn't update: " + e.message); }
   });
   views.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => {

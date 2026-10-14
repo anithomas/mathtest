@@ -81,6 +81,12 @@ service cloud.firestore {
         && hasCourseAccess('MHF4U');
     }
 
+    match /sch4u/{uid} {
+      allow read, write: if isSignedIn()
+        && request.auth.uid == uid
+        && hasCourseAccess('SCH4U');
+    }
+
     match /profiles/{uid} {
       allow get: if isSignedIn() && (request.auth.uid == uid || isAdmin());
       allow list: if isAdmin();
