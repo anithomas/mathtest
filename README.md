@@ -44,6 +44,13 @@ See [SETUP.md](SETUP.md). No secrets live in this repo.
 
 Public-enrollment architecture and rollout notes are in [docs/PRODUCT-DESIGN-NOTES.md](docs/PRODUCT-DESIGN-NOTES.md).
 
+## Firebase rules
+
+`firebase.json` points the Firebase CLI at the checked-in `firestore.rules`, and `.firebaserc` selects the
+`mathtest-logicmanse` project. After installing Firebase CLI and signing in with an authorized Firebase account,
+review the rules and deploy them with `firebase deploy --only firestore:rules`. Do not commit Firebase tokens,
+service-account keys, or other credentials.
+
 ## Question bank
 
 190 original questions in the `BANK` array in `MPT/index.html`, aligned to the official MPT Framework:
