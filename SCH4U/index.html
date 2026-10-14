@@ -1162,14 +1162,16 @@ function greeting(){
 
 /* Reads answers like 2.5, -3/4, 5pi/6, 2sqrt(3), 10^1.3 */
 function parseNum(input){
-  let s = String(input).toLowerCase().replace(/,/g,"").replace(/[−–]/g,"-").replace(/[×·]/g,"*").replace(/÷/g,"/")
-    .replace(/sqrt|√/g,"#").replace(/pi|π/g,"@").replace(/[a-z°$%\s]/g,"");
+  let s = String(input).toLowerCase().replace(/,/g,"").replace(/[−–]/g,"-").replace(/[×·]/g,"*").replace(/÷/g,"/");
+  s = s.replace(/(\d+(?:\.\d+)?)e([+-]?\d+)/g, "($1*10^($2))"); // scientific notation, e.g. 3.5e-3
+  s = s.replace(/sqrt|√/g,"#").replace(/pi|π/g,"@").replace(/[a-z°$%\s]/g,"");
   if (!s) return NaN;
   let i = 0;
   const peek = () => s[i];
   const startsPrimary = c => c !== undefined && (/[0-9.]/.test(c) || c === "@" || c === "#" || c === "(");
+  const startsImplicit = c => c === "@" || c === "#" || c === "("; // not a bare digit/dot: "12.3.4" must not read as 12.3 * .4
   function expr(){ let v = term(); while (peek() === "+" || peek() === "-"){ const o = s[i++]; const r = term(); v = o === "+" ? v + r : v - r; } return v; }
-  function term(){ let v = power(); for(;;){ if (peek() === "*"){ i++; v *= power(); } else if (peek() === "/"){ i++; v /= power(); } else if (startsPrimary(peek())){ v *= power(); } else break; } return v; }
+  function term(){ let v = power(); for(;;){ if (peek() === "*"){ i++; v *= power(); } else if (peek() === "/"){ i++; v /= power(); } else if (startsImplicit(peek())){ v *= power(); } else break; } return v; }
   function power(){ const b = unary(); if (peek() === "^"){ i++; return Math.pow(b, power()); } return b; }
   function unary(){ if (peek() === "-"){ i++; return -unary(); } if (peek() === "+"){ i++; return unary(); } return primary(); }
   function primary(){
@@ -1186,8 +1188,8 @@ const tolOf = q => q.tol || Math.max(0.005, 0.001 * Math.abs(q.ans));
 const numOk = (q, v) => isFinite(v) && Math.abs(v - q.ans) <= tolOf(q);
 
 /* ================= persistence =================
-   New enrolled accounts use only mhf4u/{uid}. Invited legacy accounts can
-   read the old users/{uid}.mhf4u field once and migrate it. */
+   New enrolled accounts use only sch4u/{uid}. Invited legacy accounts can
+   read the old users/{uid}.sch4u field once and migrate it. */
 let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "sch4u-" + (user?.uid || "anon");
@@ -1196,7 +1198,7 @@ function payload(){ return { attempts: store.attempts.slice(-200), seen: store.s
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
-  return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, mhf4u: payload() }, { mergeFields: ["email", "mhf4u"] });
+  return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, [COLL]: payload() }, { mergeFields: ["email", COLL] });
 }
 function persist(){
   try { localStorage.setItem(lsKey(), JSON.stringify(store)); } catch(e){}
@@ -1242,14 +1244,14 @@ function mergeInto(d){
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
   try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid)); primaryOK = true; if (snap.exists()) primaryData = snap.data(); }
-  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (mhf4u):", e.message); }
+  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (" + COLL + "):", e.message); }
   // Self-enrolled accounts cannot read users/{uid}; only legacy invite accounts
   // may import the old shared progress record during transition.
   if (!PUBLIC_ENROLLMENT_ENABLED || primaryOK){
-    try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data().mhf4u) fallbackData = snap.data().mhf4u; }
+    try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data()[COLL]) fallbackData = snap.data()[COLL]; }
     catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (users):", e.message); }
   }
-  // use whichever copy has the most history (e.g. progress saved before the mhf4u rule was added)
+  // use whichever copy has the most history (e.g. progress saved before the sch4u rule was added)
   [fallbackData, primaryData].forEach(mergeInto);
   normalizeStore();
   syncMode = primaryOK ? "primary" : (!PUBLIC_ENROLLMENT_ENABLED && fallbackOK) ? "fallback" : "local";
