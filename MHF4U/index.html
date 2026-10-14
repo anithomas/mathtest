@@ -1041,9 +1041,9 @@ const views = $("#views");
 const D = MHF4U;
 let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
-let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {} };
+let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1115,7 +1115,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "mhf4u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, mhf4u: payload() }, { mergeFields: ["email", "mhf4u"] });
@@ -1158,8 +1158,8 @@ function markSyncBlocked(){
 function mergeInto(d){
   if (!d) return;
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
-  if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}) };
-  else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); }
+  if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
+  else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -1182,6 +1182,7 @@ function qDiff(q){ return DIFF_OF[q.c]; }
 function poolFor(key){
   if (key === "mixed") return D.Q.slice();
   if (key === "word") return D.Q.filter(q => q.w);
+  if (key === "weak") return D.Q.filter(q => (store.missed || {})[q.id]);
   return D.Q.filter(q => q.u === key);
 }
 function draw(poolKey, pool, n){
@@ -1565,7 +1566,8 @@ function renderQuizSetup(){
   if (quizSel.diff === null) quizSel.diff = store.profile?.diff || "any";
   const opts = [["mixed", "🎲 Mixed", "All five units"]]
     .concat(D.UNITS.map(u => [u.id, UNIT_ICON[u.id] + " " + u.name, u.no + " · " + u.strand.replace("Strand ", "").split(":")[0] + " strand"]))
-    .concat([["word", "🧩 Word problems", "Real-world applications from every unit"]]);
+    .concat([["word", "🧩 Word problems", "Real-world applications from every unit"]])
+    .concat([["weak", "🎯 Fix my weak spots", Object.keys(store.missed || {}).length + " missed question(s) waiting — get each one right to clear it"]]);
   views.innerHTML = `
   <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, level, and length. Questions won't repeat until you've seen the whole set.</p></div>
   <div class="card">
@@ -1590,7 +1592,7 @@ function renderQuizSetup(){
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another level");
     const n = Math.min(quizSel.len, pool.length);
-    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : UN[quizSel.key].name;
+    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : UN[quizSel.key].name;
     const label = focus + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
@@ -1746,6 +1748,8 @@ function finishSession(){
     const s = UN[it.q.u].name, k = it.q.c;
     strands[s] = strands[s] || { c: 0, t: 0 }; strands[s].t++;
     cats[k] = cats[k] || { c: 0, t: 0 }; cats[k].t++;
+    store.missed = store.missed || {};
+    if (it.q.t !== "write" && it.answered){ if (it.correct) delete store.missed[it.q.id]; else store.missed[it.q.id] = 1; }
     if (it.correct){ strands[s].c++; cats[k].c++; correct++; if (it.q.w) word++; }
   });
   const pct = Math.round(100 * correct / st.qs.length);
@@ -1846,6 +1850,7 @@ function readinessReport(agg){
     <h3 style="margin-bottom:6px">📋 Readiness report <span class="note">(recent questions vs Level 4 = 80%)</span></h3>
     ${rows.map(row).join("")}
     <div style="margin-top:10px"><span class="passline ${cls}">${verdict}</span></div>
+    <p style="font-size:.88rem;margin-top:10px">🎯 <b>Goal: 90%+.</b> ${withData.length ? withData.map(x => esc(x.u.name) + " " + (x.r.p >= 90 ? "✔" : (90 - x.r.p) + " pts to go")).join(" · ") : "Take a quiz to see how far each unit is from 90%."}${Object.keys(store.missed || {}).length ? ` <button class="btn primary" id="btn-weak" style="padding:6px 14px;font-size:.82rem;margin-left:6px">Fix ${Object.keys(store.missed).length} weak spots →</button>` : ""}</p>
     ${focus.length ? `<p style="font-size:.88rem;margin-top:10px"><b>Focus next:</b> ${focus.map(f => esc(f.s) + " (" + f.p + "%)").join(" · ")} — reread that unit's lessons in the Study Hub, then take a focused quiz.</p>` : ""}
     ${trend}
   </div><div class="spacer"></div>`;
@@ -1885,6 +1890,7 @@ function renderProgress(){
   <div class="spacer"></div>
   <button class="btn soft" id="btn-resetseen">↻ Reset question rotation</button>
   <p class="note" style="margin-top:6px">Makes all questions available again without touching your score history.</p>`;
+  const bw = $("#btn-weak"); if (bw) bw.onclick = () => { quizSel.key = "weak"; quizSel.diff = "any"; go("quiz"); };
   $("#btn-resetseen").onclick = () => { store.seen = {}; persist(); toast("Question rotation reset — everything's fresh again"); };
 }
 
@@ -1934,7 +1940,7 @@ function studySections(){
       <h4>By the end you can…</h4><ul>${u.can.map(c => `<li class="m">${M(c)}</li>`).join("")}</ul>
       <h4>Lessons <span class="note">(${ls.filter(l => store.lessons[l.id]).length} of ${ls.length} done)</span></h4>${ls.map(lessonHTML).join("")}
       <h4>Worked examples</h4>${ws.map(([w, i]) => workedHTML(w, i)).join("")}
-      <div class="linkrow">${(RESOURCES[u.id] || []).map(([t, h]) => `<a href="${h}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div>
+      <div class="linkrow">${(RESOURCES[u.id] || []).concat([["CEMC Courseware (Waterloo)", "https://courseware.cemc.uwaterloo.ca/8"], ["Desmos graphing", "https://www.desmos.com/calculator"]]).map(([t, h]) => `<a href="${h}" target="_blank" rel="noopener">${esc(t)}</a>`).join("")}</div>
       <div style="margin-top:12px"><button class="btn primary" data-uq="${u.id}">Quiz me on ${esc(u.name)} →</button></div>`; } }));
   const tools = { id: "tools", title: "🛠 Interactive Graphing Tools", body: () => `<p style="font-size:.9rem">Play with the parameters and watch the graph respond. Great for building intuition before a quiz.</p>
     <div class="lenrow" id="toolchips">${TOOLS.map(t => `<button class="lenbtn ${toolSel === t[0] ? "sel" : ""}" data-tool="${t[0]}">${t[1]}</button>`).join("")}</div><div id="toolbox" style="margin-top:14px"></div>` };
@@ -1949,7 +1955,17 @@ function studySections(){
       <a href="https://courseware.cemc.uwaterloo.ca/8" target="_blank" rel="noopener">CEMC Advanced Functions</a>
       <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">Desmos graphing calculator</a>
     </div>` };
-  return [plan].concat(units, [tools, res]);
+  const p90 = { id: "p90", title: "🎯 The 90% Playbook", body: () => `
+    <p style="font-size:.9rem">90% is a habit, not a talent. These six habits are what separate an 85 from a 90+.</p>
+    <ul>
+    <li><b>Redo every miss.</b> After each quiz, use <i>Fix my weak spots</i> until the count reaches zero. A mistake you've corrected once rarely returns.</li>
+    <li><b>Aim for 90% in each unit, not just overall.</b> The Progress page shows how many points each unit is from 90%.</li>
+    <li><b>Space it out.</b> Revisit each unit one week, then three weeks, after you finish it. Ten short sessions beat one long one.</li>
+    <li><b>Practise Thinking and Communication questions.</b> They carry the marks that separate Level 4 from Level 3: show every step and write a sentence of justification.</li>
+    <li><b>Simulate the exam.</b> Do a full 25-question simulation without notes, then mark it honestly and review every miss.</li>
+    <li><b>Check, then check again.</b> Substitute answers back, check domain restrictions and sketch a quick graph. Most lost marks at this level are careless, not conceptual.</li></ul>
+    <p class="note">Free extra practice: the CEMC courseware has full lessons and practice for every unit, jensenmath has videos and worksheets, and Desmos lets you test any function you meet.</p>` };
+  return [plan, p90].concat(units, [tools, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
