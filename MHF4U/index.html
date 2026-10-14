@@ -399,7 +399,8 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
       Continue with Google
     </button>
     <div id="signin-err" class="errbox hidden"></div>
-    <div class="signin-foot">For invited students. Sign in with the Google account your teacher added.<br>Your progress syncs to your account.</div>
+    <div id="enrollment-box" class="hidden"></div>
+    <div id="signin-foot" class="signin-foot">For invited students. Sign in with the Google account your teacher added.<br>Your progress syncs to your account.</div>
   </div>
 </div>
 
@@ -1113,6 +1114,11 @@ let saveTimer = null;
 
 const configured = !String(FIREBASE_CONFIG.apiKey || "").startsWith("PASTE_");
 const isLocalPreview = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
+const COURSE_ID = "MHF4U";
+const COURSE_LABEL = "Grade 12 Advanced Functions";
+// Keep false until the matching Firestore enrollment rules are deployed and reviewed.
+const PUBLIC_ENROLLMENT_ENABLED = false;
+if (PUBLIC_ENROLLMENT_ENABLED) $("#signin-foot").textContent = "Sign in with Google, then join this course for free. Your progress syncs to your account.";
 const COLL = "mhf4u";
 
 const UN = Object.fromEntries(D.UNITS.map(u => [u.id, u]));
@@ -1171,10 +1177,8 @@ const tolOf = q => q.tol || Math.max(0.005, 0.001 * Math.abs(q.ans));
 const numOk = (q, v) => isFinite(v) && Math.abs(v - q.ans) <= tolOf(q);
 
 /* ================= persistence =================
-   Cloud-first. Primary home: mhf4u/{uid}. If the Firestore rules don't allow that
-   collection yet, fall back to a "mhf4u" field inside the student's existing
-   users/{uid} record (already allowed for every signed-in, allowlisted user).
-   The MPT app saves users/{uid} with mergeFields, so it never erases that field. */
+   New enrolled accounts use only mhf4u/{uid}. Invited legacy accounts can
+   read the old users/{uid}.mhf4u field once and migrate it. */
 let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "mhf4u-" + (user?.uid || "anon");
@@ -1182,6 +1186,7 @@ function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) |
 function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
+  if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
   return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, mhf4u: payload() }, { mergeFields: ["email", "mhf4u"] });
 }
 function persist(){
@@ -1192,7 +1197,7 @@ function persist(){
   saveTimer = setTimeout(async () => {
     try { await writeCloud(syncMode); setSync("ok"); }
     catch(e){
-      if (e.code === "permission-denied" && syncMode === "primary"){
+      if (!PUBLIC_ENROLLMENT_ENABLED && e.code === "permission-denied" && syncMode === "primary"){
         try { await writeCloud("fallback"); syncMode = "fallback"; setSync("ok"); return; } catch(e2){}
       }
       if (e.code === "permission-denied"){ syncMode = "local"; markSyncBlocked(); }
@@ -1229,12 +1234,16 @@ async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
   try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid)); primaryOK = true; if (snap.exists()) primaryData = snap.data(); }
   catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (mhf4u):", e.message); }
-  try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data().mhf4u) fallbackData = snap.data().mhf4u; }
-  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (users):", e.message); }
+  // Self-enrolled accounts cannot read users/{uid}; only legacy invite accounts
+  // may import the old shared progress record during transition.
+  if (!PUBLIC_ENROLLMENT_ENABLED || primaryOK){
+    try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data().mhf4u) fallbackData = snap.data().mhf4u; }
+    catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (users):", e.message); }
+  }
   // use whichever copy has the most history (e.g. progress saved before the mhf4u rule was added)
   [fallbackData, primaryData].forEach(mergeInto);
   normalizeStore();
-  syncMode = primaryOK ? "primary" : fallbackOK ? "fallback" : "local";
+  syncMode = primaryOK ? "primary" : (!PUBLIC_ENROLLMENT_ENABLED && fallbackOK) ? "fallback" : "local";
   if (syncMode === "local") markSyncBlocked();
   else persist();
 }
@@ -1280,29 +1289,63 @@ async function startFirebase(){
   const app = initializeApp(FIREBASE_CONFIG);
   const auth = authMod.getAuth(app);
   const db = fsMod.getFirestore(app);
-  cloud = { db, fns: { doc: fsMod.doc, getDoc: fsMod.getDoc, setDoc: fsMod.setDoc, collection: fsMod.collection, getDocs: fsMod.getDocs, deleteDoc: fsMod.deleteDoc } };
+  const enrollmentMod = PUBLIC_ENROLLMENT_ENABLED ? await import("/enrollment.js") : null;
+  cloud = { db, fns: { doc: fsMod.doc, getDoc: fsMod.getDoc, setDoc: fsMod.setDoc, collection: fsMod.collection, getDocs: fsMod.getDocs, deleteDoc: fsMod.deleteDoc, runTransaction: fsMod.runTransaction, serverTimestamp: fsMod.serverTimestamp } };
 
-  authMod.onAuthStateChanged(auth, async (u) => {
-    if (!u){ showSignin(); return; }
-    const email = (u.email || "").toLowerCase();
-    user = { uid: u.uid, name: u.displayName || email, email, photo: u.photoURL || "" };
-    // Access probe: the same server-side allowlist as MathTest Trail decides who gets in.
-    try {
-      await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", u.uid));
-    } catch(e){
-      if (e.code === "permission-denied"){
-        user = null;
-        await authMod.signOut(auth);
-        signinError("Sorry — the account " + esc(email) + " isn't on the access list for this study site.");
-        return;
-      }
-      console.warn("Access probe inconclusive (offline?), continuing:", e.message);
-    }
+  const enterAuthorized = async () => {
     try { await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers")); adminMode = true; }
     catch(e){ adminMode = false; }
     loadLocal();
     await loadCloud();
     enterApp();
+  };
+
+  authMod.onAuthStateChanged(auth, async (u) => {
+    if (!u){ showSignin(); return; }
+    const email = (u.email || "").toLowerCase();
+    user = { uid: u.uid, name: u.displayName || email, email, photo: u.photoURL || "" };
+    if (PUBLIC_ENROLLMENT_ENABLED){
+      let enrolled = false;
+      try {
+        const record = await enrollmentMod.readCourseEnrollment({ db: cloud.db, firestore: cloud.fns, uid: u.uid, courseId: COURSE_ID });
+        enrolled = record?.status === "active";
+      } catch(e){
+        if (e.code !== "permission-denied"){
+          signinError("We couldn't verify course access. Check your connection and try again.");
+          return;
+        }
+      }
+      if (!enrolled){
+        try { await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", u.uid)); }
+        catch(e){
+          if (e.code === "permission-denied"){
+            let settings;
+            try { settings = await enrollmentMod.readCourseSettings({ db: cloud.db, firestore: cloud.fns, courseId: COURSE_ID }); }
+            catch(e2){ signinError("We couldn't load this course's enrollment settings. Please try again later."); return; }
+            showEnrollmentGate(u, settings, async () => {
+              await enrollmentMod.createFreeCourseEnrollment({ db: cloud.db, firestore: cloud.fns, uid: u.uid, courseId: COURSE_ID, profile: { email, displayName: u.displayName || null } });
+              await enterAuthorized();
+            });
+            return;
+          }
+          signinError("We couldn't verify course access. Check your connection and try again.");
+          return;
+        }
+      }
+    } else {
+      // Private launch: preserve the current server-side allowlist check.
+      try { await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", u.uid)); }
+      catch(e){
+        if (e.code === "permission-denied"){
+          user = null;
+          await authMod.signOut(auth);
+          signinError("Sorry — the account " + esc(email) + " isn't on the access list for this study site.");
+          return;
+        }
+        console.warn("Access probe inconclusive (offline?), continuing:", e.message);
+      }
+    }
+    await enterAuthorized();
   });
 
   $("#btn-google").onclick = async () => {
@@ -1315,7 +1358,24 @@ async function startFirebase(){
   $("#btn-signout").onclick = () => authMod.signOut(auth).then(() => location.reload());
 }
 function signinError(msg){ const b = $("#signin-err"); b.innerHTML = msg; b.classList.remove("hidden"); }
-function showSignin(){ $("#view-signin").classList.remove("hidden"); $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); }
+function showEnrollmentGate(account, settings, onEnroll){
+  $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); $("#view-signin").classList.remove("hidden");
+  $("#btn-google").classList.add("hidden"); $("#signin-err").classList.add("hidden");
+  const box = $("#enrollment-box"); box.classList.remove("hidden");
+  const open = settings?.selfEnrollmentOpen === true && settings?.priceCents === 0;
+  box.innerHTML = `<div class="card" style="padding:18px;text-align:left"><h2 style="font-size:1.2rem;margin:0 0 8px">${esc(settings?.title || COURSE_LABEL)}</h2><p style="margin:0 0 8px">Signed in as <b>${esc(account.email || "")}</b>.</p><p style="margin:0 0 14px">${open ? "This is a free course enrollment. Your lessons, practice, and progress will be saved to your account." : "Self-enrollment is not open for this course right now. Please contact your teacher for access."}</p>${open ? '<button id="btn-enroll-course" class="btn primary" style="width:100%">Join this course</button><div id="enroll-error" class="errbox hidden"></div>' : ""}<p class="note" style="margin:12px 0 0">You can also return to <a href="/">all courses</a>. <a href="/privacy.html">Privacy details</a>.</p></div>`;
+  if (!open) return;
+  $("#btn-enroll-course").onclick = async () => {
+    const button = $("#btn-enroll-course"), error = $("#enroll-error");
+    button.disabled = true; button.textContent = "Joining…"; error.classList.add("hidden");
+    try { await onEnroll(); }
+    catch(e){
+      error.textContent = e.code === "permission-denied" ? "Self-enrollment isn't enabled in Firebase yet. Please try again later." : (e.message || "We couldn't complete enrollment. Please try again.");
+      error.classList.remove("hidden"); button.disabled = false; button.textContent = "Join this course";
+    }
+  };
+}
+function showSignin(){ $("#view-signin").classList.remove("hidden"); $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); $("#btn-google").classList.remove("hidden"); $("#enrollment-box").classList.add("hidden"); }
 
 function startLocalPreview(){
   user = { uid: "local-preview", name: "Preview User", email: "preview@local", photo: "" };
@@ -2343,6 +2403,22 @@ async function renderAdmin(){
     snap.forEach(d => rows.push({ email: d.id, ...d.data() }));
     rows.sort((a, b) => a.email.localeCompare(b.email));
   } catch(e){ views.innerHTML += `<div class="errbox">Couldn't load users: ${esc(e.message)}</div>`; return; }
+  let enrollmentPanel = "";
+  if (PUBLIC_ENROLLMENT_ENABLED){
+    try {
+      const [profileSnap, enrollmentSnap] = await Promise.all([
+        cloud.fns.getDocs(cloud.fns.collection(cloud.db, "profiles")),
+        cloud.fns.getDocs(cloud.fns.collection(cloud.db, "enrollments"))
+      ]);
+      const profiles = [];
+      const enrollments = new Map();
+      profileSnap.forEach(d => profiles.push({ uid: d.id, ...d.data() }));
+      enrollmentSnap.forEach(d => enrollments.set(d.id, d.data()));
+      profiles.sort((a, b) => String(a.email || "").localeCompare(String(b.email || "")));
+      const courseInfo = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"]];
+      enrollmentPanel = `<div class="card"><h3 style="margin-bottom:4px">Student enrollments <span class="note">(${profiles.length})</span></h3><p class="note" style="margin:0 0 10px">Grant or revoke course access for registered students. Each course is a separate entitlement.</p>${profiles.length ? profiles.map(p => `<div class="attempt-row"><span><b>${esc(p.email || "")}</b>${p.displayName ? " · " + esc(p.displayName) : ""}<br>${courseInfo.map(([id, label]) => { const r = enrollments.get(p.uid + "__" + id), active = r?.status === "active"; return `<span class="pill ${active ? "teal" : ""}">${esc(label)} · ${active ? "active" : "not enrolled"}</span> <button class="btn soft" data-enroll-action="${active ? "revoke" : "grant"}" data-uid="${esc(p.uid)}" data-course-id="${id}" style="padding:5px 9px;margin:2px">${active ? "Revoke" : "Grant"}</button>`; }).join(" ")}</span></div>`).join("") : `<div class="emptystate">No student profiles yet. Profiles appear after a student joins a course.</div>`}</div><div class="spacer"></div>`;
+    } catch(e){ enrollmentPanel = `<div class="errbox">Couldn't load enrollment roster: ${esc(e.message)}</div>`; }
+  }
   views.innerHTML = `
   <div class="viewhead"><h2>Admin</h2><p>This is the same access list as MathTest Trail — anyone added here can open both courses. Access is enforced server-side.</p></div>
   <div class="card" style="margin-bottom:14px;padding:14px 18px"><b>Your MHF4U sync mode:</b> ${syncMode === "primary" ? "☁️ own record (mhf4u) — ideal" : syncMode === "fallback" ? "☁️ inside the user record — working; add the mhf4u rule from MHF4U-SETUP.md to move to the dedicated record" : "⚠️ device only — add the rules in MHF4U-SETUP.md"}</div>
@@ -2357,6 +2433,7 @@ async function renderAdmin(){
     </div>
     <p class="note" style="margin-top:8px">Must be the Google account email they'll sign in with. Share this course's direct link from the course catalogue.</p>
   </div>
+  ${enrollmentPanel}
   <div class="spacer"></div>
   <div class="card">
     <h3 style="margin-bottom:4px">Allowed users <span class="note">(${rows.length})</span></h3>
@@ -2378,6 +2455,16 @@ async function renderAdmin(){
       toast("✓ " + email + " can now sign in"); renderAdmin();
     } catch(e){ toast("Couldn't add: " + e.message); }
   };
+  views.querySelectorAll("[data-enroll-action]").forEach(b => b.onclick = async () => {
+    const uid = b.dataset.uid, courseId = b.dataset.courseId, action = b.dataset.enrollAction;
+    if (action === "revoke" && !confirm("Revoke " + courseId + " access for this student?")) return;
+    const ref = cloud.fns.doc(cloud.db, "enrollments", uid + "__" + courseId);
+    try {
+      if (action === "grant") await cloud.fns.setDoc(ref, { uid, courseId, status: "active", source: "admin", enrolledAt: cloud.fns.serverTimestamp() });
+      else await cloud.fns.setDoc(ref, { status: "revoked" }, { merge: true });
+      toast(action === "grant" ? "Course access granted" : "Course access revoked"); renderAdmin();
+    } catch(e){ toast("Couldn't update enrollment: " + e.message); }
+  });
   views.querySelectorAll("[data-course]").forEach(b => b.onclick = async () => {
     const email = b.dataset.course, to = b.dataset.to;
     try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: to === "MHF4U" ? 12 : null }, { merge: true }); toast(email + (to === "MHF4U" ? " assigned to Grade 12 · MHF4U" : " moved to MPT prep")); renderAdmin(); }

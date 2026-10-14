@@ -17,18 +17,11 @@ The small chip under the header shows the status: **☁️ Synced**, **Saving…
 
 The Admin tab in MHF4U shows which mode your own account is using.
 
-## One-time Firebase step (recommended)
+## Firebase rules
 
-Firebase console → project **mathtest-logicmanse** → **Firestore Database** → **Rules**. Add this block
-inside `match /databases/{database}/documents { … }`, next to your existing user record rule, then click **Publish**.
+The repo now contains a candidate full rules file at [`firestore.rules`](firestore.rules). It incorporates the current rules supplied by the owner, preserves legacy access during transition, and adds per-course enrollments and isolated progress paths. Review and test it in the Firebase Emulator before replacing the active rules. Do not paste the old one-rule snippet into the console; it does not enforce course-specific enrollment.
 
-```
-// 1) MHF4U progress: use EXACTLY the same condition as your existing users/{uid} block.
-match /mhf4u/{uid} {
-  allow read, write: if <the same condition your users/{uid} rule uses>;
-}
-
-```
+Public self-enrollment remains disabled in the app until the candidate rules are deployed and course settings are intentionally opened. A course can be opened for free self-enrollment by an admin-created `courseSettings/{courseId}` document with `selfEnrollmentOpen: true` and `priceCents: 0`; no course settings means enrollment stays closed.
 
 The root page is a public course catalogue. Course sign-in and content access continue to use the existing Firebase setup.
 

@@ -1,0 +1,123 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null && request.auth.token.email != null;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn()
+        && request.auth.token.email.lower() in [
+          'aniphilip@hotmail.com',
+          'aniphilip@gmail.com'
+        ];
+    }
+
+    function isLegacyAllowed() {
+      return isSignedIn() && (isSuperAdmin()
+        || exists(/databases/$(database)/documents/allowedUsers/$(request.auth.token.email.lower())));
+    }
+
+    function isAdmin() {
+      return isSuperAdmin() || (isLegacyAllowed()
+        && get(/databases/$(database)/documents/allowedUsers/$(request.auth.token.email.lower())).data.admin == true);
+    }
+
+    function canSelfEnroll(courseId) {
+      let settingsPath = /databases/$(database)/documents/courseSettings/$(courseId);
+      return exists(settingsPath)
+        && get(settingsPath).data.selfEnrollmentOpen == true
+        && get(settingsPath).data.priceCents == 0;
+    }
+
+    function hasActiveEnrollment(uid, courseId) {
+      let enrollmentId = uid + '__' + courseId;
+      let enrollmentPath = /databases/$(database)/documents/enrollments/$(enrollmentId);
+      return exists(enrollmentPath)
+        && get(enrollmentPath).data.status == 'active';
+    }
+
+    function isOwnEnrollmentId(enrollmentId) {
+      return isSignedIn()
+        && enrollmentId.matches('^' + request.auth.uid + '__[^/]+$');
+    }
+
+    function canCreateFreeEnrollment(enrollmentId) {
+      let courseId = request.resource.data.courseId;
+      return isSignedIn()
+        && request.resource.data.uid == request.auth.uid
+        && enrollmentId == request.auth.uid + '__' + courseId
+        && canSelfEnroll(courseId)
+        && request.resource.data.keys().hasOnly(['uid', 'courseId', 'status', 'source', 'enrolledAt'])
+        && request.resource.data.keys().hasAll(['uid', 'courseId', 'status', 'source', 'enrolledAt'])
+        && request.resource.data.status == 'active'
+        && request.resource.data.source == 'self-service-free'
+        && request.resource.data.enrolledAt == request.time;
+    }
+
+    function hasCourseAccess(courseId) {
+      // Legacy allowlist access is retained during migration. New students use
+      // course-specific enrollment documents and cannot read another course's work.
+      return isLegacyAllowed()
+        || (isSignedIn() && hasActiveEnrollment(request.auth.uid, courseId));
+    }
+
+    match /users/{uid} {
+      // Legacy shared MPT/MHF4U record, retained only for invited accounts
+      // while old progress is migrated to per-course collections.
+      allow read, write: if isLegacyAllowed() && request.auth.uid == uid;
+    }
+
+    match /mpt/{uid} {
+      allow read, write: if isSignedIn()
+        && request.auth.uid == uid
+        && hasCourseAccess('MPT');
+    }
+
+    match /mhf4u/{uid} {
+      allow read, write: if isSignedIn()
+        && request.auth.uid == uid
+        && hasCourseAccess('MHF4U');
+    }
+
+    match /profiles/{uid} {
+      allow get: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn()
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['email', 'displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['email', 'displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.email == request.auth.token.email.lower()
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if isSignedIn()
+        && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt'])
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if isAdmin();
+    }
+
+    match /enrollments/{enrollmentId} {
+      allow get: if isAdmin() || isOwnEnrollmentId(enrollmentId);
+      allow list: if isAdmin();
+      allow create: if isAdmin() || canCreateFreeEnrollment(enrollmentId);
+      allow update, delete: if isAdmin();
+    }
+
+    match /courseSettings/{courseId} {
+      // Only non-sensitive catalog/enrollment settings belong in this collection.
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /allowedUsers/{email} {
+      allow read, write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

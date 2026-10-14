@@ -22,6 +22,7 @@ can be added by creating a course folder and adding a card to the catalogue. Che
 - **Test-day tools** — on-screen calculator and Formula Sheet overlay on every question, like the real test's toolbar; per-question calculator/mental-math guidance and 🌱/🌿/🌋 difficulty modes.
 - **Personal** — profile with display name, optional age, preferred difficulty; flexible 8-week plan anchored to your own start date; XP, levels, badges, and streaks.
 - **Private & managed** — Google sign-in and Firestore course data, currently access-managed through the admin allowlist.
+- **Enrollment foundation** — a shared free course-enrollment helper and course-specific join screens are prepared behind `PUBLIC_ENROLLMENT_ENABLED` in each course. The flag remains off until the active Firestore rules are exported, migrated, and reviewed; this preserves the invite-only launch.
 
 ## Stack
 
@@ -40,6 +41,8 @@ limited to 60 days. See [privacy.html](privacy.html).
 ## Setup
 
 See [SETUP.md](SETUP.md). No secrets live in this repo.
+
+Public-enrollment architecture and rollout notes are in [docs/PRODUCT-DESIGN-NOTES.md](docs/PRODUCT-DESIGN-NOTES.md).
 
 ## Question bank
 
