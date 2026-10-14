@@ -9,8 +9,12 @@ A private study platform with a course catalogue at **https://mathtest.logicmans
 **Grade 12 Advanced Functions (MHF4U):** https://mathtest.logicmanse.ca/MHF4U/. It has the same
 engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
 
+**Grade 12 University Chemistry (SCH4U):** https://mathtest.logicmanse.ca/SCH4U/. Same engine, sign-in and
+allowlist, with lessons, interactive chemistry calculators (molar mass/moles, pH/pOH, ideal gas law) and an
+8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
+
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
-can be added by creating a course folder and adding a card to the catalogue. Chemistry is listed as coming soon.
+can be added by creating a course folder and adding a card to the catalogue.
 
 ## Features
 
