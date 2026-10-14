@@ -261,6 +261,74 @@ footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-s
 .toast.show{opacity:1}
 @keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
 .view{animation:pop .22s ease}
+/* ---------- shared course design system ---------- */
+:root{
+  --parchment:#f4f5f1;--parchment-deep:#e9eee9;--card:#fff;--ink:#1d2b2a;--ink-soft:#60716e;
+  --teal:#176b54;--teal-deep:#103f35;--teal-tint:#e6f2ec;--coral:#d66d53;--coral-tint:#faeee9;
+  --sage:#6d9c79;--sage-tint:#eaf3e9;--gold:#d3a64b;--gold-tint:#fbf4e4;--line:#dce5de;
+  --shadow:0 3px 12px rgba(24,54,44,.055);--shadow-lift:0 14px 34px rgba(24,54,44,.12);--radius:18px
+}
+body{background:#f4f5f1}
+body::before{background:radial-gradient(ellipse 48% 35% at 8% 0%,rgba(211,166,75,.09),transparent 70%),radial-gradient(ellipse 52% 46% at 100% 100%,rgba(23,107,84,.07),transparent 70%)}
+.wrap{max-width:1120px;padding:24px 28px 56px}
+#app.wrap{max-width:1120px;margin-left:max(236px,calc((100vw - 1360px)/2 + 236px));margin-right:auto;padding-left:28px;padding-right:28px}
+header.app{padding:8px 0 16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.brand{gap:14px}.brand .logo{width:42px;height:42px}.brand h1{font-size:1.28rem;letter-spacing:-.035em}
+.brand .sub{font-size:.7rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+.userchip{box-shadow:none;background:rgba(255,255,255,.8)}
+nav.tabs{left:0;top:0;bottom:0;width:212px;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:7px;padding:28px 16px;background:#123d34;border:0;border-right:1px solid rgba(255,255,255,.08);box-shadow:8px 0 28px rgba(16,63,53,.07)}
+nav.tabs::before{content:"MATH TEST TRAIL";display:block;color:#d6e8dd;font-size:.68rem;font-weight:700;letter-spacing:.16em;padding:8px 12px 20px}
+nav.tabs button{flex:0 0 auto;width:100%;min-height:46px;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:10px 12px;text-align:left;border-radius:12px;color:#c7d9d1;font-size:.86rem;font-weight:600}
+nav.tabs button svg{width:19px;height:19px;flex:0 0 19px}
+nav.tabs button:hover{color:#fff;background:rgba(255,255,255,.08)}
+nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b25f}
+.card{border-color:var(--line);box-shadow:var(--shadow)}
+.hero{background:linear-gradient(120deg,#164b3c 0%,#103c34 72%,#1d5b48 100%);border-radius:22px;padding:28px 30px}
+.hero h2{font-size:1.85rem;letter-spacing:-.025em}.hero p{font-size:.96rem;max-width:38em}
+.viewhead{margin:8px 0 20px}.viewhead h2{font-size:1.8rem;letter-spacing:-.035em}.viewhead p{margin-top:4px;max-width:60em}
+.btn{border-radius:11px}
+.statrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.stat{min-width:0;background:rgba(255,255,255,.11);padding:10px 13px}
+.stat .v{font-size:1.12rem}.stat .l{font-size:.63rem;letter-spacing:.055em}
+.homegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.homecard{min-height:156px;padding:19px;border-top-width:3px}
+.homecard h3{font-family:var(--font-body);font-size:1rem}
+.homecard p{line-height:1.5}
+.thisweek{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+.thisweek h3{font-family:var(--font-body);font-size:1rem;color:var(--teal-deep)}
+.signin-card{max-width:480px;border:1px solid var(--line);border-radius:24px;padding:42px 38px;box-shadow:0 18px 54px rgba(24,54,44,.10)}
+.signin-card .logo{width:72px;height:72px;margin-bottom:15px}.signin-card h1{font-size:2.15rem;letter-spacing:-.035em}
+.signin-card p{margin-bottom:22px}.signin-foot{border-top:1px solid var(--line);padding-top:16px;line-height:1.7}
+.signin-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:-5px 0 20px}
+.signin-proof span{background:var(--parchment);border:1px solid var(--line);border-radius:10px;padding:9px 5px;color:var(--ink-soft);font-size:.67rem;line-height:1.35}
+.signin-proof b{display:block;color:var(--teal-deep);font-family:var(--font-mono);font-size:1rem}
+.gbtn{border-color:#ccd9d1;border-radius:11px;box-shadow:none}.gbtn:hover{box-shadow:var(--shadow);border-color:#90ad9c}
+.syncrow{margin:0 0 14px}.syncchip{padding:5px 12px}.acc{box-shadow:var(--shadow);border-radius:16px}
+.acc>button{font-family:var(--font-body);font-size:.95rem}.toast{bottom:24px}
+@media(max-width:900px){
+  .wrap{max-width:780px;padding:18px 18px 102px}
+  #app.wrap{max-width:780px;margin:0 auto;padding:18px 18px 102px}
+  nav.tabs{top:auto;left:0;right:0;bottom:0;width:auto;height:auto;flex-direction:row;justify-content:center;align-items:stretch;gap:2px;padding:7px 6px calc(7px + env(safe-area-inset-bottom));border:0;border-top:1px solid var(--line);background:rgba(255,255,255,.96);box-shadow:0 -8px 24px rgba(24,54,44,.08)}
+  nav.tabs::before{display:none}
+  nav.tabs button{flex:1 1 0;width:auto;min-width:0;min-height:56px;flex-direction:column;justify-content:center;gap:3px;padding:5px 2px;color:var(--ink-soft);font-size:.66rem}
+  nav.tabs button svg{width:19px;height:19px}
+  nav.tabs button.active{color:var(--teal-deep);background:var(--teal-tint);box-shadow:none}
+  .statrow{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .wrap,#app.wrap{padding-left:14px;padding-right:14px}
+  header.app{align-items:flex-start}.brand{gap:9px}.brand .logo{width:36px;height:36px;flex-basis:36px}
+  .brand h1{font-size:1.05rem}.brand .sub{font-size:.59rem}
+  .userchip{gap:5px;padding:4px 7px 4px 5px}.userchip .name{font-size:.76rem}.userchip button{font-size:.7rem}
+  .hero{padding:22px 20px}.hero h2{font-size:1.48rem}
+  .homegrid{grid-template-columns:1fr}
+  .statrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{padding:8px 10px}.stat .v{font-size:1rem}
+  .signin-card{padding:34px 24px}
+}
+@media(max-width:520px){nav.tabs{gap:0;padding-left:2px;padding-right:2px}nav.tabs button{flex:1 1 0;min-width:0;font-size:.6rem;padding:6px 1px;line-height:1.15;text-align:center}nav.tabs button svg{width:20px;height:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
 </style>
 </head>
 <body>
