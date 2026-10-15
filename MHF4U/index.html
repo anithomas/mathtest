@@ -1220,7 +1220,7 @@ function payload(){ return { attempts: store.attempts.slice(-200), seen: store.s
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
-  return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, mhf4u: payload() }, { mergeFields: ["email", "mhf4u"] });
+  return cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, [COLL]: payload() }, { mergeFields: ["email", COLL] });
 }
 function persist(){
   try { localStorage.setItem(lsKey(), JSON.stringify(store)); } catch(e){}
@@ -1266,14 +1266,14 @@ function mergeInto(d){
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
   try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid)); primaryOK = true; if (snap.exists()) primaryData = snap.data(); }
-  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (mhf4u):", e.message); }
+  catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (" + COLL + "):", e.message); }
   // Self-enrolled accounts cannot read users/{uid}; only legacy invite accounts
   // may import the old shared progress record during transition.
   if (!PUBLIC_ENROLLMENT_ENABLED || primaryOK){
-    try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data().mhf4u) fallbackData = snap.data().mhf4u; }
+    try { const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid)); fallbackOK = true; if (snap.exists() && snap.data()[COLL]) fallbackData = snap.data()[COLL]; }
     catch(e){ if (e.code !== "permission-denied") console.warn("Cloud load (users):", e.message); }
   }
-  // use whichever copy has the most history (e.g. progress saved before the mhf4u rule was added)
+  // use whichever copy has the most history (e.g. progress saved before the per-course rule was added)
   [fallbackData, primaryData].forEach(mergeInto);
   normalizeStore();
   syncMode = primaryOK ? "primary" : (!PUBLIC_ENROLLMENT_ENABLED && fallbackOK) ? "fallback" : "local";
