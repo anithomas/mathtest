@@ -11,9 +11,13 @@ engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. 
 
 **Lakehead Math Competency (LMCA):** https://mathtest.logicmanse.ca/LMCA/. An independent study aid for
 Lakehead University's Mathematics Competency Assessment (Primary/Junior division, EDUC 0450) — Grade 6/7-level
-math practice across five strands, built on the same engine. Not affiliated with or endorsed by Lakehead
-University; the real assessment's exact format (question count, timing, calculator policy) isn't publicly
-published, so this is generic, evenly-spread practice rather than a claimed simulation.
+math practice across the five strands named in Lakehead's own prep materials (Number Sense & Numeration,
+Measurement, Patterning & Algebra, Data Management & Probability, Commercial & Financial Math), built on the
+same engine. Not affiliated with or endorsed by Lakehead University. The real assessment is confirmed (per
+Lakehead's own "Making Sense of the MCA" materials) to be 15 open-response questions worth 3 marks each
+(45 marks total), 2 hours, no calculator or formula sheet, with manipulatives provided and a 75% pass line —
+this app's practice sets are original multiple-choice questions for quick self-checking, not a copy of any
+official question or a claimed simulation of the written format.
 
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
 can be added by creating a course folder and adding a card to the catalogue. Chemistry is listed as coming soon.
@@ -65,5 +69,5 @@ Number 50 · Algebra 30 · Data & Probability 22 · Spatial Sense 30 · Financia
 Questions are written for this app — official EQAO practice questions stay on [mathproficiencytest.ca](https://mathproficiencytest.ca), where the Study Hub links to them.
 
 80 original questions in the `BANK` array in `LMCA/index.html`, covering Grade 6/7-level Ontario elementary
-math: Number Sense 16 · Proportional Reasoning 16 · Algebra Reasoning 16 · Measurement & Geometry 16 ·
-Data & Probability 16.
+math across Lakehead's five named strands: Number Sense & Numeration 16 · Measurement 16 ·
+Patterning & Algebra 16 · Data Management & Probability 16 · Commercial & Financial Math 16.

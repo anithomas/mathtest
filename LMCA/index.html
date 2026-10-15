@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
 <title>LogicManse Study · Lakehead Math Competency Prep</title>
-<meta name="description" content="Independent Grade 6/7-level math practice for Lakehead University's Primary/Junior Mathematics Competency Assessment.">
+<meta name="description" content="Independent Grade 6/7-level math practice for Lakehead University's Primary/Junior Mathematics Competency Assessment (EDUC 0450) — 15 open-response questions, no calculator.">
 <style>
 :root{
   --parchment:#faf5ec;
@@ -346,8 +346,8 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
       <path d="M78 30 l3 4 6 -7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <h1>MathTest Trail</h1>
-    <p>Grade 6/7-level practice for Lakehead University's Primary/Junior Mathematics Competency Assessment. Quizzes, practice sets, and progress tracking — one gentle step at a time.</p>
-    <p class="note" style="margin:-16px 0 20px;font-size:.78rem">Independent study aid · not affiliated with or endorsed by Lakehead University · the assessment's exact format isn't publicly published, so this isn't a verified simulation.</p>
+    <p>Grade 6/7-level practice for Lakehead University's Primary/Junior Mathematics Competency Assessment (EDUC 0450) — the real exam is 15 open-response questions in 2 hours, no calculator. Quizzes, practice sets, and progress tracking — one gentle step at a time.</p>
+    <p class="note" style="margin:-16px 0 20px;font-size:.78rem">Independent study aid · not affiliated with or endorsed by Lakehead University · practice here uses quick multiple-choice self-checks, while the real assessment is written, open-response work.</p>
     <button id="btn-google" class="gbtn">
       <img alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
       Continue with Google
@@ -401,9 +401,10 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 
 <div id="toast" class="toast"></div>
 
-<!-- Optional study tools: calculator + formula reference (not a confirmed feature of the real exam) -->
+<!-- Optional study tools: the real MCA permits neither a calculator nor a formula sheet —
+     these are practice-only conveniences, clearly labelled as such below. -->
 <div id="calc" class="hidden">
-  <div class="chead"><span>🧮 Calculator</span><button id="calc-close" title="Close">✕</button></div>
+  <div class="chead"><span>🧮 Calculator <span class="note" style="font-weight:400">(not allowed on test day)</span></span><button id="calc-close" title="Close">✕</button></div>
   <div class="cdisp" id="calc-disp">0</div>
   <div class="cgrid">
     <button data-k="C" class="op">C</button><button data-k="(" class="op">(</button><button data-k=")" class="op">)</button><button data-k="⌫" class="op">⌫</button>
@@ -423,7 +424,7 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 <div id="fsheet" class="hidden">
   <div class="fbox">
     <div style="display:flex;justify-content:space-between;align-items:center"><h3>📐 Formula Sheet</h3><button class="btn soft" id="fsheet-close" style="padding:6px 14px">Close</button></div>
-    <p class="note" style="margin-bottom:8px">A quick reference while you practice — whether formula sheets are provided on the real assessment isn't publicly confirmed.</p>
+    <p class="note" style="margin-bottom:8px">A quick reference for practice only — Lakehead's own prep materials state that notes and formula sheets are <b>not</b> permitted on the real assessment, so try to lean on this less as test day gets closer.</p>
     <table class="ftable"><tr><th>Shape</th><th>Perimeter</th><th>Area</th></tr>
       <tr><td>Circle</td><td>C = πd = 2πr</td><td>A = πr²</td></tr>
       <tr><td>Triangle</td><td>P = a + b + c</td><td>A = bh ÷ 2</td></tr>
@@ -441,6 +442,7 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
       <tr><td>Square-based pyramid</td><td>SA = b² + 2bs</td><td>V = (1/3)b²h</td></tr>
       <tr><td>Sphere</td><td>SA = 4πr²</td><td>V = (4/3)πr³</td></tr>
     </table>
+    <p class="note" style="margin-top:8px">⚠️ If a solid is <b>open or lidless</b> (like a box with no top), subtract the area of the missing face from the closed-solid formula — don't apply it as-is.</p>
   </div>
 </div>
 
@@ -474,96 +476,99 @@ const FIREBASE_CONFIG = {
 <script>
 "use strict";
 // Each question: id, sec ("content"), strand, grade band ("6"|"7"), q, opts[4], ans (index), exp
+// Strands match Lakehead's own Mathematics Competency Assessment (EDUC 0450) prep materials:
+// Number Sense & Numeration, Measurement, Patterning & Algebra, Data Management & Probability,
+// and Commercial & Financial Math.
 const BANK = [
-// ---------- NUMBER SENSE (NS01–NS16) ----------
-{id:"NS01",sec:"content",strand:"Number Sense",grade:"6",q:"Write 5/8 as a decimal.",opts:["0.58","0.625","0.65","0.8125"],ans:1,exp:"5 ÷ 8 = 0.625."},
-{id:"NS02",sec:"content",strand:"Number Sense",grade:"6",q:"Write 0.45 as a fraction in simplest form.",opts:["45/100","9/20","4/5","9/10"],ans:1,exp:"0.45 = 45/100. Dividing top and bottom by 5 gives 9/20."},
-{id:"NS03",sec:"content",strand:"Number Sense",grade:"6",q:"Which decimal is the largest?",opts:["0.6","0.59","0.609","0.599"],ans:2,exp:"Line up the place values: 0.600, 0.590, 0.609, 0.599 — 0.609 is largest."},
-{id:"NS04",sec:"content",strand:"Number Sense",grade:"6",q:"Convert 3/5 to a percent.",opts:["35%","53%","60%","65%"],ans:2,exp:"3/5 = 0.6 = 60%."},
-{id:"NS05",sec:"content",strand:"Number Sense",grade:"7",q:"Write 125% as a decimal.",opts:["0.125","1.25","12.5","125"],ans:1,exp:"Divide the percent by 100: 125 ÷ 100 = 1.25."},
-{id:"NS06",sec:"content",strand:"Number Sense",grade:"7",q:"Which list correctly orders 3/4, 0.7, and 65% from least to greatest?",opts:["0.7, 65%, 3/4","65%, 0.7, 3/4","3/4, 0.7, 65%","0.7, 3/4, 65%"],ans:1,exp:"Convert all to decimals: 3/4 = 0.75, 0.7 = 0.70, 65% = 0.65. In order: 0.65, 0.70, 0.75 — that is 65%, 0.7, 3/4."},
-{id:"NS07",sec:"content",strand:"Number Sense",grade:"6",q:"−8 + 3 = ?",opts:["−11","−5","5","11"],ans:1,exp:"Starting at −8 and moving 3 to the right lands on −5."},
-{id:"NS08",sec:"content",strand:"Number Sense",grade:"7",q:"−6 − (−9) = ?",opts:["−15","−3","3","15"],ans:2,exp:"Subtracting a negative is the same as adding: −6 + 9 = 3."},
-{id:"NS09",sec:"content",strand:"Number Sense",grade:"6",q:"(−4) × (−5) = ?",opts:["−20","−9","9","20"],ans:3,exp:"A negative times a negative gives a positive: 4 × 5 = 20."},
-{id:"NS10",sec:"content",strand:"Number Sense",grade:"7",q:"(−18) ÷ (−3) = ?",opts:["−6","−3","3","6"],ans:3,exp:"A negative divided by a negative gives a positive: 18 ÷ 3 = 6."},
-{id:"NS11",sec:"content",strand:"Number Sense",grade:"7",q:"Evaluate: 3 + 4 × (2 + 1)²",opts:["39","21","45","27"],ans:0,exp:"Brackets first: 2 + 1 = 3. Exponent: 3² = 9. Multiply: 4 × 9 = 36. Add: 3 + 36 = 39 (BEDMAS)."},
-{id:"NS12",sec:"content",strand:"Number Sense",grade:"6",q:"Which fraction is equivalent to 0.75?",opts:["3/4","2/3","4/5","7/10"],ans:0,exp:"0.75 = 75/100 = 3/4."},
-{id:"NS13",sec:"content",strand:"Number Sense",grade:"6",q:"Round 4.0872 to the nearest hundredth.",opts:["4.08","4.09","4.1","4.087"],ans:1,exp:"The digit after the hundredths place is 7, so round up: 4.0872 → 4.09."},
-{id:"NS14",sec:"content",strand:"Number Sense",grade:"7",q:"7/10 − 2/5 = ?",opts:["1/2","3/10","5/10","1/5"],ans:1,exp:"Common denominator of 10: 2/5 = 4/10, so 7/10 − 4/10 = 3/10."},
-{id:"NS15",sec:"content",strand:"Number Sense",grade:"6",q:"Simplify 24/36 to lowest terms.",opts:["3/4","2/3","4/6","6/9"],ans:1,exp:"The greatest common factor of 24 and 36 is 12: 24÷12 = 2, 36÷12 = 3, giving 2/3."},
-{id:"NS16",sec:"content",strand:"Number Sense",grade:"7",q:"Which of these is NOT equivalent to 40%?",opts:["0.4","2/5","4/10","4/5"],ans:3,exp:"4/5 = 80%, not 40%. The others (0.4, 2/5, 4/10) all equal 40%."},
+// ---------- NUMBER SENSE & NUMERATION (NS01–NS16) ----------
+{id:"NS01",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Write 5/8 as a decimal.",opts:["0.58","0.625","0.65","0.8125"],ans:1,exp:"5 ÷ 8 = 0.625."},
+{id:"NS02",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Write 0.45 as a fraction in simplest form.",opts:["45/100","9/20","4/5","9/10"],ans:1,exp:"0.45 = 45/100. Dividing top and bottom by 5 gives 9/20."},
+{id:"NS03",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Which decimal is the largest?",opts:["0.6","0.59","0.609","0.599"],ans:2,exp:"Line up the place values: 0.600, 0.590, 0.609, 0.599 — 0.609 is largest."},
+{id:"NS04",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Convert 3/5 to a percent.",opts:["35%","53%","60%","65%"],ans:2,exp:"3/5 = 0.6 = 60%."},
+{id:"NS05",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"Which list correctly orders 3/4, 0.7, and 65% from least to greatest?",opts:["0.7, 65%, 3/4","65%, 0.7, 3/4","3/4, 0.7, 65%","0.7, 3/4, 65%"],ans:1,exp:"Convert all to decimals: 3/4 = 0.75, 0.7 = 0.70, 65% = 0.65. In order: 0.65, 0.70, 0.75 — that is 65%, 0.7, 3/4. Try it a second way too: a ratio table lines the same three values up side by side."},
+{id:"NS06",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Without a calculator: −8 + 3 = ?",opts:["−11","−5","5","11"],ans:1,exp:"Starting at −8 and moving 3 to the right lands on −5."},
+{id:"NS07",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"−6 − (−9) = ?",opts:["−15","−3","3","15"],ans:2,exp:"Subtracting a negative is the same as adding: −6 + 9 = 3."},
+{id:"NS08",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Without a calculator: (−4) × (−5) = ?",opts:["−20","−9","9","20"],ans:3,exp:"A negative times a negative gives a positive: 4 × 5 = 20."},
+{id:"NS09",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"Evaluate, without a calculator: 3 + 4 × (2 + 1)²",opts:["39","21","45","27"],ans:0,exp:"Brackets first: 2 + 1 = 3. Exponent: 3² = 9. Multiply: 4 × 9 = 36. Add: 3 + 36 = 39 (BEDMAS)."},
+{id:"NS10",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"7/10 − 2/5 = ?",opts:["1/2","3/10","5/10","1/5"],ans:1,exp:"Common denominator of 10: 2/5 = 4/10, so 7/10 − 4/10 = 3/10."},
+{id:"NS11",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Simplify 24/36 to lowest terms.",opts:["3/4","2/3","4/6","6/9"],ans:1,exp:"The greatest common factor of 24 and 36 is 12: 24÷12 = 2, 36÷12 = 3, giving 2/3."},
+{id:"NS12",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Simplify the ratio 18 : 24 to lowest terms.",opts:["2 : 3","3 : 4","4 : 5","9 : 12"],ans:1,exp:"The greatest common factor of 18 and 24 is 6: 18÷6 = 3, 24÷6 = 4, giving 3 : 4."},
+{id:"NS13",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Increase 80 by 25%.",opts:["95","100","104","105"],ans:1,exp:"25% of 80 is 20, so 80 + 20 = 100. (Or multiply straight through: 80 × 1.25 = 100.)"},
+{id:"NS14",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"A $45 shirt is discounted 20%. What is the sale price?",opts:["$25","$30","$36","$40"],ans:2,exp:"20% of $45 is $9, so the sale price is $45 − $9 = $36 (or 45 × 0.8 = 36)."},
+{id:"NS15",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"Which is the better buy: 400 g for $3.20, or 600 g for $4.50?",opts:["The 400 g bag","The 600 g bag","They cost the same per gram","Not enough information"],ans:1,exp:"Price per gram: 400 g bag is $3.20 ÷ 400 = $0.008/g; 600 g bag is $4.50 ÷ 600 = $0.0075/g. The 600 g bag is cheaper per gram."},
+{id:"NS16",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"A value increases from 60 to 75. What is the percent increase?",opts:["15%","20%","25%","30%"],ans:2,exp:"Change = 15. Percent increase = change ÷ original = 15 ÷ 60 = 0.25 = 25%."},
 
-// ---------- PROPORTIONAL REASONING (PR01–PR16) ----------
-{id:"PR01",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"A recipe uses 2 cups of flour for every 3 cups of sugar. How much sugar is needed for 8 cups of flour?",opts:["10 cups","12 cups","14 cups","16 cups"],ans:1,exp:"Set up the proportion 2/3 = 8/x. Since 8 = 2 × 4, scale sugar the same way: 3 × 4 = 12 cups."},
-{id:"PR02",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"Simplify the ratio 18 : 24 to lowest terms.",opts:["2 : 3","3 : 4","4 : 5","9 : 12"],ans:1,exp:"The greatest common factor of 18 and 24 is 6: 18÷6 = 3, 24÷6 = 4, giving 3 : 4."},
-{id:"PR03",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"A car travels 150 km in 2 hours. What is its average speed?",opts:["60 km/h","70 km/h","75 km/h","80 km/h"],ans:2,exp:"Unit rate: 150 ÷ 2 = 75 km/h."},
-{id:"PR04",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"Which is the better buy: 400 g for $3.20, or 600 g for $4.50?",opts:["The 400 g bag","The 600 g bag","They cost the same per gram","Not enough information"],ans:1,exp:"Price per gram: 400 g bag is $3.20 ÷ 400 = $0.008/g; 600 g bag is $4.50 ÷ 600 = $0.0075/g. The 600 g bag is cheaper per gram."},
-{id:"PR05",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"What is 35% of 160?",opts:["46","50","56","60"],ans:2,exp:"10% of 160 is 16, so 30% is 48 and 5% is 8: 48 + 8 = 56."},
-{id:"PR06",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"18 is what percent of 75?",opts:["18%","22%","24%","26%"],ans:2,exp:"18 ÷ 75 = 0.24 = 24%."},
-{id:"PR07",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"A $45 shirt is discounted 20%. What is the sale price?",opts:["$25","$30","$36","$40"],ans:2,exp:"20% of $45 is $9, so the sale price is $45 − $9 = $36 (or 45 × 0.8 = 36)."},
-{id:"PR08",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"A map has a scale of 1 : 50 000. A distance of 3 cm on the map represents what real distance?",opts:["0.15 km","1.5 km","15 km","150 km"],ans:1,exp:"3 cm × 50 000 = 150 000 cm = 1500 m = 1.5 km."},
-{id:"PR09",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"Increase 80 by 25%.",opts:["95","100","104","105"],ans:1,exp:"25% of 80 is 20, so 80 + 20 = 100."},
-{id:"PR10",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"A tank fills at a constant rate and is 3/4 full after 6 minutes. At this rate, how long will it take to fill completely?",opts:["7 minutes","7.5 minutes","8 minutes","9 minutes"],ans:2,exp:"6 minutes fills 3/4 of the tank, so 1/4 takes 2 minutes. The full tank takes 6 + 2 = 8 minutes."},
-{id:"PR11",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"5 pencils cost $2.00. At the same rate, what do 12 pencils cost?",opts:["$4.00","$4.40","$4.80","$5.20"],ans:2,exp:"Unit price: $2.00 ÷ 5 = $0.40 per pencil. 12 × $0.40 = $4.80."},
-{id:"PR12",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"In a class of 32 students, the ratio of boys to girls is 3 : 5. How many girls are there?",opts:["12","15","18","20"],ans:3,exp:"3 + 5 = 8 parts, so each part is 32 ÷ 8 = 4 students. Girls = 5 × 4 = 20."},
-{id:"PR13",sec:"content",strand:"Proportional Reasoning",grade:"6",q:"Which ratio is equivalent to 4 : 6?",opts:["2 : 3","3 : 4","6 : 4","8 : 10"],ans:0,exp:"Dividing both terms by 2 gives 2 : 3, the simplest form of 4 : 6."},
-{id:"PR14",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"A photo is enlarged by a scale factor of 2.5. If the original width is 8 cm, what is the new width?",opts:["10 cm","16 cm","20 cm","25 cm"],ans:2,exp:"8 × 2.5 = 20 cm."},
-{id:"PR15",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"A value increases from 60 to 75. What is the percent increase?",opts:["15%","20%","25%","30%"],ans:2,exp:"Change = 15. Percent increase = 15 ÷ 60 = 0.25 = 25%."},
-{id:"PR16",sec:"content",strand:"Proportional Reasoning",grade:"7",q:"Convert a speed of 90 km/h to metres per second.",opts:["15 m/s","20 m/s","25 m/s","30 m/s"],ans:2,exp:"90 km/h = 90 000 m ÷ 3600 s = 25 m/s."},
+// ---------- MEASUREMENT (ME01–ME16) ----------
+{id:"ME01",sec:"content",strand:"Measurement",grade:"6",q:"Convert 3.5 m to centimetres.",opts:["35 cm","350 cm","3500 cm","0.35 cm"],ans:1,exp:"1 m = 100 cm, so 3.5 × 100 = 350 cm."},
+{id:"ME02",sec:"content",strand:"Measurement",grade:"6",q:"Convert 2500 mL to litres.",opts:["0.25 L","2.5 L","25 L","250 L"],ans:1,exp:"1 L = 1000 mL, so 2500 ÷ 1000 = 2.5 L."},
+{id:"ME03",sec:"content",strand:"Measurement",grade:"7",q:"Convert a speed of 90 km/h to metres per second.",opts:["15 m/s","20 m/s","25 m/s","30 m/s"],ans:2,exp:"90 km/h = 90 000 m ÷ 3600 s = 25 m/s."},
+{id:"ME04",sec:"content",strand:"Measurement",grade:"6",q:"A car travels 150 km in 2 hours. What is its average speed?",opts:["60 km/h","70 km/h","75 km/h","80 km/h"],ans:2,exp:"Unit rate: 150 ÷ 2 = 75 km/h."},
+{id:"ME05",sec:"content",strand:"Measurement",grade:"7",q:"A map has a scale of 1 : 50 000. A distance of 3 cm on the map represents what real distance?",opts:["0.15 km","1.5 km","15 km","150 km"],ans:1,exp:"3 cm × 50 000 = 150 000 cm = 1500 m = 1.5 km."},
+{id:"ME06",sec:"content",strand:"Measurement",grade:"7",q:"A water tank is leaking at a constant rate. After 6 hours, 3/4 of the water has leaked out. At this rate, how long in total will it take for the tank to leak completely empty?",opts:["7 hours","7.5 hours","8 hours","9 hours"],ans:2,exp:"6 hours drains 3/4 of the tank, so 1/4 takes 2 hours (a ratio table showing 6h→3/4 and 2h→1/4 makes this easy to see). The tank is fully empty after 6 + 2 = 8 hours."},
+{id:"ME07",sec:"content",strand:"Measurement",grade:"7",q:"A photo is enlarged by a scale factor of 2.5. If the original width is 8 cm, what is the new width?",opts:["10 cm","16 cm","20 cm","25 cm"],ans:2,exp:"8 × 2.5 = 20 cm."},
+{id:"ME08",sec:"content",strand:"Measurement",grade:"6",q:"Find the volume of a rectangular prism 4 cm × 3 cm × 5 cm.",opts:["12 cm³","47 cm³","60 cm³","75 cm³"],ans:2,exp:"V = l × w × h = 4 × 3 × 5 = 60 cm³."},
+{id:"ME09",sec:"content",strand:"Measurement",grade:"7",q:"Find the surface area of a closed cube with side length 3 cm.",opts:["18 cm²","27 cm²","54 cm²","81 cm²"],ans:2,exp:"A cube has 6 equal square faces: SA = 6s² = 6 × 9 = 54 cm²."},
+{id:"ME10",sec:"content",strand:"Measurement",grade:"7",q:"An open-top (lidless) rectangular box measures 6 cm long, 4 cm wide, and 3 cm tall. What is its total surface area, NOT including the missing top?",opts:["72 cm²","84 cm²","96 cm²","108 cm²"],ans:1,exp:"A fully closed box this size would have SA = 2(lw + lh + wh) = 2(24 + 18 + 12) = 108 cm². Since there's no lid, subtract one top face (6 × 4 = 24 cm²): 108 − 24 = 84 cm². Always check whether a solid is open or closed before applying the standard formula."},
+{id:"ME11",sec:"content",strand:"Measurement",grade:"6",q:"Two patterned floor tiles are laid in a row: one design repeats every 8 cm, and the other repeats every 12 cm. What is the shortest distance at which both patterns line up again at the same point?",opts:["16 cm","20 cm","24 cm","32 cm"],ans:2,exp:"List multiples of each: 8, 16, 24, 32… and 12, 24, 36… The smallest value common to both lists is 24 cm — the lowest common multiple (LCM) of 8 and 12."},
+{id:"ME12",sec:"content",strand:"Measurement",grade:"7",q:"A leaky faucet drips at a steady rate, losing 450 mL every 6 hours. At this same rate, how many litres leak out over 2 full days (48 hours)?",opts:["2.4 L","3.0 L","3.6 L","4.2 L"],ans:2,exp:"Rate = 450 mL ÷ 6 h = 75 mL/h. Over 48 h: 75 × 48 = 3600 mL = 3.6 L."},
+{id:"ME13",sec:"content",strand:"Measurement",grade:"7",q:"A composite figure is a 10 cm × 6 cm rectangle with a semicircle of radius 3 cm attached to one side. What is its approximate total area (use π ≈ 3.14)?",opts:["60 cm²","69.1 cm²","74.1 cm²","88.3 cm²"],ans:2,exp:"Rectangle area = 10 × 6 = 60 cm². Semicircle area = (π × r²) ÷ 2 = (3.14 × 9) ÷ 2 ≈ 14.1 cm². Total ≈ 60 + 14.1 = 74.1 cm²."},
+{id:"ME14",sec:"content",strand:"Measurement",grade:"7",q:"A right prism has a triangular base with area 15 cm² and a height (length) of 10 cm. What is its volume?",opts:["25 cm³","150 cm³","75 cm³","1500 cm³"],ans:1,exp:"V = base area × length = 15 × 10 = 150 cm³."},
+{id:"ME15",sec:"content",strand:"Measurement",grade:"7",q:"Find the area of a trapezoid with parallel sides 8 cm and 12 cm, and height 5 cm.",opts:["40 cm²","50 cm²","60 cm²","100 cm²"],ans:1,exp:"A = (a + b) ÷ 2 × h = (8 + 12) ÷ 2 × 5 = 10 × 5 = 50 cm²."},
+{id:"ME16",sec:"content",strand:"Measurement",grade:"7",q:"A recipe uses 2 cups of flour for every 3 cups of sugar. How much sugar is needed for 8 cups of flour?",opts:["10 cups","12 cups","14 cups","16 cups"],ans:1,exp:"A ratio table makes this easy: 2 cups flour : 3 cups sugar, 4 cups flour : 6 cups sugar, 8 cups flour : 12 cups sugar. Since 8 = 2 × 4, scale sugar the same way: 3 × 4 = 12 cups."},
 
-// ---------- ALGEBRA REASONING (AR01–AR16) ----------
-{id:"AR01",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"Solve: x + 9 = 17",opts:["x = 6","x = 7","x = 8","x = 9"],ans:2,exp:"Subtract 9 from both sides: x = 17 − 9 = 8."},
-{id:"AR02",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"Solve: 4x = 28",opts:["x = 6","x = 7","x = 8","x = 24"],ans:1,exp:"Divide both sides by 4: x = 28 ÷ 4 = 7."},
-{id:"AR03",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"Solve: 3x − 5 = 16",opts:["x = 5","x = 6","x = 7","x = 8"],ans:2,exp:"Add 5 to both sides: 3x = 21. Divide by 3: x = 7."},
-{id:"AR04",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"Solve: x/4 + 2 = 9",opts:["x = 20","x = 24","x = 28","x = 36"],ans:2,exp:"Subtract 2: x/4 = 7. Multiply both sides by 4: x = 28."},
-{id:"AR05",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"Evaluate 2a + 3b when a = 4 and b = 5.",opts:["17","20","23","27"],ans:2,exp:"2(4) + 3(5) = 8 + 15 = 23."},
-{id:"AR06",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"Simplify: 5x + 3 − 2x + 7",opts:["3x + 10","7x + 10","3x + 4","7x + 4"],ans:0,exp:"Combine like terms: 5x − 2x = 3x, and 3 + 7 = 10, giving 3x + 10."},
-{id:"AR07",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"What is the next term in the pattern 5, 9, 13, 17, …?",opts:["19","20","21","22"],ans:2,exp:"Each term increases by 4: 17 + 4 = 21."},
-{id:"AR08",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"A pattern follows the rule term = 4n − 1, where n is the term number. What is the 7th term?",opts:["24","26","27","28"],ans:2,exp:"Substitute n = 7: 4(7) − 1 = 27."},
-{id:"AR09",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"A table shows x: 1, 2, 3, 4 and y: 5, 8, 11, 14. Which rule connects x and y?",opts:["y = x + 4","y = 3x + 2","y = 2x + 3","y = 4x + 1"],ans:1,exp:"y increases by 3 each step (slope 3). When x = 1, y = 5 = 3(1) + 2, so y = 3x + 2."},
-{id:"AR10",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"Solve the inequality: x − 4 > 6",opts:["x > 2","x > 6","x > 10","x > 24"],ans:2,exp:"Add 4 to both sides: x > 10."},
-{id:"AR11",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"Expand: 3(2x − 5)",opts:["6x − 5","6x − 15","5x − 15","6x − 8"],ans:1,exp:"Distribute the 3: 3 × 2x = 6x, and 3 × (−5) = −15, giving 6x − 15."},
-{id:"AR12",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"Which expression represents \"8 less than triple a number n\"?",opts:["8 − 3n","3n − 8","3(n − 8)","8n − 3"],ans:1,exp:"\"Triple a number n\" is 3n; \"8 less than\" that is 3n − 8."},
-{id:"AR13",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"A plumber charges a $40 flat fee plus $25 per hour. What is the total cost for 5 hours of work?",opts:["$150","$155","$165","$175"],ans:2,exp:"Total = 40 + 25 × 5 = 40 + 125 = $165."},
-{id:"AR14",sec:"content",strand:"Algebra Reasoning",grade:"7",q:"Solve: 2(x + 3) = 16",opts:["x = 4","x = 5","x = 6","x = 7"],ans:1,exp:"Divide both sides by 2: x + 3 = 8. Subtract 3: x = 5."},
-{id:"AR15",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"If y = 2x − 3 and x = 6, what is y?",opts:["6","9","12","15"],ans:1,exp:"y = 2(6) − 3 = 12 − 3 = 9."},
-{id:"AR16",sec:"content",strand:"Algebra Reasoning",grade:"6",q:"A sequence starts at 100 and decreases by 7 each term: 100, 93, 86, 79, …. What is the 5th term?",opts:["65","72","79","86"],ans:1,exp:"Terms: 100, 93, 86, 79, 72 — the 5th term is 72."},
+// ---------- PATTERNING & ALGEBRA (PA01–PA16) ----------
+{id:"PA01",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Solve: x + 9 = 17",opts:["x = 6","x = 7","x = 8","x = 9"],ans:2,exp:"Subtract 9 from both sides: x = 17 − 9 = 8."},
+{id:"PA02",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Solve: 4x = 28",opts:["x = 6","x = 7","x = 8","x = 24"],ans:1,exp:"Divide both sides by 4: x = 28 ÷ 4 = 7."},
+{id:"PA03",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"Solve: 3x − 5 = 16",opts:["x = 5","x = 6","x = 7","x = 8"],ans:2,exp:"Add 5 to both sides: 3x = 21. Divide by 3: x = 7."},
+{id:"PA04",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"Maria is thinking of a number. She doubled it, then added 5, and got 23. What number did Maria start with?",opts:["7","8","9","11"],ans:2,exp:"Work backwards from the result, undoing each step in reverse order: undo \"+5\" first (23 − 5 = 18), then undo \"doubled\" (18 ÷ 2 = 9)."},
+{id:"PA05",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A number was increased by 12, then the result was divided by 3, giving a final answer of 10. What was the original number?",opts:["14","16","18","22"],ans:2,exp:"Work backwards: undo \"÷3\" first (10 × 3 = 30), then undo \"+12\" (30 − 12 = 18)."},
+{id:"PA06",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"What is the next term in the pattern 5, 9, 13, 17, …?",opts:["19","20","21","22"],ans:2,exp:"Each term increases by 4: 17 + 4 = 21."},
+{id:"PA07",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A pattern follows the rule term = 4n − 1, where n is the term number. What is the 7th term?",opts:["24","26","27","28"],ans:2,exp:"Substitute n = 7: 4(7) − 1 = 27."},
+{id:"PA08",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A table shows x: 1, 2, 3, 4 and y: 5, 8, 11, 14. Which rule connects x and y?",opts:["y = x + 4","y = 3x + 2","y = 2x + 3","y = 4x + 1"],ans:1,exp:"y increases by 3 each step (slope 3). When x = 1, y = 5 = 3(1) + 2, so y = 3x + 2."},
+{id:"PA09",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A growing dot pattern has 4, 7, 10, 13, … dots in its first four figures. If the pattern rule continues, how many dots will be in the 10th figure?",opts:["28","30","31","34"],ans:2,exp:"Each figure adds 3 dots to the one before, and the matching rule is 3n + 1 (check: n = 1 gives 4, n = 2 gives 7). For the 10th figure: 3(10) + 1 = 31."},
+{id:"PA10",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"After spending $15 on a book and then $8 on lunch, Jay had $27 left. How much money did Jay start with?",opts:["$42","$46","$50","$54"],ans:2,exp:"Work backwards from the end result, adding back each amount spent: 27 + 8 (lunch) + 15 (book) = $50."},
+{id:"PA11",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A plumber charges a $40 flat fee plus $25 per hour. What is the total cost for 5 hours of work?",opts:["$150","$155","$165","$175"],ans:2,exp:"Total = 40 + 25 × 5 = 40 + 125 = $165."},
+{id:"PA12",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Which expression represents \"8 less than triple a number n\"?",opts:["8 − 3n","3n − 8","3(n − 8)","8n − 3"],ans:1,exp:"\"Triple a number n\" is 3n; \"8 less than\" that is 3n − 8."},
+{id:"PA13",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"Solve the inequality: x − 4 > 6",opts:["x > 2","x > 6","x > 10","x > 24"],ans:2,exp:"Add 4 to both sides: x > 10."},
+{id:"PA14",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Expand: 3(2x − 5)",opts:["6x − 5","6x − 15","5x − 15","6x − 8"],ans:1,exp:"Distribute the 3: 3 × 2x = 6x, and 3 × (−5) = −15, giving 6x − 15."},
+{id:"PA15",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"A sequence starts at 100 and decreases by 7 each term: 100, 93, 86, 79, …. What is the 5th term?",opts:["65","72","79","86"],ans:1,exp:"Terms: 100, 93, 86, 79, 72 — the 5th term is 72."},
+{id:"PA16",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Evaluate 2a + 3b when a = 4 and b = 5.",opts:["17","20","23","27"],ans:2,exp:"2(4) + 3(5) = 8 + 15 = 23."},
 
-// ---------- MEASUREMENT & GEOMETRY (MG01–MG16) ----------
-{id:"MG01",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"Find the perimeter of a rectangle 9 cm by 5 cm.",opts:["14 cm","28 cm","45 cm","24 cm"],ans:1,exp:"P = 2(l + w) = 2(9 + 5) = 2(14) = 28 cm."},
-{id:"MG02",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"Find the area of a triangle with base 12 cm and height 7 cm.",opts:["19 cm²","42 cm²","84 cm²","38 cm²"],ans:1,exp:"A = b × h ÷ 2 = 12 × 7 ÷ 2 = 42 cm²."},
-{id:"MG03",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"Find the circumference of a circle with radius 5 cm (use π ≈ 3.14).",opts:["15.7 cm","31.4 cm","78.5 cm","62.8 cm"],ans:1,exp:"C = 2πr = 2 × 3.14 × 5 = 31.4 cm."},
-{id:"MG04",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"Find the area of a circle with radius 4 cm (use π ≈ 3.14).",opts:["25.12 cm²","50.24 cm²","78.5 cm²","100.48 cm²"],ans:1,exp:"A = πr² = 3.14 × 16 = 50.24 cm²."},
-{id:"MG05",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"Find the volume of a rectangular prism 4 cm × 3 cm × 5 cm.",opts:["12 cm³","47 cm³","60 cm³","75 cm³"],ans:2,exp:"V = l × w × h = 4 × 3 × 5 = 60 cm³."},
-{id:"MG06",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"Find the surface area of a cube with side length 3 cm.",opts:["18 cm²","27 cm²","54 cm²","81 cm²"],ans:2,exp:"SA = 6s² = 6 × 9 = 54 cm²."},
-{id:"MG07",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"Two angles are supplementary. One measures 65°. What is the other?",opts:["25°","35°","115°","125°"],ans:2,exp:"Supplementary angles sum to 180°: 180 − 65 = 115°."},
-{id:"MG08",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"What do the interior angles of a triangle always add up to?",opts:["90°","180°","270°","360°"],ans:1,exp:"The interior angles of any triangle always sum to 180°."},
-{id:"MG09",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"What do the interior angles of a quadrilateral always add up to?",opts:["180°","270°","360°","540°"],ans:2,exp:"A quadrilateral can be split into 2 triangles (2 × 180°), so its angles sum to 360°."},
-{id:"MG10",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"Convert 3.5 m to centimetres.",opts:["35 cm","350 cm","3500 cm","0.35 cm"],ans:1,exp:"1 m = 100 cm, so 3.5 × 100 = 350 cm."},
-{id:"MG11",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"Convert 2500 mL to litres.",opts:["0.25 L","2.5 L","25 L","250 L"],ans:1,exp:"1 L = 1000 mL, so 2500 ÷ 1000 = 2.5 L."},
-{id:"MG12",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"A composite figure is a 10 cm × 6 cm rectangle with a semicircle of radius 3 cm attached to one side. What is its approximate total area (use π ≈ 3.14)?",opts:["60 cm²","69.1 cm²","74.1 cm²","88.3 cm²"],ans:2,exp:"Rectangle area = 10 × 6 = 60 cm². Semicircle area = (π × r²) ÷ 2 = (3.14 × 9) ÷ 2 ≈ 14.1 cm². Total ≈ 60 + 14.1 = 74.1 cm²."},
-{id:"MG13",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"Vertically opposite angles (formed by two intersecting lines) are always:",opts:["equal","supplementary","complementary","always 90°"],ans:0,exp:"Vertically opposite angles are always equal to each other."},
-{id:"MG14",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"A right prism has a triangular base with area 15 cm² and a height (length) of 10 cm. What is its volume?",opts:["25 cm³","150 cm³","75 cm³","1500 cm³"],ans:1,exp:"V = base area × length = 15 × 10 = 150 cm³."},
-{id:"MG15",sec:"content",strand:"Measurement & Geometry",grade:"6",q:"Which unit is most appropriate for measuring the mass of a pencil?",opts:["Kilograms","Grams","Milligrams","Tonnes"],ans:1,exp:"A pencil has a mass of a few grams — grams are the appropriate everyday unit."},
-{id:"MG16",sec:"content",strand:"Measurement & Geometry",grade:"7",q:"Find the area of a trapezoid with parallel sides 8 cm and 12 cm, and height 5 cm.",opts:["40 cm²","50 cm²","60 cm²","100 cm²"],ans:1,exp:"A = (a + b) ÷ 2 × h = (8 + 12) ÷ 2 × 5 = 10 × 5 = 50 cm²."},
+// ---------- DATA MANAGEMENT & PROBABILITY (DM01–DM16) ----------
+{id:"DM01",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the mean of 12, 15, 18, 9, 21.",opts:["12","14","15","18"],ans:2,exp:"Sum = 75. Mean = 75 ÷ 5 = 15."},
+{id:"DM02",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the median of 7, 2, 9, 4, 11.",opts:["4","7","9","11"],ans:1,exp:"Ordered: 2, 4, 7, 9, 11. The middle value is 7."},
+{id:"DM03",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the mode of 3, 7, 7, 2, 9, 7, 4.",opts:["2","3","4","7"],ans:3,exp:"7 appears three times, more often than any other value."},
+{id:"DM04",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the range of 22, 8, 17, 31, 5.",opts:["17","22","26","31"],ans:2,exp:"Range = greatest − least = 31 − 5 = 26."},
+{id:"DM05",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Five friends' heights (in cm) are 142, 150, 139, 155, and 149. What is the group's mean height?",opts:["145 cm","146 cm","147 cm","148 cm"],ans:2,exp:"Sum = 142 + 150 + 139 + 155 + 149 = 735. Mean = 735 ÷ 5 = 147 cm."},
+{id:"DM06",sec:"content",strand:"Data Management & Probability",grade:"7",q:"Four students have a mean (average) test score of 82%. Three of their scores are 78%, 85%, and 90%. What is the fourth student's score?",opts:["70%","72%","75%","80%"],ans:2,exp:"For a mean of 82% over 4 students, the total of all four scores must be 82 × 4 = 328. The known three scores sum to 78 + 85 + 90 = 253. The fourth score = 328 − 253 = 75%."},
+{id:"DM07",sec:"content",strand:"Data Management & Probability",grade:"6",q:"A bag has 4 red, 3 blue, and 5 green marbles. What is P(blue)?",opts:["1/3","1/4","1/5","3/5"],ans:1,exp:"There are 12 marbles total, 3 of them blue: P(blue) = 3/12 = 1/4."},
+{id:"DM08",sec:"content",strand:"Data Management & Probability",grade:"7",q:"Two coins are flipped. What is the probability of getting exactly one head?",opts:["1/4","1/2","3/4","1"],ans:1,exp:"Outcomes: HH, HT, TH, TT. Exactly one head happens in HT and TH: 2/4 = 1/2."},
+{id:"DM09",sec:"content",strand:"Data Management & Probability",grade:"6",q:"A standard six-sided die is rolled once. What is P(rolling an even number)?",opts:["1/3","1/2","2/3","5/6"],ans:1,exp:"Even numbers are 2, 4, 6 — 3 out of 6 outcomes: P = 3/6 = 1/2."},
+{id:"DM10",sec:"content",strand:"Data Management & Probability",grade:"6",q:"A fair six-sided number cube is rolled once. What is the theoretical probability that it lands showing a number greater than 4?",opts:["1/6","1/3","1/2","2/3"],ans:1,exp:"Numbers greater than 4 on the cube are 5 and 6 — 2 out of 6 equally likely faces: 2/6 = 1/3."},
+{id:"DM11",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A bag contains 3 identical wooden cubes, 2 identical wooden spheres, and 1 wooden cone. One solid is pulled out at random. What is the theoretical probability it is NOT a cube?",opts:["1/6","1/3","1/2","2/3"],ans:2,exp:"There are 6 solids total; 3 of them are cubes, so the other 3 (2 spheres + 1 cone) are not cubes. P(not cube) = 3/6 = 1/2."},
+{id:"DM12",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A four-sided pyramid-shaped die (a tetrahedron) has faces numbered 1 to 4 and is fair. What is the theoretical probability of landing on a number less than 3?",opts:["1/4","1/3","1/2","3/4"],ans:2,exp:"Numbers less than 3 are 1 and 2 — 2 out of 4 equally likely faces: 2/4 = 1/2."},
+{id:"DM13",sec:"content",strand:"Data Management & Probability",grade:"6",q:"What is the probability of NOT rolling a 6 on a standard die?",opts:["1/6","4/6","5/6","1"],ans:2,exp:"P(not 6) = 1 − P(6) = 1 − 1/6 = 5/6."},
+{id:"DM14",sec:"content",strand:"Data Management & Probability",grade:"7",q:"Two dice are rolled. What is the probability that the sum of the two dice is 7?",opts:["1/12","1/6","1/4","1/3"],ans:1,exp:"There are 36 equally likely outcomes; 6 of them sum to 7 (1-6, 2-5, 3-4, 4-3, 5-2, 6-1): P = 6/36 = 1/6."},
+{id:"DM15",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A number cube is rolled 30 times and lands on 4 seven times. What is the THEORETICAL probability of rolling a 4?",opts:["1/6","7/30","1/5","1/4"],ans:0,exp:"Theoretical probability doesn't depend on trial results — there's one favourable outcome (4) out of 6 equally likely faces: 1/6. (7/30 would be the experimental probability from this particular trial.)"},
+{id:"DM16",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A survey about exercise habits asks only people leaving a gym. This sample is:",opts:["Random and unbiased","Biased toward people who exercise","Biased toward people who don't exercise","Perfectly representative of the population"],ans:1,exp:"Only surveying gym-goers over-represents physically active people, making the sample biased."},
 
-// ---------- DATA & PROBABILITY (DP01–DP16) ----------
-{id:"DP01",sec:"content",strand:"Data & Probability",grade:"6",q:"Find the mean of 12, 15, 18, 9, 21.",opts:["12","14","15","18"],ans:2,exp:"Sum = 75. Mean = 75 ÷ 5 = 15."},
-{id:"DP02",sec:"content",strand:"Data & Probability",grade:"6",q:"Find the median of 7, 2, 9, 4, 11.",opts:["4","7","9","11"],ans:1,exp:"Ordered: 2, 4, 7, 9, 11. The middle value is 7."},
-{id:"DP03",sec:"content",strand:"Data & Probability",grade:"6",q:"Find the mode of 3, 7, 7, 2, 9, 7, 4.",opts:["2","3","4","7"],ans:3,exp:"7 appears three times, more often than any other value."},
-{id:"DP04",sec:"content",strand:"Data & Probability",grade:"6",q:"Find the range of 22, 8, 17, 31, 5.",opts:["17","22","26","31"],ans:2,exp:"Range = greatest − least = 31 − 5 = 26."},
-{id:"DP05",sec:"content",strand:"Data & Probability",grade:"6",q:"A bag has 4 red, 3 blue, and 5 green marbles. What is P(blue)?",opts:["1/3","1/4","1/5","3/5"],ans:1,exp:"There are 12 marbles total, 3 of them blue: P(blue) = 3/12 = 1/4."},
-{id:"DP06",sec:"content",strand:"Data & Probability",grade:"7",q:"Two coins are flipped. What is the probability of getting exactly one head?",opts:["1/4","1/2","3/4","1"],ans:1,exp:"Outcomes: HH, HT, TH, TT. Exactly one head happens in HT and TH: 2/4 = 1/2."},
-{id:"DP07",sec:"content",strand:"Data & Probability",grade:"6",q:"A standard six-sided die is rolled once. What is P(rolling an even number)?",opts:["1/3","1/2","2/3","5/6"],ans:1,exp:"Even numbers are 2, 4, 6 — 3 out of 6 outcomes: P = 3/6 = 1/2."},
-{id:"DP08",sec:"content",strand:"Data & Probability",grade:"7",q:"A spinner landed on red 18 times out of 50 trials. What is the experimental probability of landing on red?",opts:["18%","32%","36%","50%"],ans:2,exp:"Experimental probability = outcomes observed ÷ trials = 18 ÷ 50 = 0.36 = 36%."},
-{id:"DP09",sec:"content",strand:"Data & Probability",grade:"6",q:"Which type of graph best displays how a plant's height changes over 10 days?",opts:["Bar graph","Line graph","Circle graph","Pictograph"],ans:1,exp:"A line graph shows continuous change over time, which is ideal for tracking growth day by day."},
-{id:"DP10",sec:"content",strand:"Data & Probability",grade:"7",q:"A survey about exercise habits asks only people leaving a gym. This sample is:",opts:["Random and unbiased","Biased toward people who exercise","Biased toward people who don't exercise","Perfectly representative of the population"],ans:1,exp:"Only surveying gym-goers over-represents physically active people, making the sample biased."},
-{id:"DP11",sec:"content",strand:"Data & Probability",grade:"6",q:"What is the probability of NOT rolling a 6 on a standard die?",opts:["1/6","4/6","5/6","1"],ans:2,exp:"P(not 6) = 1 − P(6) = 1 − 1/6 = 5/6."},
-{id:"DP12",sec:"content",strand:"Data & Probability",grade:"7",q:"Test scores are 85, 90, 78, 90, 88. Which measure of central tendency equals 90?",opts:["Mean","Median","Mode","Range"],ans:2,exp:"90 appears twice (the mode). The mean is 86.2 and the median (ordered: 78, 85, 88, 90, 90) is 88."},
-{id:"DP13",sec:"content",strand:"Data & Probability",grade:"6",q:"On a pictograph, each symbol represents 5 books. A row shows 4 symbols. How many books is that?",opts:["9","16","20","24"],ans:2,exp:"4 symbols × 5 books each = 20 books."},
-{id:"DP14",sec:"content",strand:"Data & Probability",grade:"7",q:"Two dice are rolled. What is the probability that the sum of the two dice is 7?",opts:["1/12","1/6","1/4","1/3"],ans:1,exp:"There are 36 equally likely outcomes; 6 of them sum to 7 (1-6, 2-5, 3-4, 4-3, 5-2, 6-1): P = 6/36 = 1/6."},
-{id:"DP15",sec:"content",strand:"Data & Probability",grade:"7",q:"A data set has one very high outlier. Which measure of central tendency is most affected by it?",opts:["Mean","Median","Mode","All are affected equally"],ans:0,exp:"The mean uses every value in its calculation, so one extreme value pulls it strongly. The median and mode tend to resist outliers."},
-{id:"DP16",sec:"content",strand:"Data & Probability",grade:"6",q:"A number cube is rolled 30 times and lands on 4 seven times. What is the THEORETICAL probability of rolling a 4?",opts:["1/6","7/30","1/5","1/4"],ans:0,exp:"Theoretical probability doesn't depend on the trial results — there's one favourable outcome (4) out of 6 equally likely faces: 1/6. (7/30 would be the experimental probability from this particular trial.)"}
+// ---------- COMMERCIAL & FINANCIAL MATH (CF01–CF16) ----------
+{id:"CF01",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A store buys a backpack for $24 (the cost price) and sells it for $36 (the selling price). What is the profit?",opts:["$10","$12","$14","$16"],ans:1,exp:"Profit = selling price − cost price = $36 − $24 = $12."},
+{id:"CF02",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A toy costs a store $15 to buy and is sold for $20. What is the profit margin, expressed as a percent of the selling price?",opts:["20%","25%","30%","33%"],ans:1,exp:"Profit = $20 − $15 = $5. Profit margin = profit ÷ selling price = 5 ÷ 20 = 25%."},
+{id:"CF03",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A bookstore buys novels for $8 each and marks them up by 50% of the cost to set the selling price. What is the selling price?",opts:["$10","$11","$12","$14"],ans:2,exp:"Markup = 50% of $8 = $4. Selling price = $8 + $4 = $12."},
+{id:"CF04",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A phone case costs a retailer $10 and is sold for $16. What is the markup, as a percent of the cost price?",opts:["40%","50%","60%","62.5%"],ans:2,exp:"Markup (in dollars) = $16 − $10 = $6. As a percent of cost: 6 ÷ 10 = 60%."},
+{id:"CF05",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A grocery store buys oranges in bulk: 5 kg for $7.50. If they repackage and sell the oranges at $2.10 per kg, what is the profit per kilogram?",opts:["$0.40","$0.50","$0.60","$0.70"],ans:2,exp:"Cost per kg = $7.50 ÷ 5 = $1.50. Profit per kg = selling price − cost = $2.10 − $1.50 = $0.60."},
+{id:"CF06",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"Which is the better unit price: a 750 mL bottle of juice for $3.00, or a 1.5 L bottle for $5.40?",opts:["The 750 mL bottle","The 1.5 L bottle","They cost the same per mL","Not enough information"],ans:1,exp:"750 mL bottle: $3.00 ÷ 750 = $0.004/mL. 1.5 L (1500 mL) bottle: $5.40 ÷ 1500 = $0.0036/mL. The 1.5 L bottle is the cheaper unit cost."},
+{id:"CF07",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A café's coffee beans cost $18 per kg. A large bag holds 2.5 kg. What is the total cost of the beans in one large bag?",opts:["$36","$40","$45","$48"],ans:2,exp:"Total cost = unit cost × quantity = $18 × 2.5 = $45."},
+{id:"CF08",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A clothing store sells a jacket for $84 after marking it up 40% over cost. What was the store's cost price?",opts:["$50","$56","$60","$64"],ans:2,exp:"Selling price = cost × 1.40, so cost = 84 ÷ 1.40 = $60."},
+{id:"CF09",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A lemonade stand sold 60 cups at $1.50 each. The ingredients cost a total of $45. What was the stand's total profit?",opts:["$35","$40","$45","$50"],ans:2,exp:"Revenue = 60 × $1.50 = $90. Profit = revenue − cost = $90 − $45 = $45."},
+{id:"CF10",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A furniture store buys a chair for $120 and wants a profit margin of 25% of the selling price. What should the selling price be?",opts:["$144","$150","$155","$160"],ans:3,exp:"If profit is 25% of the selling price x, the cost makes up the remaining 75%: 0.75x = 120, so x = 120 ÷ 0.75 = $160."},
+{id:"CF11",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A hardware store buys hammers for $9 each and sells them for $9 × 1.8. What is the markup, as a percent of the cost?",opts:["60%","70%","80%","90%"],ans:2,exp:"Selling price = cost × 1.8 means the price is 180% of cost — so the markup on top is 80% of the cost."},
+{id:"CF12",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A bakery's cupcakes cost $0.80 each to make and sell for $2.00 each. What percent of the selling price is profit (the profit margin)?",opts:["40%","50%","60%","75%"],ans:2,exp:"Profit = $2.00 − $0.80 = $1.20. Profit margin = 1.20 ÷ 2.00 = 60% of the selling price."},
+{id:"CF13",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A store buys pencils in boxes of 24 for $6.00 per box, then sells each pencil individually for $0.50. What is the total profit on one full box?",opts:["$3.00","$4.50","$6.00","$12.00"],ans:2,exp:"Cost per pencil = $6.00 ÷ 24 = $0.25. Profit per pencil = $0.50 − $0.25 = $0.25. Total profit on 24 pencils = 24 × $0.25 = $6.00."},
+{id:"CF14",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"An electronics store marks up all items by 35% over cost. If an item's cost price is $80, what is its selling price?",opts:["$98","$104","$108","$115"],ans:2,exp:"Selling price = cost × 1.35 = $80 × 1.35 = $108."},
+{id:"CF15",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A fruit stand buys apples for $0.40 each and sells them for $0.65 each. If they sell 50 apples, what is the total profit?",opts:["$10.00","$11.00","$12.50","$15.00"],ans:2,exp:"Profit per apple = $0.65 − $0.40 = $0.25. Total profit on 50 apples = 50 × $0.25 = $12.50."},
+{id:"CF16",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A sporting goods store sells a bike for $270, which is a 20% markup over its cost. What was the cost price?",opts:["$200","$216","$225","$240"],ans:2,exp:"Selling price = cost × 1.20, so cost = 270 ÷ 1.20 = $225."}
 ];
 </script>
 
@@ -591,13 +596,13 @@ const PASS_LINE = 75; // Lakehead's EDUC 0450 Mathematics Competency Assessment 
 const PUBLIC_ENROLLMENT_ENABLED = true;
 if (PUBLIC_ENROLLMENT_ENABLED) $("#signin-foot").textContent = "Sign in with Google, then join this course for free. Your progress syncs to your account.";
 
-const CONTENT_STRANDS = ["Number Sense", "Proportional Reasoning", "Algebra Reasoning", "Measurement & Geometry", "Data & Probability"];
+const CONTENT_STRANDS = ["Number Sense & Numeration", "Measurement", "Patterning & Algebra", "Data Management & Probability", "Commercial & Financial Math"];
 const STRAND_DESC = {
-  "Number Sense": "Fractions, decimals, percents, integers, order of operations",
-  "Proportional Reasoning": "Ratios, rates, percent problems, scale, best buy",
-  "Algebra Reasoning": "Patterns, expressions, equations, linear relations",
-  "Measurement & Geometry": "Perimeter, area, volume, angles, unit conversion",
-  "Data & Probability": "Mean/median/mode, graphs, probability"
+  "Number Sense & Numeration": "Fractions, decimals, percents, ratios, unit rates, mental math",
+  "Measurement": "Metric conversion, rates, surface area & volume, LCM tiling",
+  "Patterning & Algebra": "Equations, expressions, pattern rules, working backwards",
+  "Data Management & Probability": "Mean/median/mode, group averages, theoretical probability",
+  "Commercial & Financial Math": "Profit, markup, profit margin, unit cost"
 };
 
 /* ================= helpers ================= */
@@ -663,12 +668,14 @@ function draw(poolKey, pool, n){
   return picked;
 }
 function buildMock(kind){
-  // An even spread across all 5 strands. The real assessment's question count and
-  // section structure aren't publicly published, so this is an even practice spread,
-  // not a claimed simulation of the actual format.
+  // Lakehead's own "Making Sense of the MCA" slideshow confirms the real assessment is
+  // 15 open-response questions (3 marks each, 45 total), so the "full" set here matches
+  // that length — 3 questions per strand — even though our engine checks answers
+  // instantly rather than grading written work. The mini set is a lighter half-length
+  // warm-up for a shorter sitting.
   const per = kind === "full"
-    ? { "Number Sense": 8, "Proportional Reasoning": 8, "Algebra Reasoning": 8, "Measurement & Geometry": 8, "Data & Probability": 8 }
-    : { "Number Sense": 4, "Proportional Reasoning": 4, "Algebra Reasoning": 4, "Measurement & Geometry": 4, "Data & Probability": 4 };
+    ? { "Number Sense & Numeration": 3, "Measurement": 3, "Patterning & Algebra": 3, "Data Management & Probability": 3, "Commercial & Financial Math": 3 }
+    : { "Number Sense & Numeration": 2, "Measurement": 2, "Patterning & Algebra": 2, "Data Management & Probability": 2, "Commercial & Financial Math": 2 };
   let qs = [];
   for (const [strand, n] of Object.entries(per)) qs = qs.concat(draw("practice-" + strand, poolFor(strand), n));
   return shuffle(qs);
@@ -847,13 +854,13 @@ function go(view){
 }
 
 /* ================= difficulty ================= */
-const TOUGH_IDS = new Set(["NS06","NS11","PR08","PR10","PR12","PR16","AR04","AR09","AR10","AR13","MG12","MG14","MG16","DP10","DP14","DP15"]);
+const TOUGH_IDS = new Set(["NS05","NS09","NS16","ME05","ME06","ME10","ME11","PA04","PA05","PA09","DM06","DM11","DM12","CF08","CF10","CF16"]);
 function qDiff(q){ return TOUGH_IDS.has(q.id) ? 3 : (q.grade === "6" ? 1 : 2); }
 const DIFF_LABEL = {1:"🌱 easy", 2:"🌿 medium", 3:"🌋 tough"};
 
 /* ================= optional study tools ================= */
-// The real assessment's calculator policy isn't publicly published, so there's
-// no "calculator-friendly" guidance here — the calculator is just an optional aid.
+// Lakehead's own prep materials confirm calculators are NOT permitted on the real
+// assessment — this on-screen calculator is strictly a practice-only convenience.
 function initTools(){
   const panel = $("#calc"), disp = $("#calc-disp");
   let expr = "", justEval = false;
@@ -990,7 +997,7 @@ function gameStats(){
     {i:"✅",n:"Over the Line",d:`Score ${PASS_LINE}%+ on any practice set`,e:mockPass.length>=1},
     {i:"📅",n:"Week Walker",d:"Study 7 days in a row",e:streak>=7},
     {i:"⛰",n:"Question Mountain",d:"Answer 250 questions",e:totalQ>=250},
-    {i:"🏔",n:"Summit!",d:`Score ${PASS_LINE}%+ on a FULL 40-question practice set`,e:mockPass.some(a=>a.total>=40)},
+    {i:"🏔",n:"Summit!",d:`Score ${PASS_LINE}%+ on a FULL 15-question practice set`,e:mockPass.some(a=>a.total>=15)},
     {i:"🌟",n:"Seasoned Hiker",d:"Complete 15 sessions",e:att.length>=15},
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5}
   ];
@@ -1002,12 +1009,12 @@ function gameStats(){
 
 /* ================= trail plan (personal, date-flexible) ================= */
 const PLAN_WEEKS = [
-  ["Gentle start 🌱","Number Sense only. One 5-question quiz per sitting, 15–20 minutes max. Re-read the Number Sense cheatsheet. Short and sweet beats long and exhausting."],
-  ["Ratios, rates & percent 🔀","Proportional Reasoning week. Short sittings. Try the calculator tool whenever it helps — it's just an optional aid here."],
-  ["Patterns & equations 🧮","Algebra Reasoning week. One 10-question quiz per day at most. Peek at the Algebra cheatsheet before each."],
-  ["Shapes & space 📐","Measurement & Geometry week. Open the Formula Sheet overlay while you practice if it helps you remember the rules."],
-  ["Data week + first mini set 📊","Data & Probability quizzes, then one 20-question mini practice set at the weekend. No pressure on the score — it's a baseline."],
-  ["Dress rehearsal 🎭","Mixed quizzes across all five strands, then one FULL 40-question practice set to build stamina."],
+  ["Gentle start 🌱","Number Sense & Numeration only. One 5-question quiz per sitting, 15–20 minutes max. Re-read that strand's cheatsheet. Short and sweet beats long and exhausting."],
+  ["Measurement week 📐","Metric conversions, rates, volume, surface area (watch for lidless solids!), and LCM tiling. Short sittings — try working a few questions without the calculator tool, since the real exam doesn't allow one."],
+  ["Patterns & equations 🧮","Patterning & Algebra week, including working-backwards word problems. One 10-question quiz per day at most. Peek at the cheatsheet before each."],
+  ["Data & money week 📊","Data Management & Probability, then Commercial & Financial Math (profit, markup, unit cost) — two strands, one week. Keep sittings short."],
+  ["First mini set 🎒","Mixed quizzes across all five strands, then one 10-question mini practice set at the weekend. No pressure on the score — it's a baseline."],
+  ["Dress rehearsal 🎭","Mixed quizzes across all five strands, then one FULL 15-question practice set — the same length as the real exam — ideally without the calculator or formula sheet."],
   ["Taper & trust 🌄","Light review of weak strands, one last full practice set if you feel fresh. Then rest — the real assessment rewards a clear head, not a last-minute cram."]
 ];
 function planStartDate(){ return store.profile?.planStart ? new Date(store.profile.planStart + "T00:00:00") : null; }
@@ -1062,9 +1069,9 @@ function renderHome(){
   </div>
   <div class="homegrid">
     <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>A fresh set of questions every time — pick a strand or mix it up. Instant feedback with friendly explanations.</p><div class="go">Start a quiz →</div></div>
-    <div class="card homecard c-mock" data-go="mock"><h3>📝 Practice Set</h3><p>A longer, 20-question run across all five strands — or a 40-question full set. No feedback until the end, so you can build stamina.</p><div class="go">Start practice →</div></div>
+    <div class="card homecard c-mock" data-go="mock"><h3>📝 Practice Set</h3><p>A 10-question run across all five strands, or the 15-question full set matching the real exam's length. No feedback until the end, so you can build stamina.</p><div class="go">Start practice →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your readiness report vs the 75% pass line, strand strengths, focus recommendations, and full history — synced to your account.</p><div class="go">See progress →</div></div>
-    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts for each strand, what's publicly known (and not known) about the assessment, and curated free resources.</p><div class="go">Open study hub →</div></div>
+    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts for each strand, exactly what the real assessment covers and requires, and curated free resources.</p><div class="go">Open study hub →</div></div>
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Quick-reference formulas and facts for every strand — everything on one page.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
@@ -1118,17 +1125,18 @@ function renderQuizSetup(){
 function renderMockIntro(){
   quizState = null;
   views.innerHTML = `
-  <div class="viewhead"><h2>Practice Set</h2><p>A longer run to build stamina — not a verified exam simulation.</p></div>
+  <div class="viewhead"><h2>Practice Set</h2><p>A longer run to build stamina — matched to the real exam's length, not a verified format simulation.</p></div>
   <div class="card">
-    <h3 style="margin-bottom:10px">What we know — and don't know</h3>
-    <p style="font-size:.93rem">Lakehead's Mathematics Competency Assessment (Primary/Junior) tests understanding of the Ontario elementary math curriculum at a <b>Grade 6/7 level</b> — including proportional reasoning, probability, algebra reasoning, measurement, and connections among fractions, decimals, and percents. A <b>75% or higher</b> score is required to receive the degree.</p>
-    <p style="font-size:.93rem;margin-top:8px">The exact format — number of questions, timing, and calculator policy — isn't publicly published, so this practice set is an even spread across all five strands, not a timed simulation. The 🧮 calculator and 📐 formula reference are optional aids here. No feedback until the end, so you can practice working through a longer run without checking answers along the way; the timer just counts up so you can see your pace.</p>
+    <h3 style="margin-bottom:10px">What the real assessment looks like</h3>
+    <p style="font-size:.93rem">Lakehead's Mathematics Competency Assessment (Primary/Junior, EDUC 0450) is <b>15 open-response word problems worth 3 marks each (45 marks total)</b>, with a <b>2-hour time limit</b>. It tests the Ontario elementary curriculum at a <b>Grade 6/7 level</b> across five areas: Number Sense & Numeration, Measurement, Patterning & Algebra, Data Management & Probability, and Commercial & Financial Math. <b>Calculators and formula sheets are not permitted</b> — but manipulatives and thinking tools (graph paper, fraction pieces, rulers and similar) are provided. A <b>75% or higher</b> score (34/45 marks) is required to pass.</p>
+    <p style="font-size:.93rem;margin-top:8px">Lakehead also encourages showing your thinking in <b>at least two different strategies</b> per question — a ratio table alongside a diagram, say, or equivalent fractions alongside a quick estimate. That habit matters as much here as getting the final number right.</p>
+    <p style="font-size:.93rem;margin-top:8px">This app's practice sets are self-check multiple-choice, not written open-response — so treat this as rehearsing the <i>content</i> and <i>pace</i>, not the real answer format. The 🧮 calculator and 📐 formula reference below are practice-only aids; the real exam allows neither, so try working without them as you get closer to test day. No feedback until the end, so you can practice a longer run without checking answers along the way — the timer just counts up so you can see your pace against a 2-hour budget.</p>
     <div class="spacer"></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn coral" id="btn-startfull">Full set · 40 questions</button>
-      <button class="btn ghost" id="btn-startmock">Mini set · 20 questions</button>
+      <button class="btn coral" id="btn-startfull">Full set · 15 questions</button>
+      <button class="btn ghost" id="btn-startmock">Mini set · 10 questions</button>
     </div>
-    <p class="note" style="margin-top:10px">Both spread evenly across all five strands and score against the 75% line. The mini is perfect for a lighter day.</p>
+    <p class="note" style="margin-top:10px">Both spread evenly across all five strands and score against the 75% line. The full set matches the real exam's 15-question length; the mini is perfect for a lighter day.</p>
   </div>`;
   $("#btn-startmock").onclick = () => startSession("mock", buildMock("mini"), "Mini Practice Set");
   $("#btn-startfull").onclick = () => startSession("mock", buildMock("full"), "Full Practice Set");
@@ -1373,67 +1381,72 @@ const STUDY = [
   <p style="font-size:.9rem;margin:8px 0"><b>My start date:</b> <input type="date" id="plan-start-input" style="font-family:var(--font-body);padding:5px 8px;border:1.5px solid var(--line);border-radius:8px"> <button class="btn primary" id="plan-start-save" style="padding:7px 16px;font-size:.85rem">Save</button></p>
   ${PLAN_WEEKS.map((w, i) => `<h4>Week ${i+1} — ${w[0]}</h4><ul><li>${w[1]}</li></ul>`).join("")}
   <p style="font-size:.88rem;margin-top:10px"><b>Remember:</b> this plan bends around your life and health, not the other way round. A missed week just shifts things — the only non-negotiable is kindness to yourself. 💛</p>`},
-{ title: "🔢 Number Sense", body: `
+{ title: "🔢 Number Sense & Numeration", body: `
   <h4>Fractions</h4><ul>
   <li>Add/subtract: common denominator first. <span class="formula">5/8 + 1/4 = 5/8 + 2/8 = 7/8</span></li>
   <li>Multiply: straight across, then simplify. Divide: multiply by the reciprocal.</li>
-  <li>Compare by converting to decimals or common denominators.</li></ul>
-  <h4>Percents</h4><ul><li>Find 10% first, then build: 15% of 80 → 8 + 4 = 12.</li>
-  <li>Percent change = <span class="formula">change ÷ original × 100</span></li></ul>
-  <h4>Integers</h4><ul><li>Same signs multiply/divide to positive; different signs to negative.</li>
-  <li>BEDMAS: Brackets, Exponents, Divide/Multiply, Add/Subtract.</li></ul>
-  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics</a><a href="https://www.khanacademy.org/math/arithmetic" target="_blank" rel="noopener">Khan Academy</a></div>`},
-{ title: "🔀 Proportional Reasoning", body: `
-  <h4>Ratio &amp; rate</h4><ul>
+  <li>Compare by converting to decimals, percents, or common denominators — this is a core "connections" skill Lakehead names directly.</li></ul>
+  <h4>Ratios &amp; unit rates</h4><ul>
   <li>Scale both parts of a ratio equally: <span class="formula">3:4 = 6:8 = 9:12</span></li>
-  <li>Unit rates make comparisons easy — price per 100 g, distance per hour.</li></ul>
-  <h4>Proportions</h4><ul>
-  <li>Cross-multiply to solve: <span class="formula">3/4 = x/20 → 4x = 60 → x = 15</span></li>
-  <li>Scale drawings and maps use the same idea — a scale of 1 cm : 5 km means every cm represents 5 km.</li></ul>
-  <h4>Percent applications</h4><ul>
-  <li>Percent of a quantity, percent increase/decrease, and finding the whole from a part all come back to the same relationship: <span class="formula">part/whole = percent/100</span></li></ul>
-  <div class="linkrow"><a href="https://www.khanacademy.org/math/pre-algebra/pre-algebra-ratios-rates" target="_blank" rel="noopener">Khan: Ratios &amp; Rates</a></div>`},
-{ title: "🧮 Algebra Reasoning", body: `
+  <li>Unit rates make comparisons easy — price per 100 g, distance per hour. A <b>ratio table</b> (two rows, scaled together) is often the fastest way to show your thinking for these.</li></ul>
+  <h4>Percents</h4><ul><li>Find 10% first, then build: 15% of 80 → 8 + 4 = 12.</li>
+  <li>Percent change = <span class="formula">change ÷ original × 100</span> — and know the difference between percent increase and percent decrease.</li></ul>
+  <h4>Mental, non-calculator arithmetic</h4><ul><li>Integers: same signs multiply/divide to positive; different signs to negative.</li>
+  <li>BEDMAS: Brackets, Exponents, Divide/Multiply, Add/Subtract — practice these by hand, since the real assessment doesn't allow a calculator.</li></ul>
+  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics</a><a href="https://www.khanacademy.org/math/arithmetic" target="_blank" rel="noopener">Khan Academy</a></div>`},
+{ title: "📐 Measurement", body: `
+  <h4>Metric conversions</h4><ul><li>km → m ×1000 · m → cm ×100 · L → mL ×1000 · kg → g ×1000. Lakehead's prep package specifically flags conversions like m↔cm and L↔mL.</li></ul>
+  <h4>Rate problems</h4><ul><li>Find the unit rate first (amount per hour, per minute, per kg), then scale it to the time or quantity asked for — a classic example is a tap or tank leaking at a steady rate over hours or days.</li>
+  <li>Decimal hours convert to minutes by multiplying the decimal part by 60: <span class="formula">6.4 h = 6 h + 0.4 × 60 min = 6 h 24 min</span>.</li></ul>
+  <h4>Volume &amp; surface area</h4><ul>
+  <li>Prism: <span class="formula">V = area of base × height</span> · Closed cube SA: <span class="formula">6s²</span> · Rectangular prism SA: <span class="formula">2(lw + lh + wh)</span></li>
+  <li><b>Open or lidless solids:</b> subtract the missing face's area from the closed-solid formula. A square-based prism is also not the same as a cube — check all three dimensions.</li></ul>
+  <h4>LCM tiling problems</h4><ul><li>When two repeating patterns (tiles, beats, cycles) need to line up again, list multiples of each length and find the smallest one they share — the lowest common multiple (LCM).</li></ul>
+  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics: Geometry</a></div>`},
+{ title: "🧮 Patterning & Algebra", body: `
   <h4>Solving equations</h4><ul>
   <li>Undo operations in reverse order; keep both sides balanced.</li>
-  <li><span class="formula">2x + 5 = 17 → 2x = 12 → x = 6</span></li>
-  <li>Variables on both sides: gather x's on one side first.</li></ul>
-  <h4>Linear relations</h4><ul>
-  <li><span class="formula">y = mx + b</span> — m is slope (rise ÷ run), b is the y-intercept.</li>
-  <li>From a table: the constant difference in y is the slope.</li></ul>
-  <h4>Patterns</h4><ul><li>Find what changes each step; write the rule with the term number n.</li></ul>
+  <li><span class="formula">2x + 5 = 17 → 2x = 12 → x = 6</span></li></ul>
+  <h4>Working backwards</h4><ul>
+  <li>Many MCA-style word problems describe a chain of steps ("doubled, then added 5, giving 23") and ask for the start. Reverse each step in the opposite order: undo the last operation first.</li>
+  <li><span class="formula">Result → undo "+5" → undo "×2" → start</span></li></ul>
+  <h4>Pattern rules</h4><ul><li>Find the constant difference between terms; write the rule using the term number n, e.g. <span class="formula">term = 3n + 1</span>.</li>
+  <li>From a table of x/y values: the constant difference in y, divided by the step in x, gives the rule's multiplier.</li></ul>
   <div class="linkrow"><a href="https://www.khanacademy.org/math/algebra-basics" target="_blank" rel="noopener">Khan: Algebra Basics</a></div>`},
-{ title: "📊 Data & Probability", body: `
-  <h4>Central tendency</h4><ul>
+{ title: "📊 Data Management & Probability", body: `
+  <h4>Central tendency &amp; group averages</h4><ul>
   <li>Mean = sum ÷ count · Median = middle of ordered list · Mode = most frequent · Range = max − min.</li>
+  <li>Missing-value problems: if you know the mean and all-but-one value, multiply the mean by the count to get the total, then subtract the known values.</li>
   <li>Outliers drag the <b>mean</b>; the median resists them.</li></ul>
-  <h4>Probability</h4><ul>
-  <li><span class="formula">P = favourable ÷ total</span>, always between 0 and 1.</li>
-  <li>Independent events multiply: two heads = ½ × ½ = ¼.</li>
-  <li>Complement: P(not A) = 1 − P(A). Experimental = observed results ÷ trials.</li></ul>
-  <h4>Graphs</h4><ul><li>Line graph = change over time; bar = categories; circle = parts of a whole. Watch for truncated axes!</li></ul>
+  <h4>Theoretical probability</h4><ul>
+  <li><span class="formula">P = favourable outcomes ÷ total outcomes</span>, always between 0 and 1 — this applies just as well to 3D solids (cubes, spheres, pyramid-shaped dice) as it does to coins and cards.</li>
+  <li>Complement: P(not A) = 1 − P(A). Theoretical probability doesn't change based on trial results — experimental probability (observed ÷ trials) is a different idea.</li></ul>
   <div class="linkrow"><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank" rel="noopener">Khan: Statistics &amp; Probability</a></div>`},
-{ title: "📐 Measurement & Geometry", body: `
-  <h4>Area &amp; perimeter</h4><ul>
-  <li>Rectangle: <span class="formula">A = l × w</span> · Triangle: <span class="formula">A = b × h ÷ 2</span> · Parallelogram: <span class="formula">A = b × h</span></li>
-  <li>Circle: <span class="formula">C = 2πr</span>, <span class="formula">A = πr²</span></li>
-  <li>Composite shapes: split into pieces, add or subtract.</li></ul>
-  <h4>Volume &amp; surface area</h4><ul>
-  <li>Prism: <span class="formula">V = area of base × height</span> · Cube SA: <span class="formula">6s²</span></li></ul>
-  <h4>Angles</h4><ul>
-  <li>Triangle angles sum to 180°, quadrilateral 360°. Straight line 180°, complementary 90°.</li></ul>
-  <h4>Metric</h4><ul><li>km → m ×1000 · m → cm ×100 · L → mL ×1000.</li></ul>
-  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics: Geometry</a></div>`},
-{ title: "🔎 What we know — and don't know — about the assessment", body: `
-  <p style="font-size:.9rem">Lakehead University's Mathematics Competency Assessment (Primary/Junior division, course EDUC 0450) tests understanding of the Ontario elementary math curriculum at a <b>Grade 6/7 level</b> — proportional reasoning, probability, algebra reasoning, measurement, and connections among fractions, decimals, and percents. A <b>${PASS_LINE}% or higher</b> score is required to pass.</p>
-  <p style="font-size:.9rem;margin-top:8px">What Lakehead hasn't publicly published: the exact number of questions, timing, and calculator policy. Because of that, this app builds an <b>even, generic practice spread</b> across all five strands rather than a claimed simulation of the real assessment's format.</p>
-  <p style="font-size:.9rem;margin-top:8px"><b>This is an independent study aid</b> — it is not affiliated with, endorsed by, or built from materials supplied by Lakehead University. If you (or your program) have an official syllabus or sample questions, those should always take priority over this app's practice set.</p>`},
+{ title: "💰 Commercial & Financial Math", body: `
+  <h4>Cost, selling price, and profit</h4><ul>
+  <li><span class="formula">Profit = selling price − cost price</span></li></ul>
+  <h4>Markup vs. profit margin</h4><ul>
+  <li><b>Markup</b> is the profit expressed as a percent of the <b>cost</b>: <span class="formula">markup % = profit ÷ cost × 100</span></li>
+  <li><b>Profit margin</b> is the profit expressed as a percent of the <b>selling price</b>: <span class="formula">margin % = profit ÷ selling price × 100</span></li>
+  <li>These give different numbers for the same sale — always check which one a question is asking for.</li></ul>
+  <h4>Unit cost</h4><ul>
+  <li><span class="formula">unit cost = total price ÷ quantity</span> — convert to the same unit (mL, g, kg) before comparing two products.</li></ul>
+  <div class="linkrow"><a href="https://www.khanacademy.org/math/pre-algebra/pre-algebra-ratios-rates" target="_blank" rel="noopener">Khan: Ratios &amp; Rates</a></div>`},
+{ title: "🎯 The real assessment — confirmed format", body: `
+  <p style="font-size:.9rem">Lakehead University's Mathematics Competency Assessment (Primary/Junior division, course EDUC 0450) tests the Ontario elementary math curriculum at a <b>Grade 6/7 level</b>, across five areas: Number Sense &amp; Numeration, Measurement, Patterning &amp; Algebra, Data Management &amp; Probability, and Commercial &amp; Financial Math.</p>
+  <p style="font-size:.9rem;margin-top:8px">Per Lakehead's own "Making Sense of the MCA" materials, the assessment is <b>15 open-response (written) word problems, worth 3 marks each (45 marks total)</b>, with a <b>2-hour</b> time limit. <b>Calculators, notes, and formula sheets are not permitted</b> — but manipulatives and thinking tools (such as graph paper and fraction pieces) are provided. A <b>${PASS_LINE}% or higher</b> score (34/45 marks) is required to pass, and students are encouraged to show their thinking in <b>at least two different strategies</b> per question.</p>
+  <p style="font-size:.9rem;margin-top:8px"><b>This is an independent study aid</b> — it is not affiliated with, endorsed by, or built from materials supplied by Lakehead University. Its question bank is original and multiple-choice, for quick self-checking; it is not a copy of any official Lakehead question. If you (or your program) have an official syllabus, preparation package, or sample questions, those should always take priority over this app's practice set.</p>`},
 { title: "🔗 More Good Resources", body: `
   <ul>
-  <li><b>Khan Academy</b> — free lessons and practice across every strand here, organized by topic.</li>
-  <li><b>Math Antics</b> — short, clear video refreshers on fractions, percents, ratios, and geometry basics.</li>
-  <li><b>Ontario's elementary math curriculum</b> — the official Grade 1–8 curriculum document, useful if you want to see exactly what's expected at each grade.</li></ul>
+  <li><b>EQAO Grade 6 released questions</b> — real, publicly released Ontario assessment questions at the right curriculum level (Ontario's standardized testing stops at Grade 6, so there's no official "Grade 7" EQAO test — these Grade 6 questions are the closest official match to MCA content).</li>
+  <li><b>Gap Closing (Ontario Ministry / EduGAINS)</b> — diagnostic-style intervention modules for exactly the Grade 6/7 topics the MCA covers, including proportional reasoning and measurement.</li>
+  <li><b>Mathies</b> — Ontario's own free interactive math tools (number lines, fraction and ratio tools, pattern blocks) for visualizing the strategies Lakehead wants to see.</li>
+  <li><b>Khan Academy</b> &amp; <b>Math Antics</b> — free lessons and short video refreshers across every strand here.</li>
+  <li><b>Ontario's elementary math curriculum</b> — the official Grade 1–8 curriculum document (includes Financial Literacy as part of the Number strand).</li></ul>
   <div class="linkrow">
+    <a href="https://www.eqao.com/math-resource-released-questions-g6-2023" target="_blank" rel="noopener">EQAO Grade 6 questions</a>
+    <a href="https://www.edugains.ca/newsite/math2/gapclosing.html" target="_blank" rel="noopener">Gap Closing</a>
+    <a href="https://mathies.ca" target="_blank" rel="noopener">Mathies</a>
     <a href="https://www.khanacademy.org/math" target="_blank" rel="noopener">Khan Academy</a>
     <a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics</a>
     <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
@@ -1460,16 +1473,18 @@ function renderStudy(){
 /* ================= cheatsheet ================= */
 function renderCheat(){
   views.innerHTML = `
-  <div class="viewhead"><h2>Cheatsheet</h2><p>Quick-reference formulas and facts across all five strands, plus the optional on-screen calculator and formula reference during practice.</p></div>
+  <div class="viewhead"><h2>Cheatsheet</h2><p>Quick-reference formulas and facts across all five strands, plus a practice-only on-screen calculator and formula reference (neither is allowed on the real exam).</p></div>
 
   <div class="card cheat-card">
     <h3>🎯 What's being assessed</h3>
     <div class="factgrid">
       <div class="fact"><b>Grade 6/7-level</b> Ontario elementary math, per Lakehead's own description</div>
-      <div class="fact"><b>Five strands:</b> Number Sense · Proportional Reasoning · Algebra Reasoning · Measurement &amp; Geometry · Data &amp; Probability</div>
-      <div class="fact"><b>Pass = ${PASS_LINE}%+</b>, per Lakehead's stated requirement for EDUC 0450</div>
-      <div class="fact"><b>Here:</b> optional on-screen calculator + formula reference during practice</div>
-      <div class="fact">Question count, timing, and the real calculator policy aren't publicly published</div>
+      <div class="fact"><b>Five strands:</b> Number Sense &amp; Numeration · Measurement · Patterning &amp; Algebra · Data Management &amp; Probability · Commercial &amp; Financial Math</div>
+      <div class="fact"><b>Real format:</b> 15 open-response questions · 3 marks each · 45 marks total · 2-hour limit</div>
+      <div class="fact"><b>No calculator, no notes/formula sheet</b> — manipulatives (graph paper, fraction pieces, etc.) are provided</div>
+      <div class="fact"><b>Pass = ${PASS_LINE}%+</b> (34/45 marks), per Lakehead's stated requirement for EDUC 0450</div>
+      <div class="fact">Show at least <b>two different strategies</b> per question — Lakehead's own guidance</div>
+      <div class="fact"><b>Here:</b> practice-only on-screen calculator + formula reference (not allowed on the real exam)</div>
       <div class="fact">This app is an independent study aid, not an official Lakehead resource</div>
     </div>
   </div>
@@ -1531,12 +1546,22 @@ function renderCheat(){
   </div>
 
   <div class="card cheat-card">
-    <h3>🔀 Proportional reasoning facts</h3>
+    <h3>🔀 Ratio, rate &amp; percent facts</h3>
     <div class="factgrid">
-      <div class="fact"><b>Ratio:</b> scale both parts equally · 3:4 = 6:8 = 9:12</div>
+      <div class="fact"><b>Ratio:</b> scale both parts equally · 3:4 = 6:8 = 9:12 (a ratio table shows this clearly)</div>
       <div class="fact"><b>Unit rate:</b> amount per single unit — makes comparisons easy</div>
       <div class="fact"><b>Proportion:</b> cross-multiply to solve · 3/4 = x/20 → x = 15</div>
       <div class="fact"><b>Percent:</b> part/whole = percent/100 · find 10% first, then build</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>💰 Commercial &amp; financial facts</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Profit</b> = selling price − cost price</div>
+      <div class="fact"><b>Markup %</b> = profit ÷ <u>cost price</u> × 100</div>
+      <div class="fact"><b>Profit margin %</b> = profit ÷ <u>selling price</u> × 100 (not the same number as markup!)</div>
+      <div class="fact"><b>Unit cost</b> = total price ÷ quantity — convert units before comparing</div>
     </div>
   </div>`;
 }
@@ -1638,8 +1663,8 @@ function renderAbout(){
   <div class="spacer"></div>
   <div class="card cheat-card">
     <h3>⛰ The app</h3>
-    <p style="font-size:.93rem">Lakehead Math Competency (LMCA) prep is a private study companion for Lakehead University's Mathematics Competency Assessment (Primary/Junior division, course EDUC 0450) — a Grade 6/7-level math exam required for that program, with a ${PASS_LINE}% pass line as Lakehead states it.</p>
-    <p style="font-size:.93rem;margin-top:8px">This app is <b>independent</b>: it is not affiliated with, endorsed by, or built from materials supplied by Lakehead University. The exact format of the real assessment — question count, timing, calculator policy — isn't publicly published, so practice here is an honest, even spread across five strands rather than a claimed simulation. Add an original question bank, difficulty modes from 🌱 easy to 🌋 tough, a readiness report, and a trail of XP, levels, and badges — because steady, kind practice is what actually builds confidence.</p>
+    <p style="font-size:.93rem">Lakehead Math Competency (LMCA) prep is a private study companion for Lakehead University's Mathematics Competency Assessment (Primary/Junior division, course EDUC 0450) — a Grade 6/7-level math exam required for that program: 15 open-response questions, 2 hours, no calculator, with a ${PASS_LINE}% pass line as Lakehead states it.</p>
+    <p style="font-size:.93rem;margin-top:8px">This app is <b>independent</b>: it is not affiliated with, endorsed by, or built from materials supplied by Lakehead University. Its question bank is original and multiple-choice, built for quick self-checking — the real assessment is written and open-response, so practice here rehearses the content and pace, not the exact answer format. Add difficulty modes from 🌱 easy to 🌋 tough, a readiness report, and a trail of XP, levels, and badges — because steady, kind practice is what actually builds confidence.</p>
   </div>
   <div class="card cheat-card">
     <h3>🧭 The philosophy</h3>
