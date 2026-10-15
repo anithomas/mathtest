@@ -329,6 +329,10 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 @media(max-width:520px){nav.tabs{gap:0;padding-left:2px;padding-right:2px}nav.tabs button{flex:1 1 0;min-width:0;font-size:.6rem;padding:6px 1px;line-height:1.15;text-align:center}nav.tabs button svg{width:20px;height:20px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+.fraction-track{height:28px;border:2px solid var(--teal);border-radius:8px;overflow:hidden;background:repeating-linear-gradient(90deg,var(--card) 0,var(--card) calc(100% / var(--parts, 8) - 1px),var(--line) calc(100% / var(--parts, 8) - 1px),var(--line) calc(100% / var(--parts, 8)));margin:10px 0}
+.fraction-fill{height:100%;width:0;background:var(--teal);opacity:.78;transition:width .18s ease}
+#mpt-frac-num,#mpt-frac-den{display:block;width:100%;accent-color:var(--teal);margin:6px 0 12px}
+@media(prefers-reduced-motion:reduce){.fraction-fill{transition:none}}
 </style>
 </head>
 <body>
@@ -690,6 +694,20 @@ let saveTimer = null;
 
 const configured = !String(FIREBASE_CONFIG.apiKey || "").startsWith("PASTE_");
 const isLocalPreview = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
+// Added items span the five MPT math strands and core assessment-for-learning practice.
+BANK.push(
+ {id:"X01",sec:"content",strand:"Number",grade:"7–9",q:"Which work correctly uses denominator 24 to add 5/6 + 1/4?",opts:["5/24 + 1/24 = 6/24","20/24 + 6/24 = 26/24 = 13/12","5/24 + 1/24 = 13/24","20/24 + 6/24 = 26/48"],ans:1,exp:"5/6 = 20/24 and 1/4 = 6/24. Add the numerators while keeping the common denominator: 26/24 = 13/12."},
+ {id:"X02",sec:"content",strand:"Number",grade:"7–9",q:"A recipe uses 3 cups of flour for every 2 cups of oats. How many cups of flour are needed for 10 cups of oats?",opts:["12 cups","15 cups","18 cups","20 cups"],ans:1,exp:"The scale factor is 10 ÷ 2 = 5. Multiply the flour amount by the same factor: 3 × 5 = 15 cups."},
+ {id:"X03",sec:"content",strand:"Algebra",grade:"7–9",q:"Solve 5(2x − 3) = 3x + 20.",opts:["x = 3","x = 5","x = 7","x = 10"],ans:1,exp:"Expand: 10x − 15 = 3x + 20. Then 7x = 35, so x = 5. Substitution checks: both sides equal 35."},
+ {id:"X04",sec:"content",strand:"Algebra",grade:"7–9",q:"A linear pattern has values 7, 11, 15, 19 at positions 1, 2, 3, 4. What is the rule for the value at position n?",opts:["4n + 3","4n + 7","3n + 4","7n − 3"],ans:0,exp:"The common difference is 4, so the rule begins 4n. At n = 1, the value is 7; 4(1) + 3 = 7, giving 4n + 3."},
+ {id:"X05",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A triangle has angles 38° and 67°. What is the third angle?",opts:["65°","75°","85°","105°"],ans:1,exp:"Angles in a triangle add to 180°. The third angle is 180° − 38° − 67° = 75°."},
+ {id:"X06",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"A circle has diameter 12 cm. What is its circumference, to the nearest tenth?",opts:["18.8 cm","37.7 cm","75.4 cm","113.1 cm"],ans:1,exp:"C = πd = 12π ≈ 37.7 cm. Using the diameter directly avoids doubling or halving it incorrectly."},
+ {id:"X07",sec:"content",strand:"Spatial Sense",grade:"7–9",q:"On a map with scale 1:50,000, two towns are 4 cm apart. What is their actual distance?",opts:["200 m","2 km","20 km","200 km"],ans:1,exp:"Actual distance is 4 × 50,000 = 200,000 cm. Since 100,000 cm = 1 km, the distance is 2 km."},
+ {id:"X08",sec:"content",strand:"Data & Probability",grade:"7–9",q:"A data set is 4, 7, 7, 8, 14. Which statement is correct?",opts:["Mean = 7 and median = 8","Mean = 8 and median = 7","Mean = 8 and median = 8","Mean = 7 and median = 7"],ans:1,exp:"The sum is 40, so the mean is 40 ÷ 5 = 8. The middle value in order is 7, so the median is 7."},
+ {id:"X09",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A teacher uses exit tickets to decide which concept to reteach tomorrow. This is primarily:",opts:["assessment FOR learning","assessment AS learning","assessment OF learning","diagnostic placement only"],ans:0,exp:"The teacher uses evidence during instruction to plan next steps; this is assessment FOR learning."},
+ {id:"X10",sec:"pedagogy",strand:"Pedagogy",grade:"—",q:"A student uses a checklist to compare their solution with success criteria and chooses a next step. This is primarily:",opts:["assessment OF learning","assessment AS learning","summative evaluation","a modification"],ans:1,exp:"The student monitors and adjusts their own learning using criteria, which is assessment AS learning."}
+);
+
 const COURSE_ID = "MPT";
 const COURSE_LABEL = "MPT Prep";
 // Keep false until the matching Firestore enrollment rules are deployed and reviewed.
@@ -1630,6 +1648,19 @@ const STUDY = [
     <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
   </div>`}
 ];
+STUDY.push({title:"🎯 Strong MPT practice habits",body:`
+  <p>Build accuracy and transferable reasoning across the five math strands and pedagogy. Practice explanations as well as answers.</p>
+  <div class="factgrid">
+    <div class="fact"><b>Use a two-pass review.</b> Answer confident items first, flag uncertain ones, then return with time left. The real test sections lock when submitted, so review each section before moving on.</div>
+    <div class="fact"><b>Explain the misconception.</b> For each missed math item, write the incorrect step and a corrected step. For pedagogy, connect the choice to the student evidence and intended learning.</div>
+    <div class="fact"><b>Use the tools deliberately.</b> The test provides an on-screen calculator and Formula Sheet. Estimate first, use the tool to verify, then check units and reasonableness.</div>
+    <div class="fact"><b>Interleave both components.</b> Alternate math and pedagogy practice across the week; track performance separately because the real passing requirement applies to each component.</div>
+  </div>
+  <h4>Interactive fraction model</h4><p>Change the numerator and denominator to see the shaded part. Say the fraction aloud, then find an equivalent fraction before checking the bar.</p>
+  <label for="mpt-frac-num">Numerator: <output id="mpt-frac-num-out">3</output></label><input id="mpt-frac-num" type="range" min="1" max="8" value="3" aria-label="Fraction numerator">
+  <label for="mpt-frac-den">Denominator: <output id="mpt-frac-den-out">8</output></label><input id="mpt-frac-den" type="range" min="2" max="10" value="8" aria-label="Fraction denominator">
+  <div class="fraction-track" role="img" aria-label="Fraction bar model"><div id="mpt-frac-fill" class="fraction-fill"></div></div><p id="mpt-frac-readout" aria-live="polite">3/8 = 37.5%</p>
+  <p class="note">The visual is a model of equal-sized parts; changing a fraction does not change the test’s official tools or format.</p>`});
 function renderStudy(){
   views.innerHTML = `
   <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
@@ -1646,6 +1677,22 @@ function renderStudy(){
       toast("Trail plan anchored to " + psi.value + " 🗓");
     };
   }
+  wireMptFractionModel();
+}
+function wireMptFractionModel(){
+  const n = $("#mpt-frac-num"), d = $("#mpt-frac-den");
+  if (!n || !d) return;
+  const update = () => {
+    const denominator = Number(d.value); n.max = denominator;
+    if (Number(n.value) > denominator) n.value = denominator;
+    const numerator = Number(n.value), percent = 100 * numerator / denominator;
+    $("#mpt-frac-num-out").value = numerator; $("#mpt-frac-den-out").value = denominator;
+    $("#mpt-frac-fill").parentElement.style.setProperty("--parts", denominator);
+    $("#mpt-frac-fill").parentElement.setAttribute("aria-label", `${numerator} of ${denominator} equal parts shaded`);
+    $("#mpt-frac-fill").style.width = `${percent}%`;
+    $("#mpt-frac-readout").textContent = `${numerator}/${denominator} = ${percent.toFixed(1)}%`;
+  };
+  n.oninput = update; d.oninput = update; update();
 }
 
 /* ================= cheatsheet ================= */

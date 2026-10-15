@@ -1087,6 +1087,25 @@ MHF4U.Q = [
  {id:'c15',u:'u5',c:'C',t:'write',p:'A student says f(g(x)) and g(f(x)) are always equal. Using f(x) = 2x and g(x) = x + 3, show this is false and explain when order matters.',model:'f(g(x)) = f(x + 3) = 2(x + 3) = 2x + 6, but g(f(x)) = g(2x) = 2x + 3. These are different (the constant terms are 6 and 3), so composition is not commutative in general. Order matters because the inner function\'s output becomes the outer function\'s input: doing the "+3" before the "×2" is not the same as doing it after.',chk:['Computes f(g(x)) = 2x + 6','Computes g(f(x)) = 2x + 3, showing they differ','Explains that order matters because the inner function\'s output feeds the outer function']}
 ];
 
+// Curriculum-mapped extension set: three additional checks per official content strand.
+MHF4U.Q = MHF4U.Q.concat([
+ {id:'p901',u:'u1',c:'K',t:'mc',p:'What is the end behaviour of f(x) = −3x^{6} + 2x^{3} − 1?',o:['left up, right down','both ends down','both ends up','left down, right up'],a:1,h:'The leading term controls end behaviour.',s:['The degree 6 is even, so both ends point the same way.','The leading coefficient is negative, so both ends point down.']},
+ {id:'p902',u:'u1',c:'K',t:'num',p:'Find the remainder when P(x) = x^{3} + 2x^{2} − x + 4 is divided by x + 2.',ans:6,h:'Use the Remainder Theorem at x = −2.',s:['P(−2) = (−2)^{3} + 2(−2)^{2} − (−2) + 4.','P(−2) = −8 + 8 + 2 + 4 = 6.']},
+ {id:'p903',u:'u1',c:'T',t:'mc',p:'Solve x^{4} − 13x^{2} + 36 = 0.',o:['x = ±2 only','x = ±3 only','x = −3, −2, 2, 3','x = −6, −1, 1, 6'],a:2,h:'Treat x² as one variable, then solve both resulting square equations.',s:['Let z = x². Then z² − 13z + 36 = (z − 4)(z − 9) = 0.','So x² = 4 or x² = 9, giving x = −3, −2, 2, 3.']},
+ {id:'p904',u:'u2',c:'K',t:'mc',p:'The graph of f(x) = (x² − 9)/(x − 3) has which feature at x = 3?',o:['A vertical asymptote','A hole at (3, 6)','An x-intercept at (3, 0)','No restriction at x = 3'],a:1,h:'Factor the numerator before deciding what happens at x = 3.',s:['For x ≠ 3, f(x) = ((x − 3)(x + 3))/(x − 3) = x + 3.','The original function is still undefined at x = 3, so there is a hole at y = 6.']},
+ {id:'p905',u:'u2',c:'K',t:'mc',p:'What is the domain of f(x) = 1/(x² − 5x + 6)?',o:['All real numbers','x ≠ 2 only','x ≠ 3 only','All real x except 2 and 3'],a:3,h:'A rational function is undefined where its denominator is zero.',s:['Factor x² − 5x + 6 = (x − 2)(x − 3).','Exclude both denominator zeros: x ≠ 2 and x ≠ 3.']},
+ {id:'p906',u:'u2',c:'A',t:'num',p:'Solve 2/(x − 1) = 1/(x + 2). Give the valid value of x.',ans:-5,h:'Cross-multiply, then check that the result does not make either denominator zero.',s:['2(x + 2) = x − 1, so 2x + 4 = x − 1.','x = −5, which is not 1 or −2, so it is valid.']},
+ {id:'p907',u:'u3',c:'K',t:'num',p:'A circle has radius 6 cm. Find the arc length subtended by a central angle of 5π/6 radians.',ans:5*Math.PI,un:'cm',tol:0.02,h:'When the angle is in radians, arc length is s = rθ.',s:['s = 6 × (5π/6).','s = 5π cm (approximately 15.7 cm).']},
+ {id:'p908',u:'u3',c:'K',t:'mc',p:'For y = 3 sin(2(x − π/4)) − 1, which set of properties is correct?',o:['amplitude 3; period π; shift right π/4; midline y = −1','amplitude 2; period 3π; shift left π/4; midline y = 1','amplitude 3; period 2π; shift right π/4; midline y = −1','amplitude 1; period π; shift left π/4; midline y = 3'],a:0,h:'Compare with y = a sin(k(x − d)) + c.',s:['Amplitude is |a| = 3. Period is 2π/|k| = π.','x − π/4 shifts the graph right π/4, and c = −1 gives midline y = −1.']},
+ {id:'p909',u:'u3',c:'A',t:'mc',p:'Solve 2 cos x = 1 on 0 ≤ x < 2π.',o:['π/3 and 5π/3','π/6 and 11π/6','2π/3 and 4π/3','π/3 only'],a:0,h:'First find cos x, then use the unit circle and the interval.',s:['cos x = 1/2. Cosine is positive in Quadrants I and IV.','The solutions in one cycle are x = π/3 and x = 5π/3.']},
+ {id:'p910',u:'u4',c:'K',t:'num',p:'Solve log_{2}(x − 1) + log_{2}(x + 1) = 3. Give the valid solution.',ans:3,h:'State the logarithm restrictions first, then combine the logs.',s:['The domain requires x − 1 > 0 and x + 1 > 0, so x > 1.','log₂((x − 1)(x + 1)) = 3, so x² − 1 = 8.','x² = 9 gives x = ±3; only x = 3 meets x > 1.']},
+ {id:'p911',u:'u4',c:'A',t:'num',p:'A 120 g sample has a half-life of 2 hours. How much remains after 6 hours?',ans:15,un:'g',h:'Count the number of half-lives, then halve the amount that many times.',s:['6 hours is 3 half-lives.','120 → 60 → 30 → 15 g.']},
+ {id:'p912',u:'u4',c:'T',t:'num',p:'Solve 5^{2x − 1} = 125.',ans:2,h:'Write 125 as a power of 5.',s:['125 = 5³, so 2x − 1 = 3.','2x = 4, hence x = 2.']},
+ {id:'p913',u:'u5',c:'K',t:'mc',p:'For f(x) = √(x − 2), what is the domain of its inverse function f⁻¹?',o:['x ≥ 2','x ≥ 0','all real x','x ≤ 0'],a:1,h:'The inverse domain is the original function\'s range.',s:['f(x) = √(x − 2) has range y ≥ 0.','Therefore f⁻¹ has domain x ≥ 0. (In fact, f⁻¹(x) = x² + 2.)']},
+ {id:'p914',u:'u5',c:'A',t:'num',p:'Find the average rate of change of f(x) = x² − 1 from x = −1 to x = 2.',ans:1,un:'units per x-unit',h:'Use (f(2) − f(−1))/(2 − (−1)).',s:['f(2) = 3 and f(−1) = 0.','Average rate = (3 − 0)/3 = 1.']},
+ {id:'p915',u:'u5',c:'T',t:'mc',p:'Let f(x) = √(x − 1) and g(x) = x². What is the domain of f(g(x))?',o:['x ≥ 1','x ≤ −1 or x ≥ 1','all real x','x ≥ −1'],a:1,h:'The quantity inside the square root must be nonnegative.',s:['f(g(x)) = √(x² − 1). Require x² − 1 ≥ 0.','(x − 1)(x + 1) ≥ 0, so x ≤ −1 or x ≥ 1.']}
+]);
+
 MHF4U.PLAN = [
  {w:'Week 1',t:'Polynomials and rational functions',d:[
   'Day 1: Take the Unit 1 quiz cold as a diagnostic. Then Learn lessons 1.1 to 1.4.',
@@ -1631,7 +1650,7 @@ function gameStats(){
     {i:"🧩",n:"Word Problem Wrangler",d:"Get 20 word problems right",e:wordC>=20},
     {i:"✅",n:"Level 4 Run",d:"Score 80%+ on any exam simulation",e:mocks.some(a=>a.pct>=80)},
     {i:"📅",n:"Week Walker",d:"Study 7 days in a row",e:streak>=7},
-    {i:"🎓",n:"All Lessons",d:"Mark all 38 lessons as done",e:lessonsDone>=D.LESSONS.length},
+    {i:"🎓",n:"All Lessons",d:`Mark all ${D.LESSONS.length} lessons as done`,e:lessonsDone>=D.LESSONS.length},
     {i:"🏔",n:"Summit!",d:"80%+ on a FULL 25-question exam simulation",e:mocks.some(a=>a.total>=25&&a.pct>=80)},
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5}
   ];
@@ -1702,7 +1721,7 @@ function renderHome(){
   ${week ? `<div class="card thisweek"><h3>🗓 This week: ${esc(week.t)}</h3><p class="note" style="margin:4px 0 8px">${esc(week.d)}</p>
     ${weekLessons.length ? `<div class="linkrow">${weekLessons.map(l => `<a href="#" data-lesson="${l.id}">${store.lessons[l.id] ? "✔ " : ""}${l.u.slice(1)}.${l.id.split("-")[1]} ${esc(l.t)}</a>`).join("")}</div>` : ""}</div>` : ""}
   <div class="homegrid">
-    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>38 plain-language lessons with quick checks, 15 worked examples, interactive graphing tools and the 8-week plan.</p><div class="go">Open study hub →</div></div>
+    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>${D.LESSONS.length} plain-language lessons, ${D.Q.length} practice questions, ${D.WORKED.length} worked examples, interactive graphing tools and the 8-week plan.</p><div class="go">Open study hub →</div></div>
     <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>Fresh questions every time — pick a unit, a K/A/T/C level or word problems only. Instant feedback with full solutions.</p><div class="go">Start a quiz →</div></div>
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 25-question final-exam run (5 per unit) or a 15-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
@@ -2114,16 +2133,16 @@ function studySections(){
       <a href="https://courseware.cemc.uwaterloo.ca/8" target="_blank" rel="noopener">CEMC Advanced Functions</a>
       <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">Desmos graphing calculator (opens Desmos)</a>
     </div>` };
-  const p90 = { id: "p90", title: "🎯 The 90% Playbook", body: () => `
-    <p style="font-size:.9rem">90% is a habit, not a talent. These six habits are what separate an 85 from a 90+.</p>
+  const p90 = { id: "p90", title: "🎯 High-mark study habits", body: () => `
+    <p style="font-size:.9rem">Use these routines to make practice more deliberate and show your mathematical thinking clearly. They support preparation but cannot guarantee a particular result.</p>
     <ul>
-    <li><b>Redo every miss.</b> After each quiz, use <i>Fix my weak spots</i> until the count reaches zero. A mistake you've corrected once rarely returns.</li>
-    <li><b>Aim for 90% in each unit, not just overall.</b> The Progress page shows how many points each unit is from 90%.</li>
-    <li><b>Space it out.</b> Revisit each unit one week, then three weeks, after you finish it. Ten short sessions beat one long one.</li>
-    <li><b>Practise Thinking and Communication questions.</b> They carry the marks that separate Level 4 from Level 3: show every step and write a sentence of justification.</li>
-    <li><b>Simulate the exam.</b> Do a full 25-question simulation without notes, then mark it honestly and review every miss.</li>
-    <li><b>Check, then check again.</b> Substitute answers back, check domain restrictions and sketch a quick graph. Most lost marks at this level are careless, not conceptual.</li></ul>
-    <p class="note">Free extra practice: the CEMC courseware has full lessons and practice for every unit, jensenmath has videos and worksheets, and Desmos lets you test any function you meet.</p>` };
+    <li><b>Retrieve before rereading.</b> Close the lesson and write the key rule or method from memory; then check and correct it.</li>
+    <li><b>Space your reviews.</b> Revisit a skill tomorrow, later in the week and again the following week. Short recall sessions make gaps visible.</li>
+    <li><b>Practise all four categories.</b> Mix Knowledge, Application, Thinking and Communication; write full reasoning for unfamiliar or proof-based items.</li>
+    <li><b>Use a complete-solution routine.</b> State restrictions, show algebraic steps, keep exact values when requested, and check whether your answer fits the original domain.</li>
+    <li><b>Connect graphs to equations.</b> Predict intercepts, asymptotes, period, transformations or end behaviour before using the graph tool; then explain any mismatch.</li>
+    <li><b>Keep an error log.</b> Name the error, solve a fresh example without notes, and recheck the skill in a later mixed quiz.</li></ul>
+    <p class="note">Use the interactive graphs to test a prediction, then solve a related item without the graph as a check of independent understanding.</p>` };
   return [plan, p90].concat(units, [tools, res]);
 }
 const openAcc = new Set(), openLesson = new Set();

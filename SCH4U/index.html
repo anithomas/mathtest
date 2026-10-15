@@ -376,6 +376,9 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 }
 @media(max-width:520px){nav.tabs{gap:0;padding-left:2px;padding-right:2px}nav.tabs button{flex:1 1 0;min-width:0;font-size:.6rem;padding:6px 1px;line-height:1.15;text-align:center}nav.tabs button svg{width:20px;height:20px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.eq-flow{display:grid;gap:7px;max-width:520px;margin:12px auto}.eq-flow-row{display:grid;grid-template-columns:54px 1fr 54px;align-items:center;gap:8px;font-size:.82rem;font-weight:700}.eq-flow-track{height:20px;position:relative;border-radius:99px;background:var(--teal-tint);overflow:hidden}.eq-flow-track.reverse{background:var(--coral-tint)}.eq-molecule{position:absolute;top:5px;width:10px;height:10px;border-radius:50%;background:var(--teal);animation:eq-forward 2.6s ease-in-out infinite alternate}.reverse .eq-molecule{background:var(--coral);animation-name:eq-reverse}.eq-molecule:nth-child(2){animation-delay:-1.3s}
+@keyframes eq-forward{from{left:2%}to{left:92%}}@keyframes eq-reverse{from{left:92%}to{left:2%}}
+@media(prefers-reduced-motion:reduce){.eq-molecule{animation:none;left:50%}}
 </style>
 </head>
 <body>
@@ -1057,6 +1060,25 @@ SCH4U.Q = SCH4U.Q.concat([
  {id:'s526',u:'u5',c:'C',t:'write',p:'Explain the key operational differences between a voltaic (galvanic) cell and an electrolytic cell, including the energy relationship and the role of an external power source.',model:'A voltaic (galvanic) cell generates electrical energy from a spontaneous redox reaction (E°_{cell} > 0): the reaction proceeds on its own, converting chemical energy into electrical energy, with oxidation at the negative anode and reduction at the positive cathode. An electrolytic cell does the opposite: it uses electrical energy from an external power source to force a non-spontaneous redox reaction (E°_{cell} < 0 as written) to occur, converting electrical energy into chemical energy. Because the external source actively pushes electrons into the cell, the electrode polarity is reversed compared to a voltaic cell — the anode becomes the positive electrode and the cathode becomes the negative electrode — even though oxidation is still defined as occurring at the anode and reduction still at the cathode in both cell types.',chk:['States a voltaic cell is spontaneous and produces electrical energy, while an electrolytic cell is non-spontaneous and consumes electrical energy from an external source','States oxidation always occurs at the anode and reduction always at the cathode, in both cell types','States the anode/cathode polarity (+/−) is reversed between a voltaic cell and an electrolytic cell']}
 ]);
 
+// Additional curriculum-mapped practice, balanced across the five content units.
+SCH4U.Q = SCH4U.Q.concat([
+ {id:'s901',u:'u1',c:'K',t:'mc',p:'What is the major product when ethene reacts with hydrogen in the presence of a suitable catalyst?',o:['Ethane','Ethanol','Ethanoic acid','Ethyl ethanoate'],a:0,h:'Hydrogen adds across the carbon–carbon double bond.',s:['The C=C double bond opens and one H atom adds to each carbon.','The product is ethane, CH₃CH₃.']},
+ {id:'s902',u:'u1',c:'K',t:'mc',p:'What is the IUPAC name of CH₃CH₂COCH₃?',o:['Butanal','Butanone','Butanoic acid','Propanone'],a:1,h:'Choose the longest chain containing the carbonyl and number it to give the carbonyl the lowest number.',s:['The longest chain has four carbons, so the parent is butan-.','The ketone carbonyl is at C2: butan-2-one (often written 2-butanone).']},
+ {id:'s903',u:'u1',c:'A',t:'mc',p:'Ethanol reacts with ethanoic acid under acid catalysis. Which products form?',o:['Ethene and water','Ethyl ethanoate and water','Ethanal and hydrogen','Ethane and carbon dioxide'],a:1,h:'An alcohol and a carboxylic acid undergo esterification.',s:['Ethanol + ethanoic acid ⇌ ethyl ethanoate + water.','This is a condensation reaction because a water molecule is also produced.']},
+ {id:'s904',u:'u2',c:'K',t:'mc',p:'What is the molecular shape and overall polarity of NH₃?',o:['Trigonal planar; nonpolar','Trigonal pyramidal; polar','Tetrahedral; nonpolar','Linear; polar'],a:1,h:'Count the three bonding pairs and one lone pair around nitrogen.',s:['Four electron domains give a tetrahedral electron-domain arrangement.','One is a lone pair, so the molecular shape is trigonal pyramidal; the bond dipoles do not cancel, making NH₃ polar.']},
+ {id:'s905',u:'u2',c:'A',t:'mc',p:'Why does methanol (CH₃OH) have a higher boiling point than methane (CH₄) of similar molar mass?',o:['Methanol has stronger London forces only','Methanol molecules form hydrogen bonds; methane molecules do not','Methane is ionic','Methanol has no intermolecular forces'],a:1,h:'Look for an O–H bond and the intermolecular force it permits.',s:['Methanol has an O–H bond, so its molecules can form hydrogen bonds.','Methane is nonpolar and has only London dispersion forces, so less energy is needed to separate its molecules.']},
+ {id:'s906',u:'u2',c:'T',t:'mc',p:'Which property is most characteristic of a covalent network solid such as silicon dioxide?',o:['Low melting point because its particles are separate molecules','High melting point because covalent bonds extend through a network','Electrical conductivity in the solid because electrons are mobile','Softness because only weak intermolecular forces hold it together'],a:1,h:'Distinguish a network solid from a molecular covalent substance.',s:['In a network solid, covalent bonds extend throughout the structure.','Many strong bonds must be broken to melt it, so it has a high melting point.']},
+ {id:'s907',u:'u3',c:'A',t:'num',p:'A 50.0 g water sample warms by 4.20 °C. Using c = 4.18 J/(g·°C), how much heat did the water absorb?',ans:878,tol:2,un:'J',h:'Use q = mcΔT and keep the mass, specific heat capacity and temperature change in consistent units.',s:['q = (50.0 g)(4.18 J/(g·°C))(4.20 °C).','q = 877.8 J, which rounds to 878 J (3 significant figures).']},
+ {id:'s908',u:'u3',c:'T',t:'num',p:'Given N₂(g) + O₂(g) → 2NO(g), ΔH = +180.6 kJ, and 2NO(g) + O₂(g) → 2NO₂(g), ΔH = −114.2 kJ, find ΔH for N₂(g) + 2O₂(g) → 2NO₂(g).',ans:66.4,tol:0.1,un:'kJ',h:'The target equation is the sum of the two given equations; add their enthalpy changes.',s:['Adding the equations cancels 2NO on both sides and gives the target equation.','ΔH = 180.6 + (−114.2) = +66.4 kJ.']},
+ {id:'s909',u:'u3',c:'K',t:'mc',p:'Experimental data show that doubling [A] doubles the initial rate, while doubling [B] makes the initial rate four times as large. Which rate law fits?',o:['rate = k[A][B]²','rate = k[A]²[B]','rate = k[A][B]','rate = k[A]²[B]²'],a:0,h:'The factor by which the rate changes when one concentration doubles gives its order.',s:['Doubling [A] doubles rate, so the order in A is 1.','Doubling [B] quadruples rate, so the order in B is 2. Therefore rate = k[A][B]².']},
+ {id:'s910',u:'u4',c:'K',t:'num',p:'For N₂O₄(g) ⇌ 2NO₂(g), an equilibrium mixture has [NO₂] = 0.40 mol/L and [N₂O₄] = 0.20 mol/L. Calculate Kc.',ans:0.8,tol:0.02,h:'Write Kc with product concentrations over reactant concentrations, each raised to its coefficient.',s:['Kc = [NO₂]²/[N₂O₄].','Kc = (0.40)²/0.20 = 0.16/0.20 = 0.80.']},
+ {id:'s911',u:'u4',c:'A',t:'mc',p:'The forward reaction in an equilibrium system is endothermic. What happens when the temperature is increased?',o:['The system shifts toward reactants and K decreases','The system shifts toward products and K increases','The system shifts toward products but K is unchanged','There is no shift and K is unchanged'],a:1,h:'Treat heat as a reactant for an endothermic forward reaction.',s:['Adding heat favours the endothermic forward direction, so equilibrium shifts toward products.','Temperature changes the equilibrium constant; for an endothermic forward reaction, increasing T increases K.']},
+ {id:'s912',u:'u4',c:'T',t:'num',p:'A 0.100 mol/L solution of a weak monoprotic acid has Ka = 1.8 × 10⁻⁵. Using the small-x approximation, estimate its pH.',ans:2.87,tol:0.04,h:'For HA ⇌ H⁺ + A⁻, use [H⁺] ≈ √(KaC), then pH = −log[H⁺].',s:['[H⁺] ≈ √((1.8 × 10⁻⁵)(0.100)) = √(1.8 × 10⁻⁶) ≈ 1.34 × 10⁻³ mol/L.','pH = −log(1.34 × 10⁻³) ≈ 2.87. The approximation is reasonable because x/C is about 1.3%.']},
+ {id:'s913',u:'u5',c:'K',t:'mc',p:'A galvanic cell uses Zn(s) | Zn²⁺ and Cu²⁺ | Cu(s). Given E°red(Cu²⁺/Cu) = +0.34 V and E°red(Zn²⁺/Zn) = −0.76 V, what is E°cell?',o:['−1.10 V','−0.42 V','+0.42 V','+1.10 V'],a:3,h:'Copper is reduced at the cathode; zinc is oxidized at the anode.',s:['E°cell = E°red(cathode) − E°red(anode).','E°cell = 0.34 − (−0.76) = +1.10 V.']},
+ {id:'s914',u:'u5',c:'A',t:'num',p:'A current of 2.00 A passes through AgNO₃(aq) for 965 s. What mass of silver is deposited? Use F = 96,500 C/mol e⁻ and M(Ag) = 107.9 g/mol.',ans:2.16,tol:0.03,un:'g',h:'Use Q = It, convert charge to moles of electrons, then use Ag⁺ + e⁻ → Ag.',s:['Q = It = (2.00)(965) = 1930 C. n(e⁻) = Q/F = 1930/96500 = 0.0200 mol.','The mole ratio Ag⁺:e⁻ is 1:1, so n(Ag) = 0.0200 mol.','m(Ag) = 0.0200 × 107.9 = 2.16 g.']},
+ {id:'s915',u:'u3',c:'C',t:'write',p:'A student compares reaction rates at two temperatures but also changes the reactant concentration. Explain why this makes it hard to conclude that temperature caused the rate change, and suggest one improvement.',model:'More than one independent variable changed, so the rate difference cannot be attributed to temperature alone. Repeat the comparison while keeping reactant concentrations, volumes, surface area, catalyst amount, and measurement method constant; change only temperature, use repeated trials, and compare the rate data.',chk:['Identifies the confounding variable: concentration also changed','States that other relevant conditions should be controlled','Proposes changing only temperature and collecting comparable/repeated rate data']}
+]);
+
 SCH4U.PLAN = [
  {w:'Week 1',t:'Organic chemistry',d:[
   'Day 1: Take the Unit 1 quiz cold as a diagnostic. Then learn lessons 1.1 to 1.3 (alkanes, alkenes/alkynes and isomers, aromatic hydrocarbons).',
@@ -1609,7 +1631,7 @@ function gameStats(){
     {i:"🧩",n:"Word Problem Wrangler",d:"Get 20 word problems right",e:wordC>=20},
     {i:"✅",n:"Level 4 Run",d:"Score 80%+ on any exam simulation",e:mocks.some(a=>a.pct>=80)},
     {i:"📅",n:"Week Walker",d:"Study 7 days in a row",e:streak>=7},
-    {i:"🎓",n:"All Lessons",d:"Mark all 38 lessons as done",e:lessonsDone>=D.LESSONS.length},
+    {i:"🎓",n:"All Lessons",d:`Mark all ${D.LESSONS.length} lessons as done`,e:lessonsDone>=D.LESSONS.length},
     {i:"🏔",n:"Summit!",d:"80%+ on a FULL 25-question exam simulation",e:mocks.some(a=>a.total>=25&&a.pct>=80)},
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5}
   ];
@@ -1680,7 +1702,7 @@ function renderHome(){
   ${week ? `<div class="card thisweek"><h3>🗓 This week: ${esc(week.t)}</h3><p class="note" style="margin:4px 0 8px">${esc(week.d)}</p>
     ${weekLessons.length ? `<div class="linkrow">${weekLessons.map(l => `<a href="#" data-lesson="${l.id}">${store.lessons[l.id] ? "✔ " : ""}${l.u.slice(1)}.${l.id.split("-")[1]} ${esc(l.t)}</a>`).join("")}</div>` : ""}</div>` : ""}
   <div class="homegrid">
-    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>34 plain-language lessons with quick checks, 15 worked examples, interactive chemistry tools and the 8-week plan.</p><div class="go">Open study hub →</div></div>
+    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>${D.LESSONS.length} plain-language lessons, ${D.Q.length} practice questions, ${D.WORKED.length} worked examples, interactive tools and the 8-week plan.</p><div class="go">Open study hub →</div></div>
     <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>Fresh questions every time — pick a unit, a K/A/T/C level or word problems only. Instant feedback with full solutions.</p><div class="go">Start a quiz →</div></div>
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 25-question final-exam run (5 per unit) or a 15-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
@@ -2075,21 +2097,37 @@ function studySections(){
       <div style="margin-top:12px"><button class="btn primary" data-uq="${u.id}">Quiz me on ${esc(u.name)} →</button></div>`; } }));
   const tools = { id: "tools", title: "🛠 Interactive Chemistry Tools", body: () => `<p style="font-size:.9rem">Work out a value with the same tools real chemists use for quick checks — great for building intuition before a quiz.</p>
     <div class="lenrow" id="toolchips">${TOOLS.map(t => `<button class="lenbtn ${toolSel === t[0] ? "sel" : ""}" data-tool="${t[0]}">${t[1]}</button>`).join("")}</div><div id="toolbox" style="margin-top:14px"></div>` };
+  const equilibrium = { id: "equilibrium", title: "⚖️ Visual model: dynamic equilibrium", body: () => `
+    <p>A reversible reaction can continue in both directions after equilibrium is reached. Move the slider to change the starting mixture and compare the concentration curves.</p>
+    <div class="card" style="padding:14px;margin:12px 0">
+      <label for="eq-start-a"><b>Starting amount of A</b> <span id="eq-start-label">8</span> units (B starts at <span id="eq-start-b">2</span>; total = 10)</label>
+      <input id="eq-start-a" type="range" min="2" max="8" value="8" step="1" style="display:block;width:100%;margin:12px 0" aria-describedby="eq-model-note">
+      <div class="eq-flow" aria-hidden="true"><div class="eq-flow-row"><span>A</span><div class="eq-flow-track"><i class="eq-molecule"></i><i class="eq-molecule"></i></div><span>→ B</span></div><div class="eq-flow-row"><span>B</span><div class="eq-flow-track reverse"><i class="eq-molecule"></i><i class="eq-molecule"></i></div><span>→ A</span></div></div>
+      <p class="note">The particles keep moving both ways. At equilibrium, the forward and reverse rates are equal, so concentrations stay steady.</p>
+      <svg viewBox="0 0 360 180" role="img" aria-labelledby="eq-title eq-desc" style="width:100%;height:auto;display:block">
+        <title id="eq-title">Illustrative reversible reaction concentration graph</title><desc id="eq-desc">Concentration of A falls and B rises toward equal equilibrium concentrations in a simplified one-to-one model.</desc>
+        <path d="M40 20V145H344" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M40 45H344M40 95H344" fill="none" stroke="currentColor" stroke-opacity=".14"/>
+        <text x="8" y="24" font-size="11">10</text><text x="23" y="149" font-size="11">0</text><text x="294" y="166" font-size="11">time →</text>
+        <path id="eq-path-a" d="" fill="none" stroke="#0f6b6e" stroke-width="3"/><path id="eq-path-b" d="" fill="none" stroke="#e76f51" stroke-width="3" stroke-dasharray="7 4"/>
+      </svg>
+      <p><b>A (solid line)</b> decreases · <b>B (dashed line)</b> increases · both level off.</p>
+      <p id="eq-model-note" class="note">This is a simplified 1:1 model with equal forward and reverse rate constants, so the two concentrations approach 5 units each. Real equilibrium concentrations depend on the reaction and its equilibrium constant; this is illustrative, not experimental data.</p>
+    </div>` };
   const res = { id: "res", title: "🔗 Curriculum & Course Notes", body: () => `
-    <ul><li><b>The Ontario Curriculum, Grades 11 and 12: Science</b> — this course is built to the SCH4U (Grade 12 University Chemistry) expectations across five strands: organic chemistry; structure and properties of matter; energy changes and rates of reaction; chemical systems and equilibrium; and electrochemistry.</li>
+    <ul><li><b>The Ontario Curriculum, Grades 11 and 12: Science</b> — this course covers the five SCH4U content strands: organic chemistry; structure and properties of matter; energy changes and rates of reaction; chemical systems and equilibrium; and electrochemistry. Scientific investigation skills are practised across these strands.</li>
     <li><b>Built-in interactive tools</b> — use the molar mass/mole calculator, the pH/pOH converter and the ideal gas law solver in the Tools tab to check your own calculations.</li>
     <li>Curated external lesson videos and courseware for this course aren't linked here yet — ask your teacher for recommended resources in the meantime.</li></ul>` };
-  const p90 = { id: "p90", title: "🎯 The 90% Playbook", body: () => `
-    <p style="font-size:.9rem">90% is a habit, not a talent. These six habits are what separate an 85 from a 90+.</p>
+  const p90 = { id: "p90", title: "🎯 High-mark study habits", body: () => `
+    <p style="font-size:.9rem">Use these routines to make practice deliberate and to communicate your chemistry reasoning clearly. They support preparation but cannot guarantee a particular result.</p>
     <ul>
-    <li><b>Redo every miss.</b> After each quiz, use <i>Fix my weak spots</i> until the count reaches zero. A mistake you've corrected once rarely returns.</li>
-    <li><b>Aim for 90% in each unit, not just overall.</b> The Progress page shows how many points each unit is from 90%.</li>
-    <li><b>Space it out.</b> Revisit each unit one week, then three weeks, after you finish it. Ten short sessions beat one long one.</li>
-    <li><b>Practise Thinking and Communication questions.</b> They carry the marks that separate Level 4 from Level 3: show every step and write a sentence of justification.</li>
-    <li><b>Simulate the exam.</b> Do a full 25-question simulation without notes, then mark it honestly and review every miss.</li>
-    <li><b>Check, then check again.</b> Confirm your units, significant figures and sign (+/−) on every numeric answer, and make sure a balanced equation really is balanced. Most lost marks at this level are careless, not conceptual.</li></ul>
-    <p class="note">Use the Tools tab's molar mass, pH/pOH and ideal gas law calculators to double-check any numeric answer before you move on.</p>` };
-  return [plan, p90].concat(units, [tools, res]);
+    <li><b>Recall before reviewing.</b> From memory, sketch a structure, write a law or set up the calculation; then compare with your notes.</li>
+    <li><b>Space the practice.</b> Revisit a skill the next day, later in the week and again the following week. Mix old and new units.</li>
+    <li><b>Show the chain of reasoning.</b> Write a balanced equation, convert to moles, use the coefficient ratio, then convert to the requested quantity.</li>
+    <li><b>Communicate precisely.</b> Include states when needed, units, significant figures and chemical notation; explain why the chosen principle applies.</li>
+    <li><b>Check chemistry and arithmetic.</b> Balance atoms and charge, inspect equilibrium restrictions, and compare units and magnitudes with an estimate.</li>
+    <li><b>Use tools after making a prediction.</b> Try the calculator or visual model to test your reasoning, then practise a similar item without it.</li></ul>
+    <p class="note">Keep an error log with the concept, the step that went wrong and a fresh question to retry later.</p>` };
+  return [plan, p90].concat(units, [tools, equilibrium, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
@@ -2100,15 +2138,34 @@ function renderStudy(opt){
   ${secs.map(s => `<div class="acc ${openAcc.has(s.id) ? "open" : ""}" data-sec="${s.id}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body()}</div></div>`).join("")}`;
   wireStudy();
   if (openAcc.has("tools")) renderTool();
+  if (openAcc.has("equilibrium")) wireEquilibriumModel();
   if (opt && opt.lesson){ const el = views.querySelector(`[data-lid="${opt.lesson}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
 }
 function refreshStudy(){ const y = window.scrollY; renderStudy(); window.scrollTo(0, y); }
+function wireEquilibriumModel(){
+  const slider = $("#eq-start-a"), pathA = $("#eq-path-a"), pathB = $("#eq-path-b");
+  if (!slider || !pathA || !pathB) return;
+  const update = () => {
+    const initialA = Number(slider.value);
+    $("#eq-start-label").textContent = initialA; $("#eq-start-b").textContent = 10 - initialA;
+    const pointsA = [], pointsB = [];
+    for (let i = 0; i <= 32; i++){
+      const time = i * 5 / 32;
+      const a = 5 + (initialA - 5) * Math.exp(-0.8 * time), b = 10 - a, x = 40 + 300 * i / 32;
+      pointsA.push(`${i ? "L" : "M"}${x.toFixed(1)} ${(145 - a * 10).toFixed(1)}`);
+      pointsB.push(`${i ? "L" : "M"}${x.toFixed(1)} ${(145 - b * 10).toFixed(1)}`);
+    }
+    pathA.setAttribute("d", pointsA.join(" ")); pathB.setAttribute("d", pointsB.join(" "));
+  };
+  slider.oninput = update; update();
+}
 function wireStudy(){
   views.querySelectorAll(".acc > button").forEach(b => b.onclick = () => {
     const acc = b.parentElement; acc.classList.toggle("open");
     const id = acc.dataset.sec || acc.dataset.lid, set = acc.dataset.sec ? openAcc : openLesson;
     if (acc.classList.contains("open")) set.add(id); else set.delete(id);
     if (acc.dataset.sec === "tools" && acc.classList.contains("open")) renderTool();
+    if (acc.dataset.sec === "equilibrium" && acc.classList.contains("open")) wireEquilibriumModel();
   });
   views.querySelectorAll(".acc.sub").forEach(a => { if (openLesson.has(a.dataset.lid)) a.classList.add("open"); });
   views.querySelectorAll("[data-lc]").forEach(b => b.onclick = () => { lessonCheck[b.dataset.lc] = +b.dataset.i; refreshStudy(); });

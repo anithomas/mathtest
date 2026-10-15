@@ -7,7 +7,7 @@ A private study platform with a course catalogue at **https://mathtest.logicmans
 **MPT prep:** https://mathtest.logicmanse.ca/MPT/.
 
 **Grade 12 Advanced Functions (MHF4U):** https://mathtest.logicmanse.ca/MHF4U/. It has the same
-engine, sign-in and allowlist, with lessons, graphing tools and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
+engine, sign-in and allowlist, with 38 lessons, worked examples, 165 practice questions, interactive graphing tools and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
 
 **Lakehead Math Competency (LMCA):** https://mathtest.logicmanse.ca/LMCA/. An independent study aid for
 Lakehead University's Mathematics Competency Assessment (Primary/Junior division, EDUC 0450) — Grade 6/7-level
@@ -20,8 +20,8 @@ this app's practice sets are original multiple-choice questions for quick self-c
 official question or a claimed simulation of the written format.
 
 **Grade 12 University Chemistry (SCH4U):** https://mathtest.logicmanse.ca/SCH4U/. Same engine, sign-in and
-allowlist, with lessons, interactive chemistry calculators (molar mass/moles, pH/pOH, ideal gas law) and an
-8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
+allowlist, with 34 lessons, 15 worked examples, 152 practice questions, interactive chemistry calculators,
+an illustrative dynamic-equilibrium model and an 8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
 
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
 can be added by creating a course folder and adding a card to the catalogue.
@@ -33,6 +33,7 @@ can be added by creating a course folder and adding a card to the catalogue.
 - **Cheatsheet** — the MPT Formula Sheet (2D + 3D) plus quick-reference facts for every strand and the pedagogy component.
 - **Score tracking** — every session saved, strand-mastery bars, history, synced across devices via Firestore.
 - **Study Hub** — key concepts per strand, official EQAO practice tests and framework, pedagogy source documents (Growing Success, Learning for All), and curated free resources.
+- **Concept visuals** — MHF4U interactive function graphs; SCH4U equilibrium concentration and particle-flow model; MPT and LMCA equal-part fraction bars. The models are optional and labelled to explain their limits.
 - **Test-day tools** — on-screen calculator and Formula Sheet overlay on every question, like the real test's toolbar; per-question calculator/mental-math guidance and 🌱/🌿/🌋 difficulty modes.
 - **Personal** — profile with display name, optional age, preferred difficulty; flexible 8-week plan anchored to your own start date; XP, levels, badges, and streaks.
 - **Private & managed** — Google sign-in and Firestore course data, currently access-managed through the admin allowlist.
@@ -67,11 +68,20 @@ service-account keys, or other credentials.
 
 ## Question bank
 
-190 original questions in the `BANK` array in `MPT/index.html`, aligned to the official MPT Framework:
-Number 50 · Algebra 30 · Data & Probability 22 · Spatial Sense 30 · Financial Literacy 18 · Pedagogy 40.
+200 original questions in the MPT bank: Number 52 · Algebra 32 · Data & Probability 23 · Spatial Sense 33 ·
+Financial Literacy 18 · Pedagogy 42. The new fraction model and practice-habit card are in the Study Hub.
 
 Questions are written for this app — official EQAO practice questions stay on [mathproficiencytest.ca](https://mathproficiencytest.ca), where the Study Hub links to them.
 
-80 original questions in the `BANK` array in `LMCA/index.html`, covering Grade 6/7-level Ontario elementary
-math across Lakehead's five named strands: Number Sense & Numeration 16 · Measurement 16 ·
-Patterning & Algebra 16 · Data Management & Probability 16 · Commercial & Financial Math 16.
+90 original questions in the LMCA bank, covering Grade 6/7-level Ontario elementary math across Lakehead's
+five named strands: 18 questions in each strand. Its Study Hub includes an interactive equal-parts fraction
+model and written-response strategies to support the real assessment format.
+
+The MHF4U and SCH4U banks contain 165 and 152 questions, respectively, balanced across their five in-app
+units that map to the official course strands. Run `node scripts/audit-course-content.mjs` to check all four
+banks for unique IDs, valid answer structures, distinct answer choices, supported quiz strands and inline
+JavaScript syntax, and it exercises the new slider-driven learning visuals.
+
+## Rollback checkpoint
+
+The pre-study-upgrade baseline is preserved on GitHub as `backup/pre-study-upgrade-20261014`.

@@ -51,12 +51,13 @@ All SCH4U content is in the `SCH4U` object inside `SCH4U/index.html`:
 - 5 units and 34 lessons, covering the Ontario SCH4U (Grade 12 University Chemistry) curriculum's five strands:
   organic chemistry; structure and properties of matter; energy changes and rates of reaction; chemical systems
   and equilibrium; and electrochemistry.
-- 137 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
+- 152 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
   Communication items that students self-mark against a model answer.
 - 15 worked examples, a 46-entry formula sheet, a 27-term glossary and an 8-week plan.
-- Three built-in interactive tools (Tools tab): a molar mass/mole calculator with a small chemical-formula parser,
-  a pH/pOH/[H⁺]/[OH⁻] converter, and an ideal gas law (PV = nRT) solver. Molecular/particle models and an
-  equation-balancing visualizer are planned but not yet built.
+- Three built-in chemistry calculators (Tools tab): a molar mass/mole calculator with a chemical-formula parser,
+  a pH/pOH/[H⁺]/[OH⁻] converter, and an ideal gas law (PV = nRT) solver. The Study Hub also has an interactive,
+  clearly simplified reversible-reaction model with animated particle-flow cues and adjustable concentration
+  curves. A molecular-geometry model and equation-balancing visualizer remain future opportunities.
 - Faraday's law and electrolysis calculations (Unit 5) are treated as enrichment material, consistent with the
   Ontario SCH4U curriculum.
 

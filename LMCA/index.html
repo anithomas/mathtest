@@ -330,6 +330,10 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 @media(max-width:520px){nav.tabs{gap:0;padding-left:2px;padding-right:2px}nav.tabs button{flex:1 1 0;min-width:0;font-size:.6rem;padding:6px 1px;line-height:1.15;text-align:center}nav.tabs button svg{width:20px;height:20px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+.fraction-track{height:28px;border:2px solid var(--teal);border-radius:8px;overflow:hidden;background:repeating-linear-gradient(90deg,var(--card) 0,var(--card) calc(100% / var(--parts, 8) - 1px),var(--line) calc(100% / var(--parts, 8) - 1px),var(--line) calc(100% / var(--parts, 8)));margin:10px 0}
+.fraction-fill{height:100%;width:0;background:var(--teal);opacity:.78;transition:width .18s ease}
+#lmca-frac-num,#lmca-frac-den{display:block;width:100%;accent-color:var(--teal);margin:6px 0 12px}
+@media(prefers-reduced-motion:reduce){.fraction-fill{transition:none}}
 </style>
 </head>
 <body>
@@ -589,6 +593,20 @@ let saveTimer = null;
 
 const configured = !String(FIREBASE_CONFIG.apiKey || "").startsWith("PASTE_");
 const isLocalPreview = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
+// Ten original check questions: two new items per assessed strand.
+BANK.push(
+ {id:"X01",sec:"content",strand:"Number Sense & Numeration",grade:"6–7",q:"Find 5/6 − 1/4.",opts:["1/2","7/12","2/3","11/12"],ans:1,exp:"Use denominator 12: 5/6 = 10/12 and 1/4 = 3/12. The difference is 7/12."},
+ {id:"X02",sec:"content",strand:"Number Sense & Numeration",grade:"6–7",q:"Red and blue beads are in a ratio of 3:5. There are 64 beads altogether. How many are blue?",opts:["24","32","40","48"],ans:2,exp:"There are 3 + 5 = 8 equal parts. Each part is 64 ÷ 8 = 8 beads, so blue beads = 5 × 8 = 40."},
+ {id:"X03",sec:"content",strand:"Measurement",grade:"6–7",q:"A rectangular garden is 12 m long and 7 m wide. How much fencing is needed to go around it once?",opts:["19 m","38 m","84 m","168 m"],ans:1,exp:"Fencing is perimeter: 2(12 + 7) = 38 m. The area, 84 m², would measure the inside instead."},
+ {id:"X04",sec:"content",strand:"Measurement",grade:"6–7",q:"A jug contains 1.8 L of juice. Another 350 mL is added. How much juice is there in millilitres?",opts:["530 mL","1,850 mL","2,150 mL","3,500 mL"],ans:2,exp:"Convert first: 1.8 L = 1,800 mL. Then 1,800 + 350 = 2,150 mL."},
+ {id:"X05",sec:"content",strand:"Patterning & Algebra",grade:"6–7",q:"A pattern has terms 4, 9, 14, 19, … What is the value of term n?",opts:["4n + 1","5n − 1","5n + 4","n + 5"],ans:1,exp:"The pattern increases by 5. The rule 5n − 1 gives 4 when n = 1, so it matches the first term and common difference."},
+ {id:"X06",sec:"content",strand:"Patterning & Algebra",grade:"6–7",q:"Solve 3(x − 2) = 21.",opts:["x = 5","x = 7","x = 9","x = 11"],ans:2,exp:"Divide both sides by 3: x − 2 = 7. Add 2 to both sides: x = 9."},
+ {id:"X07",sec:"content",strand:"Data Management & Probability",grade:"6–7",q:"What is the mean of 4, 5, 8 and 11?",opts:["6","7","8","28"],ans:1,exp:"Add the four values: 4 + 5 + 8 + 11 = 28. Divide by the number of values: 28 ÷ 4 = 7."},
+ {id:"X08",sec:"content",strand:"Data Management & Probability",grade:"6–7",q:"A bag has 3 red and 2 blue counters. One red is drawn and kept out. What is the probability the next counter is blue?",opts:["2/5","3/5","1/2","1/4"],ans:2,exp:"After a red is removed, 4 counters remain: 2 red and 2 blue. The chance of blue is 2/4 = 1/2."},
+ {id:"X09",sec:"content",strand:"Commercial & Financial Math",grade:"6–7",q:"A $80 backpack is discounted by 15%. What is the sale price before tax?",opts:["$12","$65","$68","$92"],ans:2,exp:"The discount is 0.15 × $80 = $12. Subtract from the original price: $80 − $12 = $68."},
+ {id:"X10",sec:"content",strand:"Commercial & Financial Math",grade:"6–7",q:"A student earns $18 per hour for 7.5 hours. How much do they earn before deductions?",opts:["$108","$125","$135","$145"],ans:2,exp:"Gross earnings = hourly rate × hours = $18 × 7.5 = $135, before any deductions."}
+);
+
 const COURSE_ID = "LMCA";
 const COURSE_LABEL = "Lakehead Math Competency Prep";
 const PASS_LINE = 75; // Lakehead's EDUC 0450 Mathematics Competency Assessment requires 75%+ to pass.
@@ -1452,6 +1470,19 @@ const STUDY = [
     <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
   </div>`}
 ];
+STUDY.push({title:"🎯 Strong open-response habits + fraction model",body:`
+  <p>Practise for the real written format: make your reasoning visible, label units, and use a second strategy when it helps check your result.</p>
+  <div class="factgrid">
+    <div class="fact"><b>Three-mark structure:</b> show a useful setup, show accurate working, then state a clear answer with units or context.</div>
+    <div class="fact"><b>Two-strategy routine:</b> solve once with a diagram, table, mental strategy or equation; check with a different method. Keep both methods brief and clear.</div>
+    <div class="fact"><b>Estimate before calculating:</b> a rough estimate can catch decimal-place and unit-conversion errors without a calculator.</div>
+    <div class="fact"><b>During practice:</b> the app’s choices and tools are for learning. For realistic preparation, close the calculator and formula reference and write a full solution by hand.</div>
+  </div>
+  <h4>Interactive equal-parts model</h4><p>Adjust the numerator and denominator. The shaded part shows the fraction; use the picture to explain an equivalent fraction or decimal.</p>
+  <label for="lmca-frac-num">Numerator: <output id="lmca-frac-num-out">3</output></label><input id="lmca-frac-num" type="range" min="1" max="8" value="3" aria-label="Fraction numerator">
+  <label for="lmca-frac-den">Denominator: <output id="lmca-frac-den-out">8</output></label><input id="lmca-frac-den" type="range" min="2" max="10" value="8" aria-label="Fraction denominator">
+  <div class="fraction-track" role="img" aria-label="Fraction bar model"><div id="lmca-frac-fill" class="fraction-fill"></div></div><p id="lmca-frac-readout" aria-live="polite">3/8 = 37.5%</p>
+  <p class="note">Each part is the same size. This visual supports fraction reasoning; the real assessment provides manipulatives and does not permit calculators or formula sheets.</p>`});
 function renderStudy(){
   views.innerHTML = `
   <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
@@ -1468,6 +1499,22 @@ function renderStudy(){
       toast("Trail plan anchored to " + psi.value + " 🗓");
     };
   }
+  wireLmcaFractionModel();
+}
+function wireLmcaFractionModel(){
+  const n = $("#lmca-frac-num"), d = $("#lmca-frac-den");
+  if (!n || !d) return;
+  const update = () => {
+    const denominator = Number(d.value); n.max = denominator;
+    if (Number(n.value) > denominator) n.value = denominator;
+    const numerator = Number(n.value), percent = 100 * numerator / denominator;
+    $("#lmca-frac-num-out").value = numerator; $("#lmca-frac-den-out").value = denominator;
+    $("#lmca-frac-fill").parentElement.style.setProperty("--parts", denominator);
+    $("#lmca-frac-fill").parentElement.setAttribute("aria-label", `${numerator} of ${denominator} equal parts shaded`);
+    $("#lmca-frac-fill").style.width = `${percent}%`;
+    $("#lmca-frac-readout").textContent = `${numerator}/${denominator} = ${percent.toFixed(1)}%`;
+  };
+  n.oninput = update; d.oninput = update; update();
 }
 
 /* ================= cheatsheet ================= */
