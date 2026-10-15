@@ -19,8 +19,12 @@ Lakehead's own "Making Sense of the MCA" materials) to be 15 open-response quest
 this app's practice sets are original multiple-choice questions for quick self-checking, not a copy of any
 official question or a claimed simulation of the written format.
 
+**Grade 12 University Chemistry (SCH4U):** https://mathtest.logicmanse.ca/SCH4U/. Same engine, sign-in and
+allowlist, with lessons, interactive chemistry calculators (molar mass/moles, pH/pOH, ideal gas law) and an
+8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
+
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
-can be added by creating a course folder and adding a card to the catalogue. Chemistry is listed as coming soon.
+can be added by creating a course folder and adding a card to the catalogue.
 
 ## Features
 
