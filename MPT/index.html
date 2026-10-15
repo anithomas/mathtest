@@ -719,8 +719,11 @@ function greeting(){
   return (h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening") + ", " + first;
 }
 
-/* ================= persistence ================= */
-const MPT_COLLECTION = "mpt";
+/* ================= persistence =================
+   Primary record: mpt/{uid}. Legacy fallback nests under users/{uid}.mpt,
+   the same shape MHF4U and SCH4U use for their own COLL field, so no two
+   courses' fallback data can ever collide on the shared users/{uid} doc. */
+const COLL = "mpt";
 const lsKey = () => "mathtest-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
 function persist(){
@@ -731,10 +734,10 @@ function persist(){
       try {
         const data = { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), updated: Date.now() };
         if (PUBLIC_ENROLLMENT_ENABLED){
-          await cloud.fns.setDoc(cloud.fns.doc(cloud.db, MPT_COLLECTION, user.uid), data, { merge: true });
+          await cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), data, { merge: true });
         } else {
-          await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), data,
-            { mergeFields: ["email", "attempts", "seen", "profile", "notes", "updated"] });
+          await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "users", user.uid), { email: user.email, [COLL]: data },
+            { mergeFields: ["email", COLL] });
         }
       } catch(e){ console.warn("Cloud save failed (kept locally):", e.message); }
     }, 600);
@@ -744,16 +747,16 @@ async function loadCloud(){
   let data = null;
   if (PUBLIC_ENROLLMENT_ENABLED){
     try {
-      const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, MPT_COLLECTION, user.uid));
+      const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid));
       if (snap.exists()) data = snap.data();
     } catch(e){ console.warn("MPT cloud load failed:", e.message); }
   }
-  // One-way compatibility migration: existing invite-list accounts may still read
-  // their old MPT fields from users/{uid}; new public users use mpt/{uid} only.
+  // New public users use mpt/{uid} only; invited legacy accounts may still read
+  // the nested users/{uid}.mpt fallback field (same shape as every other course).
   if (!data){
     try {
       const legacy = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", user.uid));
-      if (legacy.exists()) data = legacy.data();
+      if (legacy.exists() && legacy.data()[COLL]) data = legacy.data()[COLL];
     } catch(e){ if (e.code !== "permission-denied") console.warn("Legacy MPT load failed:", e.message); }
   }
   if (data){

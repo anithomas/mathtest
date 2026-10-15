@@ -8,11 +8,12 @@ It uses the same Firebase project, Google sign-in and `allowedUsers` allowlist a
 Progress is saved in Firestore under the student's own account and loads on any device they sign in with.
 The small chip under the header shows the status: **☁️ Synced**, **Saving…**, or **⚠️ This device only**.
 
-- **Preferred:** a dedicated record, `sch4u/{uid}`.
-- **Automatic fallback:** until the rule below is added, progress goes into a `sch4u` field inside the student's
-  existing `users/{uid}` record. Every allowlisted user can already write there. The MPT app saves that record with
-  `mergeFields`, so it never erases the SCH4U field.
-- Once the dedicated rule is published, the next sign-in merges any fallback progress into `sch4u/{uid}`
+- **Preferred:** a dedicated record, `sch4u/{uid}` — the rule for this is live, so this is what active students use.
+- **Automatic fallback:** if the dedicated write is ever rejected (e.g. a legacy invited account with no enrollment
+  document), progress goes into a `sch4u` field inside the student's existing `users/{uid}` record instead. Every
+  course's app (MPT, MHF4U, SCH4U) nests its own fallback progress under its own field name and writes with
+  `mergeFields`, so no course's fallback write can ever erase another course's field on the same shared document.
+- Once the dedicated collection is reachable again, the next sign-in merges any fallback progress into `sch4u/{uid}`
   automatically. Nothing is lost.
 
 The Admin tab in SCH4U shows which mode your own account is using.
@@ -71,6 +72,15 @@ new folder with its own `index.html`, course content and progress collection, th
 the root `index.html`. Before inviting students into multiple courses, update the allowlist from the current single
 `course` field to a `courses` array and enforce each course's entitlement in Firestore rules. A URL by itself is
 navigation, not access control.
+
+When copying an existing course file as the starting point for a new one, every persistence reference must use the
+new course's own `const COLL = "<newcourseid>"` (set once, near `COURSE_ID`) — never a hardcoded collection-name
+string literal anywhere in `writeCloud`/`persist`/`loadCloud`/`mergeInto`. All three live courses (MPT, MHF4U, SCH4U)
+follow this rule: the primary write/read targets `<COLL>/{uid}`, and the legacy fallback nests under
+`users/{uid}.<COLL>` via `{ [COLL]: payload }` with `mergeFields: ["email", COLL]`. A copy-paste that leaves a
+hardcoded literal from the source course causes real data collisions on the shared `users/{uid}` fallback document —
+this already happened once (SCH4U briefly inherited MHF4U's literal) and was the reason this convention was written
+down.
 
 ## URLs
 

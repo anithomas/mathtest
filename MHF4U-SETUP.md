@@ -8,11 +8,12 @@ It uses the same Firebase project, Google sign-in and `allowedUsers` allowlist a
 Progress is saved in Firestore under the student's own account and loads on any device they sign in with.
 The small chip under the header shows the status: **☁️ Synced**, **Saving…**, or **⚠️ This device only**.
 
-- **Preferred:** a dedicated record, `mhf4u/{uid}`.
-- **Automatic fallback:** until the rule below is added, progress goes into a `mhf4u` field inside the student's
-  existing `users/{uid}` record. Every allowlisted user can already write there. The MPT app saves that record with
-  `mergeFields`, so it never erases the MHF4U field.
-- Once the dedicated rule is published, the next sign-in merges any fallback progress into `mhf4u/{uid}`
+- **Preferred:** a dedicated record, `mhf4u/{uid}` — the rule for this is live, so this is what active students use.
+- **Automatic fallback:** if the dedicated write is ever rejected (e.g. a legacy invited account with no enrollment
+  document), progress goes into a `mhf4u` field inside the student's existing `users/{uid}` record instead. Every
+  course's app (MPT, MHF4U, SCH4U) nests its own fallback progress under its own field name and writes with
+  `mergeFields`, so no course's fallback write can ever erase another course's field on the same shared document.
+- Once the dedicated collection is reachable again, the next sign-in merges any fallback progress into `mhf4u/{uid}`
   automatically. Nothing is lost.
 
 The Admin tab in MHF4U shows which mode your own account is using.
