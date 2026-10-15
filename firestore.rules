@@ -81,6 +81,12 @@ service cloud.firestore {
         && hasCourseAccess('MHF4U');
     }
 
+    match /lmca/{uid} {
+      allow read, write: if isSignedIn()
+        && request.auth.uid == uid
+        && hasCourseAccess('LMCA');
+    }
+
     match /sch4u/{uid} {
       allow read, write: if isSignedIn()
         && request.auth.uid == uid

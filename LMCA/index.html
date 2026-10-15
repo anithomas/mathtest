@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<script src="/analytics.js" defer></script>
+<title>LogicManse Study · Lakehead Math Competency Prep</title>
+<meta name="description" content="Independent Grade 6/7-level math practice for Lakehead University's Primary/Junior Mathematics Competency Assessment (EDUC 0450) — 15 open-response questions, no calculator.">
+<style>
+:root{
+  --parchment:#faf5ec;
+  --parchment-deep:#f3ecdd;
+  --card:#fffdf8;
+  --ink:#2b3a3a;
+  --ink-soft:#5c6b6b;
+  --teal:#0f6b6e;
+  --teal-deep:#0a4f52;
+  --teal-tint:#e3efef;
+  --coral:#e76f51;
+  --coral-tint:#fbe9e3;
+  --sage:#7fa37f;
+  --sage-tint:#eaf1e8;
+  --gold:#d9a441;
+  --gold-tint:#f9efd9;
+  --line:#e6dcc8;
+  --shadow:0 2px 10px rgba(43,58,58,.08), 0 1px 3px rgba(43,58,58,.06);
+  --shadow-lift:0 8px 28px rgba(43,58,58,.12);
+  --radius:16px;
+  --font-head:Georgia,serif;
+  --font-body:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--parchment);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
+  radial-gradient(ellipse 60% 40% at 15% 0%, rgba(217,164,65,.07), transparent 60%),
+  radial-gradient(ellipse 50% 40% at 90% 100%, rgba(15,107,110,.06), transparent 60%);z-index:0}
+h1,h2,h3{font-family:var(--font-head);color:var(--teal-deep);line-height:1.2}
+button{font-family:var(--font-body);cursor:pointer;border:none}
+.mono{font-family:var(--font-mono)}
+.hidden{display:none!important}
+
+/* ---------- layout ---------- */
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:20px 20px 90px}
+header.app{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{width:44px;height:44px;flex:0 0 44px}
+.brand h1{font-size:1.45rem;font-weight:900}
+.brand .sub{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.userchip{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px;box-shadow:var(--shadow)}
+.userchip img{width:28px;height:28px;border-radius:50%}
+.userchip .name{font-size:.85rem;font-weight:600}
+.userchip button{background:none;color:var(--coral);font-size:.78rem;font-weight:600;padding:2px 4px}
+
+/* ---------- bottom nav ---------- */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+nav.tabs button{flex:0 1 110px;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border-radius:12px;padding:7px 6px;font-size:.72rem;font-weight:600;color:var(--ink-soft);transition:all .15s}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button.active{color:var(--teal);background:var(--teal-tint)}
+nav.tabs button:hover{color:var(--teal)}
+
+/* ---------- cards & common ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 11px}
+.pill.teal{background:var(--teal-tint);color:var(--teal-deep)}
+.pill.coral{background:var(--coral-tint);color:#b34a2f}
+.pill.sage{background:var(--sage-tint);color:#4c6b4c}
+.pill.gold{background:var(--gold-tint);color:#96690f}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 22px;font-size:.95rem;font-weight:600;transition:transform .12s, box-shadow .12s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--teal);color:#fff;box-shadow:var(--shadow)}
+.btn.primary:hover{background:var(--teal-deep);box-shadow:var(--shadow-lift)}
+.btn.coral{background:var(--coral);color:#fff}
+.btn.coral:hover{background:#d05b3e}
+.btn.ghost{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:var(--teal-tint)}
+.btn.soft{background:var(--parchment-deep);color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.note{font-size:.85rem;color:var(--ink-soft)}
+
+/* ---------- sign-in ---------- */
+#view-signin{min-height:88vh;display:flex;align-items:center;justify-content:center}
+.signin-card{max-width:430px;width:100%;text-align:center;padding:44px 34px}
+.signin-card .logo{width:84px;height:84px;margin:0 auto 18px}
+.signin-card h1{font-size:2rem;font-weight:900;margin-bottom:6px}
+.signin-card p{color:var(--ink-soft);font-size:.95rem;margin-bottom:26px}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px;font-size:.98rem;font-weight:600;color:var(--ink);box-shadow:var(--shadow);transition:box-shadow .15s}
+.gbtn:hover{box-shadow:var(--shadow-lift)}
+.gbtn img{width:22px;height:22px}
+.signin-foot{margin-top:22px;font-size:.78rem;color:var(--ink-soft)}
+.errbox{background:var(--coral-tint);border:1px solid #ecc4b6;color:#a03d24;border-radius:12px;padding:12px 16px;font-size:.88rem;margin-top:16px;text-align:left}
+
+/* ---------- home ---------- */
+.hero{padding:26px 26px 22px;background:linear-gradient(135deg,var(--teal) 0%,var(--teal-deep) 100%);color:#fff;border:none;position:relative;overflow:hidden}
+.hero h2{color:#fff;font-size:1.6rem;font-weight:900;margin-bottom:4px}
+.hero p{opacity:.92;font-size:.92rem;max-width:32em}
+.hero .deco{position:absolute;right:-30px;top:-30px;width:180px;height:180px;opacity:.14}
+.statrow{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.13);border-radius:12px;padding:10px 16px;min-width:110px}
+.stat .v{font-family:var(--font-mono);font-size:1.3rem;font-weight:600}
+.stat .l{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;opacity:.85}
+.homegrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:640px){.homegrid{grid-template-columns:1fr}}
+.homecard{display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .15s, box-shadow .15s;border-top:4px solid var(--teal)}
+.homecard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.homecard.c-quiz{border-top-color:var(--teal)}
+.homecard.c-mock{border-top-color:var(--coral)}
+.homecard.c-prog{border-top-color:var(--gold)}
+.homecard.c-study{border-top-color:var(--sage)}
+.homecard h3{font-size:1.18rem;display:flex;align-items:center;gap:9px}
+.homecard p{font-size:.88rem;color:var(--ink-soft)}
+.homecard .go{margin-top:auto;font-size:.85rem;font-weight:700;color:var(--teal)}
+
+/* ---------- quiz setup ---------- */
+.secgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:14px}
+.secbtn{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px 14px;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:4px}
+.secbtn:hover{border-color:var(--teal);box-shadow:var(--shadow)}
+.secbtn.sel{border-color:var(--teal);background:var(--teal-tint)}
+.secbtn .t{font-weight:700;font-size:.95rem;color:var(--teal-deep)}
+.secbtn .d{font-size:.76rem;color:var(--ink-soft)}
+.lenrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.lenbtn{background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:8px 20px;font-weight:600;font-size:.9rem}
+.lenbtn.sel{border-color:var(--teal);background:var(--teal-tint);color:var(--teal-deep)}
+
+/* ---------- question ---------- */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.qprog{display:flex;gap:5px;flex-wrap:wrap}
+.qdot{width:11px;height:11px;border-radius:50%;background:var(--line)}
+.qdot.cur{background:var(--teal);transform:scale(1.25)}
+.qdot.ok{background:var(--sage)}
+.qdot.bad{background:var(--coral)}
+.qdot.done{background:var(--gold)}
+.qmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qtext{font-size:1.12rem;font-weight:600;line-height:1.55;margin:12px 0 18px;white-space:pre-line}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;text-align:left;font-size:.98rem;transition:all .12s;color:var(--ink)}
+.opt:hover{border-color:var(--teal)}
+.opt .key{font-family:var(--font-mono);font-weight:600;color:var(--ink-soft);flex:0 0 auto}
+.opt.sel{border-color:var(--teal);background:var(--teal-tint)}
+.opt.correct{border-color:var(--sage);background:var(--sage-tint)}
+.opt.wrong{border-color:var(--coral);background:var(--coral-tint)}
+.opt:disabled{cursor:default}
+.explain{margin-top:16px;border-radius:12px;padding:14px 18px;font-size:.92rem;line-height:1.6}
+.explain.good{background:var(--sage-tint);border:1px solid #cfe0cc}
+.explain.bad{background:var(--gold-tint);border:1px solid #ecd9ae}
+.explain b{font-family:var(--font-head)}
+.qactions{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.timerchip{font-family:var(--font-mono);font-size:.85rem;color:var(--ink-soft);background:var(--parchment-deep);border-radius:999px;padding:4px 13px}
+
+/* ---------- results ---------- */
+.result-hero{text-align:center;padding:34px 24px}
+.ring{position:relative;width:160px;height:160px;margin:0 auto 14px}
+.ring svg{transform:rotate(-90deg)}
+.ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .pct .n{font-family:var(--font-mono);font-size:2.1rem;font-weight:600;color:var(--teal-deep)}
+.ring .pct .s{font-size:.72rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.result-hero h2{font-size:1.5rem}
+.result-hero .msg{color:var(--ink-soft);max-width:30em;margin:6px auto 0}
+.passline{display:inline-block;margin-top:12px;font-size:.82rem;font-weight:600;border-radius:999px;padding:5px 16px}
+.passline.pass{background:var(--sage-tint);color:#43663f}
+.passline.close{background:var(--gold-tint);color:#96690f}
+.passline.keep{background:var(--coral-tint);color:#b34a2f}
+.breakdown{margin-top:18px}
+.bar-row{display:grid;grid-template-columns:170px 1fr 62px;gap:12px;align-items:center;padding:7px 0;font-size:.88rem}
+@media(max-width:560px){.bar-row{grid-template-columns:120px 1fr 56px;font-size:.8rem}}
+.bar-track{height:12px;background:var(--parchment-deep);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:var(--teal);transition:width .6s ease}
+.bar-fill.warn{background:var(--gold)}
+.bar-fill.low{background:var(--coral)}
+.bar-pct{font-family:var(--font-mono);text-align:right;color:var(--ink-soft)}
+.review-item{border-left:4px solid var(--coral);background:var(--card);border-radius:10px;padding:14px 16px;margin-top:12px;font-size:.9rem}
+.review-item.right{border-left-color:var(--sage)}
+.review-item .rq{font-weight:600;white-space:pre-line}
+.review-item .ra{margin-top:6px;color:var(--ink-soft)}
+
+/* ---------- progress ---------- */
+.attempt-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 4px;border-bottom:1px solid var(--line);font-size:.9rem;flex-wrap:wrap}
+.attempt-row:last-child{border-bottom:none}
+.attempt-row .when{color:var(--ink-soft);font-size:.78rem}
+.attempt-row .score{font-family:var(--font-mono);font-weight:600}
+.score.good{color:#43663f}.score.mid{color:#96690f}.score.low{color:#b34a2f}
+.emptystate{text-align:center;color:var(--ink-soft);padding:34px 16px;font-size:.92rem}
+
+/* ---------- study ---------- */
+.acc{border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:12px;overflow:hidden}
+.acc>button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;background:none;padding:16px 20px;font-size:1.02rem;font-weight:700;color:var(--teal-deep);font-family:var(--font-head)}
+.acc>button .chev{transition:transform .2s;color:var(--ink-soft)}
+.acc.open>button .chev{transform:rotate(90deg)}
+.acc .body{display:none;padding:0 20px 18px;font-size:.92rem}
+.acc.open .body{display:block}
+.acc .body h4{font-family:var(--font-head);color:var(--teal-deep);margin:14px 0 4px;font-size:.98rem}
+.acc .body ul{padding-left:20px;margin:4px 0}
+.acc .body li{margin:3px 0}
+.acc .body a{color:var(--teal);font-weight:600}
+.formula{font-family:var(--font-mono);font-size:.85rem;background:var(--parchment-deep);border-radius:8px;padding:2px 8px;white-space:nowrap}
+.linkrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.linkrow a{display:inline-flex;align-items:center;gap:6px;background:var(--teal-tint);color:var(--teal-deep);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:600;text-decoration:none}
+.linkrow a:hover{background:var(--teal);color:#fff}
+
+/* ---------- cheatsheet ---------- */
+.cheat-card{margin-bottom:14px}
+.cheat-card h3{font-size:1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+table.ftable{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+table.ftable th{text-align:left;font-family:var(--font-head);color:var(--teal-deep);border-bottom:2px solid var(--line);padding:6px 8px;font-size:.85rem}
+table.ftable td{border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
+table.ftable tr:last-child td{border-bottom:none}
+table.ftable .formula{display:inline-block;margin:1px 0}
+.factgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:8px}
+.fact{background:var(--parchment-deep);border-radius:10px;padding:10px 14px;font-size:.85rem}
+.fact b{color:var(--teal-deep)}
+
+/* ---------- test-day tools ---------- */
+.toolbtn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:4px 13px;font-size:.82rem;font-weight:600;color:var(--teal-deep);cursor:pointer}
+.toolbtn:hover{border-color:var(--teal);background:var(--teal-tint)}
+#calc{position:fixed;right:16px;bottom:90px;width:230px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:12px;z-index:80}
+#calc .cdisp{font-family:var(--font-mono);font-size:1.15rem;background:var(--parchment-deep);border-radius:8px;padding:8px 10px;text-align:right;min-height:38px;word-break:break-all;margin-bottom:8px}
+#calc .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+#calc button{background:var(--parchment-deep);border-radius:8px;padding:9px 0;font-size:1rem;font-weight:600;color:var(--ink)}
+#calc button:hover{background:var(--teal-tint)}
+#calc button.op{background:var(--teal-tint);color:var(--teal-deep)}
+#calc button.eq{background:var(--teal);color:#fff}
+#calc .chead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.78rem;font-weight:700;color:var(--ink-soft)}
+#calc .chead button{background:none;padding:0 6px;color:var(--coral);font-size:.9rem}
+.toolbtn:disabled{opacity:.4;cursor:not-allowed}
+.toolbtn.hasnote{background:var(--gold-tint);border-color:var(--gold)}
+#notepad{position:fixed;right:16px;bottom:90px;width:290px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:14px;z-index:81}
+#notepad .np-q{font-size:.78rem;color:var(--ink-soft);background:var(--parchment-deep);border-radius:8px;padding:7px 10px;margin-bottom:8px;max-height:70px;overflow:auto}
+#notepad textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-family:var(--font-body);font-size:.88rem;resize:vertical;margin-bottom:8px}
+.notecard{border-left:4px solid var(--gold);background:var(--card);border-radius:10px;padding:13px 16px;margin-top:12px;font-size:.9rem}
+.notecard .nq{font-size:.78rem;color:var(--ink-soft);margin:4px 0}
+.notecard .nt{white-space:pre-wrap}
+.notecard .nact{margin-top:8px;display:flex;gap:8px}
+.notecard .nact button{background:var(--parchment-deep);border-radius:8px;padding:5px 14px;font-size:.78rem;font-weight:600}
+#fsheet{position:fixed;inset:0;background:rgba(43,58,58,.45);z-index:85;display:flex;align-items:center;justify-content:center;padding:20px}
+#fsheet .fbox{background:var(--card);border-radius:16px;max-width:640px;width:100%;max-height:85vh;overflow:auto;padding:22px;box-shadow:var(--shadow-lift)}
+#fsheet h3{margin-bottom:4px}
+/* ---------- gamification ---------- */
+.xpwrap{margin-top:16px}
+.xprow{display:flex;justify-content:space-between;align-items:baseline;font-size:.8rem;margin-bottom:4px}
+.xprow .lvl{font-weight:700;font-size:.9rem}
+.xpbar{height:10px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden}
+.xpbar>div{height:100%;background:var(--gold);border-radius:999px;transition:width .6s}
+.streakchip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.13);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600}
+.badgegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.badge{background:var(--parchment-deep);border-radius:12px;padding:12px;text-align:center;font-size:.78rem}
+.badge .bi{font-size:1.6rem}
+.badge .bn{font-weight:700;margin-top:3px;color:var(--teal-deep)}
+.badge.locked{opacity:.38;filter:grayscale(1)}
+.trailweek{margin-top:10px;font-size:.85rem;background:rgba(255,255,255,.13);border-radius:10px;padding:8px 14px;display:inline-block}
+
+/* misc */
+.viewhead{margin:6px 0 16px}
+.viewhead h2{font-size:1.55rem;font-weight:900}
+.viewhead p{color:var(--ink-soft);font-size:.9rem}
+.spacer{height:16px}
+footer.foot{margin-top:36px;text-align:center;font-size:.75rem;color:var(--ink-soft)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:var(--teal-deep);color:#fff;border-radius:999px;padding:9px 22px;font-size:.85rem;box-shadow:var(--shadow-lift);z-index:99;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+@keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
+.view{animation:pop .22s ease}
+/* ---------- shared course design system ---------- */
+:root{
+  --parchment:#f4f5f1;--parchment-deep:#e9eee9;--card:#fff;--ink:#1d2b2a;--ink-soft:#60716e;
+  --teal:#176b54;--teal-deep:#103f35;--teal-tint:#e6f2ec;--coral:#d66d53;--coral-tint:#faeee9;
+  --sage:#6d9c79;--sage-tint:#eaf3e9;--gold:#d3a64b;--gold-tint:#fbf4e4;--line:#dce5de;
+  --shadow:0 3px 12px rgba(24,54,44,.055);--shadow-lift:0 14px 34px rgba(24,54,44,.12);--radius:18px
+}
+body{background:#f4f5f1}
+body::before{background:radial-gradient(ellipse 48% 35% at 8% 0%,rgba(211,166,75,.09),transparent 70%),radial-gradient(ellipse 52% 46% at 100% 100%,rgba(23,107,84,.07),transparent 70%)}
+.wrap{max-width:1120px;padding:24px 28px 56px}
+#app.wrap{max-width:1120px;margin-left:max(236px,calc((100vw - 1360px)/2 + 236px));margin-right:auto;padding-left:28px;padding-right:28px}
+header.app{padding:8px 0 16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.brand{gap:14px}.brand .logo{width:42px;height:42px}.brand h1{font-size:1.28rem;letter-spacing:-.035em}
+.brand .sub{font-size:.7rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+.userchip{box-shadow:none;background:rgba(255,255,255,.8)}
+nav.tabs{left:0;top:0;bottom:0;width:212px;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:7px;padding:28px 16px;background:#123d34;border:0;border-right:1px solid rgba(255,255,255,.08);box-shadow:8px 0 28px rgba(16,63,53,.07)}
+nav.tabs::before{content:"MATH TEST TRAIL";display:block;color:#d6e8dd;font-size:.68rem;font-weight:700;letter-spacing:.16em;padding:8px 12px 20px}
+nav.tabs button{flex:0 0 auto;width:100%;min-height:46px;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:10px 12px;text-align:left;border-radius:12px;color:#c7d9d1;font-size:.86rem;font-weight:600}
+nav.tabs button svg{width:19px;height:19px;flex:0 0 19px}
+nav.tabs button:hover{color:#fff;background:rgba(255,255,255,.08)}
+nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b25f}
+.card{border-color:var(--line);box-shadow:var(--shadow)}
+.hero{background:linear-gradient(120deg,#164b3c 0%,#103c34 72%,#1d5b48 100%);border-radius:22px;padding:28px 30px}
+.hero h2{font-size:1.85rem;letter-spacing:-.025em}.hero p{font-size:.96rem;max-width:38em}
+.viewhead{margin:8px 0 20px}.viewhead h2{font-size:1.8rem;letter-spacing:-.035em}.viewhead p{margin-top:4px;max-width:60em}
+.btn{border-radius:11px}
+.statrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.stat{min-width:0;background:rgba(255,255,255,.11);padding:10px 13px}
+.stat .v{font-size:1.12rem}.stat .l{font-size:.63rem;letter-spacing:.055em}
+.homegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.homecard{min-height:156px;padding:19px;border-top-width:3px}
+.homecard h3{font-family:var(--font-body);font-size:1rem}
+.homecard p{line-height:1.5}
+.thisweek{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+.thisweek h3{font-family:var(--font-body);font-size:1rem;color:var(--teal-deep)}
+.signin-card{max-width:480px;border:1px solid var(--line);border-radius:24px;padding:42px 38px;box-shadow:0 18px 54px rgba(24,54,44,.10)}
+.signin-card .logo{width:72px;height:72px;margin-bottom:15px}.signin-card h1{font-size:2.15rem;letter-spacing:-.035em}
+.signin-card p{margin-bottom:22px}.signin-foot{border-top:1px solid var(--line);padding-top:16px;line-height:1.7}
+.signin-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:-5px 0 20px}
+.signin-proof span{background:var(--parchment);border:1px solid var(--line);border-radius:10px;padding:9px 5px;color:var(--ink-soft);font-size:.67rem;line-height:1.35}
+.signin-proof b{display:block;color:var(--teal-deep);font-family:var(--font-mono);font-size:1rem}
+.gbtn{border-color:#ccd9d1;border-radius:11px;box-shadow:none}.gbtn:hover{box-shadow:var(--shadow);border-color:#90ad9c}
+.syncrow{margin:0 0 14px}.syncchip{padding:5px 12px}.acc{box-shadow:var(--shadow);border-radius:16px}
+.acc>button{font-family:var(--font-body);font-size:.95rem}.toast{bottom:24px}
+@media(max-width:900px){
+  .wrap{max-width:780px;padding:18px 18px 102px}
+  #app.wrap{max-width:780px;margin:0 auto;padding:18px 18px 102px}
+  nav.tabs{top:auto;left:0;right:0;bottom:0;width:auto;height:auto;flex-direction:row;justify-content:center;align-items:stretch;gap:2px;padding:7px 6px calc(7px + env(safe-area-inset-bottom));border:0;border-top:1px solid var(--line);background:rgba(255,255,255,.96);box-shadow:0 -8px 24px rgba(24,54,44,.08)}
+  nav.tabs::before{display:none}
+  nav.tabs button{flex:1 1 0;width:auto;min-width:0;min-height:56px;flex-direction:column;justify-content:center;gap:3px;padding:5px 2px;color:var(--ink-soft);font-size:.66rem}
+  nav.tabs button svg{width:19px;height:19px}
+  nav.tabs button.active{color:var(--teal-deep);background:var(--teal-tint);box-shadow:none}
+  .statrow{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .wrap,#app.wrap{padding-left:14px;padding-right:14px}
+  header.app{align-items:flex-start}.brand{gap:9px}.brand .logo{width:36px;height:36px;flex-basis:36px}
+  .brand h1{font-size:1.05rem}.brand .sub{font-size:.59rem}
+  .userchip{gap:5px;padding:4px 7px 4px 5px}.userchip .name{font-size:.76rem}.userchip button{font-size:.7rem}
+  .hero{padding:22px 20px}.hero h2{font-size:1.48rem}
+  .homegrid{grid-template-columns:1fr}
+  .statrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{padding:8px 10px}.stat .v{font-size:1rem}
+  .signin-card{padding:34px 24px}
+}
+@media(max-width:520px){nav.tabs{gap:0;padding-left:2px;padding-right:2px}nav.tabs button{flex:1 1 0;min-width:0;font-size:.6rem;padding:6px 1px;line-height:1.15;text-align:center}nav.tabs button svg{width:20px;height:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== SIGN-IN ===================== -->
+<div id="view-signin" class="wrap">
+  <div class="card signin-card">
+    <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="#e3efef"/>
+      <path d="M18 66 Q34 40 50 54 T82 34" fill="none" stroke="#0f6b6e" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 10"/>
+      <circle cx="18" cy="66" r="7" fill="#e76f51"/>
+      <circle cx="50" cy="54" r="7" fill="#d9a441"/>
+      <circle cx="82" cy="34" r="9" fill="#0f6b6e"/>
+      <path d="M78 30 l3 4 6 -7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1>MathTest Trail</h1>
+    <p>Grade 6/7-level practice for Lakehead University's Primary/Junior Mathematics Competency Assessment (EDUC 0450) — the real exam is 15 open-response questions in 2 hours, no calculator. Quizzes, practice sets, and progress tracking — one gentle step at a time.</p>
+    <p class="note" style="margin:-16px 0 20px;font-size:.78rem">Independent study aid · not affiliated with or endorsed by Lakehead University · practice here uses quick multiple-choice self-checks, while the real assessment is written, open-response work.</p>
+    <button id="btn-google" class="gbtn">
+      <img alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+      Continue with Google
+    </button>
+    <div id="signin-err" class="errbox hidden"></div>
+    <div id="enrollment-box" class="hidden"></div>
+    <div id="signin-foot" class="signin-foot">Private study site · authorized users only<br>Scores sync securely to your account.</div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="app" class="wrap hidden">
+  <header class="app">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="#e3efef"/>
+        <path d="M18 66 Q34 40 50 54 T82 34" fill="none" stroke="#0f6b6e" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 10"/>
+        <circle cx="18" cy="66" r="7" fill="#e76f51"/>
+        <circle cx="50" cy="54" r="7" fill="#d9a441"/>
+        <circle cx="82" cy="34" r="9" fill="#0f6b6e"/>
+        <path d="M78 30 l3 4 6 -7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1>MathTest Trail</h1>
+        <div class="sub">LAKEHEAD MATH COMPETENCY · GRADE 6/7 LEVEL</div>
+      </div>
+    </div>
+    <div class="userchip">
+      <img id="user-photo" alt="" src="">
+      <span class="name" id="user-name"></span>
+      <button id="btn-profile" title="Edit profile" style="color:var(--teal)">⚙</button>
+      <button id="btn-signout" title="Sign out">Sign out</button>
+    </div>
+  </header>
+
+  <main id="views"></main>
+
+  <footer class="foot">MathTest Trail · a <b>LogicManse</b> product · <a href="/" style="color:var(--teal);font-weight:600">All courses</a> · <a href="/MPT/" style="color:var(--teal);font-weight:600">MPT prep</a> · <a href="/privacy.html" style="color:var(--teal);font-weight:600">Privacy</a> · <a href="#" id="link-about" style="color:var(--teal);font-weight:600">About</a></footer>
+</div>
+
+<nav class="tabs hidden" id="tabs">
+  <button data-view="home" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
+  <button data-view="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.7 2.2c-.8.5-1.2 1-1.2 1.8"/><circle cx="12" cy="16.5" r=".5" fill="currentColor"/></svg>Quiz</button>
+  <button data-view="mock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Practice Set</button>
+  <button data-view="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
+  <button data-view="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13"/></svg>Study</button>
+  <button data-view="cheat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/><path d="M8 3v2M16 3v2"/></svg>Cheatsheet</button>
+  <button data-view="notes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Notes</button>
+  <button data-view="admin" class="hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 10-6.3"/><path d="M17 14v6M14 17h6"/></svg>Admin</button>
+</nav>
+
+<div id="toast" class="toast"></div>
+
+<!-- Optional study tools: the real MCA permits neither a calculator nor a formula sheet —
+     these are practice-only conveniences, clearly labelled as such below. -->
+<div id="calc" class="hidden">
+  <div class="chead"><span>🧮 Calculator <span class="note" style="font-weight:400">(not allowed on test day)</span></span><button id="calc-close" title="Close">✕</button></div>
+  <div class="cdisp" id="calc-disp">0</div>
+  <div class="cgrid">
+    <button data-k="C" class="op">C</button><button data-k="(" class="op">(</button><button data-k=")" class="op">)</button><button data-k="⌫" class="op">⌫</button>
+    <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button><button data-k="÷" class="op">÷</button>
+    <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button><button data-k="×" class="op">×</button>
+    <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button><button data-k="−" class="op">−</button>
+    <button data-k="0">0</button><button data-k=".">.</button><button data-k="√" class="op">√</button><button data-k="+" class="op">+</button>
+    <button data-k="=" class="eq" style="grid-column:span 4">=</button>
+  </div>
+</div>
+<div id="notepad" class="hidden">
+  <div class="chead"><span>📝 Question note</span><button id="np-close" title="Close">✕</button></div>
+  <div class="np-q" id="np-q"></div>
+  <textarea id="np-text" rows="5" placeholder="What tripped you up? What's the trick to remember next time?"></textarea>
+  <button class="btn primary" id="np-save" style="width:100%;padding:9px">Save note</button>
+</div>
+<div id="fsheet" class="hidden">
+  <div class="fbox">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3>📐 Formula Sheet</h3><button class="btn soft" id="fsheet-close" style="padding:6px 14px">Close</button></div>
+    <p class="note" style="margin-bottom:8px">A quick reference for practice only — Lakehead's own prep materials state that notes and formula sheets are <b>not</b> permitted on the real assessment, so try to lean on this less as test day gets closer.</p>
+    <table class="ftable"><tr><th>Shape</th><th>Perimeter</th><th>Area</th></tr>
+      <tr><td>Circle</td><td>C = πd = 2πr</td><td>A = πr²</td></tr>
+      <tr><td>Triangle</td><td>P = a + b + c</td><td>A = bh ÷ 2</td></tr>
+      <tr><td>Rectangle</td><td>P = 2(l + w)</td><td>A = lw</td></tr>
+      <tr><td>Parallelogram</td><td>P = 2(b + c)</td><td>A = bh</td></tr>
+      <tr><td>Trapezoid</td><td>P = a + b + c + d</td><td>A = (a + b) ÷ 2 × h</td></tr>
+      <tr><td>Rhombus</td><td>P = 4s</td><td>A = bh = (d₁ × d₂) ÷ 2</td></tr>
+      <tr><td>Kite</td><td>P = 2(a + b)</td><td>A = (c × d) ÷ 2</td></tr>
+    </table>
+    <table class="ftable" style="margin-top:12px"><tr><th>Object</th><th>Surface area</th><th>Volume</th></tr>
+      <tr><td>Cube</td><td>SA = 6s²</td><td>V = s³</td></tr>
+      <tr><td>Rectangular prism</td><td>SA = 2(lw + lh + wh)</td><td>V = lwh</td></tr>
+      <tr><td>Triangular prism</td><td>SA = bh + (a+b+c)L</td><td>V = (bh ÷ 2) × L</td></tr>
+      <tr><td>Cylinder</td><td>SA = 2πr² + 2πrh</td><td>V = πr²h</td></tr>
+      <tr><td>Square-based pyramid</td><td>SA = b² + 2bs</td><td>V = (1/3)b²h</td></tr>
+      <tr><td>Sphere</td><td>SA = 4πr²</td><td>V = (4/3)πr³</td></tr>
+    </table>
+    <p class="note" style="margin-top:8px">⚠️ If a solid is <b>open or lidless</b> (like a box with no top), subtract the area of the missing face from the closed-solid formula — don't apply it as-is.</p>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIGURATION — the only section you need to edit before deploying
+   ===================================================================== */
+
+// 1) Paste your Firebase web-app config here (Firebase console → Project
+//    settings → Your apps → SDK setup and configuration → Config).
+//    These values are public identifiers, NOT secrets — security is
+//    enforced by Firebase Auth + the Firestore rules in firestore.rules.
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAsqv14Cx9ChmC4NLuVRcHKLznz_Od4_Tw",
+  authDomain: "mathtest-logicmanse.firebaseapp.com",
+  projectId: "mathtest-logicmanse",
+  storageBucket: "mathtest-logicmanse.firebasestorage.app",
+  messagingSenderId: "410255439162",
+  appId: "1:410255439162:web:b2a850e024371c0bb4cc03"
+};
+
+// 2) Access control lives entirely in firestore.rules (server-side email
+//    allowlist). No emails are stored in this public file — after sign-in,
+//    the app probes Firestore; accounts not on the allowlist are rejected
+//    by the security rules and signed out.
+
+/* ===================================================================== */
+</script>
+
+<!-- QUESTION BANK -->
+<script>
+"use strict";
+// Each question: id, sec ("content"), strand, grade band ("6"|"7"), q, opts[4], ans (index), exp
+// Strands match Lakehead's own Mathematics Competency Assessment (EDUC 0450) prep materials:
+// Number Sense & Numeration, Measurement, Patterning & Algebra, Data Management & Probability,
+// and Commercial & Financial Math.
+const BANK = [
+// ---------- NUMBER SENSE & NUMERATION (NS01–NS16) ----------
+{id:"NS01",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Write 5/8 as a decimal.",opts:["0.58","0.625","0.65","0.8125"],ans:1,exp:"5 ÷ 8 = 0.625."},
+{id:"NS02",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Write 0.45 as a fraction in simplest form.",opts:["45/100","9/20","4/5","9/10"],ans:1,exp:"0.45 = 45/100. Dividing top and bottom by 5 gives 9/20."},
+{id:"NS03",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Which decimal is the largest?",opts:["0.6","0.59","0.609","0.599"],ans:2,exp:"Line up the place values: 0.600, 0.590, 0.609, 0.599 — 0.609 is largest."},
+{id:"NS04",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Convert 3/5 to a percent.",opts:["35%","53%","60%","65%"],ans:2,exp:"3/5 = 0.6 = 60%."},
+{id:"NS05",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"Which list correctly orders 3/4, 0.7, and 65% from least to greatest?",opts:["0.7, 65%, 3/4","65%, 0.7, 3/4","3/4, 0.7, 65%","0.7, 3/4, 65%"],ans:1,exp:"Convert all to decimals: 3/4 = 0.75, 0.7 = 0.70, 65% = 0.65. In order: 0.65, 0.70, 0.75 — that is 65%, 0.7, 3/4. Try it a second way too: a ratio table lines the same three values up side by side."},
+{id:"NS06",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Without a calculator: −8 + 3 = ?",opts:["−11","−5","5","11"],ans:1,exp:"Starting at −8 and moving 3 to the right lands on −5."},
+{id:"NS07",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"−6 − (−9) = ?",opts:["−15","−3","3","15"],ans:2,exp:"Subtracting a negative is the same as adding: −6 + 9 = 3."},
+{id:"NS08",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Without a calculator: (−4) × (−5) = ?",opts:["−20","−9","9","20"],ans:3,exp:"A negative times a negative gives a positive: 4 × 5 = 20."},
+{id:"NS09",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"Evaluate, without a calculator: 3 + 4 × (2 + 1)²",opts:["39","21","45","27"],ans:0,exp:"Brackets first: 2 + 1 = 3. Exponent: 3² = 9. Multiply: 4 × 9 = 36. Add: 3 + 36 = 39 (BEDMAS)."},
+{id:"NS10",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"7/10 − 2/5 = ?",opts:["1/2","3/10","5/10","1/5"],ans:1,exp:"Common denominator of 10: 2/5 = 4/10, so 7/10 − 4/10 = 3/10."},
+{id:"NS11",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Simplify 24/36 to lowest terms.",opts:["3/4","2/3","4/6","6/9"],ans:1,exp:"The greatest common factor of 24 and 36 is 12: 24÷12 = 2, 36÷12 = 3, giving 2/3."},
+{id:"NS12",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Simplify the ratio 18 : 24 to lowest terms.",opts:["2 : 3","3 : 4","4 : 5","9 : 12"],ans:1,exp:"The greatest common factor of 18 and 24 is 6: 18÷6 = 3, 24÷6 = 4, giving 3 : 4."},
+{id:"NS13",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"Increase 80 by 25%.",opts:["95","100","104","105"],ans:1,exp:"25% of 80 is 20, so 80 + 20 = 100. (Or multiply straight through: 80 × 1.25 = 100.)"},
+{id:"NS14",sec:"content",strand:"Number Sense & Numeration",grade:"6",q:"A $45 shirt is discounted 20%. What is the sale price?",opts:["$25","$30","$36","$40"],ans:2,exp:"20% of $45 is $9, so the sale price is $45 − $9 = $36 (or 45 × 0.8 = 36)."},
+{id:"NS15",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"Which is the better buy: 400 g for $3.20, or 600 g for $4.50?",opts:["The 400 g bag","The 600 g bag","They cost the same per gram","Not enough information"],ans:1,exp:"Price per gram: 400 g bag is $3.20 ÷ 400 = $0.008/g; 600 g bag is $4.50 ÷ 600 = $0.0075/g. The 600 g bag is cheaper per gram."},
+{id:"NS16",sec:"content",strand:"Number Sense & Numeration",grade:"7",q:"A value increases from 60 to 75. What is the percent increase?",opts:["15%","20%","25%","30%"],ans:2,exp:"Change = 15. Percent increase = change ÷ original = 15 ÷ 60 = 0.25 = 25%."},
+
+// ---------- MEASUREMENT (ME01–ME16) ----------
+{id:"ME01",sec:"content",strand:"Measurement",grade:"6",q:"Convert 3.5 m to centimetres.",opts:["35 cm","350 cm","3500 cm","0.35 cm"],ans:1,exp:"1 m = 100 cm, so 3.5 × 100 = 350 cm."},
+{id:"ME02",sec:"content",strand:"Measurement",grade:"6",q:"Convert 2500 mL to litres.",opts:["0.25 L","2.5 L","25 L","250 L"],ans:1,exp:"1 L = 1000 mL, so 2500 ÷ 1000 = 2.5 L."},
+{id:"ME03",sec:"content",strand:"Measurement",grade:"7",q:"Convert a speed of 90 km/h to metres per second.",opts:["15 m/s","20 m/s","25 m/s","30 m/s"],ans:2,exp:"90 km/h = 90 000 m ÷ 3600 s = 25 m/s."},
+{id:"ME04",sec:"content",strand:"Measurement",grade:"6",q:"A car travels 150 km in 2 hours. What is its average speed?",opts:["60 km/h","70 km/h","75 km/h","80 km/h"],ans:2,exp:"Unit rate: 150 ÷ 2 = 75 km/h."},
+{id:"ME05",sec:"content",strand:"Measurement",grade:"7",q:"A map has a scale of 1 : 50 000. A distance of 3 cm on the map represents what real distance?",opts:["0.15 km","1.5 km","15 km","150 km"],ans:1,exp:"3 cm × 50 000 = 150 000 cm = 1500 m = 1.5 km."},
+{id:"ME06",sec:"content",strand:"Measurement",grade:"7",q:"A water tank is leaking at a constant rate. After 6 hours, 3/4 of the water has leaked out. At this rate, how long in total will it take for the tank to leak completely empty?",opts:["7 hours","7.5 hours","8 hours","9 hours"],ans:2,exp:"6 hours drains 3/4 of the tank, so 1/4 takes 2 hours (a ratio table showing 6h→3/4 and 2h→1/4 makes this easy to see). The tank is fully empty after 6 + 2 = 8 hours."},
+{id:"ME07",sec:"content",strand:"Measurement",grade:"7",q:"A photo is enlarged by a scale factor of 2.5. If the original width is 8 cm, what is the new width?",opts:["10 cm","16 cm","20 cm","25 cm"],ans:2,exp:"8 × 2.5 = 20 cm."},
+{id:"ME08",sec:"content",strand:"Measurement",grade:"6",q:"Find the volume of a rectangular prism 4 cm × 3 cm × 5 cm.",opts:["12 cm³","47 cm³","60 cm³","75 cm³"],ans:2,exp:"V = l × w × h = 4 × 3 × 5 = 60 cm³."},
+{id:"ME09",sec:"content",strand:"Measurement",grade:"7",q:"Find the surface area of a closed cube with side length 3 cm.",opts:["18 cm²","27 cm²","54 cm²","81 cm²"],ans:2,exp:"A cube has 6 equal square faces: SA = 6s² = 6 × 9 = 54 cm²."},
+{id:"ME10",sec:"content",strand:"Measurement",grade:"7",q:"An open-top (lidless) rectangular box measures 6 cm long, 4 cm wide, and 3 cm tall. What is its total surface area, NOT including the missing top?",opts:["72 cm²","84 cm²","96 cm²","108 cm²"],ans:1,exp:"A fully closed box this size would have SA = 2(lw + lh + wh) = 2(24 + 18 + 12) = 108 cm². Since there's no lid, subtract one top face (6 × 4 = 24 cm²): 108 − 24 = 84 cm². Always check whether a solid is open or closed before applying the standard formula."},
+{id:"ME11",sec:"content",strand:"Measurement",grade:"6",q:"Two patterned floor tiles are laid in a row: one design repeats every 8 cm, and the other repeats every 12 cm. What is the shortest distance at which both patterns line up again at the same point?",opts:["16 cm","20 cm","24 cm","32 cm"],ans:2,exp:"List multiples of each: 8, 16, 24, 32… and 12, 24, 36… The smallest value common to both lists is 24 cm — the lowest common multiple (LCM) of 8 and 12."},
+{id:"ME12",sec:"content",strand:"Measurement",grade:"7",q:"A leaky faucet drips at a steady rate, losing 450 mL every 6 hours. At this same rate, how many litres leak out over 2 full days (48 hours)?",opts:["2.4 L","3.0 L","3.6 L","4.2 L"],ans:2,exp:"Rate = 450 mL ÷ 6 h = 75 mL/h. Over 48 h: 75 × 48 = 3600 mL = 3.6 L."},
+{id:"ME13",sec:"content",strand:"Measurement",grade:"7",q:"A composite figure is a 10 cm × 6 cm rectangle with a semicircle of radius 3 cm attached to one side. What is its approximate total area (use π ≈ 3.14)?",opts:["60 cm²","69.1 cm²","74.1 cm²","88.3 cm²"],ans:2,exp:"Rectangle area = 10 × 6 = 60 cm². Semicircle area = (π × r²) ÷ 2 = (3.14 × 9) ÷ 2 ≈ 14.1 cm². Total ≈ 60 + 14.1 = 74.1 cm²."},
+{id:"ME14",sec:"content",strand:"Measurement",grade:"7",q:"A right prism has a triangular base with area 15 cm² and a height (length) of 10 cm. What is its volume?",opts:["25 cm³","150 cm³","75 cm³","1500 cm³"],ans:1,exp:"V = base area × length = 15 × 10 = 150 cm³."},
+{id:"ME15",sec:"content",strand:"Measurement",grade:"7",q:"Find the area of a trapezoid with parallel sides 8 cm and 12 cm, and height 5 cm.",opts:["40 cm²","50 cm²","60 cm²","100 cm²"],ans:1,exp:"A = (a + b) ÷ 2 × h = (8 + 12) ÷ 2 × 5 = 10 × 5 = 50 cm²."},
+{id:"ME16",sec:"content",strand:"Measurement",grade:"7",q:"A recipe uses 2 cups of flour for every 3 cups of sugar. How much sugar is needed for 8 cups of flour?",opts:["10 cups","12 cups","14 cups","16 cups"],ans:1,exp:"A ratio table makes this easy: 2 cups flour : 3 cups sugar, 4 cups flour : 6 cups sugar, 8 cups flour : 12 cups sugar. Since 8 = 2 × 4, scale sugar the same way: 3 × 4 = 12 cups."},
+
+// ---------- PATTERNING & ALGEBRA (PA01–PA16) ----------
+{id:"PA01",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Solve: x + 9 = 17",opts:["x = 6","x = 7","x = 8","x = 9"],ans:2,exp:"Subtract 9 from both sides: x = 17 − 9 = 8."},
+{id:"PA02",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Solve: 4x = 28",opts:["x = 6","x = 7","x = 8","x = 24"],ans:1,exp:"Divide both sides by 4: x = 28 ÷ 4 = 7."},
+{id:"PA03",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"Solve: 3x − 5 = 16",opts:["x = 5","x = 6","x = 7","x = 8"],ans:2,exp:"Add 5 to both sides: 3x = 21. Divide by 3: x = 7."},
+{id:"PA04",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"Maria is thinking of a number. She doubled it, then added 5, and got 23. What number did Maria start with?",opts:["7","8","9","11"],ans:2,exp:"Work backwards from the result, undoing each step in reverse order: undo \"+5\" first (23 − 5 = 18), then undo \"doubled\" (18 ÷ 2 = 9)."},
+{id:"PA05",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A number was increased by 12, then the result was divided by 3, giving a final answer of 10. What was the original number?",opts:["14","16","18","22"],ans:2,exp:"Work backwards: undo \"÷3\" first (10 × 3 = 30), then undo \"+12\" (30 − 12 = 18)."},
+{id:"PA06",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"What is the next term in the pattern 5, 9, 13, 17, …?",opts:["19","20","21","22"],ans:2,exp:"Each term increases by 4: 17 + 4 = 21."},
+{id:"PA07",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A pattern follows the rule term = 4n − 1, where n is the term number. What is the 7th term?",opts:["24","26","27","28"],ans:2,exp:"Substitute n = 7: 4(7) − 1 = 27."},
+{id:"PA08",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A table shows x: 1, 2, 3, 4 and y: 5, 8, 11, 14. Which rule connects x and y?",opts:["y = x + 4","y = 3x + 2","y = 2x + 3","y = 4x + 1"],ans:1,exp:"y increases by 3 each step (slope 3). When x = 1, y = 5 = 3(1) + 2, so y = 3x + 2."},
+{id:"PA09",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A growing dot pattern has 4, 7, 10, 13, … dots in its first four figures. If the pattern rule continues, how many dots will be in the 10th figure?",opts:["28","30","31","34"],ans:2,exp:"Each figure adds 3 dots to the one before, and the matching rule is 3n + 1 (check: n = 1 gives 4, n = 2 gives 7). For the 10th figure: 3(10) + 1 = 31."},
+{id:"PA10",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"After spending $15 on a book and then $8 on lunch, Jay had $27 left. How much money did Jay start with?",opts:["$42","$46","$50","$54"],ans:2,exp:"Work backwards from the end result, adding back each amount spent: 27 + 8 (lunch) + 15 (book) = $50."},
+{id:"PA11",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"A plumber charges a $40 flat fee plus $25 per hour. What is the total cost for 5 hours of work?",opts:["$150","$155","$165","$175"],ans:2,exp:"Total = 40 + 25 × 5 = 40 + 125 = $165."},
+{id:"PA12",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Which expression represents \"8 less than triple a number n\"?",opts:["8 − 3n","3n − 8","3(n − 8)","8n − 3"],ans:1,exp:"\"Triple a number n\" is 3n; \"8 less than\" that is 3n − 8."},
+{id:"PA13",sec:"content",strand:"Patterning & Algebra",grade:"7",q:"Solve the inequality: x − 4 > 6",opts:["x > 2","x > 6","x > 10","x > 24"],ans:2,exp:"Add 4 to both sides: x > 10."},
+{id:"PA14",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Expand: 3(2x − 5)",opts:["6x − 5","6x − 15","5x − 15","6x − 8"],ans:1,exp:"Distribute the 3: 3 × 2x = 6x, and 3 × (−5) = −15, giving 6x − 15."},
+{id:"PA15",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"A sequence starts at 100 and decreases by 7 each term: 100, 93, 86, 79, …. What is the 5th term?",opts:["65","72","79","86"],ans:1,exp:"Terms: 100, 93, 86, 79, 72 — the 5th term is 72."},
+{id:"PA16",sec:"content",strand:"Patterning & Algebra",grade:"6",q:"Evaluate 2a + 3b when a = 4 and b = 5.",opts:["17","20","23","27"],ans:2,exp:"2(4) + 3(5) = 8 + 15 = 23."},
+
+// ---------- DATA MANAGEMENT & PROBABILITY (DM01–DM16) ----------
+{id:"DM01",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the mean of 12, 15, 18, 9, 21.",opts:["12","14","15","18"],ans:2,exp:"Sum = 75. Mean = 75 ÷ 5 = 15."},
+{id:"DM02",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the median of 7, 2, 9, 4, 11.",opts:["4","7","9","11"],ans:1,exp:"Ordered: 2, 4, 7, 9, 11. The middle value is 7."},
+{id:"DM03",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the mode of 3, 7, 7, 2, 9, 7, 4.",opts:["2","3","4","7"],ans:3,exp:"7 appears three times, more often than any other value."},
+{id:"DM04",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Find the range of 22, 8, 17, 31, 5.",opts:["17","22","26","31"],ans:2,exp:"Range = greatest − least = 31 − 5 = 26."},
+{id:"DM05",sec:"content",strand:"Data Management & Probability",grade:"6",q:"Five friends' heights (in cm) are 142, 150, 139, 155, and 149. What is the group's mean height?",opts:["145 cm","146 cm","147 cm","148 cm"],ans:2,exp:"Sum = 142 + 150 + 139 + 155 + 149 = 735. Mean = 735 ÷ 5 = 147 cm."},
+{id:"DM06",sec:"content",strand:"Data Management & Probability",grade:"7",q:"Four students have a mean (average) test score of 82%. Three of their scores are 78%, 85%, and 90%. What is the fourth student's score?",opts:["70%","72%","75%","80%"],ans:2,exp:"For a mean of 82% over 4 students, the total of all four scores must be 82 × 4 = 328. The known three scores sum to 78 + 85 + 90 = 253. The fourth score = 328 − 253 = 75%."},
+{id:"DM07",sec:"content",strand:"Data Management & Probability",grade:"6",q:"A bag has 4 red, 3 blue, and 5 green marbles. What is P(blue)?",opts:["1/3","1/4","1/5","3/5"],ans:1,exp:"There are 12 marbles total, 3 of them blue: P(blue) = 3/12 = 1/4."},
+{id:"DM08",sec:"content",strand:"Data Management & Probability",grade:"7",q:"Two coins are flipped. What is the probability of getting exactly one head?",opts:["1/4","1/2","3/4","1"],ans:1,exp:"Outcomes: HH, HT, TH, TT. Exactly one head happens in HT and TH: 2/4 = 1/2."},
+{id:"DM09",sec:"content",strand:"Data Management & Probability",grade:"6",q:"A standard six-sided die is rolled once. What is P(rolling an even number)?",opts:["1/3","1/2","2/3","5/6"],ans:1,exp:"Even numbers are 2, 4, 6 — 3 out of 6 outcomes: P = 3/6 = 1/2."},
+{id:"DM10",sec:"content",strand:"Data Management & Probability",grade:"6",q:"A fair six-sided number cube is rolled once. What is the theoretical probability that it lands showing a number greater than 4?",opts:["1/6","1/3","1/2","2/3"],ans:1,exp:"Numbers greater than 4 on the cube are 5 and 6 — 2 out of 6 equally likely faces: 2/6 = 1/3."},
+{id:"DM11",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A bag contains 3 identical wooden cubes, 2 identical wooden spheres, and 1 wooden cone. One solid is pulled out at random. What is the theoretical probability it is NOT a cube?",opts:["1/6","1/3","1/2","2/3"],ans:2,exp:"There are 6 solids total; 3 of them are cubes, so the other 3 (2 spheres + 1 cone) are not cubes. P(not cube) = 3/6 = 1/2."},
+{id:"DM12",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A four-sided pyramid-shaped die (a tetrahedron) has faces numbered 1 to 4 and is fair. What is the theoretical probability of landing on a number less than 3?",opts:["1/4","1/3","1/2","3/4"],ans:2,exp:"Numbers less than 3 are 1 and 2 — 2 out of 4 equally likely faces: 2/4 = 1/2."},
+{id:"DM13",sec:"content",strand:"Data Management & Probability",grade:"6",q:"What is the probability of NOT rolling a 6 on a standard die?",opts:["1/6","4/6","5/6","1"],ans:2,exp:"P(not 6) = 1 − P(6) = 1 − 1/6 = 5/6."},
+{id:"DM14",sec:"content",strand:"Data Management & Probability",grade:"7",q:"Two dice are rolled. What is the probability that the sum of the two dice is 7?",opts:["1/12","1/6","1/4","1/3"],ans:1,exp:"There are 36 equally likely outcomes; 6 of them sum to 7 (1-6, 2-5, 3-4, 4-3, 5-2, 6-1): P = 6/36 = 1/6."},
+{id:"DM15",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A number cube is rolled 30 times and lands on 4 seven times. What is the THEORETICAL probability of rolling a 4?",opts:["1/6","7/30","1/5","1/4"],ans:0,exp:"Theoretical probability doesn't depend on trial results — there's one favourable outcome (4) out of 6 equally likely faces: 1/6. (7/30 would be the experimental probability from this particular trial.)"},
+{id:"DM16",sec:"content",strand:"Data Management & Probability",grade:"7",q:"A survey about exercise habits asks only people leaving a gym. This sample is:",opts:["Random and unbiased","Biased toward people who exercise","Biased toward people who don't exercise","Perfectly representative of the population"],ans:1,exp:"Only surveying gym-goers over-represents physically active people, making the sample biased."},
+
+// ---------- COMMERCIAL & FINANCIAL MATH (CF01–CF16) ----------
+{id:"CF01",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A store buys a backpack for $24 (the cost price) and sells it for $36 (the selling price). What is the profit?",opts:["$10","$12","$14","$16"],ans:1,exp:"Profit = selling price − cost price = $36 − $24 = $12."},
+{id:"CF02",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A toy costs a store $15 to buy and is sold for $20. What is the profit margin, expressed as a percent of the selling price?",opts:["20%","25%","30%","33%"],ans:1,exp:"Profit = $20 − $15 = $5. Profit margin = profit ÷ selling price = 5 ÷ 20 = 25%."},
+{id:"CF03",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A bookstore buys novels for $8 each and marks them up by 50% of the cost to set the selling price. What is the selling price?",opts:["$10","$11","$12","$14"],ans:2,exp:"Markup = 50% of $8 = $4. Selling price = $8 + $4 = $12."},
+{id:"CF04",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A phone case costs a retailer $10 and is sold for $16. What is the markup, as a percent of the cost price?",opts:["40%","50%","60%","62.5%"],ans:2,exp:"Markup (in dollars) = $16 − $10 = $6. As a percent of cost: 6 ÷ 10 = 60%."},
+{id:"CF05",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A grocery store buys oranges in bulk: 5 kg for $7.50. If they repackage and sell the oranges at $2.10 per kg, what is the profit per kilogram?",opts:["$0.40","$0.50","$0.60","$0.70"],ans:2,exp:"Cost per kg = $7.50 ÷ 5 = $1.50. Profit per kg = selling price − cost = $2.10 − $1.50 = $0.60."},
+{id:"CF06",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"Which is the better unit price: a 750 mL bottle of juice for $3.00, or a 1.5 L bottle for $5.40?",opts:["The 750 mL bottle","The 1.5 L bottle","They cost the same per mL","Not enough information"],ans:1,exp:"750 mL bottle: $3.00 ÷ 750 = $0.004/mL. 1.5 L (1500 mL) bottle: $5.40 ÷ 1500 = $0.0036/mL. The 1.5 L bottle is the cheaper unit cost."},
+{id:"CF07",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A café's coffee beans cost $18 per kg. A large bag holds 2.5 kg. What is the total cost of the beans in one large bag?",opts:["$36","$40","$45","$48"],ans:2,exp:"Total cost = unit cost × quantity = $18 × 2.5 = $45."},
+{id:"CF08",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A clothing store sells a jacket for $84 after marking it up 40% over cost. What was the store's cost price?",opts:["$50","$56","$60","$64"],ans:2,exp:"Selling price = cost × 1.40, so cost = 84 ÷ 1.40 = $60."},
+{id:"CF09",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A lemonade stand sold 60 cups at $1.50 each. The ingredients cost a total of $45. What was the stand's total profit?",opts:["$35","$40","$45","$50"],ans:2,exp:"Revenue = 60 × $1.50 = $90. Profit = revenue − cost = $90 − $45 = $45."},
+{id:"CF10",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A furniture store buys a chair for $120 and wants a profit margin of 25% of the selling price. What should the selling price be?",opts:["$144","$150","$155","$160"],ans:3,exp:"If profit is 25% of the selling price x, the cost makes up the remaining 75%: 0.75x = 120, so x = 120 ÷ 0.75 = $160."},
+{id:"CF11",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A hardware store buys hammers for $9 each and sells them for $9 × 1.8. What is the markup, as a percent of the cost?",opts:["60%","70%","80%","90%"],ans:2,exp:"Selling price = cost × 1.8 means the price is 180% of cost — so the markup on top is 80% of the cost."},
+{id:"CF12",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A bakery's cupcakes cost $0.80 each to make and sell for $2.00 each. What percent of the selling price is profit (the profit margin)?",opts:["40%","50%","60%","75%"],ans:2,exp:"Profit = $2.00 − $0.80 = $1.20. Profit margin = 1.20 ÷ 2.00 = 60% of the selling price."},
+{id:"CF13",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A store buys pencils in boxes of 24 for $6.00 per box, then sells each pencil individually for $0.50. What is the total profit on one full box?",opts:["$3.00","$4.50","$6.00","$12.00"],ans:2,exp:"Cost per pencil = $6.00 ÷ 24 = $0.25. Profit per pencil = $0.50 − $0.25 = $0.25. Total profit on 24 pencils = 24 × $0.25 = $6.00."},
+{id:"CF14",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"An electronics store marks up all items by 35% over cost. If an item's cost price is $80, what is its selling price?",opts:["$98","$104","$108","$115"],ans:2,exp:"Selling price = cost × 1.35 = $80 × 1.35 = $108."},
+{id:"CF15",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A fruit stand buys apples for $0.40 each and sells them for $0.65 each. If they sell 50 apples, what is the total profit?",opts:["$10.00","$11.00","$12.50","$15.00"],ans:2,exp:"Profit per apple = $0.65 − $0.40 = $0.25. Total profit on 50 apples = 50 × $0.25 = $12.50."},
+{id:"CF16",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A sporting goods store sells a bike for $270, which is a 20% markup over its cost. What was the cost price?",opts:["$200","$216","$225","$240"],ans:2,exp:"Selling price = cost × 1.20, so cost = 270 ÷ 1.20 = $225."}
+];
+</script>
+
+<!-- APP LOGIC -->
+<script type="module">
+"use strict";
+
+/* ================= state ================= */
+const $ = s => document.querySelector(s);
+const views = $("#views");
+let user = null;             // {uid, name, email, photo}
+let cloud = null;            // {db, fns} when Firebase is live
+let store = { attempts: [], seen: {}, profile: null, notes: [] };
+let adminMode = false;
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; }
+let quizState = null;        // active quiz/mock session
+let saveTimer = null;
+
+const configured = !String(FIREBASE_CONFIG.apiKey || "").startsWith("PASTE_");
+const isLocalPreview = location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname);
+const COURSE_ID = "LMCA";
+const COURSE_LABEL = "Lakehead Math Competency Prep";
+const PASS_LINE = 75; // Lakehead's EDUC 0450 Mathematics Competency Assessment requires 75%+ to pass.
+// Keep false until the matching Firestore enrollment rules are deployed and reviewed.
+const PUBLIC_ENROLLMENT_ENABLED = true;
+if (PUBLIC_ENROLLMENT_ENABLED) $("#signin-foot").textContent = "Sign in with Google, then join this course for free. Your progress syncs to your account.";
+
+const CONTENT_STRANDS = ["Number Sense & Numeration", "Measurement", "Patterning & Algebra", "Data Management & Probability", "Commercial & Financial Math"];
+const STRAND_DESC = {
+  "Number Sense & Numeration": "Fractions, decimals, percents, ratios, unit rates, mental math",
+  "Measurement": "Metric conversion, rates, surface area & volume, LCM tiling",
+  "Patterning & Algebra": "Equations, expressions, pattern rules, working backwards",
+  "Data Management & Probability": "Mean/median/mode, group averages, theoretical probability",
+  "Commercial & Financial Math": "Profit, markup, profit margin, unit cost"
+};
+
+/* ================= helpers ================= */
+function shuffle(arr){ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"), 2600); }
+function fmtDate(ts){ return new Date(ts).toLocaleDateString("en-CA",{month:"short",day:"numeric"}) + " · " + new Date(ts).toLocaleTimeString("en-CA",{hour:"numeric",minute:"2-digit"}); }
+function fmtDur(sec){ const m = Math.floor(sec/60), s = sec%60; return m + ":" + String(s).padStart(2,"0"); }
+function pctClass(p){ return p >= PASS_LINE ? "good" : p >= PASS_LINE - 15 ? "mid" : "low"; }
+function greeting(){
+  const h = new Date().getHours();
+  const first = (store.profile?.name || user?.name || "there").split(" ")[0];
+  return (h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening") + ", " + first;
+}
+
+/* ================= persistence ================= */
+const LMCA_COLLECTION = "lmca";
+const lsKey = () => "mathtest-lmca-" + (user?.uid || "anon");
+function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
+function persist(){
+  try { localStorage.setItem(lsKey(), JSON.stringify(store)); } catch(e){}
+  if (cloud){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+      try {
+        const data = { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), updated: Date.now() };
+        await cloud.fns.setDoc(cloud.fns.doc(cloud.db, LMCA_COLLECTION, user.uid), data, { merge: true });
+      } catch(e){ console.warn("Cloud save failed (kept locally):", e.message); }
+    }, 600);
+  }
+}
+async function loadCloud(){
+  let data = null;
+  try {
+    const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, LMCA_COLLECTION, user.uid));
+    if (snap.exists()) data = snap.data();
+  } catch(e){ console.warn("LMCA cloud load failed:", e.message); }
+  if (data){
+    const cloudN = (data.attempts || []).length, localN = store.attempts.length;
+    if (cloudN >= localN) store = { attempts: data.attempts || [], seen: data.seen || {}, profile: data.profile || store.profile || null, notes: data.notes || store.notes || [] };
+    else { if (data.profile && !store.profile) store.profile = data.profile; if (data.notes && !(store.notes || []).length) store.notes = data.notes; }
+  }
+  normalizeStore();
+  persist();
+}
+
+/* ================= question drawing ================= */
+function poolFor(key){
+  if (key === "mixed") return BANK.filter(q => q.sec === "content");
+  return BANK.filter(q => q.strand === key);
+}
+function draw(poolKey, pool, n){
+  const seen = new Set(store.seen[poolKey] || []);
+  let unseen = pool.filter(q => !seen.has(q.id));
+  if (unseen.length < n){
+    store.seen[poolKey] = [];
+    unseen = pool.slice();
+    if (pool.length > n) toast("Full cycle complete — starting fresh questions!");
+  }
+  const picked = shuffle(unseen).slice(0, n);
+  store.seen[poolKey] = (store.seen[poolKey] || []).concat(picked.map(q => q.id));
+  persist();
+  return picked;
+}
+function buildMock(kind){
+  // Lakehead's own "Making Sense of the MCA" slideshow confirms the real assessment is
+  // 15 open-response questions (3 marks each, 45 total), so the "full" set here matches
+  // that length — 3 questions per strand — even though our engine checks answers
+  // instantly rather than grading written work. The mini set is a lighter half-length
+  // warm-up for a shorter sitting.
+  const per = kind === "full"
+    ? { "Number Sense & Numeration": 3, "Measurement": 3, "Patterning & Algebra": 3, "Data Management & Probability": 3, "Commercial & Financial Math": 3 }
+    : { "Number Sense & Numeration": 2, "Measurement": 2, "Patterning & Algebra": 2, "Data Management & Probability": 2, "Commercial & Financial Math": 2 };
+  let qs = [];
+  for (const [strand, n] of Object.entries(per)) qs = qs.concat(draw("practice-" + strand, poolFor(strand), n));
+  return shuffle(qs);
+}
+
+/* ================= auth ================= */
+async function startFirebase(){
+  const [{ initializeApp }, authMod, fsMod] = await Promise.all([
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"),
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
+  ]);
+  const app = initializeApp(FIREBASE_CONFIG);
+  const auth = authMod.getAuth(app);
+  const db = fsMod.getFirestore(app);
+  const enrollmentMod = PUBLIC_ENROLLMENT_ENABLED ? await import("/enrollment.js") : null;
+  cloud = { db, fns: { doc: fsMod.doc, getDoc: fsMod.getDoc, setDoc: fsMod.setDoc, collection: fsMod.collection, getDocs: fsMod.getDocs, deleteDoc: fsMod.deleteDoc, runTransaction: fsMod.runTransaction, serverTimestamp: fsMod.serverTimestamp } };
+
+  const enterAuthorized = async () => {
+    try { await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers")); adminMode = true; }
+    catch(e){ adminMode = false; }
+    loadLocal();
+    await loadCloud();
+    enterApp();
+  };
+
+  authMod.onAuthStateChanged(auth, async (u) => {
+    if (!u){ showSignin(); return; }
+    const email = (u.email || "").toLowerCase();
+    user = { uid: u.uid, name: u.displayName || email, email, photo: u.photoURL || "" };
+    if (PUBLIC_ENROLLMENT_ENABLED){
+      let enrolled = false;
+      try {
+        const record = await enrollmentMod.readCourseEnrollment({ db: cloud.db, firestore: cloud.fns, uid: u.uid, courseId: COURSE_ID });
+        enrolled = record?.status === "active";
+      } catch(e){
+        if (e.code !== "permission-denied"){
+          signinError("We couldn't verify course access. Check your connection and try again.");
+          return;
+        }
+      }
+      if (!enrolled){
+        try { await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", u.uid)); }
+        catch(e){
+          if (e.code === "permission-denied"){
+            let settings;
+            try { settings = await enrollmentMod.readCourseSettings({ db: cloud.db, firestore: cloud.fns, courseId: COURSE_ID }); }
+            catch(e2){ signinError("We couldn't load this course's enrollment settings. Please try again later."); return; }
+            showEnrollmentGate(u, settings, async () => {
+              await enrollmentMod.createFreeCourseEnrollment({ db: cloud.db, firestore: cloud.fns, uid: u.uid, courseId: COURSE_ID, profile: { email, displayName: u.displayName || null } });
+              await enterAuthorized();
+            });
+            return;
+          }
+          signinError("We couldn't verify course access. Check your connection and try again.");
+          return;
+        }
+      }
+    } else {
+      // Private launch: preserve the current server-side allowlist check.
+      try { await cloud.fns.getDoc(cloud.fns.doc(cloud.db, "users", u.uid)); }
+      catch(e){
+        if (e.code === "permission-denied"){
+          user = null;
+          await authMod.signOut(auth);
+          signinError("Sorry — the account " + esc(email) + " isn't on the access list for this study site.");
+          return;
+        }
+        console.warn("Access probe inconclusive (offline?), continuing:", e.message);
+      }
+    }
+    await enterAuthorized();
+  });
+
+  $("#btn-google").onclick = async () => {
+    try { await authMod.signInWithPopup(auth, new authMod.GoogleAuthProvider()); }
+    catch(e){
+      if (e.code === "auth/popup-blocked") await authMod.signInWithRedirect(auth, new authMod.GoogleAuthProvider());
+      else if (e.code !== "auth/popup-closed-by-user") signinError("Sign-in hiccup: " + esc(e.message));
+    }
+  };
+  $("#btn-signout").onclick = () => authMod.signOut(auth).then(() => location.reload());
+}
+function signinError(msg){ const b = $("#signin-err"); b.innerHTML = msg; b.classList.remove("hidden"); }
+function showEnrollmentGate(account, settings, onEnroll){
+  $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); $("#view-signin").classList.remove("hidden");
+  $("#btn-google").classList.add("hidden"); $("#signin-err").classList.add("hidden");
+  const box = $("#enrollment-box"); box.classList.remove("hidden");
+  const open = settings?.selfEnrollmentOpen === true && settings?.priceCents === 0;
+  box.innerHTML = `<div class="card" style="padding:18px;text-align:left"><h2 style="font-size:1.2rem;margin:0 0 8px">${esc(settings?.title || COURSE_LABEL)}</h2><p style="margin:0 0 8px">Signed in as <b>${esc(account.email || "")}</b>.</p><p style="margin:0 0 14px">${open ? "This is a free course enrollment. Your practice and progress will be saved to your account." : "Self-enrollment is not open for this course right now. Please contact your teacher for access."}</p>${open ? '<button id="btn-enroll-course" class="btn primary" style="width:100%">Join this course</button><div id="enroll-error" class="errbox hidden"></div>' : ""}<p class="note" style="margin:12px 0 0">You can also return to <a href="/">all courses</a>. <a href="/privacy.html">Privacy details</a>.</p></div>`;
+  if (!open) return;
+  $("#btn-enroll-course").onclick = async () => {
+    const button = $("#btn-enroll-course"), error = $("#enroll-error");
+    button.disabled = true; button.textContent = "Joining…"; error.classList.add("hidden");
+    try { await onEnroll(); }
+    catch(e){
+      error.textContent = e.code === "permission-denied" ? "Self-enrollment isn't enabled in Firebase yet. Please try again later." : (e.message || "We couldn't complete enrollment. Please try again.");
+      error.classList.remove("hidden"); button.disabled = false; button.textContent = "Join this course";
+    }
+  };
+}
+function showSignin(){ $("#view-signin").classList.remove("hidden"); $("#app").classList.add("hidden"); $("#tabs").classList.add("hidden"); $("#btn-google").classList.remove("hidden"); $("#enrollment-box").classList.add("hidden"); }
+
+function startLocalPreview(){
+  user = { uid: "local-preview", name: "Preview User", email: "preview@local", photo: "" };
+  loadLocal();
+  enterApp();
+  toast("Local preview — scores stay on this device");
+}
+
+function enterApp(){
+  $("#view-signin").classList.add("hidden");
+  $("#app").classList.remove("hidden");
+  $("#tabs").classList.remove("hidden");
+  const ph = $("#user-photo");
+  if (user.photo){ ph.src = user.photo; ph.style.display = ""; } else ph.style.display = "none";
+  const ab = document.querySelector('[data-view="admin"]');
+  if (ab) ab.classList.toggle("hidden", !adminMode);
+  if (!adminMode && window.lmTrackPage) window.lmTrackPage("LMCA");
+  refreshChip();
+  if (!store.profile || !store.profile.name) renderProfileSetup();
+  else go("home");
+}
+function refreshChip(){ $("#user-name").textContent = ((store.profile?.name || user.name) || "").split(" ")[0]; }
+
+/* ================= profile ================= */
+function renderProfileSetup(edit){
+  const p = store.profile || {};
+  views.innerHTML = `
+  <div class="viewhead"><h2>${edit ? "Your profile" : "Welcome to the trail! 🥾"}</h2><p>${edit ? "Tune things to your liking." : "A few quick details — everything except your name is optional."}</p></div>
+  <div class="card" style="max-width:480px">
+    <label style="font-weight:600;font-size:.9rem">Display name</label>
+    <input id="pf-name" type="text" value="${esc(p.name || user.name || "")}" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body);margin:6px 0 14px">
+    <label style="font-weight:600;font-size:.9rem">Age <span class="note">(optional)</span></label>
+    <input id="pf-age" type="number" min="5" max="120" value="${p.age || ""}" placeholder="—" style="width:110px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-mono);margin:6px 0 14px;display:block">
+    <label style="font-weight:600;font-size:.9rem">Preferred quiz difficulty</label>
+    <div class="lenrow" id="pf-diff">
+      ${[["any","🎲 Any"],["1","🌱 Easy"],["2","🌿 Medium"],["3","🌋 Tough"]].map(([v,l]) => `<button class="lenbtn ${(p.diff || "any") === v ? "sel" : ""}" data-v="${v}">${l}</button>`).join("")}
+    </div>
+    <div class="spacer"></div>
+    <button class="btn primary" id="pf-save">${edit ? "Save changes" : "Start my trail ✨"}</button>
+  </div>`;
+  let diff = p.diff || "any";
+  views.querySelectorAll("#pf-diff .lenbtn").forEach(b => b.onclick = () => {
+    diff = b.dataset.v;
+    views.querySelectorAll("#pf-diff .lenbtn").forEach(x => x.classList.toggle("sel", x === b));
+  });
+  $("#pf-save").onclick = () => {
+    const name = $("#pf-name").value.trim();
+    if (!name) return toast("A display name helps the app greet you properly!");
+    const age = parseInt($("#pf-age").value, 10);
+    store.profile = { ...(store.profile || {}), name, age: (age >= 5 && age <= 120) ? age : null, diff };
+    persist();
+    refreshChip();
+    toast(edit ? "Profile updated ✓" : "Welcome aboard, " + name.split(" ")[0] + "! 🌟");
+    go("home");
+  };
+}
+
+/* ================= navigation ================= */
+const tabs = document.querySelectorAll("nav.tabs button");
+tabs.forEach(b => b.onclick = () => go(b.dataset.view));
+function go(view){
+  if (view === "study" && !adminMode && window.lmTrackEvent) window.lmTrackEvent("study_hub_opened");
+  tabs.forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  if (view === "home") renderHome();
+  else if (view === "quiz") quizState && quizState.kind === "quiz" && !quizState.done ? renderQuestion() : renderQuizSetup();
+  else if (view === "mock") quizState && quizState.kind === "mock" && !quizState.done ? renderQuestion() : renderMockIntro();
+  else if (view === "progress") renderProgress();
+  else if (view === "study") renderStudy();
+  else if (view === "cheat") renderCheat();
+  else if (view === "notes") renderNotes();
+  else if (view === "admin") renderAdmin();
+  else if (view === "about") renderAbout();
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= difficulty ================= */
+const TOUGH_IDS = new Set(["NS05","NS09","NS16","ME05","ME06","ME10","ME11","PA04","PA05","PA09","DM06","DM11","DM12","CF08","CF10","CF16"]);
+function qDiff(q){ return TOUGH_IDS.has(q.id) ? 3 : (q.grade === "6" ? 1 : 2); }
+const DIFF_LABEL = {1:"🌱 easy", 2:"🌿 medium", 3:"🌋 tough"};
+
+/* ================= optional study tools ================= */
+// Lakehead's own prep materials confirm calculators are NOT permitted on the real
+// assessment — this on-screen calculator is strictly a practice-only convenience.
+function initTools(){
+  const panel = $("#calc"), disp = $("#calc-disp");
+  let expr = "", justEval = false;
+  const OPS = ["+","−","×","÷"];
+  const show = () => { disp.textContent = expr === "" ? "0" : expr; };
+  panel.querySelectorAll("[data-k]").forEach(b => b.onclick = () => {
+    const k = b.dataset.k;
+    if (k === "C"){ expr = ""; justEval = false; }
+    else if (k === "⌫"){ expr = expr.slice(0, -1); justEval = false; }
+    else if (k === "="){
+      try {
+        if (!/^[0-9+−×÷().√ ]*$/.test(expr) || expr === "") throw 0;
+        const js = expr.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/√/g,"Math.sqrt");
+        const v = Function('"use strict";return (' + js + ')')();
+        expr = (typeof v === "number" && isFinite(v)) ? String(Math.round(v * 1e9) / 1e9) : "";
+        justEval = true;
+      } catch(e){ expr = ""; justEval = false; disp.textContent = "Hmm — try again"; return; }
+    }
+    else if (OPS.includes(k)){
+      // continuing with a result is natural; swap the operator if one is already pending
+      justEval = false;
+      if (OPS.includes(expr.slice(-1))) expr = expr.slice(0, -1) + k;
+      else if (expr === "" && k !== "−") return;   // can't start with + × ÷
+      else expr += k;
+    }
+    else { // digit, ".", "(", ")", "√"
+      if (justEval){ expr = ""; }                   // fresh start after "=" when typing a number
+      justEval = false;
+      expr += (k === "√") ? "√(" : k;
+    }
+    show();
+  });
+  $("#calc-close").onclick = () => panel.classList.add("hidden");
+  $("#fsheet-close").onclick = () => $("#fsheet").classList.add("hidden");
+  $("#fsheet").onclick = e => { if (e.target.id === "fsheet") e.target.classList.add("hidden"); };
+}
+
+/* ================= notes ================= */
+let noteCtx = null;   // {qid, strand, qtext, correct}
+function openNotePanel(ctx){
+  noteCtx = ctx;
+  $("#calc").classList.add("hidden");
+  const ex = store.notes.find(n => n.qid === ctx.qid);
+  $("#np-q").textContent = ctx.qtext.length > 150 ? ctx.qtext.slice(0, 150) + "…" : ctx.qtext;
+  $("#np-text").value = ex ? ex.text : "";
+  $("#notepad").classList.remove("hidden");
+  $("#np-text").focus();
+}
+function initNotepad(){
+  $("#np-close").onclick = () => $("#notepad").classList.add("hidden");
+  $("#np-save").onclick = () => {
+    if (!noteCtx) return;
+    const text = $("#np-text").value.trim();
+    const ex = store.notes.find(n => n.qid === noteCtx.qid);
+    if (!text){
+      if (ex){ store.notes = store.notes.filter(n => n !== ex); persist(); toast("Note removed"); }
+      $("#notepad").classList.add("hidden");
+      return;
+    }
+    if (ex){ ex.text = text; ex.when = Date.now(); if (noteCtx.correct !== undefined) ex.correct = noteCtx.correct; }
+    else store.notes.push({ id: "n" + Date.now(), qid: noteCtx.qid, strand: noteCtx.strand, qtext: noteCtx.qtext.slice(0, 170), correct: noteCtx.correct ?? null, when: Date.now(), text });
+    if (store.notes.length > 400) store.notes = store.notes.slice(-400);
+    persist();
+    $("#notepad").classList.add("hidden");
+    const nb = $("#tool-note"); if (nb) nb.classList.add("hasnote");
+    toast("Note saved 📝");
+  };
+}
+let noteFilter = "all", noteQuery = "";
+function renderNotes(){
+  const all = store.notes.slice().reverse();
+  const strands = [...new Set(store.notes.map(n => n.strand))];
+  const list = all.filter(n => (noteFilter === "all" || n.strand === noteFilter)
+    && (!noteQuery || (n.text + " " + n.qtext).toLowerCase().includes(noteQuery.toLowerCase())));
+  views.innerHTML = `
+  <div class="viewhead"><h2>Notes</h2><p>Your field journal — every note is pinned to the question that inspired it. Tap 📝 during any session to add one.</p></div>
+  <div class="card" style="padding:14px 18px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input id="nq" type="search" placeholder="Search notes…" value="${esc(noteQuery)}" style="flex:1;min-width:160px;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
+      <button class="lenbtn nf ${noteFilter === "all" ? "sel" : ""}" data-f="all">All (${store.notes.length})</button>
+      ${strands.map(s => `<button class="lenbtn nf ${noteFilter === s ? "sel" : ""}" data-f="${esc(s)}">${esc(s)}</button>`).join("")}
+    </div>
+  </div>
+  ${list.length ? list.map(n => `
+    <div class="notecard">
+      <span class="pill teal">${esc(n.strand)}</span>
+      ${n.correct === false ? '<span class="pill coral">got it wrong</span>' : n.correct === true ? '<span class="pill sage">got it right</span>' : ""}
+      <span class="note" style="margin-left:6px">${fmtDate(n.when)}</span>
+      <div class="nq">Q: ${esc(n.qtext)}</div>
+      <div class="nt">${esc(n.text)}</div>
+      <div class="nact">
+        <button data-ed="${n.id}">✏️ Edit</button>
+        <button data-del="${n.id}" style="color:var(--coral)">Delete</button>
+      </div>
+    </div>`).join("") : `<div class="card emptystate" style="margin-top:12px">No notes ${store.notes.length ? "match your filter" : "yet"}. ${store.notes.length ? "" : "During a quiz, tap the 📝 button to capture what tripped you up — future-you will thank you. 🌟"}</div>`}`;
+  $("#nq").oninput = e => { noteQuery = e.target.value; renderNotes(); };
+  views.querySelectorAll(".nf").forEach(b => b.onclick = () => { noteFilter = b.dataset.f; renderNotes(); });
+  views.querySelectorAll("[data-ed]").forEach(b => b.onclick = () => {
+    const n = store.notes.find(x => x.id === b.dataset.ed);
+    if (n) openNotePanel({ qid: n.qid, strand: n.strand, qtext: n.qtext, correct: n.correct });
+  });
+  views.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+    if (!confirm("Delete this note?")) return;
+    store.notes = store.notes.filter(x => x.id !== b.dataset.del);
+    persist(); renderNotes(); toast("Note deleted");
+  });
+}
+
+/* ================= gamification ================= */
+const LEVELS = [[0,"Trailhead 🥾"],[300,"Meadow Walker 🌼"],[800,"Creek Crosser 🌊"],[1500,"Hill Climber ⛰"],[2500,"Ridge Runner 🏃"],[4000,"Summit Seeker 🌄"],[6000,"Peak Finisher 🏔"]];
+function studyStreak(){
+  const days = [...new Set(store.attempts.map(a => new Date(a.t).toDateString()))].map(d => new Date(d).getTime()).sort((a,b)=>b-a);
+  if (!days.length) return 0;
+  const DAY = 86400000, today = new Date(new Date().toDateString()).getTime();
+  if (today - days[0] > DAY) return 0;  // streak broken if no session yesterday/today
+  let s = 1;
+  for (let i = 1; i < days.length; i++){ if (days[i-1] - days[i] === DAY) s++; else break; }
+  return s;
+}
+function gameStats(){
+  const att = store.attempts;
+  const totalC = att.reduce((x,a)=>x+a.score,0), totalQ = att.reduce((x,a)=>x+a.total,0);
+  const mocks = att.filter(a=>a.kind==="mock");
+  const mockPass = mocks.filter(a=>a.pct>=PASS_LINE);
+  const strandsSeen = new Set(); att.forEach(a=>Object.keys(a.strands||{}).forEach(s=>strandsSeen.add(s)));
+  const streak = studyStreak();
+  const badges = [
+    {i:"🥾",n:"First Steps",d:"Complete your first session",e:att.length>=1},
+    {i:"🔥",n:"Three-Day Rhythm",d:"Study 3 days in a row",e:streak>=3},
+    {i:"🚶",n:"Trail Blazer",d:"Complete 5 sessions",e:att.length>=5},
+    {i:"💯",n:"Century Club",d:"Answer 100 questions",e:totalQ>=100},
+    {i:"🎯",n:"Sharp Shooter",d:"Score 90%+ on a 10+ question session",e:att.some(a=>a.total>=10&&a.pct>=90)},
+    {i:"🧭",n:"Strand Explorer",d:"Try all 5 strands",e:strandsSeen.size>=5},
+    {i:"✅",n:"Over the Line",d:`Score ${PASS_LINE}%+ on any practice set`,e:mockPass.length>=1},
+    {i:"📅",n:"Week Walker",d:"Study 7 days in a row",e:streak>=7},
+    {i:"⛰",n:"Question Mountain",d:"Answer 250 questions",e:totalQ>=250},
+    {i:"🏔",n:"Summit!",d:`Score ${PASS_LINE}%+ on a FULL 15-question practice set`,e:mockPass.some(a=>a.total>=15)},
+    {i:"🌟",n:"Seasoned Hiker",d:"Complete 15 sessions",e:att.length>=15},
+    {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5}
+  ];
+  const xp = totalC*10 + mocks.length*50 + badges.filter(b=>b.e).length*100;
+  let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
+  const next = LEVELS[li+1];
+  return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges };
+}
+
+/* ================= trail plan (personal, date-flexible) ================= */
+const PLAN_WEEKS = [
+  ["Gentle start 🌱","Number Sense & Numeration only. One 5-question quiz per sitting, 15–20 minutes max. Re-read that strand's cheatsheet. Short and sweet beats long and exhausting."],
+  ["Measurement week 📐","Metric conversions, rates, volume, surface area (watch for lidless solids!), and LCM tiling. Short sittings — try working a few questions without the calculator tool, since the real exam doesn't allow one."],
+  ["Patterns & equations 🧮","Patterning & Algebra week, including working-backwards word problems. One 10-question quiz per day at most. Peek at the cheatsheet before each."],
+  ["Data & money week 📊","Data Management & Probability, then Commercial & Financial Math (profit, markup, unit cost) — two strands, one week. Keep sittings short."],
+  ["First mini set 🎒","Mixed quizzes across all five strands, then one 10-question mini practice set at the weekend. No pressure on the score — it's a baseline."],
+  ["Dress rehearsal 🎭","Mixed quizzes across all five strands, then one FULL 15-question practice set — the same length as the real exam — ideally without the calculator or formula sheet."],
+  ["Taper & trust 🌄","Light review of weak strands, one last full practice set if you feel fresh. Then rest — the real assessment rewards a clear head, not a last-minute cram."]
+];
+function planStartDate(){ return store.profile?.planStart ? new Date(store.profile.planStart + "T00:00:00") : null; }
+function trailWeekLine(){
+  const start = planStartDate();
+  if (!start) return `Set your plan start date in the Study Hub to activate the ${PLAN_WEEKS.length}-week trail — or just start quizzing!`;
+  const now = new Date();
+  const wk = Math.floor((now - start) / (7*86400000));
+  if (wk < 0){ const d = Math.ceil((start - now)/86400000); return "Your trail opens in " + d + " day" + (d===1?"":"s") + " — rest up. The mountain will wait. ❤️"; }
+  if (wk >= PLAN_WEEKS.length) return "Plan complete — consolidation territory. Light reviews only. 🌄";
+  return "Week " + (wk+1) + " of " + PLAN_WEEKS.length + ": " + PLAN_WEEKS[wk][0] + " — " + PLAN_WEEKS[wk][1].split(".")[0] + ".";
+}
+const CHEERS = [
+  "Consistency beats intensity, every single week.",
+  "Five questions today beats fifty tomorrow.",
+  "The trail doesn't care how fast you walk it.",
+  "Every wrong answer here is one you learn from before it counts.",
+  "Rest days are training days for the brain.",
+  "75% is the goal. You don't need perfect — you need steady.",
+  "Small steps, taken often, climb mountains.",
+  "Patience is a study skill."
+];
+
+/* ================= home ================= */
+function renderHome(){
+  const att = store.attempts;
+  const last = att[att.length - 1];
+  const mocks = att.filter(a => a.kind === "mock");
+  const bestMock = mocks.length ? Math.max(...mocks.map(a => a.pct)) : null;
+  const days = new Set(att.map(a => new Date(a.t).toDateString())).size;
+  const g = gameStats();
+  const xpPct = g.next ? Math.round(100 * (g.xp - g.prev) / (g.next - g.prev)) : 100;
+  const cheer = CHEERS[new Date().getDate() % CHEERS.length];
+  views.innerHTML = `
+  <div class="card hero">
+    <svg class="deco" viewBox="0 0 100 100"><path d="M10 80 Q30 40 50 60 T90 20" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 12"/></svg>
+    <h2>${esc(greeting())} 👋</h2>
+    <p>${esc(cheer)}</p>
+    <div class="trailweek">📍 ${esc(trailWeekLine())}</div>
+    <div class="xpwrap">
+      <div class="xprow"><span class="lvl">${g.level}</span><span class="mono">${g.xp} XP${g.next ? " · " + (g.next - g.xp) + " to next level" : " · max level!"}</span></div>
+      <div class="xpbar"><div style="width:${xpPct}%"></div></div>
+    </div>
+    <div class="statrow">
+      <div class="stat"><div class="v">${att.length}</div><div class="l">sessions</div></div>
+      <div class="stat"><div class="v">${last ? last.pct + "%" : "—"}</div><div class="l">last score</div></div>
+      <div class="stat"><div class="v">${bestMock !== null ? bestMock + "%" : "—"}</div><div class="l">best mock</div></div>
+      <div class="stat"><div class="v">${days}</div><div class="l">study days</div></div>
+      <div class="stat"><div class="v">${g.streak > 0 ? "🔥 " + g.streak : "—"}</div><div class="l">day streak</div></div>
+      <div class="stat"><div class="v">${g.badges.filter(b=>b.e).length}/${g.badges.length}</div><div class="l">badges</div></div>
+    </div>
+  </div>
+  <div class="homegrid">
+    <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>A fresh set of questions every time — pick a strand or mix it up. Instant feedback with friendly explanations.</p><div class="go">Start a quiz →</div></div>
+    <div class="card homecard c-mock" data-go="mock"><h3>📝 Practice Set</h3><p>A 10-question run across all five strands, or the 15-question full set matching the real exam's length. No feedback until the end, so you can build stamina.</p><div class="go">Start practice →</div></div>
+    <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your readiness report vs the 75% pass line, strand strengths, focus recommendations, and full history — synced to your account.</p><div class="go">See progress →</div></div>
+    <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts for each strand, exactly what the real assessment covers and requires, and curated free resources.</p><div class="go">Open study hub →</div></div>
+    <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Quick-reference formulas and facts for every strand — everything on one page.</p><div class="go">Open cheatsheet →</div></div>
+  </div>`;
+  views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
+}
+
+/* ================= quiz setup ================= */
+let quizSel = { key: "mixed", len: 10, diff: null };
+function renderQuizSetup(){
+  quizState = null;
+  if (quizSel.diff === null) quizSel.diff = store.profile?.diff || "any";
+  const opts = [["mixed", "Mixed", "A bit of everything, Grade 6/7 level"]]
+    .concat(CONTENT_STRANDS.map(s => [s, s, STRAND_DESC[s]]));
+  views.innerHTML = `
+  <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, difficulty, and length. Questions won't repeat until you've seen the whole set.</p></div>
+  <div class="card">
+    <div class="pill teal">1 · Focus</div>
+    <div class="secgrid">${opts.map(([k, t, d]) => `<button class="secbtn ${quizSel.key === k ? "sel" : ""}" data-key="${k}"><span class="t">${t}</span><span class="d">${d}</span></button>`).join("")}</div>
+    <div class="spacer"></div>
+    <div class="pill teal">2 · Difficulty</div>
+    <div class="lenrow">${[["any","🎲 Any"],["1","🌱 Easy"],["2","🌿 Medium"],["3","🌋 Tough"]].map(([v,l]) => `<button class="lenbtn diffbtn ${quizSel.diff === v ? "sel" : ""}" data-diff="${v}">${l}</button>`).join("")}</div>
+    <div class="spacer"></div>
+    <div class="pill teal">3 · Length</div>
+    <div class="lenrow">${[5, 10, 15].map(n => `<button class="lenbtn lnbtn ${quizSel.len === n ? "sel" : ""}" data-len="${n}">${n} questions</button>`).join("")}</div>
+    <div class="spacer"></div>
+    <button class="btn primary" id="btn-startquiz">Start quiz ✨</button>
+    <p class="note" id="poolnote" style="margin-top:8px"></p>
+  </div>`;
+  const updateNote = () => {
+    const pool = quizPool();
+    $("#poolnote").textContent = pool.length + " questions match this focus + difficulty.";
+  };
+  const quizPool = () => {
+    let pool = poolFor(quizSel.key);
+    if (quizSel.diff !== "any") pool = pool.filter(q => qDiff(q) === +quizSel.diff);
+    return pool;
+  };
+  views.querySelectorAll(".secbtn").forEach(b => b.onclick = () => { quizSel.key = b.dataset.key; renderQuizSetup(); });
+  views.querySelectorAll(".diffbtn").forEach(b => b.onclick = () => { quizSel.diff = b.dataset.diff; renderQuizSetup(); });
+  views.querySelectorAll(".lnbtn").forEach(b => b.onclick = () => { quizSel.len = +b.dataset.len; renderQuizSetup(); });
+  updateNote();
+  $("#btn-startquiz").onclick = () => {
+    const pool = quizPool();
+    if (!pool.length) return toast("No questions match — try another difficulty");
+    const n = Math.min(quizSel.len, pool.length);
+    const label = (quizSel.key === "mixed" ? "Mixed" : quizSel.key) + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
+    startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
+  };
+}
+
+/* ================= practice set intro ================= */
+function renderMockIntro(){
+  quizState = null;
+  views.innerHTML = `
+  <div class="viewhead"><h2>Practice Set</h2><p>A longer run to build stamina — matched to the real exam's length, not a verified format simulation.</p></div>
+  <div class="card">
+    <h3 style="margin-bottom:10px">What the real assessment looks like</h3>
+    <p style="font-size:.93rem">Lakehead's Mathematics Competency Assessment (Primary/Junior, EDUC 0450) is <b>15 open-response word problems worth 3 marks each (45 marks total)</b>, with a <b>2-hour time limit</b>. It tests the Ontario elementary curriculum at a <b>Grade 6/7 level</b> across five areas: Number Sense & Numeration, Measurement, Patterning & Algebra, Data Management & Probability, and Commercial & Financial Math. <b>Calculators and formula sheets are not permitted</b> — but manipulatives and thinking tools (graph paper, fraction pieces, rulers and similar) are provided. A <b>75% or higher</b> score (34/45 marks) is required to pass.</p>
+    <p style="font-size:.93rem;margin-top:8px">Lakehead also encourages showing your thinking in <b>at least two different strategies</b> per question — a ratio table alongside a diagram, say, or equivalent fractions alongside a quick estimate. That habit matters as much here as getting the final number right.</p>
+    <p style="font-size:.93rem;margin-top:8px">This app's practice sets are self-check multiple-choice, not written open-response — so treat this as rehearsing the <i>content</i> and <i>pace</i>, not the real answer format. The 🧮 calculator and 📐 formula reference below are practice-only aids; the real exam allows neither, so try working without them as you get closer to test day. No feedback until the end, so you can practice a longer run without checking answers along the way — the timer just counts up so you can see your pace against a 2-hour budget.</p>
+    <div class="spacer"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn coral" id="btn-startfull">Full set · 15 questions</button>
+      <button class="btn ghost" id="btn-startmock">Mini set · 10 questions</button>
+    </div>
+    <p class="note" style="margin-top:10px">Both spread evenly across all five strands and score against the 75% line. The full set matches the real exam's 15-question length; the mini is perfect for a lighter day.</p>
+  </div>`;
+  $("#btn-startmock").onclick = () => startSession("mock", buildMock("mini"), "Mini Practice Set");
+  $("#btn-startfull").onclick = () => startSession("mock", buildMock("full"), "Full Practice Set");
+}
+
+/* ================= session engine ================= */
+function startSession(kind, questions, label){
+  quizState = {
+    kind, label,
+    qs: questions.map(q => {
+      const order = shuffle([0, 1, 2, 3]);
+      return { q, order, sel: null, correct: null };
+    }),
+    i: 0, done: false, started: Date.now()
+  };
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const st = quizState;
+  const item = st.qs[st.i];
+  const q = item.q;
+  const answered = item.sel !== null;
+  const showFeedback = st.kind === "quiz" && answered;
+  const elapsed = Math.floor((Date.now() - st.started) / 1000);
+  const dots = st.qs.map((it, idx) => {
+    let c = "qdot";
+    if (idx === st.i) c += " cur";
+    else if (it.sel !== null) c += st.kind === "quiz" ? (it.correct ? " ok" : " bad") : " done";
+    return `<span class="${c}"></span>`;
+  }).join("");
+  views.innerHTML = `
+  <div class="qtop">
+    <div class="qmeta">
+      <span class="pill teal">${esc(q.strand)}</span>
+      <span class="pill gold">Gr ${q.grade}</span>
+      <span class="pill gold">${DIFF_LABEL[qDiff(q)]}</span>
+      <span class="note mono">${st.i + 1} / ${st.qs.length}</span>
+    </div>
+    <span>
+      <button class="toolbtn" id="tool-calc" title="Optional calculator">🧮</button>
+      <button class="toolbtn" id="tool-fs" title="Optional formula reference">📐</button>
+      <button class="toolbtn ${store.notes.some(n => n.qid === q.id) ? "hasnote" : ""}" id="tool-note" ${st.kind === "mock" && !answered ? "disabled" : ""} title="${st.kind === "mock" && !answered ? "Notes unlock after you answer" : "Save a note about this question"}">📝</button>
+      <span class="timerchip" id="timer">⏱ ${fmtDur(elapsed)}</span>
+    </span>
+  </div>
+  <div class="qprog">${dots}</div>
+  <div class="card" style="margin-top:14px">
+    <div class="qtext">${esc(q.q)}</div>
+    <div class="opts">
+      ${item.order.map((oi, di) => {
+        let cls = "opt";
+        if (showFeedback){
+          if (oi === q.ans) cls += " correct";
+          else if (di === item.sel) cls += " wrong";
+        } else if (di === item.sel) cls += " sel";
+        return `<button class="${cls}" data-di="${di}" ${showFeedback ? "disabled" : ""}><span class="key">${"ABCD"[di]}</span><span>${esc(q.opts[oi])}</span></button>`;
+      }).join("")}
+    </div>
+    ${showFeedback ? `<div class="explain ${item.correct ? "good" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b><br>${esc(q.exp)}</div>` : ""}
+    <div class="qactions">
+      <button class="btn soft" id="btn-quit">Save &amp; exit</button>
+      <span>
+        ${st.i > 0 && st.kind === "mock" ? `<button class="btn ghost" id="btn-back">← Back</button>` : ""}
+        <button class="btn primary" id="btn-next" ${answered ? "" : "disabled"}>${st.i === st.qs.length - 1 ? "Finish" : "Next →"}</button>
+      </span>
+    </div>
+  </div>`;
+  clearInterval(window.__qt);
+  window.__qt = setInterval(() => { const t = $("#timer"); if (t) t.textContent = "⏱ " + fmtDur(Math.floor((Date.now() - st.started) / 1000)); else clearInterval(window.__qt); }, 1000);
+
+  views.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (st.kind === "quiz" && item.sel !== null) return;
+    item.sel = +b.dataset.di;
+    item.correct = item.order[item.sel] === q.ans;
+    renderQuestion();
+  });
+  $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); } };
+  const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
+  $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); $("#notepad").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
+  $("#tool-calc").onclick = () => { $("#notepad").classList.add("hidden"); $("#calc").classList.toggle("hidden"); };
+  $("#tool-fs").onclick = () => $("#fsheet").classList.remove("hidden");
+  $("#tool-note").onclick = () => { if (!$("#tool-note").disabled) openNotePanel({ qid: q.id, strand: q.strand, qtext: q.q, correct: item.correct }); };
+}
+
+/* ================= results ================= */
+function finishSession(){
+  clearInterval(window.__qt);
+  $("#calc").classList.add("hidden");
+  $("#notepad").classList.add("hidden");
+  const badgesBefore = gameStats().badges.filter(b => b.e).map(b => b.n);
+  const st = quizState;
+  st.done = true;
+  const dur = Math.floor((Date.now() - st.started) / 1000);
+  const strands = {};
+  let correct = 0;
+  st.qs.forEach(it => {
+    const s = it.q.strand;
+    strands[s] = strands[s] || { c: 0, t: 0 };
+    strands[s].t++;
+    if (it.correct){ strands[s].c++; correct++; }
+  });
+  const pct = Math.round(100 * correct / st.qs.length);
+  const attempt = { t: Date.now(), kind: st.kind, label: st.label, score: correct, total: st.qs.length, pct, dur, strands };
+  store.attempts.push(attempt);
+  persist();
+  renderResults(attempt, st);
+  const newBadges = gameStats().badges.filter(b => b.e && !badgesBefore.includes(b.n));
+  if (newBadges.length) setTimeout(() => toast("🏅 Badge earned: " + newBadges.map(b => b.i + " " + b.n).join(" · ")), 800);
+}
+
+function ringSVG(pct, color){
+  const r = 70, circ = 2 * Math.PI * r;
+  return `<div class="ring"><svg width="160" height="160" viewBox="0 0 160 160">
+    <circle cx="80" cy="80" r="${r}" fill="none" stroke="var(--parchment-deep)" stroke-width="13"/>
+    <circle cx="80" cy="80" r="${r}" fill="none" stroke="${color}" stroke-width="13" stroke-linecap="round"
+      stroke-dasharray="${(pct / 100 * circ).toFixed(1)} ${circ.toFixed(1)}"/>
+  </svg><div class="pct"><span class="n">${pct}%</span><span class="s">score</span></div></div>`;
+}
+function encouragement(pct, kind){
+  if (pct >= 90) return `Outstanding! You're well above the ${PASS_LINE}% pass line. Keep this rhythm going.`;
+  if (pct >= PASS_LINE) return "That's a passing score! Steady, solid work — exactly what the trail is for.";
+  if (pct >= PASS_LINE - 15) return `So close to the ${PASS_LINE}% line. Peek at the review below — a couple of concepts will tip you over.`;
+  return "Every attempt teaches you something. Check the explanations below, maybe revisit the Study Hub, and try again fresh. You've got time.";
+}
+function renderResults(a, st){
+  const color = a.pct >= PASS_LINE ? "var(--sage)" : a.pct >= PASS_LINE - 15 ? "var(--gold)" : "var(--coral)";
+  const strandRows = Object.entries(a.strands).map(([name, s]) => {
+    const p = Math.round(100 * s.c / s.t);
+    return `<div class="bar-row"><span>${esc(name)} (${s.c}/${s.t})</span><div class="bar-track"><div class="bar-fill ${p >= PASS_LINE ? "" : p >= PASS_LINE - 15 ? "warn" : "low"}" style="width:${p}%"></div></div><span class="bar-pct">${p}%</span></div>`;
+  }).join("");
+  const review = st.qs.map((it, i) => {
+    const q = it.q;
+    return `<div class="review-item ${it.correct ? "right" : ""}">
+      <div class="rq">${i + 1}. ${esc(q.q)}</div>
+      <div class="ra">${it.correct ? "✔ You answered correctly: " + esc(q.opts[q.ans]) :
+        "✘ Your answer: " + esc(it.sel !== null ? q.opts[it.order[it.sel]] : "—") + " · Correct: <b>" + esc(q.opts[q.ans]) + "</b>"}<br><span class="note">${esc(q.exp)}</span></div>
+    </div>`;
+  }).join("");
+  views.innerHTML = `
+  <div class="card result-hero">
+    ${ringSVG(a.pct, color)}
+    <h2>${esc(a.label)} complete</h2>
+    <div class="msg">${encouragement(a.pct, a.kind)}</div>
+    <div style="margin-top:10px"><span class="timerchip">⏱ ${fmtDur(a.dur)}</span> <span class="timerchip mono">${a.score}/${a.total} correct</span></div>
+    <div class="passline ${a.pct >= PASS_LINE ? "pass" : a.pct >= PASS_LINE - 15 ? "close" : "keep"}" >${a.pct >= PASS_LINE ? "✔ At or above the " + PASS_LINE + "% pass line" : "Pass line: " + PASS_LINE + "%"}</div>
+  </div>
+  <div class="card breakdown"><h3 style="margin-bottom:6px">By strand</h3>${strandRows}</div>
+  <h3 style="margin:20px 0 4px">Review ${a.kind === "mock" ? "all answers" : "your answers"}</h3>
+  ${review}
+  <div class="spacer"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn primary" id="btn-again">${a.kind === "mock" ? "Another practice set" : "Another quiz"}</button>
+    <button class="btn ghost" id="btn-home">Back home</button>
+  </div>`;
+  quizState = null;
+  $("#btn-again").onclick = () => go(a.kind === "mock" ? "mock" : "quiz");
+  $("#btn-home").onclick = () => go("home");
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= progress ================= */
+function recentAccuracy(filterFn, n){
+  let c = 0, t = 0;
+  store.attempts.slice(-(n || 10)).forEach(a => Object.entries(a.strands || {}).forEach(([s, v]) => {
+    if (filterFn(s)){ c += v.c; t += v.t; }
+  }));
+  return t ? { p: Math.round(100 * c / t), c, t } : null;
+}
+function readinessReport(agg){
+  const overall = recentAccuracy(() => true);
+  if (!overall) return `<div class="card breakdown"><h3 style="margin-bottom:6px">📋 Readiness report</h3>
+    <div class="emptystate">Complete a quiz or practice set and your readiness report appears here — tracked against the ${PASS_LINE}% pass line Lakehead states for this assessment. 🌱</div></div>`;
+  const row = (name, r) => {
+    if (!r) return `<div class="bar-row"><span><b>${name}</b> <span class="note">(no data yet)</span></span><div class="bar-track"></div><span class="bar-pct">—</span></div>`;
+    return `<div class="bar-row"><span><b>${name}</b> <span class="note">(last ${r.t} Qs)</span></span><div class="bar-track"><div class="bar-fill ${r.p >= PASS_LINE ? "" : r.p >= PASS_LINE - 15 ? "warn" : "low"}" style="width:${r.p}%"></div></div><span class="bar-pct">${r.p}%</span></div>`;
+  };
+  // verdict
+  let verdict, cls;
+  if (overall.p >= PASS_LINE){ verdict = `✔ On track — recent sessions are at or above the ${PASS_LINE}% line. Keep this rhythm.`; cls = "pass"; }
+  else if (overall.p >= PASS_LINE - 15){ verdict = "Almost there — one steady push on the focus areas below tips you over the line."; cls = "close"; }
+  else { verdict = "Building the foundation — every session counts. Start with the focus areas below and re-check in a week."; cls = "keep"; }
+  // focus areas: weakest strands with enough data
+  const focus = Object.entries(agg).filter(([, v]) => v.t >= 6)
+    .map(([s, v]) => ({ s, p: Math.round(100 * v.c / v.t) }))
+    .sort((a, b) => a.p - b.p).filter(x => x.p < 80).slice(0, 2);
+  // practice-set trend
+  const mocks = store.attempts.filter(a => a.kind === "mock");
+  let trend = "";
+  if (mocks.length >= 2){
+    const last = mocks[mocks.length - 1].pct, prev = Math.round(mocks.slice(0, -1).reduce((x, a) => x + a.pct, 0) / (mocks.length - 1));
+    const d = last - prev;
+    trend = `<p class="note" style="margin-top:8px">Practice set trend: latest ${last}% vs ${prev}% average before — ${d >= 3 ? "trending up 📈" : d <= -3 ? "a dip; totally normal, review the misses 💛" : "holding steady"}.</p>`;
+  }
+  return `<div class="card breakdown">
+    <h3 style="margin-bottom:6px">📋 Readiness report <span class="note">(recent sessions vs the ${PASS_LINE}% pass line Lakehead states)</span></h3>
+    ${row("Recent accuracy", overall)}
+    <div style="margin-top:10px"><span class="passline ${cls}">${verdict}</span></div>
+    ${focus.length ? `<p style="font-size:.88rem;margin-top:10px"><b>Focus next:</b> ${focus.map(f => esc(f.s) + " (" + f.p + "%)").join(" · ")} — a Study Hub refresher plus one focused quiz each is the fastest way up.</p>` : ""}
+    ${trend}
+  </div><div class="spacer"></div>`;
+}
+function renderProgress(){
+  const att = store.attempts.slice().reverse();
+  const agg = {};
+  store.attempts.forEach(a => Object.entries(a.strands || {}).forEach(([s, v]) => {
+    agg[s] = agg[s] || { c: 0, t: 0 }; agg[s].c += v.c; agg[s].t += v.t;
+  }));
+  const mastery = Object.entries(agg).map(([name, s]) => {
+    const p = Math.round(100 * s.c / s.t);
+    return `<div class="bar-row"><span>${esc(name)} <span class="note">(${s.c}/${s.t})</span></span><div class="bar-track"><div class="bar-fill ${p >= PASS_LINE ? "" : p >= PASS_LINE - 15 ? "warn" : "low"}" style="width:${p}%"></div></div><span class="bar-pct">${p}%</span></div>`;
+  }).join("");
+  const history = att.map(a => {
+    return `<div class="attempt-row">
+      <span><span class="pill ${a.kind === "mock" ? "coral" : "teal"}">${a.kind}</span> ${esc(a.label)}<br><span class="when">${fmtDate(a.t)} · ${fmtDur(a.dur || 0)}</span></span>
+      <span class="score ${pctClass(a.pct)}">${a.score}/${a.total} · ${a.pct}%</span>
+    </div>`;
+  }).join("");
+  views.innerHTML = `
+  <div class="viewhead"><h2>Progress</h2><p>Everything is saved to your account${cloud ? " and synced across devices" : " on this device"}.</p></div>
+  ${readinessReport(agg)}
+  ${Object.keys(agg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Strand mastery <span class="note">(all-time)</span></h3>${mastery}</div><div class="spacer"></div>` : ""}
+  <div class="card">
+    <h3 style="margin-bottom:8px">History</h3>
+    ${history || `<div class="emptystate">No sessions yet — your story starts with the first quiz. 🌱</div>`}
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:4px">🏅 Trail badges</h3>
+    <p class="note">Collect them all on the way to the summit.</p>
+    <div class="badgegrid">${gameStats().badges.map(b => `<div class="badge ${b.e ? "" : "locked"}"><div class="bi">${b.i}</div><div class="bn">${b.n}</div><div>${b.d}</div></div>`).join("")}</div>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn soft" id="btn-resetseen">↻ Reset question rotation</button>
+  <p class="note" style="margin-top:6px">Makes all questions available again without touching your score history.</p>`;
+  $("#btn-resetseen").onclick = () => { store.seen = {}; persist(); toast("Question rotation reset — everything's fresh again"); };
+}
+
+/* ================= study hub ================= */
+const STUDY = [
+{ title: `🗓 The ${PLAN_WEEKS.length}-Week Trail Plan (paced your way)`, body: `
+  <p style="font-size:.9rem">${PLAN_WEEKS.length} gentle weeks of steady practice. The golden rules: <b>sessions of 15–25 minutes</b>, <b>skip days freely</b> (the trail waits), and <b>never cram</b>. Pick your start date below and the Home page will always show which week you're in.</p>
+  <p style="font-size:.9rem;margin:8px 0"><b>My start date:</b> <input type="date" id="plan-start-input" style="font-family:var(--font-body);padding:5px 8px;border:1.5px solid var(--line);border-radius:8px"> <button class="btn primary" id="plan-start-save" style="padding:7px 16px;font-size:.85rem">Save</button></p>
+  ${PLAN_WEEKS.map((w, i) => `<h4>Week ${i+1} — ${w[0]}</h4><ul><li>${w[1]}</li></ul>`).join("")}
+  <p style="font-size:.88rem;margin-top:10px"><b>Remember:</b> this plan bends around your life and health, not the other way round. A missed week just shifts things — the only non-negotiable is kindness to yourself. 💛</p>`},
+{ title: "🔢 Number Sense & Numeration", body: `
+  <h4>Fractions</h4><ul>
+  <li>Add/subtract: common denominator first. <span class="formula">5/8 + 1/4 = 5/8 + 2/8 = 7/8</span></li>
+  <li>Multiply: straight across, then simplify. Divide: multiply by the reciprocal.</li>
+  <li>Compare by converting to decimals, percents, or common denominators — this is a core "connections" skill Lakehead names directly.</li></ul>
+  <h4>Ratios &amp; unit rates</h4><ul>
+  <li>Scale both parts of a ratio equally: <span class="formula">3:4 = 6:8 = 9:12</span></li>
+  <li>Unit rates make comparisons easy — price per 100 g, distance per hour. A <b>ratio table</b> (two rows, scaled together) is often the fastest way to show your thinking for these.</li></ul>
+  <h4>Percents</h4><ul><li>Find 10% first, then build: 15% of 80 → 8 + 4 = 12.</li>
+  <li>Percent change = <span class="formula">change ÷ original × 100</span> — and know the difference between percent increase and percent decrease.</li></ul>
+  <h4>Mental, non-calculator arithmetic</h4><ul><li>Integers: same signs multiply/divide to positive; different signs to negative.</li>
+  <li>BEDMAS: Brackets, Exponents, Divide/Multiply, Add/Subtract — practice these by hand, since the real assessment doesn't allow a calculator.</li></ul>
+  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics</a><a href="https://www.khanacademy.org/math/arithmetic" target="_blank" rel="noopener">Khan Academy</a></div>`},
+{ title: "📐 Measurement", body: `
+  <h4>Metric conversions</h4><ul><li>km → m ×1000 · m → cm ×100 · L → mL ×1000 · kg → g ×1000. Lakehead's prep package specifically flags conversions like m↔cm and L↔mL.</li></ul>
+  <h4>Rate problems</h4><ul><li>Find the unit rate first (amount per hour, per minute, per kg), then scale it to the time or quantity asked for — a classic example is a tap or tank leaking at a steady rate over hours or days.</li>
+  <li>Decimal hours convert to minutes by multiplying the decimal part by 60: <span class="formula">6.4 h = 6 h + 0.4 × 60 min = 6 h 24 min</span>.</li></ul>
+  <h4>Volume &amp; surface area</h4><ul>
+  <li>Prism: <span class="formula">V = area of base × height</span> · Closed cube SA: <span class="formula">6s²</span> · Rectangular prism SA: <span class="formula">2(lw + lh + wh)</span></li>
+  <li><b>Open or lidless solids:</b> subtract the missing face's area from the closed-solid formula. A square-based prism is also not the same as a cube — check all three dimensions.</li></ul>
+  <h4>LCM tiling problems</h4><ul><li>When two repeating patterns (tiles, beats, cycles) need to line up again, list multiples of each length and find the smallest one they share — the lowest common multiple (LCM).</li></ul>
+  <div class="linkrow"><a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics: Geometry</a></div>`},
+{ title: "🧮 Patterning & Algebra", body: `
+  <h4>Solving equations</h4><ul>
+  <li>Undo operations in reverse order; keep both sides balanced.</li>
+  <li><span class="formula">2x + 5 = 17 → 2x = 12 → x = 6</span></li></ul>
+  <h4>Working backwards</h4><ul>
+  <li>Many MCA-style word problems describe a chain of steps ("doubled, then added 5, giving 23") and ask for the start. Reverse each step in the opposite order: undo the last operation first.</li>
+  <li><span class="formula">Result → undo "+5" → undo "×2" → start</span></li></ul>
+  <h4>Pattern rules</h4><ul><li>Find the constant difference between terms; write the rule using the term number n, e.g. <span class="formula">term = 3n + 1</span>.</li>
+  <li>From a table of x/y values: the constant difference in y, divided by the step in x, gives the rule's multiplier.</li></ul>
+  <div class="linkrow"><a href="https://www.khanacademy.org/math/algebra-basics" target="_blank" rel="noopener">Khan: Algebra Basics</a></div>`},
+{ title: "📊 Data Management & Probability", body: `
+  <h4>Central tendency &amp; group averages</h4><ul>
+  <li>Mean = sum ÷ count · Median = middle of ordered list · Mode = most frequent · Range = max − min.</li>
+  <li>Missing-value problems: if you know the mean and all-but-one value, multiply the mean by the count to get the total, then subtract the known values.</li>
+  <li>Outliers drag the <b>mean</b>; the median resists them.</li></ul>
+  <h4>Theoretical probability</h4><ul>
+  <li><span class="formula">P = favourable outcomes ÷ total outcomes</span>, always between 0 and 1 — this applies just as well to 3D solids (cubes, spheres, pyramid-shaped dice) as it does to coins and cards.</li>
+  <li>Complement: P(not A) = 1 − P(A). Theoretical probability doesn't change based on trial results — experimental probability (observed ÷ trials) is a different idea.</li></ul>
+  <div class="linkrow"><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank" rel="noopener">Khan: Statistics &amp; Probability</a></div>`},
+{ title: "💰 Commercial & Financial Math", body: `
+  <h4>Cost, selling price, and profit</h4><ul>
+  <li><span class="formula">Profit = selling price − cost price</span></li></ul>
+  <h4>Markup vs. profit margin</h4><ul>
+  <li><b>Markup</b> is the profit expressed as a percent of the <b>cost</b>: <span class="formula">markup % = profit ÷ cost × 100</span></li>
+  <li><b>Profit margin</b> is the profit expressed as a percent of the <b>selling price</b>: <span class="formula">margin % = profit ÷ selling price × 100</span></li>
+  <li>These give different numbers for the same sale — always check which one a question is asking for.</li></ul>
+  <h4>Unit cost</h4><ul>
+  <li><span class="formula">unit cost = total price ÷ quantity</span> — convert to the same unit (mL, g, kg) before comparing two products.</li></ul>
+  <div class="linkrow"><a href="https://www.khanacademy.org/math/pre-algebra/pre-algebra-ratios-rates" target="_blank" rel="noopener">Khan: Ratios &amp; Rates</a></div>`},
+{ title: "🎯 The real assessment — confirmed format", body: `
+  <p style="font-size:.9rem">Lakehead University's Mathematics Competency Assessment (Primary/Junior division, course EDUC 0450) tests the Ontario elementary math curriculum at a <b>Grade 6/7 level</b>, across five areas: Number Sense &amp; Numeration, Measurement, Patterning &amp; Algebra, Data Management &amp; Probability, and Commercial &amp; Financial Math.</p>
+  <p style="font-size:.9rem;margin-top:8px">Per Lakehead's own "Making Sense of the MCA" materials, the assessment is <b>15 open-response (written) word problems, worth 3 marks each (45 marks total)</b>, with a <b>2-hour</b> time limit. <b>Calculators, notes, and formula sheets are not permitted</b> — but manipulatives and thinking tools (such as graph paper and fraction pieces) are provided. A <b>${PASS_LINE}% or higher</b> score (34/45 marks) is required to pass, and students are encouraged to show their thinking in <b>at least two different strategies</b> per question.</p>
+  <p style="font-size:.9rem;margin-top:8px"><b>This is an independent study aid</b> — it is not affiliated with, endorsed by, or built from materials supplied by Lakehead University. Its question bank is original and multiple-choice, for quick self-checking; it is not a copy of any official Lakehead question. If you (or your program) have an official syllabus, preparation package, or sample questions, those should always take priority over this app's practice set.</p>`},
+{ title: "🔗 More Good Resources", body: `
+  <ul>
+  <li><b>EQAO Grade 6 released questions</b> — real, publicly released Ontario assessment questions at the right curriculum level (Ontario's standardized testing stops at Grade 6, so there's no official "Grade 7" EQAO test — these Grade 6 questions are the closest official match to MCA content).</li>
+  <li><b>Gap Closing (Ontario Ministry / EduGAINS)</b> — diagnostic-style intervention modules for exactly the Grade 6/7 topics the MCA covers, including proportional reasoning and measurement.</li>
+  <li><b>Mathies</b> — Ontario's own free interactive math tools (number lines, fraction and ratio tools, pattern blocks) for visualizing the strategies Lakehead wants to see.</li>
+  <li><b>Khan Academy</b> &amp; <b>Math Antics</b> — free lessons and short video refreshers across every strand here.</li>
+  <li><b>Ontario's elementary math curriculum</b> — the official Grade 1–8 curriculum document (includes Financial Literacy as part of the Number strand).</li></ul>
+  <div class="linkrow">
+    <a href="https://www.eqao.com/math-resource-released-questions-g6-2023" target="_blank" rel="noopener">EQAO Grade 6 questions</a>
+    <a href="https://www.edugains.ca/newsite/math2/gapclosing.html" target="_blank" rel="noopener">Gap Closing</a>
+    <a href="https://mathies.ca" target="_blank" rel="noopener">Mathies</a>
+    <a href="https://www.khanacademy.org/math" target="_blank" rel="noopener">Khan Academy</a>
+    <a href="https://www.youtube.com/user/mathantics" target="_blank" rel="noopener">▶ Math Antics</a>
+    <a href="https://www.ontario.ca/page/math-curriculum-grades-1-8" target="_blank" rel="noopener">Ontario curriculum</a>
+  </div>`}
+];
+function renderStudy(){
+  views.innerHTML = `
+  <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
+  ${STUDY.map((s, i) => `<div class="acc" data-i="${i}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body}</div></div>`).join("")}`;
+  views.querySelectorAll(".acc > button").forEach(b => b.onclick = () => b.parentElement.classList.toggle("open"));
+  const psi = $("#plan-start-input"), pss = $("#plan-start-save");
+  if (psi){
+    if (store.profile?.planStart) psi.value = store.profile.planStart;
+    pss.onclick = () => {
+      if (!psi.value) return toast("Pick a date first");
+      store.profile = store.profile || {};
+      store.profile.planStart = psi.value;
+      persist();
+      toast("Trail plan anchored to " + psi.value + " 🗓");
+    };
+  }
+}
+
+/* ================= cheatsheet ================= */
+function renderCheat(){
+  views.innerHTML = `
+  <div class="viewhead"><h2>Cheatsheet</h2><p>Quick-reference formulas and facts across all five strands, plus a practice-only on-screen calculator and formula reference (neither is allowed on the real exam).</p></div>
+
+  <div class="card cheat-card">
+    <h3>🎯 What's being assessed</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Grade 6/7-level</b> Ontario elementary math, per Lakehead's own description</div>
+      <div class="fact"><b>Five strands:</b> Number Sense &amp; Numeration · Measurement · Patterning &amp; Algebra · Data Management &amp; Probability · Commercial &amp; Financial Math</div>
+      <div class="fact"><b>Real format:</b> 15 open-response questions · 3 marks each · 45 marks total · 2-hour limit</div>
+      <div class="fact"><b>No calculator, no notes/formula sheet</b> — manipulatives (graph paper, fraction pieces, etc.) are provided</div>
+      <div class="fact"><b>Pass = ${PASS_LINE}%+</b> (34/45 marks), per Lakehead's stated requirement for EDUC 0450</div>
+      <div class="fact">Show at least <b>two different strategies</b> per question — Lakehead's own guidance</div>
+      <div class="fact"><b>Here:</b> practice-only on-screen calculator + formula reference (not allowed on the real exam)</div>
+      <div class="fact">This app is an independent study aid, not an official Lakehead resource</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>📐 2D shapes — area &amp; perimeter</h3>
+    <table class="ftable"><tr><th>Shape</th><th>Perimeter</th><th>Area</th></tr>
+      <tr><td>Circle</td><td><span class="formula">C = πd</span> or <span class="formula">C = 2πr</span></td><td><span class="formula">A = πr²</span></td></tr>
+      <tr><td>Triangle</td><td><span class="formula">P = a + b + c</span></td><td><span class="formula">A = bh ÷ 2</span></td></tr>
+      <tr><td>Rectangle</td><td><span class="formula">P = 2(l + w)</span></td><td><span class="formula">A = lw</span></td></tr>
+      <tr><td>Parallelogram</td><td><span class="formula">P = 2(b + c)</span></td><td><span class="formula">A = bh</span></td></tr>
+      <tr><td>Trapezoid</td><td><span class="formula">P = a + b + c + d</span></td><td><span class="formula">A = (a + b) ÷ 2 × h</span></td></tr>
+      <tr><td>Rhombus</td><td><span class="formula">P = 4s</span></td><td><span class="formula">A = bh</span> or <span class="formula">A = (d₁ × d₂) ÷ 2</span></td></tr>
+      <tr><td>Kite</td><td><span class="formula">P = 2(a + b)</span></td><td><span class="formula">A = (c × d) ÷ 2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>📦 3D objects — surface area &amp; volume</h3>
+    <table class="ftable"><tr><th>Object</th><th>Surface area</th><th>Volume</th></tr>
+      <tr><td>Cube</td><td><span class="formula">SA = 6s²</span></td><td><span class="formula">V = s³</span></td></tr>
+      <tr><td>Rectangular prism</td><td><span class="formula">SA = 2(lw + lh + wh)</span></td><td><span class="formula">V = lwh</span></td></tr>
+      <tr><td>Triangular prism</td><td><span class="formula">SA = bh + (a+b+c)L</span></td><td><span class="formula">V = (bh ÷ 2) × L</span></td></tr>
+      <tr><td>Cylinder</td><td><span class="formula">SA = 2πr² + 2πrh</span></td><td><span class="formula">V = πr²h</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>🔢 Number & operations</h3>
+    <div class="factgrid">
+      <div class="fact"><b>BEDMAS:</b> Brackets → Exponents → Divide/Multiply (L→R) → Add/Subtract (L→R)</div>
+      <div class="fact"><b>Fractions:</b> ± needs common denominator · × straight across · ÷ multiply by reciprocal</div>
+      <div class="fact"><b>Percent:</b> of = multiply · % change = change ÷ original × 100 · find 10% first, then build</div>
+      <div class="fact"><b>Integers:</b> same signs → positive; different signs → negative (× and ÷)</div>
+      <div class="fact"><b>Exponents:</b> aᵐ × aⁿ = aᵐ⁺ⁿ · a⁻ⁿ = 1/aⁿ · a⁰ = 1</div>
+      <div class="fact"><b>Divisibility:</b> by 3/9 → digit sum · by 4 → last two digits · by 5 → ends in 0/5</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>🧮 Algebra & relations</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Line:</b> y = mx + b · m = rise ÷ run · b = y-intercept</div>
+      <div class="fact"><b>Solving:</b> undo operations in reverse order; whatever you do to one side, do to the other</div>
+      <div class="fact"><b>Patterns:</b> constant difference d → rule dn + (start − d)</div>
+      <div class="fact"><b>Inequalities:</b> flip the sign when × or ÷ by a negative</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>📊 Data, probability & geometry facts</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Mean</b> = sum ÷ count · <b>Median</b> = middle (order first!) · <b>Mode</b> = most frequent · <b>Range</b> = max − min</div>
+      <div class="fact"><b>P(event)</b> = favourable ÷ total · independent events multiply · P(not A) = 1 − P(A)</div>
+      <div class="fact"><b>Angles:</b> triangle 180° · quadrilateral 360° · straight line 180° · complementary 90°</div>
+      <div class="fact"><b>Circle graph:</b> percent × 360° = central angle</div>
+      <div class="fact"><b>Metric:</b> km→m ×1000 · m→cm ×100 · L→mL ×1000 · kg→g ×1000</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>🔀 Ratio, rate &amp; percent facts</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Ratio:</b> scale both parts equally · 3:4 = 6:8 = 9:12 (a ratio table shows this clearly)</div>
+      <div class="fact"><b>Unit rate:</b> amount per single unit — makes comparisons easy</div>
+      <div class="fact"><b>Proportion:</b> cross-multiply to solve · 3/4 = x/20 → x = 15</div>
+      <div class="fact"><b>Percent:</b> part/whole = percent/100 · find 10% first, then build</div>
+    </div>
+  </div>
+
+  <div class="card cheat-card">
+    <h3>💰 Commercial &amp; financial facts</h3>
+    <div class="factgrid">
+      <div class="fact"><b>Profit</b> = selling price − cost price</div>
+      <div class="fact"><b>Markup %</b> = profit ÷ <u>cost price</u> × 100</div>
+      <div class="fact"><b>Profit margin %</b> = profit ÷ <u>selling price</u> × 100 (not the same number as markup!)</div>
+      <div class="fact"><b>Unit cost</b> = total price ÷ quantity — convert units before comparing</div>
+    </div>
+  </div>`;
+}
+
+/* ================= admin ================= */
+async function renderAdmin(){
+  if (!adminMode){ go("home"); return; }
+  views.innerHTML = `<div class="viewhead"><h2>Admin</h2><p>Manage who can use MathTest Trail. Access is enforced server-side — removals take effect on the person's next sign-in or data sync.</p></div>
+  <div class="card"><div class="emptystate">Loading users…</div></div>`;
+  let rows = [];
+  try {
+    const snap = await cloud.fns.getDocs(cloud.fns.collection(cloud.db, "allowedUsers"));
+    snap.forEach(d => rows.push({ email: d.id, ...d.data() }));
+    rows.sort((a, b) => a.email.localeCompare(b.email));
+  } catch(e){ views.innerHTML += `<div class="errbox">Couldn't load users: ${esc(e.message)}</div>`; return; }
+  let enrollmentPanel = "";
+  if (PUBLIC_ENROLLMENT_ENABLED){
+    try {
+      const [profileSnap, enrollmentSnap] = await Promise.all([
+        cloud.fns.getDocs(cloud.fns.collection(cloud.db, "profiles")),
+        cloud.fns.getDocs(cloud.fns.collection(cloud.db, "enrollments"))
+      ]);
+      const profiles = [];
+      const enrollments = new Map();
+      profileSnap.forEach(d => profiles.push({ uid: d.id, ...d.data() }));
+      enrollmentSnap.forEach(d => enrollments.set(d.id, d.data()));
+      profiles.sort((a, b) => String(a.email || "").localeCompare(String(b.email || "")));
+      const courseInfo = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["LMCA", "Lakehead Math Competency"]];
+      enrollmentPanel = `<div class="card"><h3 style="margin-bottom:4px">Student enrollments <span class="note">(${profiles.length})</span></h3><p class="note" style="margin:0 0 10px">Grant or revoke course access for registered students. Each course is a separate entitlement.</p>${profiles.length ? profiles.map(p => `<div class="attempt-row"><span><b>${esc(p.email || "")}</b>${p.displayName ? " · " + esc(p.displayName) : ""}<br>${courseInfo.map(([id, label]) => { const r = enrollments.get(p.uid + "__" + id), active = r?.status === "active"; return `<span class="pill ${active ? "teal" : ""}">${esc(label)} · ${active ? "active" : "not enrolled"}</span> <button class="btn soft" data-enroll-action="${active ? "revoke" : "grant"}" data-uid="${esc(p.uid)}" data-course-id="${id}" style="padding:5px 9px;margin:2px">${active ? "Revoke" : "Grant"}</button>`; }).join(" ")}</span></div>`).join("") : `<div class="emptystate">No student profiles yet. Profiles appear after a student joins a course.</div>`}</div><div class="spacer"></div>`;
+    } catch(e){ enrollmentPanel = `<div class="errbox">Couldn't load enrollment roster: ${esc(e.message)}</div>`; }
+  }
+  views.innerHTML = `
+  <div class="viewhead"><h2>Admin</h2><p>Manage who can use MathTest Trail. Your founder accounts are permanent super-admins and can't be locked out.</p></div>
+  <div class="card">
+    <h3 style="margin-bottom:8px">Add a user</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <input id="ad-email" type="email" placeholder="their.email@gmail.com" style="flex:1;min-width:220px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
+      <input id="ad-name" type="text" placeholder="Name (optional)" style="width:160px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)">
+      <select id="ad-course" style="padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body)"><option value="MPT">MPT prep</option><option value="MHF4U">Grade 12 · MHF4U</option><option value="LMCA">Lakehead Math Competency</option></select>
+      <label style="font-size:.85rem;display:flex;align-items:center;gap:5px"><input type="checkbox" id="ad-admin"> admin</label>
+      <button class="btn primary" id="ad-add" style="padding:10px 20px">Add</button>
+    </div>
+    <p class="note" style="margin-top:8px">Must be the Google account email they'll sign in with.</p>
+  </div>
+  ${enrollmentPanel}
+  <div class="spacer"></div>
+  <div class="card">
+    <h3 style="margin-bottom:4px">Allowed users <span class="note">(${rows.length})</span></h3>
+    ${rows.length ? rows.map(r => `
+      <div class="attempt-row">
+        <span><b>${esc(r.email)}</b>${r.name ? " · " + esc(r.name) : ""} ${r.admin ? '<span class="pill gold">admin</span>' : ""} ${r.course === "MHF4U" ? '<span class="pill teal">Grade 12 · MHF4U</span>' : ""}<br>
+        <span class="when">${r.added ? "added " + fmtDate(r.added) + (r.addedBy ? " by " + esc(r.addedBy) : "") : ""}</span></span>
+        <span style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn soft" data-course="${esc(r.email)}" data-to="${r.course === "MHF4U" ? "MPT" : "MHF4U"}" style="padding:7px 14px">${r.course === "MHF4U" ? "Move to MPT prep" : "Assign Grade 12 · MHF4U"}</button>
+        <button class="btn soft" data-rm="${esc(r.email)}" style="padding:7px 14px;color:var(--coral)">Remove</button></span>
+      </div>`).join("") : `<div class="emptystate">No users in the list yet — add your first one above.<br>(Your founder accounts always have access regardless.)</div>`}
+  </div>`;
+  $("#ad-add").onclick = async () => {
+    const email = $("#ad-email").value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast("That doesn't look like an email address");
+    const name = $("#ad-name").value.trim();
+    try {
+      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email),
+        { name: name || null, admin: $("#ad-admin").checked, course: $("#ad-course").value, grade: $("#ad-course").value === "MHF4U" ? 12 : null, added: Date.now(), addedBy: user.email });
+      toast("✓ " + email + " can now sign in");
+      renderAdmin();
+    } catch(e){ toast("Couldn't add: " + e.message); }
+  };
+  views.querySelectorAll("[data-enroll-action]").forEach(b => b.onclick = async () => {
+    const uid = b.dataset.uid, courseId = b.dataset.courseId, action = b.dataset.enrollAction;
+    if (action === "revoke" && !confirm("Revoke " + courseId + " access for this student?")) return;
+    const ref = cloud.fns.doc(cloud.db, "enrollments", uid + "__" + courseId);
+    try {
+      if (action === "grant") await cloud.fns.setDoc(ref, { uid, courseId, status: "active", source: "admin", enrolledAt: cloud.fns.serverTimestamp() });
+      else await cloud.fns.setDoc(ref, { status: "revoked" }, { merge: true });
+      toast(action === "grant" ? "Course access granted" : "Course access revoked"); renderAdmin();
+    } catch(e){ toast("Couldn't update enrollment: " + e.message); }
+  });
+  views.querySelectorAll("[data-course]").forEach(b => b.onclick = async () => {
+    const email = b.dataset.course, to = b.dataset.to;
+    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: to === "MHF4U" ? 12 : null }, { merge: true }); toast(email + (to === "MHF4U" ? " assigned to Grade 12 · MHF4U" : " moved to MPT prep")); renderAdmin(); }
+    catch(e){ toast("Couldn't update: " + e.message); }
+  });
+  views.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => {
+    const email = b.dataset.rm;
+    if (!confirm("Remove access for " + email + "?\n\nTheir scores stay saved; they just can't sign in until re-added.")) return;
+    try { await cloud.fns.deleteDoc(cloud.fns.doc(cloud.db, "allowedUsers", email)); toast(email + " removed"); renderAdmin(); }
+    catch(e){ toast("Couldn't remove: " + e.message); }
+  });
+}
+
+/* ================= about ================= */
+function renderAbout(){
+  tabs.forEach(b => b.classList.remove("active"));
+  views.innerHTML = `
+  <div class="card hero" style="text-align:center;padding:44px 26px">
+    <h2 style="font-size:2rem">MathTest Trail</h2>
+    <p style="font-family:var(--font-head);font-size:1.15rem;font-style:italic;opacity:.95;max-width:26em;margin:6px auto 0">“Every trail leads to the summit.”</p>
+  </div>
+  <div class="spacer"></div>
+  <div class="card cheat-card">
+    <h3>⛰ The app</h3>
+    <p style="font-size:.93rem">Lakehead Math Competency (LMCA) prep is a private study companion for Lakehead University's Mathematics Competency Assessment (Primary/Junior division, course EDUC 0450) — a Grade 6/7-level math exam required for that program: 15 open-response questions, 2 hours, no calculator, with a ${PASS_LINE}% pass line as Lakehead states it.</p>
+    <p style="font-size:.93rem;margin-top:8px">This app is <b>independent</b>: it is not affiliated with, endorsed by, or built from materials supplied by Lakehead University. Its question bank is original and multiple-choice, built for quick self-checking — the real assessment is written and open-response, so practice here rehearses the content and pace, not the exact answer format. Add difficulty modes from 🌱 easy to 🌋 tough, a readiness report, and a trail of XP, levels, and badges — because steady, kind practice is what actually builds confidence.</p>
+  </div>
+  <div class="card cheat-card">
+    <h3>🧭 The philosophy</h3>
+    <p style="font-size:.93rem">Most test prep shouts. This app doesn't. Sessions are short, feedback is warm, mistakes are treated as trail markers rather than failures, and the plan bends around your life — never the other way round. Progress is private: your scores belong to you, synced securely to your own account, visible to no one else.</p>
+  </div>
+  <div class="grid2">
+    <div class="card cheat-card">
+      <h3>🏛 LogicManse</h3>
+      <p style="font-size:.93rem"><b>LogicManse</b> is a tech consultancy &amp; product studio crafting thoughtful digital tools — from productivity trackers to learning companions — each living on its own corner of <a href="https://logicmanse.ca" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600">logicmanse.ca</a>.</p>
+    </div>
+    <div class="card cheat-card">
+      <h3 style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--font-head);font-weight:700">⛰</span> Our approach</h3>
+      <p style="font-size:.93rem">Built by a small product studio that believes in gentle, persistent progress over cramming. MathTest Trail started as MPT prep — and grew into a family of study tools, including this one for Lakehead's math competency assessment.</p>
+    </div>
+  </div>
+  <div class="card cheat-card" style="text-align:center">
+    <p style="font-size:.9rem">Built in Ontario, Canada 🇨🇦 · One HTML file, zero trackers, all heart.</p>
+    <p class="note" style="margin-top:4px">© ${new Date().getFullYear()} LogicManse · an independent study tool, not affiliated with or endorsed by Lakehead University.</p>
+  </div>`;
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= boot ================= */
+initTools();
+initNotepad();
+$("#link-about").onclick = (e) => { e.preventDefault(); go("about"); };
+$("#btn-profile").onclick = () => renderProfileSetup(true);
+if (configured){
+  startFirebase().catch(e => signinError("Couldn't reach Firebase: " + esc(e.message) + "<br>Check FIREBASE_CONFIG in index.html."));
+} else {
+  if (isLocalPreview){
+    signinError("Firebase isn't configured yet, so sign-in is off. You can still <b>preview locally</b> below — scores stay on this device.");
+    const b = document.createElement("button");
+    b.className = "btn primary"; b.style.marginTop = "14px"; b.style.width = "100%";
+    b.textContent = "Preview locally (no sign-in)";
+    b.onclick = startLocalPreview;
+    $("#signin-err").after(b);
+    $("#btn-google").onclick = () => signinError("Firebase isn't configured yet — follow SETUP.md first, then sign-in will work.");
+  } else {
+    signinError("This site isn't fully configured yet (missing Firebase settings). See SETUP.md in the repo.");
+  }
+}
+</script>
+
+</body>
+</html>

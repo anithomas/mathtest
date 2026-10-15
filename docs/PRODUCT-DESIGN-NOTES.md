@@ -9,8 +9,8 @@ Turn the site into a multi-course study product that makes learning engaging, he
 ## Information architecture
 
 - `https://mathtest.logicmanse.ca/` is the course catalogue.
-- Courses use their own routes, such as `/MHF4U/` and `/MPT/`.
-- Organize the catalogue into grade/course groups and a distinct special-preparation group for courses like MPT. Add Chemistry and other subjects without changing the overall structure.
+- Courses use their own routes, such as `/MHF4U/`, `/MPT/`, and `/LMCA/`.
+- Organize the catalogue into grade/course groups and a distinct special-preparation group for courses like MPT and LMCA. Add Chemistry and other subjects without changing the overall structure.
 - Students should be able to sign up or be enrolled for a course and then enter that course. Enforce course authorization in Firebase, not just by hiding a link.
 - Keep the price catalogue adaptable until pricing is decided.
 
@@ -41,7 +41,7 @@ Suggested Firestore model:
 - `profiles/{uid}`: minimal student profile (`email`, `displayName`, timestamps); students can write only their own identity fields and admins can list profiles for a roster.
 - `enrollments/{uid}__{courseId}`: one entitlement per UID/course, with course ID, status, enrollment source, and server timestamp. Students must not be able to grant themselves admin roles, paid status, or change another student's entitlement. Self-enrollment is possible only for a course configured by an admin.
 - `courseSettings/{courseId}`: non-sensitive course settings. A course is available for free self-enrollment only when an admin sets `selfEnrollmentOpen: true` and `priceCents: 0`. Missing settings keep enrollment closed by default; adding a new course does not require changing the rule's course allowlist.
-- `mpt/{uid}` and `mhf4u/{uid}`: isolated course progress, each readable/writable only by that student when they have the corresponding course entitlement (or temporary legacy allowlist access).
+- `mpt/{uid}`, `mhf4u/{uid}`, and `lmca/{uid}`: isolated course progress, each readable/writable only by that student when they have the corresponding course entitlement (or temporary legacy allowlist access).
 - Admin grants/revokes should remain an explicit trusted operation. If using a server SDK or Cloud Functions, remember server libraries bypass Firestore Security Rules; protect that service with IAM and trusted server-side checks.
 
 Implementation sequence:
@@ -77,6 +77,7 @@ Current course-specific observations and opportunities:
 - **MHF4U:** Already includes custom interactive graphing tools such as sign charts, unit circle, sinusoid parameter sliders, rational functions, exponential/logarithmic graphs, and rates of change. It also has lessons with checks, worked examples that reveal steps progressively, quiz hints/explanations, and weak-area practice. Continue extending the concept-to-practice connections where useful.
 - **MPT:** Already includes strand-based quizzes, mock tests, explanations in practice mode, progress tracking, and test-day calculator/formula-sheet tools. It does not currently have the same kind of interactive concept visualizations as MHF4U. Good candidates include number lines and fraction models, geometry diagrams, and data/probability graphs or simulations. Keep mock tests faithful to test-day conditions.
 - **Chemistry and future courses:** Select interactions for the discipline. Candidate Chemistry tools include particle/molecular models, equation balancing visualizations, and relevant simulations.
+- **LMCA (Lakehead Math Competency):** A separate course from MPT, added for Lakehead University's own internal Mathematics Competency Assessment (Primary/Junior division, EDUC 0450) — distinct from EQAO's province-wide MPT that `/MPT/` already covers correctly. Scoped to Grade 6/7-level content across the five strands named in Lakehead's own prep materials: Number Sense & Numeration, Measurement, Patterning & Algebra, Data Management & Probability, and Commercial & Financial Math (no pedagogy component, since that isn't part of what this assessment tests). Built on the same shared engine as MPT/MHF4U. The real assessment's format is confirmed from Lakehead's own "Making Sense of the MCA" materials: 15 open-response questions worth 3 marks each (45 total), a 2-hour limit, no calculator or formula sheet (manipulatives are provided), and a 75% pass line, with students encouraged to show at least two solution strategies per question. The course's own question bank stays original and multiple-choice for quick self-checking — it does not reproduce any official Lakehead question — and the UI states clearly, wherever the format is discussed, that this is an independent study aid, not affiliated with or endorsed by Lakehead University. The practice-set lengths (15 full / 10 mini) and the Study Hub/Cheatsheet copy were updated to this confirmed format; the on-screen calculator and formula-sheet overlay are labelled as practice-only conveniences since the real exam permits neither.
 
 These are design opportunities; a recommendation in this note does not mean the feature is already implemented. No feature should be presented as guaranteeing a pass or higher grade.
 

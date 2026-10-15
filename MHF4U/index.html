@@ -2430,7 +2430,7 @@ let rmArm = null;
 async function renderAdmin(){
   if (!adminMode){ go("home"); return; }
   views.innerHTML = `<div class="viewhead"><h2>Admin</h2><p>Loading users…</p></div>`;
-  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"]];
+  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"], ["LMCA", "Lakehead Math Competency"]];
   const courseLabel = id => (COURSE_INFO.find(c => c[0] === id) || [id, id])[1];
   let rows = [];
   try {

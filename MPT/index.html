@@ -1757,7 +1757,7 @@ async function renderAdmin(){
   if (!adminMode){ go("home"); return; }
   views.innerHTML = `<div class="viewhead"><h2>Admin</h2><p>Manage who can use MathTest Trail. Access is enforced server-side — removals take effect on the person's next sign-in or data sync.</p></div>
   <div class="card"><div class="emptystate">Loading users…</div></div>`;
-  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"]];
+  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"], ["LMCA", "Lakehead Math Competency"]];
   const courseLabel = id => (COURSE_INFO.find(c => c[0] === id) || [id, id])[1];
   let rows = [];
   try {
