@@ -2371,7 +2371,7 @@ let rmArm = null;
 async function renderAdmin(){
   if (!adminMode){ go("home"); return; }
   views.innerHTML = `<div class="viewhead"><h2>Admin</h2><p>Loading users…</p></div>`;
-  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"], ["LMCA", "Lakehead Math Competency"]];
+  const COURSE_INFO = [["MPT", "MPT prep"], ["MHF4U", "Grade 12 · MHF4U"], ["SCH4U", "Grade 12 · SCH4U Chemistry"], ["LMCA", "Lakehead Math Competency"], ["MCR3U", "Grade 11 · MCR3U"]];
   const courseLabel = id => (COURSE_INFO.find(c => c[0] === id) || [id, id])[1];
   let rows = [];
   try {
@@ -2426,7 +2426,7 @@ async function renderAdmin(){
     const name = $("#ad-name").value.trim();
     try {
       const course = $("#ad-course").value;
-      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { name: name || null, admin: $("#ad-admin").checked, course, grade: (course === "MHF4U" || course === "SCH4U") ? 12 : null, added: Date.now(), addedBy: user.email });
+      await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { name: name || null, admin: $("#ad-admin").checked, course, grade: (course === "MHF4U" || course === "SCH4U") ? 12 : course === "MCR3U" ? 11 : null, added: Date.now(), addedBy: user.email });
       toast("✓ " + email + " can now sign in"); renderAdmin();
     } catch(e){ toast("Couldn't add: " + e.message); }
   };
@@ -2442,7 +2442,7 @@ async function renderAdmin(){
   });
   views.querySelectorAll("[data-course-select]").forEach(sel => sel.onchange = async () => {
     const email = sel.dataset.courseSelect, to = sel.value;
-    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: (to === "MHF4U" || to === "SCH4U") ? 12 : null }, { merge: true }); toast(email + " assigned to " + courseLabel(to)); renderAdmin(); }
+    try { await cloud.fns.setDoc(cloud.fns.doc(cloud.db, "allowedUsers", email), { course: to, grade: (to === "MHF4U" || to === "SCH4U") ? 12 : to === "MCR3U" ? 11 : null }, { merge: true }); toast(email + " assigned to " + courseLabel(to)); renderAdmin(); }
     catch(e){ toast("Couldn't update: " + e.message); }
   });
   views.querySelectorAll("[data-rm]").forEach(b => b.onclick = async () => {
