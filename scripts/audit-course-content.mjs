@@ -9,6 +9,7 @@ const courses = [
   ['SCH4U/index.html', 'SCH4U', 'var SCH4U', 'SCH4U'],
   ['MPT/index.html', 'MPT', 'const BANK', 'BANK'],
   ['LMCA/index.html', 'LMCA', 'const BANK', 'BANK'],
+  ['MCR3U/index.html', 'MCR3U', 'var MCR3U', 'MCR3U'],
 ];
 let failures = 0;
 const allowedStrands = {
@@ -112,7 +113,7 @@ for (const [file, name, marker, variable] of courses) {
   }
 
   const data = context.__content;
-  const questions = name === 'MHF4U' || name === 'SCH4U' ? data.Q : data;
+  const questions = ['MHF4U', 'SCH4U', 'MCR3U'].includes(name) ? data.Q : data;
   const ids = new Set();
   const units = new Set((data.UNITS || []).map(unit => unit.id));
   const buckets = new Map();

@@ -23,8 +23,15 @@ official question or a claimed simulation of the written format.
 allowlist, with 34 lessons, 15 worked examples, 152 practice questions, interactive chemistry calculators,
 an illustrative dynamic-equilibrium model and an 8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
 
+**Grade 11 Functions (MCR3U):** https://mathtest.logicmanse.ca/MCR3U/. Same engine, sign-in and allowlist, with
+32 lessons, 12 worked examples, 120 practice questions, an interactive sign-chart tool and an 8-week plan. Works
+entirely in degrees (no radians, logarithms, or compound/double-angle identities — those arrive next year in
+MHF4U) and covers the sine law, cosine law, sequences/series, and financial math that MHF4U does not revisit in
+the same depth. See [MCR3U-SETUP.md](MCR3U-SETUP.md).
+
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
-can be added by creating a course folder and adding a card to the catalogue.
+can be added by creating a course folder and adding a card to the catalogue. Signed-in students see their own
+progress — lessons done, or questions practiced — directly on every course card they have access to.
 
 ## Features
 
@@ -33,7 +40,8 @@ can be added by creating a course folder and adding a card to the catalogue.
 - **Cheatsheet** — the MPT Formula Sheet (2D + 3D) plus quick-reference facts for every strand and the pedagogy component.
 - **Score tracking** — every session saved, strand-mastery bars, history, synced across devices via Firestore.
 - **Study Hub** — key concepts per strand, official EQAO practice tests and framework, pedagogy source documents (Growing Success, Learning for All), and curated free resources.
-- **Concept visuals** — MHF4U interactive function graphs; SCH4U equilibrium concentration and particle-flow model; MPT and LMCA equal-part fraction bars. The models are optional and labelled to explain their limits.
+- **Concept visuals** — MHF4U interactive function graphs; SCH4U equilibrium concentration and particle-flow model; MPT and LMCA equal-part fraction bars; MCR3U sign-chart tool for polynomial/rational inequalities. The models are optional and labelled to explain their limits.
+- **Course library** — the root catalogue reads each student's own Firestore progress (read-only) and shows it directly on every course card they have access to, once they sign in with the same Google account used in the course apps.
 - **Test-day tools** — on-screen calculator and Formula Sheet overlay on every question, like the real test's toolbar; per-question calculator/mental-math guidance and 🌱/🌿/🌋 difficulty modes.
 - **Personal** — profile with display name, optional age, preferred difficulty; flexible 8-week plan anchored to your own start date; XP, levels, badges, and streaks.
 - **Private & managed** — Google sign-in and Firestore course data, currently access-managed through the admin allowlist.
@@ -78,9 +86,11 @@ five named strands: 18 questions in each strand. Its Study Hub includes an inter
 model and written-response strategies to support the real assessment format.
 
 The MHF4U and SCH4U banks contain 165 and 152 questions, respectively, balanced across their five in-app
-units that map to the official course strands. Run `node scripts/audit-course-content.mjs` to check all four
-banks for unique IDs, valid answer structures, distinct answer choices, supported quiz strands and inline
-JavaScript syntax, and it exercises the new slider-driven learning visuals.
+units that map to the official course strands. The MCR3U bank contains 120 questions, balanced across its four
+in-app units (30 each: 10 Knowledge, 10 Application, 7 Thinking, 3 Communication). Run
+`node scripts/audit-course-content.mjs` to check all five banks for unique IDs, valid answer structures, distinct
+answer choices, supported quiz strands and inline JavaScript syntax, and it exercises the slider-driven learning
+visuals.
 
 ## Rollback checkpoint
 
