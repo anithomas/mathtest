@@ -31,7 +31,11 @@ the same depth. See [MCR3U-SETUP.md](MCR3U-SETUP.md).
 
 The root URL is a course catalogue. Each course lives in its own folder so it can grow independently; new courses
 can be added by creating a course folder and adding a card to the catalogue. Signed-in students see their own
-progress — lessons done, or questions practiced — directly on every course card they have access to.
+progress — lessons done, or questions practiced — directly on every course card they have access to. The catalogue
+also shows a live totals strip (courses, lessons, practice questions — summed from each card's own data attributes,
+so it can't drift out of sync), a stream tag on every course card (University Prep, Teacher Candidates, Admission
+Assessment), named course codes in the "coming soon" placeholders, and a four-step "how studying here works"
+explainer. Every course app's footer links directly to every other live course, not just back to the catalogue.
 
 ## Features
 
