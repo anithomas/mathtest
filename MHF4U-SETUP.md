@@ -41,7 +41,7 @@ Student names and emails live only in the private Firestore allowlist, never in 
 All MHF4U content is in the `MHF4U` object inside `MHF4U/index.html`:
 
 - 5 units and 38 lessons, mapped to every specific expectation (A1.1–D3.3) of the Ontario MHF4U curriculum (2007).
-- 225 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
+- 235 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
   Communication items that students self-mark against a model answer. 60 of them (ids `m101`+, 12 per unit) form the
   **🔥 Challenge tier** (`h2:1`): multi-step, A+ (90%+) level Thinking/Application items with a Challenge level in
   Quick Quiz and the profile and a separate Challenge simulation in Exam Sim. They are excluded from "Any" quizzes and the

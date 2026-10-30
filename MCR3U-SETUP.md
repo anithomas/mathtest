@@ -54,11 +54,11 @@ All MCR3U content is in the `MCR3U` object inside `MCR3U/index.html`:
   discrete functions (arithmetic and geometric sequences, series, Pascal's triangle, and financial applications —
   annuities and loans); and trigonometric functions (primary and reciprocal ratios, identities, the sine law
   including the ambiguous case, the cosine law, bearings, and sinusoidal graphing and modelling).
-- 168 practice questions: the original 120 (30 per unit — 10 Knowledge, 10 Application, 7 Thinking, 3 Communication)
+- 176 practice questions: the original 120 (30 per unit — 10 Knowledge, 10 Application, 7 Thinking, 3 Communication),
   plus 48 (ids `r101`+, 12 per unit) that form the
   **🔥 Challenge tier** (`h2:1`): multi-step, A+ (90%+) level Thinking/Application items with a Challenge level in
   Quick Quiz and the profile and a separate Challenge simulation in Exam Sim. They are excluded from "Any" quizzes and the
-  standard Full/Mini simulations. Every numeric answer was recomputed with an independent sympy answer key.
+  standard Full/Mini simulations. Every numeric answer was recomputed with an independent sympy answer key. Weekly additions (ids `w<YYMMDD>f..`) add further questions on top of these counts.
 - **Learning loop** (shared with SCH4U): a Review tab with spaced flashcards (formulas, glossary, missed questions),
   a score-trend chart on Progress, 6 step-checked guided problems in the Study Hub (`MCR3U.GUIDED`), a clickable
   concept map at the top of each unit (`MCR3U/models.js`), and correct-answer / results animations that respect

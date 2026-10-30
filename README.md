@@ -7,7 +7,7 @@ A private study platform with a course catalogue at **https://mathtest.logicmans
 **MPT prep:** https://mathtest.logicmanse.ca/MPT/.
 
 **Grade 12 Advanced Functions (MHF4U):** https://mathtest.logicmanse.ca/MHF4U/. It has the same
-engine, sign-in and allowlist, with 38 lessons, worked examples, 225 practice questions (including a 60-question Challenge tier), interactive graphing
+engine, sign-in and allowlist, with 38 lessons, worked examples, 235 practice questions (including a 65-question Challenge tier), interactive graphing
 tools, step-checked guided problems, spaced-review flashcards, unit concept maps and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
 
 **Lakehead Math Competency (LMCA):** https://mathtest.logicmanse.ca/LMCA/. An independent study aid for
@@ -21,12 +21,12 @@ this app's practice sets are original multiple-choice questions for quick self-c
 official question or a claimed simulation of the written format.
 
 **Grade 12 University Chemistry (SCH4U):** https://mathtest.logicmanse.ca/SCH4U/. Same engine, sign-in and
-allowlist, with 34 lessons, 15 worked examples, 212 practice questions, interactive chemistry calculators,
+allowlist, with 34 lessons, 15 worked examples, 222 practice questions, interactive chemistry calculators,
 interactive models (energy diagrams, titration curves, galvanic cells, VSEPR shapes, unit concept maps),
 step-checked guided problems, spaced-review flashcards, a score-trend chart and an 8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
 
 **Grade 11 Functions (MCR3U):** https://mathtest.logicmanse.ca/MCR3U/. Same engine, sign-in and allowlist, with
-32 lessons, 12 worked examples, 168 practice questions (including a 48-question Challenge tier), an interactive
+32 lessons, 12 worked examples, 176 practice questions (including a 52-question Challenge tier), an interactive
 sign-chart tool, interactive models, guided problems, spaced-review flashcards and an 8-week plan. Works
 entirely in degrees (no radians, logarithms, or compound/double-angle identities — those arrive next year in
 MHF4U) and covers the sine law, cosine law, sequences/series, and financial math that MHF4U does not revisit in
@@ -92,9 +92,9 @@ Questions are written for this app — official EQAO practice questions stay on 
 five named strands: 18 questions in each strand. Its Study Hub includes an interactive equal-parts fraction
 model and written-response strategies to support the real assessment format.
 
-The MHF4U and SCH4U banks contain 225 and 212 questions, respectively, balanced across their five in-app
-units that map to the official course strands. The MCR3U bank contains 168 questions, balanced across its four
-in-app units (42 each, including 12 Challenge items). Run
+The MHF4U and SCH4U banks contain 235 and 222 questions, respectively, balanced across their five in-app
+units that map to the official course strands. The MCR3U bank contains 176 questions, balanced across its four
+in-app units (44 each, including 13 Challenge items). Run
 `node scripts/audit-course-content.mjs` to check all five banks for unique IDs, valid answer structures, distinct
 answer choices, supported quiz strands and inline JavaScript syntax, and it exercises the slider-driven learning
 visuals.
