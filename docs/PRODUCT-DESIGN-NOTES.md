@@ -84,7 +84,7 @@ Current course-specific observations and opportunities:
 ### Course stress-check and rollback
 
 - Added `scripts/audit-course-content.mjs` to check all four embedded banks for unique IDs, valid answer schemas, distinct multiple-choice options, valid course strands, solution feedback, and inline JavaScript syntax; it also exercises the new fraction and equilibrium sliders.
-- Current bank sizes: MHF4U 165; SCH4U 152; MPT 200; LMCA 90. MHF4U/SCH4U counts are across the in-app units; those units map to the official curriculum content strands.
+- Current bank sizes: MHF4U 165; SCH4U 212; MPT 200; LMCA 90. MHF4U/SCH4U counts are across the in-app units; those units map to the official curriculum content strands.
 - The baseline commit is preserved on GitHub as `backup/pre-study-upgrade-20261014` and locally as a branch with the same name. Restore it if a published update needs to be rolled back.
 
 These are design opportunities; a recommendation in this note does not mean the feature is already implemented. No feature should be presented as guaranteeing a pass or higher grade.
