@@ -41,8 +41,15 @@ Student names and emails live only in the private Firestore allowlist, never in 
 All MHF4U content is in the `MHF4U` object inside `MHF4U/index.html`:
 
 - 5 units and 38 lessons, mapped to every specific expectation (A1.1–D3.3) of the Ontario MHF4U curriculum (2007).
-- 165 practice questions: multiple choice, typed numeric answers checked with a tolerance, and 15 written
-  Communication items (3 per unit) that students self-mark against a model answer.
+- 225 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
+  Communication items that students self-mark against a model answer. 60 of them (ids `m101`+, 12 per unit) form the
+  **🔥 Challenge tier** (`h2:1`): multi-step, A+ (90%+) level Thinking/Application items with a Challenge level in
+  Quick Quiz and the profile and a separate Challenge simulation in Exam Sim. They are excluded from "Any" quizzes and the
+  standard Full/Mini simulations. Every numeric answer was recomputed with an independent sympy answer key.
+- **Learning loop** (shared with SCH4U): a Review tab with spaced flashcards (formulas, glossary, missed questions),
+  a score-trend chart on Progress, 6 step-checked guided problems in the Study Hub (`MHF4U.GUIDED`), a clickable
+  concept map at the top of each unit (`MHF4U/models.js`), and correct-answer / results animations that respect
+  reduced-motion settings.
 - 15 worked examples, a formula sheet, a glossary and an 8-week plan.
 
 ## Adding courses

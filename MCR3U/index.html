@@ -376,6 +376,112 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 }
 @media(max-width:520px){nav.tabs{gap:0;padding-left:2px;padding-right:2px}nav.tabs button{flex:1 1 0;min-width:0;font-size:.6rem;padding:6px 1px;line-height:1.15;text-align:center}nav.tabs button svg{width:20px;height:20px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ---------- interactive models (models.js) ---------- */
+.mdl-controls{display:grid;gap:10px;margin:10px 0}
+.mdl-controls.two{grid-template-columns:1fr 1fr}
+@media(max-width:560px){.mdl-controls.two{grid-template-columns:1fr}}
+.mdl-controls label{display:block;font-size:.88rem;font-weight:600}
+.mdl-controls label input[type=range],.mdl-controls label select{display:block;margin-top:6px}
+.mdl-controls label output{font-family:var(--font-mono);color:var(--teal-deep)}
+.mdl-controls input[type=range],.mdl-controls select{width:100%;accent-color:var(--teal)}
+.mdl-controls .mdl-check{display:flex;align-items:center;gap:8px;font-weight:500}
+.mdl-svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:8px 0;color:var(--ink)}
+.mdl-svg.vs{max-width:340px;margin-left:auto;margin-right:auto}
+.mdl-axis{fill:none;stroke:var(--ink);stroke-width:1.4}
+.mdl-grid{stroke:var(--ink);stroke-opacity:.08}
+.mdl-guide{stroke:var(--ink-soft);stroke-dasharray:4 4;stroke-width:1}
+.mdl-guide.strong{stroke:var(--coral);stroke-width:1.6}
+.mdl-lbl{font-size:11px;fill:var(--ink-soft);font-family:var(--font-body)}
+.mdl-lbl.b{font-weight:700;fill:var(--ink)}
+.mdl-curve{fill:none;stroke-width:3;stroke-linecap:round}
+.mdl-curve.main{stroke:var(--coral)}
+.mdl-curve.ghost,.mdl-curve.cool{stroke:var(--teal);stroke-dasharray:7 5;stroke-width:2.2}
+.mdl-tail{fill:var(--coral);fill-opacity:.22}
+.mdl-band{fill:var(--gold);fill-opacity:.18}
+.mdl-dot.now{fill:var(--coral);stroke:#fff;stroke-width:2}
+.mdl-dot.gold{fill:var(--gold)}
+.a-teal{stroke:var(--teal);fill:var(--teal);color:var(--teal)}
+.a-coral{stroke:var(--coral);fill:var(--coral);color:var(--coral)}
+.a-gold{stroke:#a77a1f;fill:#a77a1f;color:#a77a1f}
+line.a-teal,line.a-coral,line.a-gold{stroke-width:1.8}
+text.a-teal,text.a-coral,text.a-gold{stroke:none;font-weight:700}
+.mdl-readout{background:var(--teal-tint);border-radius:12px;padding:10px 14px;font-size:.88rem;line-height:1.55}
+.mdl-wire{fill:none;stroke:var(--ink);stroke-width:3}
+.mdl-electrons{fill:none;stroke:var(--teal);stroke-width:5;stroke-linecap:round;stroke-dasharray:.1 16}
+.mdl-flow{animation:mdlflow 1.1s linear infinite}
+@keyframes mdlflow{to{stroke-dashoffset:-16.1}}
+.mdl-meter{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.mdl-beaker{fill:none;stroke:var(--ink-soft);stroke-width:2}
+.mdl-soln{fill-opacity:.35}
+.mdl-soln.anode{fill:var(--sage)}
+.mdl-soln.cathode{fill:#7fa7c9}
+.mdl-electrode{fill:#8a8f94;stroke:var(--ink);stroke-width:1}
+.mdl-bridge{fill:none;stroke:var(--gold);stroke-width:12;stroke-opacity:.55;stroke-linecap:round}
+.vs-bond{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.vs-bond.back{stroke-width:3;stroke-dasharray:5 4;stroke-opacity:.7}
+.vs-bond.front{stroke-width:7}
+.vs-atom{fill:var(--sage);stroke:var(--ink);stroke-width:1.5}
+.vs-atom.diff{fill:var(--gold)}
+.vs-atom.back{fill-opacity:.7}
+.vs-centre{fill:var(--teal);stroke:var(--ink);stroke-width:1.5}
+.vs-lone ellipse{fill:var(--coral);fill-opacity:.25;stroke:var(--coral);stroke-width:1.2}
+.vs-lone circle{fill:var(--coral)}
+.vs-lone.back{opacity:.6}
+/* concept maps */
+.cmap{margin:8px 0 14px}
+.cm-svg{width:100%;height:auto;display:block}
+.cm-edge{stroke:var(--ink-soft);stroke-width:1.4}
+.cm-ah{fill:var(--ink-soft)}
+.cm-elbl{font-size:9.5px;fill:var(--teal-deep);font-style:italic;paint-order:stroke;stroke:var(--card);stroke-width:3px}
+.cm-node{cursor:pointer;outline:none}
+.cm-node rect{fill:var(--teal-tint);stroke:var(--teal);stroke-width:1.4;transition:fill .15s}
+.cm-node:hover rect,.cm-node:focus-visible rect{fill:var(--gold-tint);stroke:var(--gold);stroke-width:2.4}
+.cm-main{font-size:12px;font-weight:700;fill:var(--ink)}
+.cm-sub{font-size:10px;fill:var(--ink-soft)}
+/* flashcards */
+.fc-wrap{perspective:1200px;max-width:620px;margin:0 auto}
+.fc{position:relative;min-height:230px;transform-style:preserve-3d;transition:transform .45s ease}
+.fc.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lift);padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:auto}
+.fc-face.back{transform:rotateY(180deg);background:var(--sage-tint)}
+.fc-face .kind{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:700}
+.fc-face .big{font-size:1.15rem;font-weight:700;line-height:1.45}
+.fc-face .ans{font-size:.98rem;line-height:1.55}
+.fc-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.boxbar{display:flex;height:16px;border-radius:999px;overflow:hidden;background:var(--parchment-deep);margin:8px 0 4px}
+.boxbar span{display:block;height:100%}
+.boxlegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.78rem;color:var(--ink-soft)}
+.boxlegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+/* trend chart */
+.trend svg{width:100%;height:auto;display:block}
+.tr-band{fill-opacity:.5}
+.tr-lbl{font-size:10px;fill:var(--ink-soft);font-weight:700}
+.tr-avg{fill:none;stroke:var(--teal-deep);stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.tr-q{fill:var(--teal);fill-opacity:.55}
+.tr-m{fill:var(--coral);stroke:#fff;stroke-width:2}
+.tr-proj{fill:none;stroke:var(--teal-deep);stroke-width:2;stroke-dasharray:5 5}
+/* guided problems */
+.gd-step{border-left:3px solid var(--line);padding:6px 0 6px 12px;margin:8px 0;font-size:.92rem}
+.gd-step.done{border-color:var(--sage)}
+.gd-step.cur{border-color:var(--teal);background:var(--teal-tint);border-radius:0 10px 10px 0;padding:10px 12px}
+.gd-step .why{color:var(--ink-soft);font-size:.86rem;margin-top:3px}
+.gd-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+/* feedback motion */
+@keyframes celebrate{0%{transform:scale(.96)}45%{transform:scale(1.025)}100%{transform:scale(1)}}
+.explain.good.celebrate{animation:celebrate .45s ease}
+.xpfloat{display:inline-block;margin-left:8px;font-size:.78rem;font-weight:700;color:#a77a1f;background:var(--gold-tint);border-radius:999px;padding:1px 8px;animation:xpfloat 1.4s ease forwards}
+@keyframes xpfloat{0%{opacity:0;transform:translateY(6px)}20%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:.85;transform:translateY(-3px)}}
+@keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.bar-fill,.xpbar>div{transform-origin:left center;animation:growx .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes ringfill{from{stroke-dashoffset:var(--circ)}}
+.ring .arc{animation:ringfill 1.1s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion:reduce){.fc{transition:none}}
+.gr-bar{fill:var(--coral);fill-opacity:.75}
+.gr-bar.neg{fill:var(--teal)}
+.am-tri{fill:var(--gold);fill-opacity:.16;stroke:var(--gold);stroke-width:1.5}
+.am-tri.t1{fill:var(--sage);stroke:var(--sage)}
+.am-arc{fill:none;stroke:var(--coral);stroke-width:1.2;stroke-dasharray:5 4}
+.am-b{stroke:var(--teal-deep);stroke-width:3}
 </style>
 </head>
 <body>
@@ -393,7 +499,7 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
     </svg>
     <h1>MathTest Trail</h1>
     <p><b>MCR3U · Grade 11 Functions.</b><br>Build confidence with guided lessons, worked examples, interactive graphing and exam-style practice.</p>
-    <div class="signin-proof" aria-label="Course contents"><span><b>38</b> lessons</span><span><b>165</b> questions</span><span><b>15</b> worked examples</span></div>
+    <div class="signin-proof" aria-label="Course contents"><span><b>32</b> lessons</span><span><b>168</b> questions</span><span><b>12</b> worked examples</span></div>
     <button id="btn-google" class="gbtn">
       <img alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
       Continue with Google
@@ -441,6 +547,7 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
   <button data-view="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
   <button data-view="study"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13"/></svg>Study</button>
   <button data-view="cheat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/><path d="M8 3v2M16 3v2"/></svg>Cheatsheet</button>
+  <button data-view="cards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="14" height="13" rx="2"/><path d="M7 4h12a2 2 0 0 1 2 2v11"/></svg>Review</button>
   <button data-view="notes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Notes</button>
   <button data-view="admin" class="hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 10-6.3"/><path d="M17 14v6M14 17h6"/></svg>Admin</button>
 </nav>
@@ -1057,6 +1164,62 @@ MCR3U.Q.push(
 {id:'q427',u:'u4',c:'T',t:'num',p:'The height of the tide in a harbour follows h(t) = 3cos(30t) + 6 (metres, t in hours, t = 0 at the first high tide). Find the first time after the low tide (t = 6 h) that the tide reaches 7.5 m while RISING.',ans:10,un:'h',h:'Set h(t) = 7.5 and find the solution for 30t in (180°, 360°), since that range corresponds to the rising half of this cycle after the minimum.',s:['Set 3cos(30t) + 6 = 7.5: cos(30t) = 0.5.','In one full cycle, cos(30t) = 0.5 at 30t = 60° (falling, already passed) and 30t = 300° (rising).','30t = 300° gives t = 10. At t = 10 h, the tide reaches 7.5 m while rising.']}
 );
 
+/* ---------- Challenge tier (h2:1): A+ / Level 4+ multi-step Thinking & Application questions ---------- */
+MCR3U.Q = MCR3U.Q.concat([
+/* Unit 1: Characteristics of Functions */
+ {id:'r101',u:'u1',c:'T',h2:1,t:'num',p:'f(x) = −2(x − 3)^{2} + 18. Find the larger zero of f.',ans:6,h:'Set f(x) = 0 and isolate the squared bracket.',s:['−2(x − 3)^{2} + 18 = 0, so (x − 3)^{2} = 9.','x − 3 = ±3, so x = 0 or x = 6. The larger zero is 6.']},
+ {id:'r102',u:'u1',c:'T',h2:1,t:'num',p:'x^{2} + kx + 9 = 0 has exactly one real root, and k > 0. Find k.',ans:6,h:'One real root means the discriminant is zero.',s:['Δ = k^{2} − 4(1)(9) = k^{2} − 36 = 0.','k = ±6, and k > 0, so k = 6.']},
+ {id:'r103',u:'u1',c:'T',h2:1,t:'num',p:'kx^{2} + 4x + k = 0 is a quadratic equation with two distinct real roots. How many integer values of k are possible?',ans:2,h:'You need Δ > 0, and the equation must actually be quadratic.',s:['Δ = 16 − 4k^{2} > 0, so k^{2} < 4 and −2 < k < 2.','Integers in that range: −1, 0, 1. But k = 0 makes it 4x = 0, which is not quadratic.','So k = −1 or k = 1: 2 values.']},
+ {id:'r104',u:'u1',c:'T',h2:1,t:'num',p:'f(x) = 2x − 1. Find f^{−1}(f^{−1}(7)).',ans:2.5,h:'Find the inverse once, then apply it twice.',s:['f^{−1}(x) = {x + 1|2}.','f^{−1}(7) = 4, and f^{−1}(4) = {5|2} = 2.5.']},
+ {id:'r105',u:'u1',c:'T',h2:1,t:'num',p:'The point (9, 3) lies on y = √x. Under the transformation y = −2√(3(x + 1)) + 4, it maps to (a, b). Find b.',ans:-2,h:'Mapping rule: (x, y) → ({x|3} − 1, −2y + 4).',s:['a = {9|3} − 1 = 2.','b = −2(3) + 4 = −2.']},
+ {id:'r106',u:'u1',c:'T',h2:1,w:1,t:'num',p:'At $12 a ticket, 300 people attend a show. Each $1 price increase loses 15 people. What is the maximum possible revenue, in dollars?',ans:3840,un:'$',h:'Let x be the number of $1 increases: R = (12 + x)(300 − 15x). Find the vertex.',s:['R(x) = (12 + x)(300 − 15x) = 3600 + 120x − 15x^{2}.','Vertex: x = −{120|2(−15)} = 4, so the price is $16 with 240 people.','R = 16 × 240 = $3840.']},
+ {id:'r107',u:'u1',c:'T',h2:1,t:'num',p:'Complete the square to find the minimum value of y = 3x^{2} − 12x + 7.',ans:-5,h:'Factor 3 out of the x terms first.',s:['y = 3(x^{2} − 4x) + 7 = 3(x^{2} − 4x + 4 − 4) + 7.','= 3(x − 2)^{2} − 12 + 7 = 3(x − 2)^{2} − 5.','The minimum value is −5 (at x = 2).']},
+ {id:'r108',u:'u1',c:'T',h2:1,t:'num',p:'Rationalize and evaluate {6|√5 − √2}. Give a decimal to 2 places (2(sqrt(5) + sqrt(2)) is also accepted).',ans:2*(Math.sqrt(5)+Math.sqrt(2)),tol:0.005,h:'Multiply the numerator and denominator by the conjugate √5 + √2.',s:['{6(√5 + √2)|(√5)^{2} − (√2)^{2}} = {6(√5 + √2)|3}.','= 2(√5 + √2) ≈ 7.30.']},
+ {id:'r109',u:'u1',c:'T',h2:1,t:'num',p:'Simplify {x^{2} − 9|x^{2} + x − 6} ÷ {x − 3|x − 2}. How many restrictions on x are there in total?',ans:3,h:'Restrictions come from every denominator, and from the numerator of the fraction you divide by.',s:['= {(x − 3)(x + 3)|(x + 3)(x − 2)} × {x − 2|x − 3} = 1.','Restrictions: x ≠ −3 and x ≠ 2 (denominators), plus x ≠ 3 because dividing by {x − 3|x − 2} needs it to be non-zero.','That is 3 restrictions.']},
+ {id:'r110',u:'u1',c:'T',h2:1,t:'mc',p:'What are the domain and range of f(x) = −√(4 − x) + 2?',o:['Domain x ≥ 4, range y ≥ 2','Domain x ≤ 4, range y ≥ 2','Domain x ≤ 4, range y ≤ 2','Domain x ≥ −4, range y ≤ 2'],a:2,h:'The radicand must be ≥ 0. The negative sign in front reflects the outputs downward.',s:['Domain: 4 − x ≥ 0, so x ≤ 4.','√(4 − x) ≥ 0, so −√(4 − x) ≤ 0, and adding 2 gives y ≤ 2.']},
+ {id:'r111',u:'u1',c:'T',h2:1,t:'num',p:'The line y = 2x + k touches the parabola y = x^{2} + 3 at exactly one point. Find k.',ans:2,h:'Set the expressions equal and make the discriminant of the resulting quadratic zero.',s:['x^{2} + 3 = 2x + k, so x^{2} − 2x + (3 − k) = 0.','Δ = 4 − 4(3 − k) = 0, so 4k − 8 = 0 and k = 2.']},
+ {id:'r112',u:'u1',c:'C',h2:1,t:'write',p:'Explain why the inverse of f(x) = x^{2} is not a function, and how restricting the domain fixes this.',model:'For f(x) = x², two different inputs give the same output: f(2) = f(−2) = 4. The inverse swaps inputs and outputs, so the inverse relation would send 4 to both 2 and −2, one input with two outputs, so it is not a function. Graphically, f fails the horizontal line test, so its reflection in y = x fails the vertical line test. If we restrict the domain to x ≥ 0 (or x ≤ 0), f becomes one-to-one. Its inverse, y = √x (or y = −√x), is then a function.',chk:['Notes that two inputs give the same output (e.g. ±2 → 4)','Explains the inverse would give two outputs for one input','Links this to the horizontal or vertical line test','States that restricting to x ≥ 0 gives the inverse y = √x, a function']},
+/* Unit 2: Exponential Functions */
+ {id:'r201',u:'u2',c:'T',h2:1,t:'num',p:'Evaluate {8^{2/3} × 16^{−1/4}|4^{−1/2}} without a calculator.',ans:4,h:'Write each as a power of 2, or evaluate each rational exponent separately.',s:['8^{2/3} = 4, 16^{−1/4} = {1|2} and 4^{−1/2} = {1|2}.','{4 × ½|½} = 4.']},
+ {id:'r202',u:'u2',c:'T',h2:1,t:'num',p:'Solve 4^{x + 1} = 8^{x − 1}.',ans:5,h:'Rewrite both sides with base 2.',s:['2^{2(x + 1)} = 2^{3(x − 1)}.','2x + 2 = 3x − 3, so x = 5.']},
+ {id:'r203',u:'u2',c:'T',h2:1,t:'num',p:'Find the sum of all solutions of 9^{x} − 10 · 3^{x} + 9 = 0.',ans:2,h:'9^{x} = (3^{x})^{2}. Let u = 3^{x}.',s:['u^{2} − 10u + 9 = 0, so (u − 1)(u − 9) = 0.','3^{x} = 1 gives x = 0; 3^{x} = 9 gives x = 2. Sum = 2.']},
+ {id:'r204',u:'u2',c:'T',h2:1,t:'num',p:'Solve 27^{2x − 1} = ({1|9})^{x + 3}.',ans:-0.375,tol:0.002,h:'Use base 3: 27 = 3^{3} and {1|9} = 3^{−2}.',s:['3^{3(2x − 1)} = 3^{−2(x + 3)}.','6x − 3 = −2x − 6, so 8x = −3 and x = −0.375.']},
+ {id:'r205',u:'u2',c:'T',h2:1,w:1,t:'num',p:'A culture of 150 bacteria doubles every 20 minutes. How many bacteria are there after 2 hours?',ans:9600,h:'2 hours = 120 minutes = how many doubling periods?',s:['{120|20} = 6 doubling periods.','N = 150 × 2^{6} = 150 × 64 = 9600.']},
+ {id:'r206',u:'u2',c:'T',h2:1,w:1,t:'num',p:'A $32 000 car loses 15% of its value each year. What is it worth after 5 years? (Nearest dollar.)',ans:32000*Math.pow(0.85,5),tol:1,un:'$',h:'Losing 15% leaves 85% each year: V = 32 000(0.85)^{t}.',s:['V = 32 000(0.85)^{5}.','(0.85)^{5} = 0.44371, so V ≈ $14 199.']},
+ {id:'r207',u:'u2',c:'T',h2:1,w:1,t:'num',p:'$5000 is invested at 4.8% per year, compounded monthly, for 6 years. Find the amount. (Nearest cent.)',ans:5000*Math.pow(1.004,72),tol:0.02,un:'$',h:'i = 0.048 ÷ 12 = 0.004 and n = 6 × 12 = 72.',s:['A = 5000(1.004)^{72}.','(1.004)^{72} = 1.33299, so A ≈ $6664.96.']},
+ {id:'r208',u:'u2',c:'T',h2:1,t:'num',p:'An exponential function y = a · b^{x} passes through (0, 5) and (2, 45). Find y when x = 3.',ans:135,h:'(0, 5) gives a directly. Then use (2, 45) to find b (with b > 0).',s:['x = 0: a = 5.','5b^{2} = 45, so b^{2} = 9 and b = 3.','y(3) = 5 × 27 = 135.']},
+ {id:'r209',u:'u2',c:'T',h2:1,t:'mc',p:'Which statement about y = 2({1|3})^{x − 1} − 4 is true?',o:['Its horizontal asymptote is y = −4 and its y-intercept is 2','Its horizontal asymptote is y = 4 and it is increasing','Its horizontal asymptote is y = −4 and its y-intercept is −2','It is increasing, with y-intercept 2'],a:0,h:'A base between 0 and 1 means the function decreases. Substitute x = 0 carefully: ({1|3})^{−1} = 3.',s:['The vertical shift is −4, so the asymptote is y = −4.','y(0) = 2({1|3})^{−1} − 4 = 2(3) − 4 = 2.','The base {1|3} < 1 and a = 2 > 0, so it is decreasing.']},
+ {id:'r210',u:'u2',c:'T',h2:1,t:'num',p:'Simplify (x^{3/4})^{8/3} · x^{−1}, then evaluate at x = 16.',ans:16,h:'Power of a power: multiply the exponents. Then add the exponents.',s:['(x^{3/4})^{8/3} = x^{2}.','x^{2} · x^{−1} = x, and at x = 16 the value is 16.']},
+ {id:'r211',u:'u2',c:'T',h2:1,w:1,t:'num',p:'Carbon-14 has a half-life of 5730 years. What percent of the original C-14 remains after 20 000 years? (2 decimal places.)',ans:100*Math.pow(0.5,20000/5730),tol:0.05,un:'%',h:'Fraction remaining = ({1|2})^{t/5730}.',s:['({1|2})^{20000/5730} = ({1|2})^{3.4904}.','≈ 0.0890, i.e. 8.90%.']},
+ {id:'r212',u:'u2',c:'C',h2:1,t:'write',p:'Explain why compounding interest more often (yearly → monthly → daily) increases the final amount, and why the increase gets smaller each time you compound more often.',model:'With more frequent compounding, interest is added to the balance sooner, so it starts earning interest of its own earlier, and the "interest on interest" effect grows. For example, at 6% per year, compounding monthly gives (1 + 0.005)^12 ≈ 1.0617 per year instead of 1.06. But each step adds less: going from yearly to monthly adds about 0.17%, while monthly to daily adds only about 0.01%. The period rate shrinks as the number of periods grows, so the growth factor (1 + r/n)^n levels off at a limit and can never grow without bound.',chk:['States interest is added sooner and then earns interest itself','Gives or uses the factor (1 + r/n)^n','Shows or states that each increase in frequency adds less','Notes the growth factor approaches a limit rather than growing forever']},
+/* Unit 3: Discrete Functions */
+ {id:'r301',u:'u3',c:'T',h2:1,t:'num',p:'An arithmetic sequence has t_{5} = 17 and t_{12} = 45. Find t_{30}.',ans:117,h:'Subtract the two term equations to find d.',s:['t_{12} − t_{5} = 7d = 28, so d = 4.','t_{5} = a + 4d = 17, so a = 1.','t_{30} = 1 + 29(4) = 117.']},
+ {id:'r302',u:'u3',c:'T',h2:1,t:'num',p:'A geometric sequence has t_{2} = 12 and t_{5} = 324. Find t_{8}.',ans:8748,h:'Divide t_{5} by t_{2} to find r^{3}.',s:['{t_{5}|t_{2}} = r^{3} = 27, so r = 3.','a = {12|3} = 4.','t_{8} = 4 × 3^{7} = 4 × 2187 = 8748.']},
+ {id:'r303',u:'u3',c:'T',h2:1,t:'num',p:'Find the sum of the arithmetic series 7 + 11 + 15 + … + 203.',ans:5250,h:'First find how many terms there are.',s:['203 = 7 + (n − 1)(4), so n − 1 = 49 and n = 50.','S_{50} = {50|2}(7 + 203) = 25 × 210 = 5250.']},
+ {id:'r304',u:'u3',c:'T',h2:1,t:'num',p:'Find the sum of the first 10 terms of 3 + 6 + 12 + 24 + …',ans:3069,h:'S_{n} = {a(r^{n} − 1)|r − 1}.',s:['a = 3, r = 2, n = 10.','S_{10} = {3(2^{10} − 1)|1} = 3 × 1023 = 3069.']},
+ {id:'r305',u:'u3',c:'T',h2:1,t:'num',p:'Find the sum of the infinite geometric series 24 − 12 + 6 − 3 + …',ans:16,h:'|r| < 1, so S = {a|1 − r}.',s:['a = 24 and r = −{1|2}.','S = {24|1 − (−½)} = {24|1.5} = 16.']},
+ {id:'r306',u:'u3',c:'T',h2:1,t:'num',p:'A sequence is defined by t_{1} = 2 and t_{n} = 3t_{n − 1} − 1. Find t_{5}.',ans:122,h:'Apply the recursion one step at a time.',s:['t_{2} = 3(2) − 1 = 5, t_{3} = 14 and t_{4} = 41.','t_{5} = 3(41) − 1 = 122.']},
+ {id:'r307',u:'u3',c:'T',h2:1,t:'num',p:'Use Pascal\'s triangle (or the binomial pattern) to find the coefficient of x^{3} in (x + 2)^{5}.',ans:40,h:'The row for power 5 is 1, 5, 10, 10, 5, 1. The x^{3} term pairs x^{3} with 2^{2}.',s:['The x^{3} term is C(5, 3) · x^{3} · 2^{2}.','= 10 × 4 = 40.']},
+ {id:'r308',u:'u3',c:'T',h2:1,w:1,t:'num',p:'$200 is deposited at the end of every month for 3 years, earning 6% per year compounded monthly. What is the future value? (Nearest cent.)',ans:200*(Math.pow(1.005,36)-1)/0.005,tol:0.02,un:'$',h:'FV = R · {(1 + i)^{n} − 1|i}, with i = 0.005 and n = 36.',s:['(1.005)^{36} = 1.19668.','FV = 200 × {0.19668|0.005} = 200 × 39.336 = $7867.22.']},
+ {id:'r309',u:'u3',c:'T',h2:1,w:1,t:'num',p:'A loan is repaid with $350 at the end of each month for 4 years, at 7.2% per year compounded monthly. How much was borrowed? (Nearest cent.)',ans:350*(1-Math.pow(1.006,-48))/0.006,tol:0.02,un:'$',h:'PV = R · {1 − (1 + i)^{−n}|i}, with i = 0.006 and n = 48.',s:['(1.006)^{−48} = 0.75041.','PV = 350 × {1 − 0.75041|0.006} = 350 × 41.599 = $14 559.59.']},
+ {id:'r310',u:'u3',c:'T',h2:1,t:'num',p:'What is the least number of terms of 5 + 9 + 13 + … needed for the sum to exceed 1000?',ans:22,h:'S_{n} = {n|2}(2a + (n − 1)d). Solve the inequality, then check whole numbers.',s:['S_{n} = {n|2}(10 + 4(n − 1)) = n(2n + 3).','S_{21} = 21 × 45 = 945 and S_{22} = 22 × 47 = 1034.','So 22 terms are needed.']},
+ {id:'r311',u:'u3',c:'T',h2:1,t:'num',p:'Evaluate Σ_{k = 1}^{20} (3k − 2).',ans:590,h:'This is an arithmetic series: list the first and last terms.',s:['First term 1, last term 58, with 20 terms.','S = {20|2}(1 + 58) = 590.']},
+ {id:'r312',u:'u3',c:'C',h2:1,t:'write',p:'Explain how to tell from a list of terms whether a sequence is arithmetic, geometric or neither. Then explain when an infinite geometric series has a finite sum.',model:'Check consecutive terms. If the first differences t(n) − t(n−1) are all the same, the sequence is arithmetic, with common difference d. If the ratios t(n) ÷ t(n−1) are all the same, it is geometric, with common ratio r. If neither is constant, it is neither (it could still follow another pattern, such as a recursion). An infinite geometric series has a finite sum only when −1 < r < 1. Then each term is smaller in size than the last, the terms shrink toward 0, and the partial sums approach S = a/(1 − r). If |r| ≥ 1, the terms do not shrink, so the sum grows without bound or keeps oscillating.',chk:['Uses constant first differences to identify arithmetic','Uses constant ratios to identify geometric','States an infinite geometric series converges only when |r| < 1','Gives S = a/(1 − r) or explains that the terms shrink toward 0']},
+/* Unit 4: Trigonometric Functions */
+ {id:'r401',u:'u4',c:'T',h2:1,t:'num',p:'The terminal arm of an angle θ in standard position passes through (−5, 12). Find θ in degrees (0° < θ < 360°), to 2 decimal places.',ans:180-Math.atan(12/5)*180/Math.PI,tol:0.05,un:'°',h:'Find the reference angle with tan, then place it in the correct quadrant.',s:['(−5, 12) is in quadrant II. Reference angle = tan^{−1}({12|5}) = 67.38°.','θ = 180° − 67.38° = 112.62°.']},
+ {id:'r402',u:'u4',c:'T',h2:1,t:'num',p:'Find the exact value of cos 210° + sin 330°, then give it as a decimal to 3 places.',ans:-Math.sqrt(3)/2-0.5,tol:0.002,h:'Use reference angles and CAST: 210° is in quadrant III, 330° is in quadrant IV.',s:['cos 210° = −cos 30° = −{√3|2}. sin 330° = −sin 30° = −{1|2}.','Sum = −{√3 + 1|2} ≈ −1.366.']},
+ {id:'r403',u:'u4',c:'T',h2:1,t:'num',p:'In △ABC, ∠A = 40°, a = 8 and b = 11. How many different triangles are possible?',ans:2,h:'Find h = b sin A and compare it with a and b.',s:['h = 11 sin 40° = 7.07.','h < a < b (7.07 < 8 < 11), so this is the ambiguous case with two triangles.','(sin B = {11 sin 40°|8} = 0.8838, so B = 62.1° or B = 117.9°.)']},
+ {id:'r404',u:'u4',c:'T',h2:1,t:'num',p:'In △ABC, ∠A = 40°, a = 8, b = 11, and ∠B is obtuse. Find side c, to 2 decimal places.',ans:8*Math.sin((180-40-(180-Math.asin(11*Math.sin(40*Math.PI/180)/8)*180/Math.PI))*Math.PI/180)/Math.sin(40*Math.PI/180),tol:0.03,h:'Obtuse B = 180° − 62.1°. Then find C, then use the sine law again.',s:['sin B = 0.8838, so the obtuse B = 180° − 62.11° = 117.89°.','C = 180° − 40° − 117.89° = 22.11°.','c = {8 sin 22.11°|sin 40°} = 4.68.']},
+ {id:'r405',u:'u4',c:'T',h2:1,t:'num',p:'A triangle has sides 7, 9 and 12. Find its largest angle, to 2 decimal places.',ans:Math.acos((49+81-144)/126)*180/Math.PI,tol:0.05,un:'°',h:'The largest angle is opposite the longest side. Use the cosine law.',s:['cos C = {7^{2} + 9^{2} − 12^{2}|2(7)(9)} = {−14|126} = −0.1111.','C = cos^{−1}(−0.1111) = 96.38°.']},
+ {id:'r406',u:'u4',c:'T',h2:1,w:1,t:'num',p:'A ship sails 40 km on a bearing of 060°, then 30 km on a bearing of 110°. How far is it from its starting point? (2 decimal places.)',ans:Math.sqrt(1600+900-2400*Math.cos(130*Math.PI/180)),tol:0.05,un:'km',h:'The ship turns 50°, so the angle inside the triangle at the turning point is 180° − 50° = 130°.',s:['Interior angle at the turn = 180° − (110° − 60°) = 130°.','d^{2} = 40^{2} + 30^{2} − 2(40)(30) cos 130° = 2500 + 1542.7 = 4042.7.','d ≈ 63.58 km.']},
+ {id:'r407',u:'u4',c:'T',h2:1,t:'num',p:'y = 3 sin(2(x − 30°)) + 1. Find the smallest positive x (in degrees) at which y has its maximum value.',ans:75,un:'°',h:'The maximum of sin is at an argument of 90°.',s:['2(x − 30°) = 90°, so x − 30° = 45° and x = 75°.','The maximum value is 3 + 1 = 4.']},
+ {id:'r408',u:'u4',c:'T',h2:1,w:1,t:'num',p:'High tide is 9 m at 3:00 and the next low tide is 1 m at 9:15. Using a cosine model, find the water depth at 6:00 (to 2 decimal places).',ans:4*Math.cos(2*Math.PI*3/12.5)+5,tol:0.03,un:'m',h:'Amplitude 4, midline 5. High to low is half a period, so the period is 12.5 h. Start the cosine at the high tide and work in degrees: k = {360°|12.5}.',s:['h(t) = 4 cos({360°|12.5}(t − 3)) + 5, with t in hours.','At t = 6: angle = {360° × 3|12.5} = 86.4°, and cos 86.4° = 0.0628.','h = 4(0.0628) + 5 = 5.25 m.']},
+ {id:'r409',u:'u4',c:'T',h2:1,t:'num',p:'sin θ = {3|5} and θ is in quadrant II. Find sec θ.',ans:-1.25,h:'Find cos θ (negative in quadrant II), then sec θ = {1|cos θ}.',s:['cos θ = −√(1 − {9|25}) = −{4|5}.','sec θ = −{5|4} = −1.25.']},
+ {id:'r410',u:'u4',c:'T',h2:1,t:'mc',p:'You know two sides of a triangle and the angle between them, and you want the third side. Which tool should you use first?',o:['The sine law','The cosine law','The Pythagorean theorem','SOH CAH TOA'],a:1,h:'The sine law needs a known side and its opposite angle as a pair.',s:['With SAS there is no side–opposite-angle pair, so the sine law cannot start.','The cosine law c^{2} = a^{2} + b^{2} − 2ab cos C uses exactly two sides and the included angle.']},
+ {id:'r411',u:'u4',c:'T',h2:1,t:'num',p:'Find the sum of all solutions of 2 sin θ + 1 = 0 for 0° ≤ θ ≤ 360°.',ans:540,un:'°',h:'sin θ = −{1|2} is negative in quadrants III and IV. The reference angle is 30°.',s:['θ = 180° + 30° = 210° and θ = 360° − 30° = 330°.','Sum = 540°.']},
+ {id:'r412',u:'u4',c:'C',h2:1,t:'write',p:'Explain the ambiguous case of the sine law: why there can be 0, 1 or 2 triangles when you know two sides and an angle opposite one of them (SSA).',model:'In SSA, with acute angle A, side b adjacent to it and side a opposite it, side a "swings" from the end of side b toward the base line. The height from that vertex is h = b sin A. If a < h, side a is too short to reach the base line, so there is no triangle. If a = h, or a ≥ b, it reaches at exactly one point, so there is one triangle. If h < a < b, it can reach the base line at two points, giving two triangles: one with an acute angle B and one with the obtuse angle 180° − B. Algebraically, sin B = (b sin A)/a can have two solutions between 0° and 180°, so both must be checked.',chk:['Defines the height h = b sin A','States there is no triangle when a < h','States there is one triangle when a = h or a ≥ b','States there are two triangles when h < a < b, with B and 180° − B']},
+]);
+
 MCR3U.PLAN8 = [
 {"t":"Week 1 — Functions, domain/range, and transformations","d":"Start with the language of functions — notation, domain, range — then build up the full transformation toolkit (translations, reflections, stretches) before tackling inverses.","lessons":["u1-1","u1-2","u1-3","u1-4"]},
 {"t":"Week 2 — Quadratics, radicals, and rational expressions","d":"Master completing the square and the discriminant, apply quadratics to optimization problems, then build algebraic fluency with radicals and rational expressions.","lessons":["u1-5","u1-6","u1-7","u1-8","u1-9"]},
@@ -1071,6 +1234,38 @@ MCR3U.PLAN8_DONE = true;
 
 if (typeof module !== 'undefined') module.exports = MCR3U;
 
+
+/* Guided multi-step problems: the student enters each intermediate value, so a wrong method shows up at the step it happens. */
+MCR3U.GUIDED = [
+ {id:'g1',u:'u1',t:'Maximum revenue',p:'At $12 a ticket, 300 people attend. Each $1 increase loses 15 people. Find the price that maximizes revenue.',steps:[
+  {q:'Let x be the number of $1 increases: R = (12 + x)(300 − 15x). Expanded, R = −15x^{2} + bx + 3600. Find b.',ans:120,h:'12(−15x) + x(300) = −180x + 300x.',why:'R = −15x^{2} + 120x + 3600.'},
+  {q:'Find the x-coordinate of the vertex.',ans:4,h:'x = −{b|2a} = −{120|−30}.',why:'x = 4 increases.'},
+  {q:'What ticket price gives the maximum revenue, in dollars?',ans:16,un:'$',h:'12 + x.',why:'$16 per ticket, with 300 − 60 = 240 people.'},
+  {q:'What is the maximum revenue, in dollars?',ans:3840,un:'$',h:'16 × 240.',why:'R = $3840.'}]},
+ {id:'g2',u:'u1',t:'Completing the square',p:'Write y = 3x^{2} − 12x + 7 in vertex form y = a(x − h)^{2} + k.',steps:[
+  {q:'Factor 3 out of the x terms: y = 3(x^{2} − 4x) + 7. What number completes the square inside the bracket?',ans:4,h:'Half of −4 is −2, and (−2)^{2} = 4.',why:'y = 3(x^{2} − 4x + 4 − 4) + 7.'},
+  {q:'Moving the −4 out of the bracket multiplies it by 3. What is that number?',ans:-12,h:'3 × (−4).',why:'y = 3(x − 2)^{2} − 12 + 7.'},
+  {q:'What is k?',ans:-5,h:'−12 + 7.',why:'y = 3(x − 2)^{2} − 5. Vertex (2, −5): the minimum value is −5.'}]},
+ {id:'g3',u:'u2',t:'Exponential equation as a quadratic',p:'Solve 9^{x} − 10 · 3^{x} + 9 = 0.',steps:[
+  {q:'Let u = 3^{x}, so 9^{x} = u^{2}. Solve u^{2} − 10u + 9 = 0. What is the smaller value of u?',ans:1,h:'Factor: (u − 1)(u − 9) = 0.',why:'u = 1 or u = 9.'},
+  {q:'3^{x} = 1. Find x.',ans:0,h:'Any non-zero base to the power 0 is 1.',why:'x = 0.'},
+  {q:'3^{x} = 9. Find x.',ans:2,h:'9 = 3^{2}.',why:'x = 2. Solutions: x = 0 and x = 2.'}]},
+ {id:'g4',u:'u3',t:'Future value of an annuity',p:'$200 is deposited at the end of each month for 3 years at 6% per year, compounded monthly. Find the future value.',steps:[
+  {q:'What is the interest rate per month, i, as a decimal?',ans:0.005,tol:0.0001,h:'0.06 ÷ 12.',why:'i = 0.005.'},
+  {q:'How many payments, n, are there?',ans:36,h:'3 years × 12 months.',why:'n = 36.'},
+  {q:'Evaluate (1 + i)^{n} to 5 decimal places.',ans:Math.pow(1.005,36),tol:0.00005,h:'(1.005)^{36}.',why:'(1.005)^{36} = 1.19668.'},
+  {q:'Find FV = 200 × {(1 + i)^{n} − 1|i}, to the nearest cent.',ans:200*(Math.pow(1.005,36)-1)/0.005,tol:0.02,un:'$',h:'200 × {0.19668|0.005}.',why:'FV = $7867.22.'}]},
+ {id:'g5',u:'u4',t:'Sine law: the ambiguous case',p:'In △ABC, ∠A = 40°, a = 8 and b = 11. Solve for every possible angle B and side c.',steps:[
+  {q:'Find sin B = {b sin A|a}, to 4 decimal places.',ans:11*Math.sin(40*Math.PI/180)/8,tol:0.0005,h:'{11 sin 40°|8}.',why:'sin B = 0.8838.'},
+  {q:'Find the acute angle B, in degrees (2 decimal places).',ans:Math.asin(11*Math.sin(40*Math.PI/180)/8)*180/Math.PI,tol:0.05,un:'°',h:'sin^{−1}(0.8838).',why:'B = 62.11°.'},
+  {q:'The other possible B is obtuse. Find it.',ans:180-Math.asin(11*Math.sin(40*Math.PI/180)/8)*180/Math.PI,tol:0.05,un:'°',h:'180° − 62.11°. Check that A + B < 180°.',why:'B = 117.89°, and 40° + 117.89° < 180°, so both triangles exist.'},
+  {q:'For the acute B, find side c (2 decimal places).',ans:8*Math.sin((140-Math.asin(11*Math.sin(40*Math.PI/180)/8)*180/Math.PI)*Math.PI/180)/Math.sin(40*Math.PI/180),tol:0.03,h:'C = 180° − 40° − 62.11°, then c = {a sin C|sin A}.',why:'C = 77.89°, so c = {8 sin 77.89°|sin 40°} = 12.17.'}]},
+ {id:'g6',u:'u4',t:'Sinusoidal tide model',p:'High tide is 9 m at 3:00 and the next low tide is 1 m at 9:15. Build a cosine model and use it.',steps:[
+  {q:'What is the amplitude, in metres?',ans:4,un:'m',h:'Half of (max − min).',why:'a = {9 − 1|2} = 4.'},
+  {q:'What is the midline value, in metres?',ans:5,un:'m',h:'Average of the max and min.',why:'c = {9 + 1|2} = 5.'},
+  {q:'What is the period, in hours?',ans:12.5,un:'h',h:'High to low is half a period: 9:15 − 3:00 = 6.25 h.',why:'Period = 12.5 h, so k = {360°|12.5} = 28.8° per hour and h(t) = 4 cos(28.8(t − 3)°) + 5.'},
+  {q:'Find the depth at 6:00, to 2 decimal places.',ans:4*Math.cos(2*Math.PI*3/12.5)+5,tol:0.03,un:'m',h:'Substitute t = 6, with your calculator in degrees.',why:'h(6) = 4 cos(86.4°) + 5 = 4(0.0628) + 5 = 5.25 m.'}]},
+];
 </script>
 
 <!-- APP LOGIC -->
@@ -1083,12 +1278,14 @@ if (typeof module !== 'undefined') module.exports = MCR3U;
 /* ================= state ================= */
 const $ = s => document.querySelector(s);
 const views = $("#views");
+// concept-map boxes (models.js) ask to open their lesson
+views.addEventListener("lm-open-lesson", e => go("study", { lesson: e.detail }));
 const D = MCR3U;
 let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1165,7 +1362,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "mcr3u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
@@ -1208,9 +1405,11 @@ function markSyncBlocked(){
 }
 function mergeInto(d){
   if (!d) return;
+  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0;
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
   if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
   else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
+  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled);
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -1232,8 +1431,8 @@ async function loadCloud(){
 
 /* ================= question drawing ================= */
 const DIFF_OF = { K: 1, A: 2, T: 3, C: 4 };
-const DIFF_LABEL = { 1: "🌱 Knowledge", 2: "🌿 Application", 3: "🌋 Thinking", 4: "✍️ Communication" };
-function qDiff(q){ return DIFF_OF[q.c]; }
+const DIFF_LABEL = { 1: "🌱 Knowledge", 2: "🌿 Application", 3: "🌋 Thinking", 4: "✍️ Communication", 5: "🔥 Challenge" };
+function qDiff(q){ return q.h2 ? 5 : DIFF_OF[q.c]; }  // h2 = Challenge tier (A+ / Level 4+)
 function poolFor(key){
   if (key === "mixed") return D.Q.slice();
   if (key === "word") return D.Q.filter(q => q.w);
@@ -1255,9 +1454,10 @@ function draw(poolKey, pool, n){
 }
 function buildMock(kind){
   // final exam simulation: an equal share from every unit, Knowledge/Application/Thinking only
-  const per = kind === "full" ? 5 : 3;
+  const per = kind === "mini" ? 3 : 5;
+  const ch = kind === "challenge";
   let qs = [];
-  D.UNITS.forEach(u => { qs = qs.concat(draw("mock-" + u.id, D.Q.filter(q => q.u === u.id && q.t !== "write"), per)); });
+  D.UNITS.forEach(u => { qs = qs.concat(draw((ch ? "mock-ch-" : "mock-") + u.id, D.Q.filter(q => q.u === u.id && q.t !== "write" && !!q.h2 === ch), per)); });
   return shuffle(qs);
 }
 
@@ -1392,7 +1592,7 @@ function renderProfileSetup(edit){
     <input id="pf-name" type="text" value="${esc(p.name || user.name || "")}" class="field" style="width:100%;margin:6px 0 14px">
     <label style="font-weight:600;font-size:.9rem">Preferred quiz level</label>
     <div class="lenrow" id="pf-diff">
-      ${[["any","🎲 Any"],["1","🌱 Knowledge"],["2","🌿 Application"],["3","🌋 Thinking"]].map(([v,l]) => `<button class="lenbtn ${(p.diff || "any") === v ? "sel" : ""}" data-v="${v}">${l}</button>`).join("")}
+      ${[["any","🎲 Any"],["1","🌱 Knowledge"],["2","🌿 Application"],["3","🌋 Thinking"],["5","🔥 Challenge"]].map(([v,l]) => `<button class="lenbtn ${(p.diff || "any") === v ? "sel" : ""}" data-v="${v}">${l}</button>`).join("")}
     </div>
     <div class="spacer"></div>
     <button class="btn primary" id="pf-save">${edit ? "Save changes" : "Start my trail ✨"}</button>
@@ -1426,6 +1626,7 @@ function go(view, opt){
   else if (view === "study") renderStudy(opt);
   else if (view === "cheat") renderCheat();
   else if (view === "notes") renderNotes();
+  else if (view === "cards") renderCards();
   else if (view === "admin") renderAdmin();
   else if (view === "about") renderAbout();
   window.scrollTo({ top: 0 });
@@ -1582,9 +1783,10 @@ function gameStats(){
     {i:"📅",n:"Week Walker",d:"Study 7 days in a row",e:streak>=7},
     {i:"🎓",n:"All Lessons",d:`Mark all ${D.LESSONS.length} lessons as done`,e:lessonsDone>=D.LESSONS.length},
     {i:"🏔",n:"Summit!",d:"80%+ on a FULL 20-question exam simulation",e:mocks.some(a=>a.total>=20&&a.pct>=80)},
-    {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5}
+    {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5},
+    {i:"🃏",n:"Memory Keeper",d:"Complete 100 flashcard reviews",e:(store.reviews||0)>=100}
   ];
-  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + badges.filter(b=>b.e).length*100;
+  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + badges.filter(b=>b.e).length*100;
   let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
   const next = LEVELS[li+1];
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges, lessonsDone };
@@ -1655,17 +1857,201 @@ function renderHome(){
     <div class="card homecard c-quiz" data-go="quiz"><h3>🧭 Quick Quiz</h3><p>Fresh questions every time — pick a unit, a K/A/T/C level or word problems only. Instant feedback with full solutions.</p><div class="go">Start a quiz →</div></div>
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 20-question final-exam run (5 per unit) or a 12-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
+    <div class="card homecard c-study" data-go="cards"><h3>🃏 Daily Review</h3><p>${(() => { const n = cardStatus().dueAll; return n ? `<b>${n} card${n === 1 ? "" : "s"} due today.</b> ` : ""; })()}Spaced flashcards for every formula, key term and question you've missed. Five minutes a day.</p><div class="go">Start reviewing →</div></div>
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Every MCR3U formula and theorem by unit, how marks are earned, test-day strategies and a glossary.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
   views.querySelectorAll("[data-lesson]").forEach(a => a.onclick = e => { e.preventDefault(); go("study", { lesson: a.dataset.lesson }); });
 }
 
+/* ================= flashcards with spaced review ================= */
+// Leitner boxes: a card moves up one box each time it is recalled, and its next review waits longer.
+const BOX_DAYS = [0, 1, 3, 7, 14, 30];
+const BOX_COLORS = ["#e76f51", "#d9a441", "#7fa7c9", "#7fa37f", "#0f6b6e", "#0a4f52"];
+const DAY = 864e5;
+let cardSel = { deck: "all", unit: "any" }, cardRun = null;
+function cardDeck(){
+  const cards = [];
+  D.FORMULAS.forEach((f, i) => cards.push({ id: "f" + i, deck: "formulas", u: f[0], kind: "📐 Formula", front: f[1], back: f[2] }));
+  D.GLOSSARY.forEach((g, i) => cards.push({ id: "g" + i, deck: "glossary", u: null, kind: "📖 Term", front: g[0], back: g[1] }));
+  Object.keys(store.missed || {}).forEach(id => {
+    const q = QB[id]; if (!q || q.t === "write") return;
+    const ans = q.t === "mc" ? q.o[q.a] : q.ans + (q.un ? " " + q.un : "");
+    cards.push({ id: "q:" + id, deck: "missed", u: q.u, kind: "🔁 Missed question", front: q.p, back: "<b>Answer:</b> " + ans + (q.s ? "<br>" + q.s.join("<br>") : "") });
+  });
+  return cards;
+}
+function cardFilter(c){ return (cardSel.deck === "all" || c.deck === cardSel.deck) && (cardSel.unit === "any" || c.u === cardSel.unit); }
+function cardStatus(){
+  const now = Date.now(), all = cardDeck(), mine = all.filter(cardFilter);
+  const due = mine.filter(c => store.cards[c.id] && store.cards[c.id].d <= now);
+  const fresh = mine.filter(c => !store.cards[c.id]);
+  const boxes = [0, 0, 0, 0, 0, 0]; mine.forEach(c => { if (store.cards[c.id]) boxes[store.cards[c.id].b]++; });
+  const dueAll = all.filter(c => store.cards[c.id] && store.cards[c.id].d <= now).length;
+  return { mine, due, fresh, boxes, dueAll };
+}
+function mergeCards(a, b){
+  const out = Object.assign({}, a || {});
+  Object.entries(b || {}).forEach(([k, v]) => { if (!out[k] || (v.t || 0) > (out[k].t || 0)) out[k] = v; });
+  return out;
+}
+function renderCards(){
+  if (cardRun && cardRun.i < cardRun.q.length) return renderCardFace();
+  const st = cardStatus();
+  const learned = st.boxes.slice(3).reduce((x, y) => x + y, 0), tracked = st.boxes.reduce((x, y) => x + y, 0);
+  const chip = (k, v, l, cur) => `<button class="lenbtn ${cur === v ? "sel" : ""}" data-${k}="${v}">${l}</button>`;
+  views.innerHTML = `
+  <div class="viewhead"><h2>🃏 Daily Review</h2><p>Short, spaced flashcard sessions. Cards you recall come back later and later; cards you miss come back soon. A few minutes a day keeps formulas and definitions ready for test day.</p></div>
+  <div class="card">
+    <div class="lenrow">${[["all","All cards"],["formulas","📐 Formulas"],["glossary","📖 Glossary"],["missed","🔁 My missed questions"]].map(([v,l]) => chip("deck", v, l, cardSel.deck)).join("")}</div>
+    <div class="lenrow" style="margin-top:8px">${chip("unit", "any", "Any unit", cardSel.unit)}${D.UNITS.map(u => chip("unit", u.id, UNIT_ICON[u.id] + " " + u.no, cardSel.unit)).join("")}</div>
+    <div class="spacer"></div>
+    <div class="statrow" style="justify-content:flex-start">
+      <div class="stat"><div class="v">${st.due.length}</div><div class="l">due now</div></div>
+      <div class="stat"><div class="v">${st.fresh.length}</div><div class="l">new</div></div>
+      <div class="stat"><div class="v">${learned}</div><div class="l">well learned</div></div>
+      <div class="stat"><div class="v">${store.reviews || 0}</div><div class="l">reviews done</div></div>
+    </div>
+    <h4 style="margin-top:14px">Memory strength of this deck</h4>
+    <div class="boxbar" role="img" aria-label="${st.boxes.map((n, i) => n + " cards in box " + i).join(", ")}">${tracked ? st.boxes.map((n, i) => n ? `<span style="width:${100 * n / tracked}%;background:${BOX_COLORS[i]}"></span>` : "").join("") : ""}</div>
+    <div class="boxlegend">${["Again", "1 day", "3 days", "1 week", "2 weeks", "1 month"].map((l, i) => `<span><i style="background:${BOX_COLORS[i]}"></i>${l}: ${st.boxes[i]}</span>`).join("")}</div>
+    ${st.mine.length ? "" : `<p class="note" style="margin-top:10px">${cardSel.deck === "missed" ? "No missed questions yet. Questions you get wrong in quizzes land here automatically." : "No cards match this filter."}</p>`}
+    <div class="spacer"></div>
+    <button class="btn primary" id="fc-start" ${st.due.length + st.fresh.length ? "" : "disabled"}>${st.due.length ? `Review ${Math.min(st.due.length, 30)} due card${st.due.length === 1 ? "" : "s"}` : ""}${st.due.length && st.fresh.length ? " + " : ""}${st.fresh.length ? `${Math.min(st.fresh.length, 10)} new` : ""}${st.due.length + st.fresh.length ? " →" : "All caught up for today ✔"}</button>
+  </div>`;
+  views.querySelectorAll("[data-deck]").forEach(b => b.onclick = () => { cardSel.deck = b.dataset.deck; if (cardSel.deck === "glossary") cardSel.unit = "any"; renderCards(); });
+  views.querySelectorAll("[data-unit]").forEach(b => b.onclick = () => { cardSel.unit = b.dataset.unit; if (cardSel.deck === "glossary") cardSel.deck = "all"; renderCards(); });
+  const s = $("#fc-start"); if (s) s.onclick = () => {
+    cardRun = { q: shuffle(st.due).slice(0, 30).concat(shuffle(st.fresh).slice(0, 10)), i: 0, flipped: false, got: 0 };
+    renderCardFace();
+  };
+}
+function renderCardFace(){
+  const run = cardRun, c = run.q[run.i];
+  views.innerHTML = `
+  <div class="viewhead"><h2>🃏 Daily Review</h2><p>Card ${run.i + 1} of ${run.q.length} · say or write the answer before you flip.</p></div>
+  <div class="fc-wrap">
+    <div class="fc ${run.flipped ? "flipped" : ""}" id="fc">
+      <div class="fc-face front" aria-hidden="${run.flipped}"><span class="kind">${c.kind}${c.u ? " · " + UN[c.u].name : ""}</span><div class="big m">${M(c.front)}</div><span class="note">What's the ${c.deck === "formulas" ? "formula or rule" : c.deck === "glossary" ? "definition" : "answer"}?</span></div>
+      <div class="fc-face back" aria-hidden="${!run.flipped}"><span class="kind">Answer</span><div class="ans m">${M(c.back)}</div></div>
+    </div>
+    <div class="fc-actions">${run.flipped
+      ? `<button class="btn soft" data-rate="0">↺ Again <span class="note">(1)</span></button><button class="btn ghost" data-rate="1">≈ Almost <span class="note">(2)</span></button><button class="btn primary" data-rate="2">✔ Got it <span class="note">(3)</span></button>`
+      : `<button class="btn primary" id="fc-flip">Show answer <span class="note" style="color:inherit">(space)</span></button>`}
+      <button class="btn soft" id="fc-stop">Finish</button></div>
+  </div>`;
+  const fc = $("#fc"); fc.style.minHeight = Math.max(230, ...[...fc.children].map(x => x.scrollHeight)) + "px";
+  const flip = () => { run.flipped = true; renderCardFace(); };
+  const rate = r => {
+    const rec = store.cards[c.id] || { b: 0 }, now = Date.now();
+    const b = r === 2 ? Math.min(rec.b + 1, 5) : r === 1 ? Math.max(rec.b, 1) : 0;
+    store.cards[c.id] = { b, d: now + (r === 0 ? 0 : BOX_DAYS[b] * DAY - 36e5), t: now };
+    store.reviews = (store.reviews || 0) + 1;
+    if (r === 2){ run.got++; store.recalled = (store.recalled || 0) + 1; }
+    if (r === 0) run.q.push(c); // missed cards come back at the end of this session
+    run.i++; run.flipped = false; persist();
+    if (run.i >= run.q.length) finishCards(); else renderCardFace();
+  };
+  if ($("#fc-flip")) $("#fc-flip").onclick = flip;
+  views.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => rate(+b.dataset.rate));
+  $("#fc-stop").onclick = () => finishCards();
+  document.onkeydown = e => {
+    if (!cardRun || !document.getElementById("fc") || e.target.closest("input,textarea,select")) return;
+    if (!run.flipped && (e.key === " " || e.key === "Enter")){ e.preventDefault(); flip(); }
+    else if (run.flipped && ["1", "2", "3"].includes(e.key)) rate(+e.key - 1);
+  };
+}
+function finishCards(){
+  const run = cardRun; cardRun = null; document.onkeydown = null;
+  if (run && run.i) toast(`Review done: ${run.got} recalled ✔ · +${run.got * 2} XP`);
+  renderCards();
+}
+
+/* ================= progress trend chart ================= */
+function trendChart(){
+  const att = store.attempts.slice(-20);
+  if (att.length < 3) return `<div class="card breakdown trend"><h3 style="margin-bottom:6px">📈 Score trend</h3><div class="emptystate">After 3 sessions your score trend appears here, plotted against the Level 3, Level 4 and 90%+ bands.</div></div><div class="spacer"></div>`;
+  const W = 420, H = 210, L = 34, R = 74, T = 10, B = 22, n = att.length;
+  const X = i => L + i * (W - L - R - 46) / (n - 1), Y = p => T + (100 - p) * (H - T - B) / 100;
+  const bands = [[90, 100, "#0f6b6e", "90%+"], [80, 90, "#7fa37f", "Level 4"], [70, 80, "#d9a441", "Level 3"], [60, 70, "#f3c9b8", "Level 2"]];
+  const avg = att.map((_, i) => { const w = att.slice(Math.max(0, i - 4), i + 1); return w.reduce((x, a) => x + a.pct, 0) / w.length; });
+  // least-squares slope over the recent points, in % per session
+  const k = Math.min(10, n), ys = att.slice(-k).map(a => a.pct), xm = (k - 1) / 2, ym = ys.reduce((x, y) => x + y, 0) / k;
+  const slope = ys.reduce((s, y, i) => s + (i - xm) * (y - ym), 0) / ys.reduce((s, _, i) => s + (i - xm) ** 2, 0);
+  const cur = avg[n - 1], target = cur >= 80 ? 90 : 80;
+  const steps = slope > 0.4 && cur < target ? Math.ceil((target - cur) / slope) : null;
+  const projEnd = steps && steps <= 15 ? Math.min(100, cur + slope * 4) : null;
+  const units = D.UNITS.map(u => ({ u, r: recentAccuracy(s => s === u.name, 15) })).filter(x => x.r).sort((a, b) => a.r.p - b.r.p);
+  const weak = units[0];
+  const msg = cur >= 90 ? `Your recent average is <b>${Math.round(cur)}%</b>, in the 90%+ band. Keep it there with 🔥 Challenge simulations.`
+    : steps && steps <= 15 ? `Your recent average is <b>${Math.round(cur)}%</b> and rising about <b>${slope.toFixed(1)} points per session</b>. If that trend continued, you'd reach <b>${target}%</b> in roughly <b>${steps}</b> more session${steps === 1 ? "" : "s"}. Trends aren't promises, but steady practice is what moves them.`
+    : `Your recent average is <b>${Math.round(cur)}%</b> and ${slope < -0.4 ? "has dipped lately" : "holding steady"}. To move into the next band, focus on your weakest unit below.`;
+  return `<div class="card breakdown trend"><h3 style="margin-bottom:6px">📈 Score trend <span class="note">(last ${n} sessions)</span></h3>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Score trend: recent average ${Math.round(cur)} percent over ${n} sessions">
+      ${bands.map(([a, b, c, l]) => `<rect x="${L}" y="${Y(b)}" width="${W - L - R}" height="${Y(a) - Y(b)}" fill="${c}" class="tr-band" fill-opacity="${l === "90%+" ? .18 : .22}"/><text x="${W - R + 6}" y="${(Y(a) + Y(b)) / 2 + 4}" class="tr-lbl">${l}</text>`).join("")}
+      ${[0, 50, 100].map(p => `<text x="${L - 6}" y="${Y(p) + 4}" text-anchor="end" class="tr-lbl">${p}</text>`).join("")}
+      <path d="M${L} ${T}V${H - B}H${W - R}" fill="none" stroke="currentColor" stroke-opacity=".35"/>
+      ${att.map((a, i) => a.kind === "mock" ? `<circle cx="${X(i)}" cy="${Y(a.pct)}" r="5.5" class="tr-m"><title>${esc(a.label)}: ${a.pct}%</title></circle>` : `<circle cx="${X(i)}" cy="${Y(a.pct)}" r="3.5" class="tr-q"><title>${esc(a.label)}: ${a.pct}%</title></circle>`).join("")}
+      <path d="${avg.map((p, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(p).toFixed(1)).join(" ")}" class="tr-avg"/>
+      ${projEnd !== null ? `<path d="M${X(n - 1)} ${Y(cur)}L${W - R} ${Y(projEnd)}" class="tr-proj"/>` : ""}
+      <text x="${L}" y="${H - 6}" class="tr-lbl">older</text><text x="${W - R}" y="${H - 6}" text-anchor="end" class="tr-lbl">latest</text>
+    </svg>
+    <p class="note">● quiz &nbsp; <span style="color:var(--coral)">●</span> exam simulation &nbsp; — 5-session average${projEnd !== null ? " &nbsp; - - trend" : ""}</p>
+    <p style="font-size:.92rem;margin-top:8px">${msg}</p>
+    ${weak && weak.r.p < 90 ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-uq="${weak.u.id}">Practise ${UNIT_ICON[weak.u.id]} ${esc(weak.u.name)} (${weak.r.p}%) →</button><button class="btn ghost" data-go="cards">🃏 Daily review</button></div>` : ""}
+  </div><div class="spacer"></div>`;
+}
+
+/* ================= guided step-by-step problems ================= */
+let guidedSel = null; const guided = {}; // id → { step, wrong, done[] }
+function guidedHTML(){
+  const gs = D.GUIDED, g = gs.find(x => x.id === guidedSel) || gs[0], st = guided[g.id] || (guided[g.id] = { step: 0, wrong: 0, vals: [] });
+  const fin = st.step >= g.steps.length;
+  return `<p style="font-size:.9rem">The most marks are lost on <b>method</b>, not final answers. Work each step yourself; the app checks every intermediate value, so you find out exactly where an error happens.</p>
+    <div class="lenrow">${gs.map(x => `<button class="lenbtn ${x.id === g.id ? "sel" : ""}" data-gsel="${x.id}">${guided[x.id] && guided[x.id].step >= x.steps.length ? "✔ " : ""}${UNIT_ICON[x.u]} ${esc(x.t)}</button>`).join("")}</div>
+    <div class="card" style="padding:14px;margin-top:12px">
+      <div class="qtext m">${M(g.p)}</div>
+      ${g.steps.map((s, i) => i < st.step
+        ? `<div class="gd-step done"><b>Step ${i + 1} ✔</b> <span class="m">${M(s.q)}</span><div class="why m">→ <b class="mono">${esc(st.vals[i])}</b>${s.un ? " " + esc(s.un) : ""} · ${M(s.why)}</div></div>`
+        : i === st.step
+        ? `<div class="gd-step cur"><b>Step ${i + 1} of ${g.steps.length}</b> <span class="m">${M(s.q)}</span>
+            <div class="gd-row"><input id="gd-in" class="field mono" inputmode="decimal" autocomplete="off" aria-label="Answer for step ${i + 1}" style="width:150px">${s.un ? `<span>${esc(s.un)}</span>` : ""}<button class="btn primary" id="gd-check">Check</button>${st.wrong >= 2 ? `<button class="btn ghost" id="gd-show">Show me</button>` : ""}</div>
+            ${st.wrong ? `<div class="explain bad" style="margin-top:8px"><b>Not yet${st.wrong >= 2 ? " (try once more or select Show me)" : ""}.</b> <span class="m">💡 ${M(s.h)}</span></div>` : ""}</div>`
+        : `<div class="gd-step" style="opacity:.45"><b>Step ${i + 1}</b> 🔒</div>`).join("")}
+      ${fin ? `<div class="explain good celebrate"><b>Solved! 🎉</b> ${st.miss ? `You needed help on ${st.miss} step${st.miss === 1 ? "" : "s"}. Redo it tomorrow from memory to lock it in.` : "Every step right on the first go."}</div>
+        <div class="gd-row"><button class="btn soft" id="gd-reset">↻ Try again</button><button class="btn primary" data-uq="${g.u}" data-uqdiff="5">🔥 Challenge questions on ${esc(UN[g.u].name)} →</button></div>` : ""}
+    </div>`;
+}
+function wireGuided(){
+  const g = D.GUIDED.find(x => x.id === guidedSel) || D.GUIDED[0], st = guided[g.id];
+  views.querySelectorAll("[data-gsel]").forEach(b => b.onclick = () => { guidedSel = b.dataset.gsel; refreshStudy(); });
+  const inp = $("#gd-in");
+  const advance = (val, missed) => { st.vals[st.step] = val; st.step++; st.wrong = 0; if (missed) st.miss = (st.miss || 0) + 1; refreshStudy(); const n = $("#gd-in"); if (n) n.focus({ preventScroll: true }); };
+  if (inp){
+    const s = g.steps[st.step];
+    const check = () => { const v = parseNum(inp.value); if (!inp.value.trim()) return; if (numOk(s, v)) advance(inp.value.trim(), st.wrong > 0); else { st.wrong++; refreshStudy(); const n = $("#gd-in"); if (n){ n.value = inp.value; n.focus({ preventScroll: true }); } } };
+    $("#gd-check").onclick = check;
+    inp.onkeydown = e => { if (e.key === "Enter") check(); };
+    if ($("#gd-show")) $("#gd-show").onclick = () => advance(String(s.ans), true);
+  }
+  if ($("#gd-reset")) $("#gd-reset").onclick = () => { delete guided[g.id]; refreshStudy(); };
+}
+
+/* ================= interactive models (loaded from models.js) ================= */
+const MODEL_LIST = [["transform", "📈 Transformations"], ["growth", "💰 Growth & interest"], ["series", "🔢 Sequences & series"], ["ambiguous", "📐 Sine law: ambiguous case"], ["sinusoid", "〰️ Sinusoids"]];
+let modelSel = "energy", modelsMod = null;
+function mountModels(){
+  if (!views.querySelector("[data-model],[data-cmap]")) return;
+  (modelsMod = modelsMod || import("./models.js"))
+    .then(m => m.mountAll(views))
+    .catch(() => views.querySelectorAll("[data-model],[data-cmap]").forEach(el => { el.innerHTML = `<p class="note">This interactive model couldn't load here. It works on the live course site.</p>`; }));
+}
+
 /* ================= quiz setup ================= */
 let quizSel = { key: "mixed", len: 10, diff: null };
 function quizPool(){
   let pool = poolFor(quizSel.key);
-  if (quizSel.diff === "any") pool = pool.filter(q => q.t !== "write");
+  if (quizSel.diff === "any") pool = pool.filter(q => q.t !== "write" && !q.h2);
   else pool = pool.filter(q => qDiff(q) === +quizSel.diff);
   return pool;
 }
@@ -1683,7 +2069,7 @@ function renderQuizSetup(){
     <div class="secgrid">${opts.map(([k, t, d]) => `<button class="secbtn ${quizSel.key === k ? "sel" : ""}" data-key="${k}"><span class="t">${t}</span><span class="d">${d}</span></button>`).join("")}</div>
     <div class="spacer"></div>
     <div class="pill teal">2 · Level (Ontario achievement categories)</div>
-    <div class="lenrow">${[["any","🎲 Any"],["1","🌱 Knowledge"],["2","🌿 Application"],["3","🌋 Thinking"],["4","✍️ Communication"]].map(([v,l]) => `<button class="lenbtn diffbtn ${quizSel.diff === v ? "sel" : ""}" data-diff="${v}">${l}</button>`).join("")}</div>
+    <div class="lenrow">${[["any","🎲 Any"],["1","🌱 Knowledge"],["2","🌿 Application"],["3","🌋 Thinking"],["4","✍️ Communication"],["5","🔥 Challenge"]].map(([v,l]) => `<button class="lenbtn diffbtn ${quizSel.diff === v ? "sel" : ""}" data-diff="${v}">${l}</button>`).join("")}</div>
     <div class="spacer"></div>
     <div class="pill teal">3 · Length</div>
     <div class="lenrow">${[5, 10, 15].map(n => `<button class="lenbtn lnbtn ${quizSel.len === n ? "sel" : ""}" data-len="${n}">${n} questions</button>`).join("")}</div>
@@ -1695,7 +2081,7 @@ function renderQuizSetup(){
   views.querySelectorAll(".diffbtn").forEach(b => b.onclick = () => { quizSel.diff = b.dataset.diff; renderQuizSetup(); });
   views.querySelectorAll(".lnbtn").forEach(b => b.onclick = () => { quizSel.len = +b.dataset.len; renderQuizSetup(); });
   const pool = quizPool();
-  $("#poolnote").textContent = pool.length + " questions match this focus + level." + (quizSel.diff === "4" ? " Communication questions are self-marked against a model answer." : "");
+  $("#poolnote").textContent = pool.length + " questions match this focus + level." + (quizSel.diff === "4" ? " Communication questions are self-marked against a model answer." : quizSel.diff === "5" ? " Challenge questions are multi-step, A+ (90%+) level; the written ones are self-marked against a model answer." : "");
   $("#btn-startquiz").onclick = () => {
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another level");
@@ -1705,7 +2091,7 @@ function renderQuizSetup(){
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
 }
-function startUnitQuiz(unitId){ quizSel.key = unitId; quizSel.diff = "any"; go("quiz"); }
+function startUnitQuiz(unitId, diff){ quizSel.key = unitId; quizSel.diff = diff || "any"; go("quiz"); }
 
 /* ================= mock intro ================= */
 function renderMockIntro(){
@@ -1720,11 +2106,14 @@ function renderMockIntro(){
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn coral" id="btn-startfull">Full simulation · 20 questions</button>
       <button class="btn ghost" id="btn-startmock">Mini simulation · 12 questions</button>
+      <button class="btn primary" id="btn-startch">🔥 Challenge simulation · ${D.UNITS.length * 5} questions</button>
     </div>
+    <p class="note" style="margin-top:10px">🔥 The <b>Challenge simulation</b> uses only multi-step, A+ (90%+) level questions, harder than the real exam on purpose. If you can score 80%+ on it, the standard exam should feel comfortable.</p>
     <p class="note" style="margin-top:10px">Written Communication questions aren't in simulations; practise them in Quick Quiz → ✍️ Communication.</p>
   </div>`;
   $("#btn-startmock").onclick = () => startSession("mock", buildMock("mini"), "Mini Exam Simulation");
   $("#btn-startfull").onclick = () => startSession("mock", buildMock("full"), "Full Exam Simulation");
+  $("#btn-startch").onclick = () => startSession("mock", buildMock("challenge"), "Challenge Exam Simulation");
 }
 
 /* ================= session engine ================= */
@@ -1795,7 +2184,7 @@ function renderQuestion(){
     <div class="qtext m">${M(q.p)}</div>
     ${item.hint && !answered ? `<div class="explain hintbox"><b>💡 Hint</b><br><span class="m">${M(q.h)}</span></div><div class="spacer"></div>` : ""}
     ${answerBody(item, showFeedback, st)}
-    ${showFeedback ? `<div class="explain ${item.correct ? "good" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${steps}</div>` : ""}
+    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>` : ""}
     <div class="qactions">
       <button class="btn soft" id="btn-quit">Save &amp; exit</button>
       <span>
@@ -1873,7 +2262,7 @@ function ringSVG(pct, color){
   return `<div class="ring"><svg width="160" height="160" viewBox="0 0 160 160">
     <circle cx="80" cy="80" r="${r}" fill="none" stroke="var(--parchment-deep)" stroke-width="13"/>
     <circle cx="80" cy="80" r="${r}" fill="none" stroke="${color}" stroke-width="13" stroke-linecap="round"
-      stroke-dasharray="${(pct / 100 * circ).toFixed(1)} ${circ.toFixed(1)}"/>
+      class="arc" style="--circ:${circ.toFixed(1)}" stroke-dasharray="${circ.toFixed(1)} ${circ.toFixed(1)}" stroke-dashoffset="${((1 - pct / 100) * circ).toFixed(1)}"/>
   </svg><div class="pct"><span class="n">${pct}%</span><span class="s">score</span></div></div>`;
 }
 function encouragement(pct){
@@ -1977,6 +2366,7 @@ function renderProgress(){
   const g = gameStats();
   views.innerHTML = `
   <div class="viewhead"><h2>Progress</h2><p>${cloud && syncMode !== "local" ? "Everything is saved to your account and syncs to any device you sign in with" + (lastSync ? " · last synced " + fmtDate(lastSync) : "") : "Progress is saved on this device only"}.</p></div>
+  ${trendChart()}
   ${readinessReport(agg)}
   ${Object.keys(agg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Unit mastery <span class="note">(all-time)</span></h3>${barRows(agg)}</div><div class="spacer"></div>` : ""}
   ${Object.keys(cagg).length ? `<div class="card breakdown"><h3 style="margin-bottom:6px">Achievement categories <span class="note">(all-time)</span></h3>${barRows(cagg, k => k + " · " + KN[k])}</div><div class="spacer"></div>` : ""}
@@ -1999,6 +2389,8 @@ function renderProgress(){
   <button class="btn soft" id="btn-resetseen">↻ Reset question rotation</button>
   <p class="note" style="margin-top:6px">Makes all questions available again without touching your score history.</p>`;
   const bw = $("#btn-weak"); if (bw) bw.onclick = () => { quizSel.key = "weak"; quizSel.diff = "any"; go("quiz"); };
+  views.querySelectorAll(".trend [data-uq]").forEach(b => b.onclick = () => startUnitQuiz(b.dataset.uq));
+  views.querySelectorAll(".trend [data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
   $("#btn-resetseen").onclick = () => { store.seen = {}; persist(); toast("Question rotation reset — everything's fresh again"); };
 }
 
@@ -2012,10 +2404,12 @@ function lessonHTML(l){
     <h4>How to do it</h4><ol class="steps">${l.how.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol>
     <div class="example"><h4 style="margin-top:0">Example</h4><p class="m" style="font-weight:600">${M(l.ex.p)}</p><ol class="steps">${l.ex.s.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol></div>
     <div class="explain bad"><b>⚠️ Watch out.</b> <span class="m">${M(l.watch)}</span></div>
-    <div class="qcheck"><h4 style="margin-top:0">Quick check</h4><p class="m">${M(l.check.p)}</p><div class="opts" style="margin-top:8px">${l.check.o.map((o, i) => {
+    <div class="qcheck"><h4 style="margin-top:0">Quick check</h4><p class="m">${M(l.check.p)}</p>${l.check.o ? `<div class="opts" style="margin-top:8px">${l.check.o.map((o, i) => {
       let cls = "opt"; if (c !== undefined){ if (i === l.check.a) cls += " correct"; else if (i === c) cls += " wrong"; }
       return `<button class="${cls}" data-lc="${l.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("")}</div>
-      ${c !== undefined ? `<div class="explain ${c === l.check.a ? "good" : "bad"}"><b>${c === l.check.a ? "Nailed it! ✔" : "Not quite."}</b> <span class="m">${M(l.check.why)}</span></div><button class="btn soft" data-lcr="${l.id}" style="margin-top:8px;padding:7px 14px">Try again</button>` : ""}</div>
+      ${c !== undefined ? `<div class="explain ${c === l.check.a ? "good" : "bad"}"><b>${c === l.check.a ? "Nailed it! ✔" : "Not quite."}</b> <span class="m">${M(l.check.why)}</span></div><button class="btn soft" data-lcr="${l.id}" style="margin-top:8px;padding:7px 14px">Try again</button>` : ""}`
+      : /* numeric quick check: c holds { v, ok } once answered */ `<div class="gd-row"><input class="field mono" data-lcin="${l.id}" inputmode="decimal" autocomplete="off" aria-label="Quick check answer" style="width:160px" ${c ? `value="${esc(c.v)}" disabled` : ""}>${l.check.un ? `<span>${esc(l.check.un)}</span>` : ""}${c ? "" : `<button class="btn primary" data-lcn="${l.id}" style="padding:8px 14px">Check</button>`}</div>
+      ${c ? `<div class="explain ${c.ok ? "good" : "bad"}"><b>${c.ok ? "Nailed it! ✔" : "Not quite."}</b><ol class="steps">${l.check.s.map(x => `<li class="m">${M(x)}</li>`).join("")}</ol></div><button class="btn soft" data-lcr="${l.id}" style="margin-top:8px;padding:7px 14px">Try again</button>` : l.check.h ? `<p class="note" style="margin-top:6px">💡 ${M(l.check.h)}</p>` : ""}`}</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
       <button class="btn ${done ? "soft" : "primary"}" data-ldone="${l.id}" style="padding:9px 16px">${done ? "✔ Done (tap to undo)" : "Mark lesson as done"}</button>
       <button class="btn ghost" data-lnote="${l.id}" style="padding:9px 16px">📝 Note</button>
@@ -2044,6 +2438,7 @@ function studySections(){
   const units = D.UNITS.map(u => ({ id: u.id, title: `${UNIT_ICON[u.id]} ${u.no}: ${u.name}`, body: () => {
     const ls = D.LESSONS.filter(l => l.u === u.id), ws = D.WORKED.map((w, i) => [w, i]).filter(([w]) => w.u === u.id);
     return `<p class="note">${esc(u.strand)}</p><p style="font-size:.92rem;margin-top:4px">${esc(u.goal)}</p>
+      <div class="cmap" data-cmap="${u.id}"></div>
       <h4>By the end you can…</h4><ul>${u.can.map(c => `<li class="m">${M(c)}</li>`).join("")}</ul>
       <h4>Lessons <span class="note">(${ls.filter(l => store.lessons[l.id]).length} of ${ls.length} done)</span></h4>${ls.map(lessonHTML).join("")}
       <h4>Worked examples</h4>${ws.map(([w, i]) => workedHTML(w, i)).join("")}
@@ -2072,7 +2467,11 @@ function studySections(){
     <li><b>Connect graphs to equations.</b> Predict intercepts, asymptotes, period, transformations or end behaviour before using the graph tool; then explain any mismatch.</li>
     <li><b>Keep an error log.</b> Name the error, solve a fresh example without notes, and recheck the skill in a later mixed quiz.</li></ul>
     <p class="note">Use the interactive graphs to test a prediction, then solve a related item without the graph as a check of independent understanding.</p>` };
-  return [plan, p90].concat(units, [tools, res]);
+  const models = { id: "models", title: "🧪 Interactive models", body: () => `<p style="font-size:.9rem">Change one thing and watch what happens. Each model ends with a 🔍 note on the idea exam questions test most.</p>
+    <div class="lenrow">${MODEL_LIST.map(([k, l]) => `<button class="lenbtn ${modelSel === k ? "sel" : ""}" data-msel="${k}">${l}</button>`).join("")}</div>
+    <div data-model="${modelSel}" style="margin-top:12px"></div>` };
+  const guidedSec = { id: "guided", title: "🧩 Guided problems: solve it step by step", body: guidedHTML };
+  return [plan, p90].concat(units, [guidedSec], MODEL_LIST.length ? [models] : [], [tools, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
@@ -2083,6 +2482,8 @@ function renderStudy(opt){
   ${secs.map(s => `<div class="acc ${openAcc.has(s.id) ? "open" : ""}" data-sec="${s.id}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body()}</div></div>`).join("")}`;
   wireStudy();
   if (openAcc.has("tools")) renderTool();
+  if (openAcc.has("guided")) wireGuided();
+  mountModels();
   if (opt && opt.lesson){ const el = views.querySelector(`[data-lid="${opt.lesson}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
 }
 function refreshStudy(){ const y = window.scrollY; renderStudy(); window.scrollTo(0, y); }
@@ -2093,10 +2494,19 @@ function wireStudy(){
     const id = acc.dataset.sec || acc.dataset.lid, set = acc.dataset.sec ? openAcc : openLesson;
     if (acc.classList.contains("open")) set.add(id); else set.delete(id);
     if (acc.dataset.sec === "tools" && acc.classList.contains("open")) renderTool();
+    if (acc.dataset.sec === "guided" && acc.classList.contains("open")) wireGuided();
+    if (acc.classList.contains("open")) mountModels();
   });
+  views.querySelectorAll("[data-msel]").forEach(b => b.onclick = () => { modelSel = b.dataset.msel; refreshStudy(); });
   views.querySelectorAll(".acc.sub").forEach(a => { if (openLesson.has(a.dataset.lid)) a.classList.add("open"); });
   views.querySelectorAll("[data-lc]").forEach(b => b.onclick = () => { lessonCheck[b.dataset.lc] = +b.dataset.i; refreshStudy(); });
   views.querySelectorAll("[data-lcr]").forEach(b => b.onclick = () => { delete lessonCheck[b.dataset.lcr]; refreshStudy(); });
+  views.querySelectorAll("[data-lcn]").forEach(b => b.onclick = () => {
+    const l = D.LESSONS.find(x => x.id === b.dataset.lcn), inp = views.querySelector(`[data-lcin="${l.id}"]`);
+    if (!inp.value.trim()) return;
+    lessonCheck[l.id] = { v: inp.value.trim(), ok: numOk(l.check, parseNum(inp.value)) }; refreshStudy();
+  });
+  views.querySelectorAll("[data-lcin]").forEach(i => i.onkeydown = e => { if (e.key === "Enter"){ const b = views.querySelector(`[data-lcn="${i.dataset.lcin}"]`); if (b) b.click(); } });
   views.querySelectorAll("[data-ldone]").forEach(b => b.onclick = () => {
     const id = b.dataset.ldone, was = !!store.lessons[id];
     store.lessons[id] = !was; persist(); refreshStudy();
@@ -2109,7 +2519,7 @@ function wireStudy(){
   views.querySelectorAll("[data-wn]").forEach(b => b.onclick = () => { const i = +b.dataset.wn; workedShown[i] = (workedShown[i] || 0) + 1; refreshStudy(); });
   views.querySelectorAll("[data-wa]").forEach(b => b.onclick = () => { const i = +b.dataset.wa; workedShown[i] = D.WORKED[i].s.length; refreshStudy(); });
   views.querySelectorAll("[data-wr]").forEach(b => b.onclick = () => { workedShown[+b.dataset.wr] = 0; refreshStudy(); });
-  views.querySelectorAll("[data-uq]").forEach(b => b.onclick = () => startUnitQuiz(b.dataset.uq));
+  views.querySelectorAll("[data-uq]").forEach(b => b.onclick = () => startUnitQuiz(b.dataset.uq, b.dataset.uqdiff));
   views.querySelectorAll("[data-tool]").forEach(b => b.onclick = () => { toolSel = b.dataset.tool; views.querySelectorAll("#toolchips .lenbtn").forEach(x => x.classList.toggle("sel", x === b)); renderTool(); });
   const psi = $("#plan-start-input"), pss = $("#plan-start-save");
   if (psi){

@@ -54,9 +54,20 @@ All MCR3U content is in the `MCR3U` object inside `MCR3U/index.html`:
   discrete functions (arithmetic and geometric sequences, series, Pascal's triangle, and financial applications —
   annuities and loans); and trigonometric functions (primary and reciprocal ratios, identities, the sine law
   including the ambiguous case, the cosine law, bearings, and sinusoidal graphing and modelling).
-- 120 practice questions (30 per unit — 10 Knowledge, 10 Application, 7 Thinking, 3 Communication): multiple choice,
-  typed numeric answers checked with a tolerance, and written Communication items that students self-mark against a
-  model answer.
+- 168 practice questions: the original 120 (30 per unit — 10 Knowledge, 10 Application, 7 Thinking, 3 Communication)
+  plus 48 (ids `r101`+, 12 per unit) that form the
+  **🔥 Challenge tier** (`h2:1`): multi-step, A+ (90%+) level Thinking/Application items with a Challenge level in
+  Quick Quiz and the profile and a separate Challenge simulation in Exam Sim. They are excluded from "Any" quizzes and the
+  standard Full/Mini simulations. Every numeric answer was recomputed with an independent sympy answer key.
+- **Learning loop** (shared with SCH4U): a Review tab with spaced flashcards (formulas, glossary, missed questions),
+  a score-trend chart on Progress, 6 step-checked guided problems in the Study Hub (`MCR3U.GUIDED`), a clickable
+  concept map at the top of each unit (`MCR3U/models.js`), and correct-answer / results animations that respect
+  reduced-motion settings.
+- **Interactive models** (`MCR3U/models.js`, Study Hub): a transformations explorer (a, k, d, c on four parent
+  functions with the mapping rule), exponential growth and compound vs simple interest, sequences and series with
+  partial sums and convergence, the sine-law ambiguous case (0, 1 or 2 triangles drawn), and a sinusoid builder in
+  degrees.
+- Lesson quick checks can be numeric (`check.ans`/`tol`) as well as multiple choice.
 - 12 worked examples, a 46-entry formula sheet, a 35-term glossary and an 8-week plan.
 - One built-in interactive tool (Tools tab): a sign-chart grapher for polynomial/rational inequalities, directly
   supporting Unit 1.
