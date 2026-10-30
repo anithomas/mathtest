@@ -61,7 +61,22 @@ All SCH4U content is in the `SCH4U` object inside `SCH4U/index.html`:
 - Three built-in chemistry calculators (Tools tab): a molar mass/mole calculator with a chemical-formula parser,
   a pH/pOH/[H⁺]/[OH⁻] converter, and an ideal gas law (PV = nRT) solver. The Study Hub also has an interactive,
   clearly simplified reversible-reaction model with animated particle-flow cues and adjustable concentration
-  curves. A molecular-geometry model and equation-balancing visualizer remain future opportunities.
+  curves.
+- **Interactive models** (Study Hub, in `SCH4U/models.js`, loaded with a dynamic import so the rest of the page
+  still works if it fails): a potential energy diagram with E_a/ΔH sliders and a catalyst toggle plus a
+  Maxwell–Boltzmann temperature view; a titration curve builder (strong or weak acid, exact charge-balance pH,
+  half-equivalence and indicator band); a galvanic cell with animated electron flow, anode/cathode, balanced cell
+  reaction and E°cell; and a VSEPR shape explorer for all 13 SCH4U shapes with polarity. Each unit also opens with a
+  clickable concept map that links to its lessons.
+- **Guided problems** (Study Hub, `SCH4U.GUIDED`): 6 multi-step problems (ICE tables, weak-acid pH, Hess's law,
+  calorimetry, redox balancing, redox titration) in which the student enters every intermediate value. Wrong
+  steps show a hint, and "Show me" appears after two misses.
+- **Daily Review** (Review tab): spaced flashcards (Leitner boxes: again, 1 day, 3 days, 1 week, 2 weeks, 1 month)
+  built from the formula sheet, the glossary and the student's own missed questions, with a due count on Home.
+  Card progress syncs in the progress record as `cards`, `reviews` and `recalled`.
+- **Progress** opens with a score-trend chart (last 20 sessions against the Level 2–4 and 90%+ bands, with a
+  5-session average and a trend line) and points to the weakest unit. The trend message is worded as a trend, not
+  a promised grade. An equation-balancing visualizer remains a future opportunity.
 - Faraday's law and electrolysis calculations (Unit 5) are treated as enrichment material, consistent with the
   Ontario SCH4U curriculum.
 
