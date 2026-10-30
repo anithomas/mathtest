@@ -1,0 +1,46 @@
+/* LogicManse brand layer — single source for tokens shared by the catalogue and every course.
+   Source: LogicManse design system (tokens.json). Load AFTER a page's own <style> so it wins.
+   Fonts are self-hosted (fonts/) so no request goes to Google Fonts. */
+@font-face{font-family:Inter;font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/Inter.woff2) format('woff2')}
+@font-face{font-family:Merriweather;font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/Merriweather-Bold.woff2) format('woff2')}
+
+:root{
+  /* LogicManse tokens */
+  --lm-surface:#ffffff;--lm-surface-alt:#f8fafc;--lm-navy:#0b1f3a;--lm-ink:#334155;
+  --lm-green:#1f6f4a;--lm-green-bright:#2c8a5d;--lm-green-tint:#8fd1ae;--lm-border:#e5e7eb;
+  --lm-radius:6px;
+  --lm-serif:Merriweather,Georgia,serif;--lm-sans:Inter,system-ui,sans-serif;
+
+  /* Course-page variable names mapped onto the tokens */
+  --parchment:var(--lm-surface-alt);--parchment-deep:#eef2f6;--card:var(--lm-surface);
+  --ink:var(--lm-ink);--ink-soft:#475569;
+  --teal:var(--lm-green);--teal-deep:var(--lm-navy);--teal-tint:#e8f3ed;
+  --line:var(--lm-border);--radius:var(--lm-radius);
+  --shadow:0 1px 3px rgba(11,31,58,.08);--shadow-lift:0 8px 24px rgba(11,31,58,.12);
+  --font-head:var(--lm-serif);--font-body:var(--lm-sans);
+  /* Catalogue variable names */
+  --green:var(--lm-green);--green-dark:var(--lm-navy);--mint:#e8f3ed;--paper:var(--lm-surface);--muted:#475569;
+}
+body{background:var(--lm-surface);color:var(--lm-ink);font-family:var(--lm-sans)}
+body::before{display:none}
+h1,h2,h3,.brand strong{font-family:var(--lm-serif);color:var(--lm-navy)}
+h1,h2{letter-spacing:0}
+:focus-visible{outline:3px solid var(--lm-green);outline-offset:2px}
+
+/* Navy ground: sidebar, hero, sign-in */
+nav.tabs{background:var(--lm-navy)!important}
+nav.tabs::before{color:var(--lm-green-tint)!important}
+nav.tabs button.active{background:var(--lm-green)!important;box-shadow:none!important}
+.hero{background:var(--lm-navy)!important;border-radius:var(--lm-radius)!important}
+.hero h1,.hero h2,.hero p{color:#fff}
+.hero .eyebrow,.hero .kicker{color:var(--lm-green-tint)!important}
+
+/* Buttons and cards use the one measured radius */
+.btn,.gbtn,button.btn,.authbox button{border-radius:var(--lm-radius)!important}
+.btn.primary,.btn.pri,.btn-primary{background:var(--lm-green);border-color:var(--lm-green);color:#fff}
+.thisweek,.acc,.signin-card,.step,.course,.stats-strip div,.mdl-svg,.mdl-readout,.fc-face{border-radius:8px!important}
+.thisweek{border-top-color:var(--lm-green)!important}
+
+@media (max-width:860px){
+  nav.tabs button.active{background:var(--lm-green)!important;color:#fff!important}
+}
