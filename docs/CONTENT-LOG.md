@@ -1,5 +1,56 @@
 # Weekly content log
 
+## 2026-11-01
+**SCH4U (+30 questions, +5 worked examples, +6 formula entries, +21 glossary terms)**
+
+Source: Ani's Nelson *Chemistry 12* reference text (`SCH4U · GRADE 12 UNIVERSITY CHEMISTRY - Nelson book.pdf`),
+used to find real gaps against the site's existing 5-strand coverage. No text was copied verbatim — every
+question, example, formula note and definition below is original wording and original numbers, checked against
+the textbook's own end-of-chapter "Key Terms" lists and worked derivations for accuracy and scope, and
+independently recomputed.
+
+- w261101c01 (u1): classify an alkyl halide as primary/secondary/tertiary
+- w261101c02 (u1): mass of H₂O from ethane combustion
+- w261101c03 (u1): identify condensation polymerization from nylon's monomers
+- w261101c04 (u1, Challenge): symmetry-based isomer count for monochlorobutane
+- w261101c05 (u1): H atom count in a C₆ alkyne
+- w261101c06 (u1, Communication): ester vs. carboxylic-acid dimer boiling-point explanation
+- w261101c07 (u2): period-3 atomic radius ordering
+- w261101c08 (u2): total valence electrons for SO₂'s Lewis structure
+- w261101c09 (u2): hybridization of the central atom in CO₂
+- w261101c10 (u2, Challenge): total lone pairs in SF₆
+- w261101c11 (u2): identify the most ionic bond by ΔEN
+- w261101c12 (u2, Communication): SiO₂ network solid vs. CO₂(s) molecular solid melting points
+- w261101c13 (u3): half-life from a first-order rate constant
+- w261101c14 (u3): two-step Hess's law for C(s) + ½O₂(g) → CO(g)
+- w261101c15 (u3): Arrhenius equation — effect of raising temperature on k
+- w261101c16 (u3): whether a catalyst changes Kₑq
+- w261101c17 (u3): ΔT from q = mcΔT
+- w261101c18 (u3, Communication): average (secant) vs. instantaneous (tangent) rate
+- w261101c19 (u4): Kₑq from equilibrium concentrations
+- w261101c20 (u4): pH after diluting a strong acid
+- w261101c21 (u4, Challenge, enrichment): buffer pH from the Ka expression
+- w261101c22 (u4): Le Chatelier temperature shift for an exothermic equilibrium
+- w261101c23 (u4): conjugate base of HSO₄⁻
+- w261101c24 (u4, Communication): HCO₃⁻ as an amphoteric species
+- w261101c25 (u5): oxidation number of Cr in Cr₂O₇²⁻
+- w261101c26 (u5): mass of Al deposited by Faraday's law
+- w261101c27 (u5): E°cell for a Co/Sn voltaic cell
+- w261101c28 (u5): voltaic-cell cathode sign and power requirement
+- w261101c29 (u5): electrolytic-cell electrode polarity
+- w261101c30 (u5, Communication, enrichment): sacrificial zinc anodes on a ship's hull
+
+New worked examples (1 per unit): polymer/monomer identification (u1), hybridization and bond type in BF₃ (u2),
+first-order half-life (u3), common-ion effect on PbCl₂ solubility (u4), cathodic protection of a pipeline (u5).
+
+New formula-sheet entries: empirical formula from combustion data (u1); half-life and the Arrhenius equation
+(u3); the common-ion effect (u4, enrichment); corrosion and cathodic protection (u5, enrichment).
+
+New glossary terms (21): alkyl group, carbonyl group, aliphatic hydrocarbon, hybridization, sigma bond, pi bond,
+covalent network solid, crystal lattice, chemical kinetics, elementary step, rate-determining step, order of
+reaction, half-life, heterogeneous catalyst, common-ion effect, buffer solution, galvanic cell, corrosion,
+cathodic protection, fuel cell, electroplating.
+
 ## 2026-10-30
 **MHF4U (+10)**
 - w261030h01 (u1, Challenge): remainder from factors with unknown coefficients

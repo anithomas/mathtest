@@ -21,7 +21,7 @@ this app's practice sets are original multiple-choice questions for quick self-c
 official question or a claimed simulation of the written format.
 
 **Grade 12 University Chemistry (SCH4U):** https://mathtest.logicmanse.ca/SCH4U/. Same engine, sign-in and
-allowlist, with 34 lessons, 15 worked examples, 222 practice questions, interactive chemistry calculators,
+allowlist, with 34 lessons, 20 worked examples, 252 practice questions, interactive chemistry calculators,
 interactive models (energy diagrams, titration curves, galvanic cells, VSEPR shapes, unit concept maps),
 step-checked guided problems, spaced-review flashcards, a score-trend chart and an 8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
 
@@ -92,7 +92,7 @@ Questions are written for this app — official EQAO practice questions stay on 
 five named strands: 18 questions in each strand. Its Study Hub includes an interactive equal-parts fraction
 model and written-response strategies to support the real assessment format.
 
-The MHF4U and SCH4U banks contain 235 and 222 questions, respectively, balanced across their five in-app
+The MHF4U and SCH4U banks contain 235 and 252 questions, respectively, balanced across their five in-app
 units that map to the official course strands. The MCR3U bank contains 176 questions, balanced across its four
 in-app units (44 each, including 13 Challenge items). Run
 `node scripts/audit-course-content.mjs` to check all five banks for unique IDs, valid answer structures, distinct
