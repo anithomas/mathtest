@@ -1,11 +1,28 @@
 # Weekly content log
 
+## 2026-11-02 (Unit 2 renumbering, concept map and lesson animations)
+**SCH4U (Unit 2 reordered, concept map extended, +6 animations)**
+
+Students had not started SCH4U, so the four atomic-theory lessons were moved to the front of Unit 2 and every lesson
+id renumbered (old to new): 2.8 to 2.1, 2.9 to 2.2, 2.10 to 2.3, 2.11 to 2.4, 2.1 to 2.5, 2.2 to 2.6, 2.3 to 2.7,
+2.4 to 2.8, 2.5 to 2.9, 2.6 to 2.10, 2.7 to 2.11. The 8-week plan and the Week 2 daily plan were updated to match.
+Anyone who had saved lesson checkmarks or notes against the old ids would lose them; none exist yet.
+
+- Unit 2 concept map: 13 boxes (atomic theory, light and photons, Bohr model, quantum numbers added) over five rows;
+  the diagram height now follows the lowest row.
+- Six short silent animations, rendered with Remotion (source in `remotion/`, output in `SCH4U/media/`), each with a
+  poster image, player controls and a text description: gold-foil scattering (2.1), photoelectric effect (2.2),
+  Bohr hydrogen transitions and spectrum (2.3), orbital probability clouds (2.4), addition and condensation
+  polymerisation (1.7), collision theory (3.5).
+- Fixed raw `{ }` markup showing in some Cheatsheet and plan text (found on 2026-11-02, already merged in #10).
+
 ## 2026-11-02 (Unit 2 gap fix)
 **SCH4U (+4 lessons, +13 questions, +2 worked examples, +5 formula entries, +9 glossary terms)**
 
 Gap found by Ani: Unit 2 had no atomic theory or quantum mechanics (only electron configurations), although the
 Nelson *Chemistry 12* text devotes Chapter 3 to it. Added original lessons 2.8 to 2.11 (ids `u2-8` to `u2-11`, kept
-at the end of the unit so existing saved progress and notes are untouched; the study plan schedules them before 2.1):
+at the end of the unit so existing saved progress and notes were untouched; renumbered to 2.1 to 2.4 on the same day,
+see the entry above):
 atomic theory from Dalton to Rutherford; light, photons and the photoelectric effect; the Bohr model and line
 spectra; quantum numbers and the wave-mechanical model.
 

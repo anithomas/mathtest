@@ -23,7 +23,8 @@ official question or a claimed simulation of the written format.
 **Grade 12 University Chemistry (SCH4U):** https://mathtest.logicmanse.ca/SCH4U/. Same engine, sign-in and
 allowlist, with 38 lessons, 22 worked examples, 275 practice questions, interactive chemistry calculators,
 interactive models (energy diagrams, titration curves, galvanic cells, VSEPR shapes, unit concept maps),
-step-checked guided problems, spaced-review flashcards, a score-trend chart and an 8-week plan. See [SCH4U-SETUP.md](SCH4U-SETUP.md).
+step-checked guided problems, spaced-review flashcards, a score-trend chart, an 8-week plan and six short lesson animations
+(rendered with Remotion; source in [remotion/](remotion/README.md)). See [SCH4U-SETUP.md](SCH4U-SETUP.md).
 
 **Grade 11 Functions (MCR3U):** https://mathtest.logicmanse.ca/MCR3U/. Same engine, sign-in and allowlist, with
 32 lessons, 12 worked examples, 184 practice questions (including a 56-question Challenge tier), an interactive

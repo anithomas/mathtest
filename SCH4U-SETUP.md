@@ -48,7 +48,7 @@ Student names and emails live only in the private Firestore allowlist, never in 
 
 All SCH4U content is in the `SCH4U` object inside `SCH4U/index.html`:
 
-- 5 units and 38 lessons, covering the Ontario SCH4U (Grade 12 University Chemistry) curriculum's five strands:
+- 5 units and 38 lessons (Unit 2 opens with atomic theory and quantum mechanics, lessons 2.1 to 2.4), covering the Ontario SCH4U (Grade 12 University Chemistry) curriculum's five strands:
   organic chemistry; structure and properties of matter; energy changes and rates of reaction; chemical systems
   and equilibrium; and electrochemistry.
 - 275 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
@@ -72,6 +72,12 @@ All SCH4U content is in the `SCH4U` object inside `SCH4U/index.html`:
   half-equivalence and indicator band); a galvanic cell with animated electron flow, anode/cathode, balanced cell
   reaction and E°cell; and a VSEPR shape explorer for all 13 SCH4U shapes with polarity. Each unit also opens with a
   clickable concept map that links to its lessons.
+- **Lesson animations**: six short, silent, captioned animations (1.7 polymers, 2.1 gold-foil scattering, 2.2
+  photoelectric effect, 2.3 Bohr transitions and line spectra, 2.4 orbital probability clouds, 3.5 collision theory)
+  appear at the top of their lessons. They are ordinary self-hosted MP4 files in `SCH4U/media/` (with a JPEG poster),
+  so the page loads no extra library or third-party service. They never autoplay, have player controls, and each has
+  a "Text description of the animation" under it. A lesson gets one by adding `vid:{f,alt,desc}` to its entry in
+  `SCH4U.LESSONS`. The source is a Remotion project in `remotion/` (see its README to re-render).
 - **Guided problems** (Study Hub, `SCH4U.GUIDED`): 6 multi-step problems (ICE tables, weak-acid pH, Hess's law,
   calorimetry, redox balancing, redox titration) in which the student enters every intermediate value. Wrong
   steps show a hint, and "Show me" appears after two misses.
