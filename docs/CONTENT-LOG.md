@@ -1,5 +1,40 @@
 # Weekly content log
 
+## 2026-11-02
+**MHF4U (+10)**
+- w261102h01 (u1, Challenge): remainder mod a quadratic from two remainders
+- w261102h02 (u1): cubic with double zero through point
+- w261102h03 (u2, Challenge): counting integers satisfying a rational inequality
+- w261102h04 (u2): oblique asymptote of a rational function
+- w261102h05 (u3, Challenge): number of solutions of cos 2x = cos x
+- w261102h06 (u3): exact cosine of 5π/12 by compound angle
+- w261102h07 (u4, Challenge): exponential equation with unmatched bases
+- w261102h08 (u4): combining logarithms with power and quotient laws
+- w261102h09 (u5, Challenge): integer domain of a composite radical
+- w261102h10 (u5): inverse function value of a rational function
+
+**MCR3U (+8)**
+- w261102f01 (u1, Challenge): x-intercept distance from vertex and point
+- w261102f02 (u1): time in air for thrown ball
+- w261102f03 (u2, Challenge): exponential growth midpoint from two data points
+- w261102f04 (u2): solving 4^x = 32 using common bases
+- w261102f05 (u3, Challenge): infinite geometric series with two ratios
+- w261102f06 (u3): geometric sequence term from two terms
+- w261102f07 (u4, Challenge): ambiguous case, obtuse triangle side
+- w261102f08 (u4): largest angle by cosine law
+
+**SCH4U (+10)**
+- w261102c01 (u1, Challenge): hydrogen mass to hydrogenate an alkyne
+- w261102c02 (u1): identify a secondary alcohol
+- w261102c03 (u2, Challenge): counting sigma bonds in enyne
+- w261102c04 (u2): highest melting point among ionic solids
+- w261102c05 (u3, Challenge): heat from propane combustion via formation enthalpies
+- w261102c06 (u3): rate constant from initial-rate data
+- w261102c07 (u4, Challenge): iodide concentration to start PbI2 precipitating
+- w261102c08 (u4): pH from hydroxide concentration
+- w261102c09 (u5, Challenge): silver plated from zinc consumed in cell
+- w261102c10 (u5): standard hydrogen electrode cell potential and anode
+
 ## 2026-11-01
 **SCH4U (+30 questions, +5 worked examples, +6 formula entries, +21 glossary terms)**
 
