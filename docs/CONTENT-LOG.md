@@ -1,5 +1,23 @@
 # Weekly content log
 
+## 2026-11-02 (Unit 2 gap fix)
+**SCH4U (+4 lessons, +13 questions, +2 worked examples, +5 formula entries, +9 glossary terms)**
+
+Gap found by Ani: Unit 2 had no atomic theory or quantum mechanics (only electron configurations), although the
+Nelson *Chemistry 12* text devotes Chapter 3 to it. Added original lessons 2.8 to 2.11 (ids `u2-8` to `u2-11`, kept
+at the end of the unit so existing saved progress and notes are untouched; the study plan schedules them before 2.1):
+atomic theory from Dalton to Rutherford; light, photons and the photoelectric effect; the Bohr model and line
+spectra; quantum numbers and the wave-mechanical model.
+
+- w261102u2q01 to q13 (u2): Rutherford/Thomson evidence, photon energy and wavelength, photoelectric effect, hydrogen
+  transitions (E, highest-energy line), shell capacity, allowed quantum-number sets, Challenge count of electrons with
+  n = 3 and m_l = +1, a Communication item on the Bohr model and its limits
+- Worked examples: hydrogen n = 3 to 2 photon (red line); allowed quantum-number sets
+- Formulas: c = lambda f, E = hf, Bohr energy levels, quantum-number rules, orbital and electron capacity
+- Glossary: quantum, photon, photoelectric effect, line spectrum, ground/excited state, quantum number, orbital,
+  Heisenberg uncertainty principle, wave-particle duality
+- Study plan: weeks 2 to 4 rebalanced (daily Week 2 plan updated); every lesson id still appears exactly once
+
 ## 2026-11-02
 **MHF4U (+10)**
 - w261102h01 (u1, Challenge): remainder mod a quadratic from two remainders
