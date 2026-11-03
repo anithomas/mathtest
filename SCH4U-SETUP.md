@@ -48,10 +48,10 @@ Student names and emails live only in the private Firestore allowlist, never in 
 
 All SCH4U content is in the `SCH4U` object inside `SCH4U/index.html`:
 
-- 5 units and 38 lessons (Unit 2 opens with atomic theory and quantum mechanics, lessons 2.1 to 2.4), covering the Ontario SCH4U (Grade 12 University Chemistry) curriculum's five strands:
+- 5 units and 41 lessons (Unit 2 opens with atomic theory and quantum mechanics, lessons 2.1 to 2.4), covering the Ontario SCH4U (Grade 12 University Chemistry) curriculum's five strands:
   organic chemistry; structure and properties of matter; energy changes and rates of reaction; chemical systems
   and equilibrium; and electrochemistry.
-- 275 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
+- 326 practice questions: multiple choice, typed numeric answers checked with a tolerance, and written
   Communication items that students self-mark against a model answer. 74 of them (`h2:1`, ids `c101`+ and
   `w26****c`+) form the **🔥 Challenge tier**: multi-step, A+ (90%+) level Thinking/Application items, with a
   Challenge level in Quick Quiz and the profile, and a separate 25-question Challenge simulation in Exam Sim.

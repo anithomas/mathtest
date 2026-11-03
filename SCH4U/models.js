@@ -238,6 +238,74 @@ function vseprModel(el){
   draw();
 }
 
+/* ---------------- 4b. Quantum numbers & orbitals ---------------- */
+const LETTER = ["s", "p", "d", "f", "g"];
+function qnumCheck(n, l, ml, ms){
+  if (!(n >= 1)) return "n must be 1, 2, 3 … (a positive whole number).";
+  if (l < 0 || l > n - 1) return `ℓ can only be 0 up to n − 1. For n = ${n}, ℓ is 0 to ${n - 1}, so ℓ = ${l} is not allowed.`;
+  if (Math.abs(ml) > l) return `mℓ can only run from −ℓ to +ℓ. For ℓ = ${l}, that is ${-l} to +${l}, so mℓ = ${ml} is not allowed.`;
+  if (ms !== 0.5 && ms !== -0.5) return "mₛ is only +½ or −½.";
+  return "";
+}
+function orbitShape(l, ml){
+  if (l === 0) return `<circle cx="80" cy="60" r="38" class="qn-lobe a"/><circle cx="80" cy="60" r="2.5" class="qn-nuc"/>`;
+  if (l === 1){ const ax = [90, 0, 45][ml + 1] ?? 0; // mℓ only labels the orientation
+    return `<g transform="rotate(${ax} 80 60)"><ellipse cx="80" cy="30" rx="15" ry="26" class="qn-lobe a"/><ellipse cx="80" cy="90" rx="15" ry="26" class="qn-lobe b"/></g><circle cx="80" cy="60" r="2.5" class="qn-nuc"/>`; }
+  if (l === 2){ if (ml === 0) return `<ellipse cx="80" cy="22" rx="14" ry="22" class="qn-lobe a"/><ellipse cx="80" cy="98" rx="14" ry="22" class="qn-lobe a"/><ellipse cx="80" cy="60" rx="34" ry="9" class="qn-lobe b"/><circle cx="80" cy="60" r="2.5" class="qn-nuc"/>`;
+    const base = ml === 2 ? 0 : 45;
+    return [0, 90, 180, 270].map(a => `<g transform="rotate(${a + base} 80 60)"><ellipse cx="80" cy="30" rx="12" ry="24" class="qn-lobe ${a % 180 ? "b" : "a"}"/></g>`).join("") + `<circle cx="80" cy="60" r="2.5" class="qn-nuc"/>`; }
+  return `<text x="80" y="64" text-anchor="middle" class="qn-note">8 lobes (too complex to draw here)</text>`;
+}
+function qnumModel(el){
+  const opt = (a, f) => a.map(v => `<option value="${v}">${f ? f(v) : v}</option>`).join("");
+  el.innerHTML = `
+    <p>Pick a set of quantum numbers. The checker tells you whether it is allowed and why, and shows the orbital's shape.</p>
+    <div class="mdl-controls two">
+      <label>n (shell)<select class="qn-n">${opt([1, 2, 3, 4, 5, 6])}</select></label>
+      <label>ℓ (subshell)<select class="qn-l">${opt([0, 1, 2, 3, 4], v => v + " (" + LETTER[v] + ")")}</select></label>
+      <label>mℓ (orbital)<select class="qn-ml">${opt([-4, -3, -2, -1, 0, 1, 2, 3, 4], v => (v > 0 ? "+" : "") + v)}</select></label>
+      <label>mₛ (spin)<select class="qn-ms"><option value="0.5">+½</option><option value="-0.5">−½</option></select></label>
+    </div>
+    <div class="qn-out" aria-live="polite"></div>
+    <hr style="margin:14px 0;border:none;border-top:1px solid var(--line)">
+    <h4 style="margin-top:0">Is this set allowed?</h4>
+    <div class="qn-drill"></div>`;
+  const q = s => el.querySelector(s), out = q(".qn-out");
+  const sel = () => ({ n: +q(".qn-n").value, l: +q(".qn-l").value, ml: +q(".qn-ml").value, ms: +q(".qn-ms").value });
+  const fmt = v => (v > 0 ? "+" : "") + v, half = v => v > 0 ? "+½" : "−½";
+  function show(){
+    const { n, l, ml, ms } = sel(), err = qnumCheck(n, l, ml, ms);
+    if (err){ out.innerHTML = `<div class="explain bad"><b>Not allowed.</b> ${err}</div>`; return; }
+    out.innerHTML = `<div class="explain good"><b>Allowed ✔</b> This is a <b>${n}${LETTER[l]}</b> orbital with spin ${half(ms)}.</div>
+      <svg viewBox="0 0 160 120" class="mdl-svg" role="img" aria-label="${LETTER[l]} orbital shape" style="max-width:200px"><title>${LETTER[l]} orbital</title>${orbitShape(l, ml)}</svg>
+      <div class="mdl-readout">A ${LETTER[l]} subshell has <b>${2 * l + 1}</b> orbital${l ? "s" : ""} (mℓ = ${-l} to ${fmt(l)}) and holds <b>${2 * (2 * l + 1)}</b> electrons. Shell n = ${n} has ${n} subshell${n > 1 ? "s" : ""} and <b>${n * n}</b> orbitals in total.</div>`;
+  }
+  ["n", "l", "ml", "ms"].forEach(k => q(".qn-" + k).addEventListener("input", show));
+  q(".qn-n").value = "3"; q(".qn-l").value = "1"; q(".qn-ml").value = "0"; show();
+  // practice: half the sets are valid, the rest break exactly one rule
+  const rnd = a => a[Math.floor(Math.random() * a.length)];
+  let cur = null, score = 0, tries = 0;
+  function nextSet(){
+    const n = rnd([1, 2, 3, 4]), l = rnd(Array.from({ length: n }, (_, i) => i)), ml = rnd(Array.from({ length: 2 * l + 1 }, (_, i) => i - l)), ms = rnd([0.5, -0.5]);
+    cur = { n, l, ml, ms };
+    if (Math.random() < 0.6){ const k = rnd(["l", "ml", "ms"]);
+      if (k === "l") cur.l = n + rnd([0, 1]); else if (k === "ml") cur.ml = (l + 1) * rnd([1, -1]); else cur.ms = rnd([0, 1, -1]) || 1;
+      if (k === "ms") cur.ms = rnd([1, 0]); }
+    draw("");
+  }
+  function draw(fb){
+    const s = cur, msT = s.ms === 0.5 ? "+½" : s.ms === -0.5 ? "−½" : String(s.ms);
+    q(".qn-drill").innerHTML = `<p class="m" style="font-size:1.05rem"><b>n = ${s.n}, ℓ = ${s.l}, mℓ = ${fmt(s.ml)}, mₛ = ${msT}</b></p>
+      ${fb ? fb : `<div class="mx-actions"><button class="btn primary qn-yes" style="padding:8px 16px">Allowed</button><button class="btn ghost qn-no" style="padding:8px 16px">Not allowed</button></div>`}
+      <p class="note">${score} of ${tries} correct</p>`;
+    const ans = b => { const err = qnumCheck(s.n, s.l, s.ml, s.ms), ok = (!err) === b; tries++; if (ok) score++;
+      draw(`<div class="explain ${ok ? "good" : "bad"}"><b>${ok ? "Correct ✔" : "Not quite."}</b> ${err ? "Not allowed: " + err : "This set is allowed."}</div><button class="btn soft qn-next" style="margin-top:8px;padding:7px 14px">Next set</button>`); };
+    const y = q(".qn-yes"), nn = q(".qn-no"), nx = q(".qn-next");
+    if (y) y.onclick = () => ans(true); if (nn) nn.onclick = () => ans(false); if (nx) nx.onclick = nextSet;
+  }
+  nextSet();
+}
+
 /* ---------------- 5. Unit concept maps ---------------- */
 // nodes: [id, label (\n for a second line), column 0–2, row, lessonId]; edges: [from, to, label]
 const MAPS = {
@@ -279,7 +347,7 @@ function conceptMap(el){
   });
 }
 
-const MODELS = { energy: energyModel, titration: titrationModel, cell: cellModel, vsepr: vseprModel };
+const MODELS = { energy: energyModel, titration: titrationModel, cell: cellModel, vsepr: vseprModel, qnum: qnumModel };
 
 export function mountAll(root){
   root.querySelectorAll("[data-model]").forEach(el => { if (!el.dataset.mounted){ el.dataset.mounted = "1"; MODELS[el.dataset.model](el); } });
