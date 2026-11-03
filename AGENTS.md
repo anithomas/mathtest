@@ -41,4 +41,5 @@ Build MathTest Trail as a LogicManse-branded study product that helps students u
 2. Reuse the shared brand and course navigation patterns.
 3. Map content and interactions to the target curriculum and assessment.
 4. Update the root catalogue, course access/enrolment flow, and privacy disclosures as needed.
-5. Describe clearly what is implemented versus planned; do not claim a learning feature exists until it is present in the course.
+5. Include the shared Mistake Clinic (`/clinic.js`): add a card set for the course, tag its practice questions, and wire the adapter, so the self-learning loop works the same in every course (see `docs/MISTAKE-CLINIC.md`).
+6. Describe clearly what is implemented versus planned; do not claim a learning feature exists until it is present in the course.

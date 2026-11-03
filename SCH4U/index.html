@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
+<script src="/clinic.js"></script>
 <title>MathTest Trail · SCH4U Chemistry</title>
 <style>
 :root{
@@ -286,22 +287,6 @@ details.sol summary{cursor:pointer;font-weight:600;color:var(--teal);font-size:.
 .lm-vid figcaption{font-size:.88rem;color:var(--ink-soft);margin-top:6px}
 .lm-vid-desc{font-size:.9rem;margin-top:4px}
 .lm-vid-desc summary{cursor:pointer;color:var(--teal-deep);font-weight:600}
-.mx-block,.mx-card{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:8px 0}
-.mx-block>summary,.mx-card>summary{cursor:pointer;padding:10px 14px;font-weight:600;color:var(--teal-deep);list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.mx-block>summary::-webkit-details-marker,.mx-card>summary::-webkit-details-marker{display:none}
-.mx-block>summary::before,.mx-card>summary::before{content:"▸";display:inline-block;transition:transform .15s}
-.mx-block[open]>summary::before,.mx-card[open]>summary::before{transform:rotate(90deg)}
-.mx-block>.mx-card{margin:6px 10px}
-.mx-card.open{border-color:#e76f51;box-shadow:0 0 0 2px rgba(231,111,81,.15)}
-.mx-card.fixed{border-color:#7fa37f;background:#f6fbf7}
-.mx-t{flex:1;min-width:160px}
-.mx-body{padding:0 14px 14px}
-.mx-row{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:8px;margin:6px 0;background:var(--parchment)}
-.mx-row.bad{background:#fdf0ec}.mx-row.good{background:#e8f3ed}
-.mx-k{font-size:.78rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em}
-.mx-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.mx-recover{margin-top:10px}
-.mx-bar{height:10px;border-radius:6px;background:var(--parchment-deep);overflow:hidden;margin:8px 0}.mx-bar i{display:block;height:100%;background:var(--teal)}
 .thisweek{margin-top:16px;border-top:4px solid var(--gold)}
 .thisweek h3{font-size:1.1rem}
 .linkrow a{cursor:pointer}
@@ -1763,7 +1748,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1840,7 +1825,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "sch4u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, mlog: store.mlog || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
@@ -1883,11 +1868,11 @@ function markSyncBlocked(){
 }
 function mergeInto(d){
   if (!d) return;
-  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {};
+  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {}, localMlog = store.mlog || {};
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
   if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
   else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
-  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = mergeClinic(d.clinic, localClinic);
+  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = CL.mergeClinic(d.clinic, localClinic); store.mlog = CL.mergeLog(d.mlog, localMlog);
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -1915,8 +1900,7 @@ function poolFor(key){
   if (key === "mixed") return D.Q.slice();
   if (key === "word") return D.Q.filter(q => q.w);
   if (key === "weak") return D.Q.filter(q => (store.missed || {})[q.id]);
-  if (key === "clinic") return D.Q.filter(q => q.mx);
-  if (key.startsWith("mx:")) return D.Q.filter(q => q.mx === key.slice(3));
+  const cp = CL.pool(key); if (cp) return cp;
   return D.Q.filter(q => q.u === key);
 }
 function draw(poolKey, pool, n){
@@ -2266,7 +2250,7 @@ function gameStats(){
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5},
     {i:"🃏",n:"Memory Keeper",d:"Complete 100 flashcard reviews",e:(store.reviews||0)>=100}
   ];
-  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + (D.MISTAKES || []).filter(m => mxState(m.id) === "fixed").length*15 + badges.filter(b=>b.e).length*100;
+  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + CL.counts().fixed*15 + badges.filter(b=>b.e).length*100;
   let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
   const next = LEVELS[li+1];
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges, lessonsDone };
@@ -2338,11 +2322,11 @@ function renderHome(){
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 25-question final-exam run (5 per unit) or a 15-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
     <div class="card homecard c-study" data-go="cards"><h3>🃏 Daily Review</h3><p>${(() => { const n = cardStatus().dueAll; return n ? `<b>${n} card${n === 1 ? "" : "s"} due today.</b> ` : ""; })()}Spaced flashcards for every formula, key term and question you've missed. Five minutes a day.</p><div class="go">Start reviewing →</div></div>
-    <div class="card homecard c-prog" data-goclinic="1"><h3>🩹 Mistake Clinic</h3><p>${(() => { const k = mxCounts(); return (k.open ? `<b>${k.open} card${k.open === 1 ? "" : "s"} need another look.</b> ` : "") + `${k.fixed} of ${k.n} common mistakes fixed. `; })()}Each card shows the slip, why it fails, the fix and a quick redo.</p><div class="go">Open the clinic →</div></div>
+    ${CL.homeHTML()}
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Every SCH4U formula and theorem by unit, how marks are earned, test-day strategies and a glossary.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
-  views.querySelectorAll("[data-goclinic]").forEach(c => c.onclick = () => openMxCard());
+  CL.wire(views);
   views.querySelectorAll("[data-lesson]").forEach(a => a.onclick = e => { e.preventDefault(); go("study", { lesson: a.dataset.lesson }); });
 }
 
@@ -2533,7 +2517,7 @@ function mountModels(){
 let quizSel = { key: "mixed", len: 10, diff: null };
 function quizPool(){
   let pool = poolFor(quizSel.key);
-  if (quizSel.diff === "any") pool = (quizSel.key === "clinic" || quizSel.key.startsWith("mx:")) ? pool : pool.filter(q => q.t !== "write" && !q.h2); // clinic quizzes keep every question, written ones are self-marked
+  if (quizSel.diff === "any") pool = CL.isPoolKey(quizSel.key) ? pool : pool.filter(q => q.t !== "write" && !q.h2); // clinic quizzes keep every question; written ones are self-marked
   else pool = pool.filter(q => qDiff(q) === +quizSel.diff);
   return pool;
 }
@@ -2543,7 +2527,7 @@ function renderQuizSetup(){
   const opts = [["mixed", "🎲 Mixed", "All five units"]]
     .concat(D.UNITS.map(u => [u.id, UNIT_ICON[u.id] + " " + u.name, u.no + " · " + u.strand.replace("Strand ", "").split(":")[0] + " strand"]))
     .concat([["word", "🧩 Word problems", "Real-world applications from every unit"]])
-    .concat([["clinic", "🩹 Mistake Clinic quiz", D.Q.filter(q => q.mx).length + " questions that rehearse the slips students lose the most marks on"]])
+    .concat(CL.quizOptions())
     .concat([["weak", "🎯 Fix my weak spots", Object.keys(store.missed || {}).length + " missed question(s) waiting — get each one right to clear it"]]);
   views.innerHTML = `
   <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, level, and length. Questions won't repeat until you've seen the whole set.</p></div>
@@ -2569,7 +2553,7 @@ function renderQuizSetup(){
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another level");
     const n = Math.min(quizSel.len, pool.length);
-    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : quizSel.key === "clinic" ? "Mistake Clinic" : quizSel.key.startsWith("mx:") ? "Mistake: " + plain(MX[quizSel.key.slice(3)].t) : UN[quizSel.key].name;
+    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : CL.isPoolKey(quizSel.key) ? CL.label(quizSel.key) : UN[quizSel.key].name;
     const label = focus + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
@@ -2667,7 +2651,7 @@ function renderQuestion(){
     <div class="qtext m">${M(q.p)}</div>
     ${item.hint && !answered ? `<div class="explain hintbox"><b>💡 Hint</b><br><span class="m">${M(q.h)}</span></div><div class="spacer"></div>` : ""}
     ${answerBody(item, showFeedback, st)}
-    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>${item.correct ? "" : dxHTML(q, item) + (q.t === "write" ? "" : mxRecover(q))}` : ""}
+    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>${item.correct ? "" : CL.dxHTML(q, q.t === "mc" ? item.order[item.sel] : null) + (q.t === "write" ? "" : CL.recoverHTML(q))}` : ""}
     <div class="qactions">
       <button class="btn soft" id="btn-quit">Save &amp; exit</button>
       <span>
@@ -2684,7 +2668,7 @@ function renderQuestion(){
     item.sel = +b.dataset.di;
     item.correct = item.order[item.sel] === q.a;
     item.answered = true;
-    if (st.kind === "quiz") noteMx(q, item.correct);
+    if (st.kind === "quiz") CL.record(q, item.correct, item.order[item.sel]);
     renderQuestion();
   });
   const nc = $("#btn-numcheck");
@@ -2693,7 +2677,7 @@ function renderQuestion(){
       const raw = $("#num-in").value, v = parseNum(raw);
       if (!raw.trim() || !isFinite(v)){ $("#num-err").classList.remove("hidden"); return; }
       item.val = raw.trim(); item.correct = numOk(q, v); item.answered = true;
-      if (st.kind === "quiz") noteMx(q, item.correct);
+      if (st.kind === "quiz") CL.record(q, item.correct, item.val);
       renderQuestion();
     };
     nc.onclick = submit;
@@ -2707,7 +2691,7 @@ function renderQuestion(){
     item.correct = q.chk.every((_, i) => item.chk[i]);
   });
   const hb = $("#tool-hint"); if (hb) hb.onclick = () => { item.hint = true; renderQuestion(); };
-  views.querySelectorAll("[data-mxopen]").forEach(b => b.onclick = () => openMxCard(b.dataset.mxopen));
+  CL.wire(views);
   $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); window.scrollTo({ top: 0 }); } };
   const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
   $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); $("#notepad").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
@@ -2733,7 +2717,7 @@ function finishSession(){
     cats[k] = cats[k] || { c: 0, t: 0 }; cats[k].t++;
     store.missed = store.missed || {};
     if (it.q.t !== "write" && it.answered){ if (it.correct) delete store.missed[it.q.id]; else store.missed[it.q.id] = 1; }
-    if (it.answered) noteMx(it.q, it.correct);
+    if (it.answered && st.kind !== "quiz") CL.record(it.q, it.correct, it.order && it.sel != null && it.q.t === "mc" ? it.order[it.sel] : it.val);
     if (it.correct){ strands[s].c++; cats[k].c++; correct++; if (it.q.w) word++; }
   });
   const pct = Math.round(100 * correct / st.qs.length);
@@ -2882,82 +2866,19 @@ function renderProgress(){
 }
 
 /* ================= study hub ================= */
-/* ================= Mistake Clinic ================= */
-// Cards come from SCH4U.MISTAKES. A card is "fixed" when its redo was answered correctly more recently than the last
-// miss on a question tagged with it (store.clinic[id] = { f: last fixed, m: last missed }), so a new slip reopens it.
-const MX = {}; (D.MISTAKES || []).forEach(m => MX[m.id] = m);
-const mxCheck = {}, openMx = new Set();
-let mxFilter = "all";
-function mxState(id){ const c = (store.clinic || {})[id] || {}; return c.f && c.f >= (c.m || 0) ? "fixed" : c.m ? "open" : "new"; }
-function markClinic(id, kind){ if (!MX[id]) return; store.clinic = store.clinic || {}; const c = store.clinic[id] = Object.assign({}, store.clinic[id]); c[kind] = Date.now(); persist(); }
-function noteMx(q, correct){ if (q.mx && !correct) markClinic(q.mx, "m"); }
-function mergeClinic(a, b){
-  const out = {}; a = a || {}; b = b || {};
-  new Set(Object.keys(a).concat(Object.keys(b))).forEach(id => { const x = a[id] || {}, y = b[id] || {}; out[id] = { f: Math.max(x.f || 0, y.f || 0), m: Math.max(x.m || 0, y.m || 0) }; });
-  return out;
-}
-function mxCounts(){ const all = D.MISTAKES || []; return { n: all.length, fixed: all.filter(m => mxState(m.id) === "fixed").length, open: all.filter(m => mxState(m.id) === "open").length }; }
-function lessonNo(id){ return id.slice(1, 2) + "." + id.split("-")[1]; }
-function mxCardHTML(m, inLesson){
-  const st = mxState(m.id), c = mxCheck[m.id], redo = m.redo, nq = D.Q.filter(q => q.mx === m.id).length;
-  const badge = st === "fixed" ? `<span class="pill teal">✔ Fixed</span>` : st === "open" ? `<span class="pill coral">Needs another look</span>` : `<span class="pill gold">New</span>`;
-  const opts = redo.o.map((o, i) => { let cls = "opt"; if (c !== undefined){ if (i === redo.a) cls += " correct"; else if (i === c) cls += " wrong"; }
-    return `<button class="${cls}" data-mxc="${m.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("");
-  return `<details class="mx-card ${st}" data-mx="${m.id}" ${openMx.has(m.id) ? "open" : ""}>
-    <summary><span class="mx-t">${M(m.t)}</span>${badge}</summary>
-    <div class="mx-body">
-      <div class="mx-row bad"><span class="mx-k">❌ A common answer</span><span class="m">${M(m.wrong)}</span></div>
-      <div class="mx-row"><span class="mx-k">🤔 Why it goes wrong</span><span class="m">${M(m.why)}</span></div>
-      <div class="mx-row good"><span class="mx-k">✅ The fix</span><span class="m">${M(m.fix)}</span></div>
-      <div class="qcheck"><h4 style="margin-top:0">Redo it</h4><p class="m">${M(redo.p)}</p><div class="opts" style="margin-top:8px">${opts}</div>
-        ${c !== undefined ? `<div class="explain ${c === redo.a ? "good" : "bad"}"><b>${c === redo.a ? "Fixed it! ✔" : "Not quite. Read the fix again, then try once more."}</b> <span class="m">${M(redo.why)}</span></div><button class="btn soft" data-mxr="${m.id}" style="margin-top:8px;padding:7px 14px">Try again</button>` : ""}</div>
-      <div class="mx-actions"><button class="btn primary" data-mxq="${m.id}" style="padding:8px 16px">Practise this mistake (${nq} questions) →</button>${inLesson ? "" : `<button class="btn ghost" data-mxl="${m.l}" style="padding:8px 16px">Open lesson ${lessonNo(m.l)} →</button>`}</div>
-    </div></details>`;
-}
-function mxBlockHTML(l){
-  const cards = (l.mx || []).map(id => MX[id]).filter(Boolean); if (!cards.length) return "";
-  const open = cards.filter(m => mxState(m.id) === "open").length;
-  return `<details class="mx-block" data-mxblk="${l.id}" ${openMx.has("b:" + l.id) ? "open" : ""}><summary>🩹 Common mistakes in this lesson (${cards.length})${open ? ` · <b>${open} need another look</b>` : ""}</summary>${cards.map(m => mxCardHTML(m, true)).join("")}</details>`;
-}
-function clinicBody(){
-  const k = mxCounts(), pct = k.n ? Math.round(100 * k.fixed / k.n) : 0;
-  const unitsWith = D.UNITS.filter(u => D.MISTAKES.some(m => m.u === u.id));
-  const list = D.MISTAKES.filter(m => mxFilter === "all" || m.u === mxFilter);
-  return `<p style="font-size:.92rem">These are the slips that cost the most marks on graded unit tests. Each card shows the typical wrong answer, <b>why</b> it fails, the fix and a quick redo. A card turns green when you redo it correctly, and it reopens if you miss a practice question about it.</p>
-    <div class="mx-bar" role="img" aria-label="${k.fixed} of ${k.n} mistake cards fixed"><i style="width:${pct}%"></i></div>
-    <p class="note" style="margin:0 0 8px"><b>${k.fixed} of ${k.n}</b> fixed${k.open ? ` · <b>${k.open} need another look</b>` : ""}</p>
-    <div class="lenrow">${[["all", "All"]].concat(unitsWith.map(u => [u.id, UNIT_ICON[u.id] + " " + u.no])).map(([v, l]) => `<button class="lenbtn ${mxFilter === v ? "sel" : ""}" data-mxf="${v}">${l}</button>`).join("")}</div>
-    <div style="margin:10px 0"><button class="btn primary" data-mxq="all" style="padding:9px 16px">🩹 Quiz me on these mistakes →</button></div>
-    ${list.map(m => mxCardHTML(m, false)).join("")}`;
-}
-function dxHTML(q, item){
-  if (q.t !== "mc" || !q.dx || item.sel == null) return "";
-  const oi = item.order[item.sel];
-  if (oi === q.a || !q.dx[oi]) return "";
-  return `<div class="explain hintbox" style="margin-top:8px"><b>🤔 Why that answer is tempting</b><br><span class="m">${M(q.dx[oi])}</span></div>`;
-}
-function mxRecover(q){
-  const m = q.mx && MX[q.mx]; if (!m) return "";
-  return `<div class="explain mx-recover"><b>🩹 A common mistake: ${M(m.t)}</b>
-    <div class="mx-row bad"><span class="mx-k">❌ A common answer</span><span class="m">${M(m.wrong)}</span></div>
-    <div class="mx-row good"><span class="mx-k">✅ The fix</span><span class="m">${M(m.fix)}</span></div>
-    <button class="btn soft" data-mxopen="${m.id}" style="margin-top:8px;padding:7px 14px">Open this card in the Mistake Clinic</button></div>`;
-}
-function openMxCard(id){ openAcc.add("clinic"); if (id) openMx.add(id); go("study", { clinic: id || true }); }
-function wireClinic(){
-  views.querySelectorAll("[data-mxc]").forEach(b => b.onclick = () => {
-    const id = b.dataset.mxc, i = +b.dataset.i, ok = i === MX[id].redo.a;
-    mxCheck[id] = i; openMx.add(id); markClinic(id, ok ? "f" : "m"); refreshStudy();
-    if (ok) toast("Mistake fixed ✔ +15 XP");
-  });
-  views.querySelectorAll("[data-mxr]").forEach(b => b.onclick = () => { delete mxCheck[b.dataset.mxr]; openMx.add(b.dataset.mxr); refreshStudy(); });
-  views.querySelectorAll("[data-mxq]").forEach(b => b.onclick = () => { quizSel.key = b.dataset.mxq === "all" ? "clinic" : "mx:" + b.dataset.mxq; quizSel.diff = "any"; go("quiz"); });
-  views.querySelectorAll("[data-mxl]").forEach(b => b.onclick = () => go("study", { lesson: b.dataset.mxl }));
-  views.querySelectorAll("[data-mxf]").forEach(b => b.onclick = () => { mxFilter = b.dataset.mxf; refreshStudy(); });
-  views.querySelectorAll("details.mx-card").forEach(d => d.addEventListener("toggle", () => { if (d.open) openMx.add(d.dataset.mx); else openMx.delete(d.dataset.mx); }));
-  views.querySelectorAll("details.mx-block").forEach(d => d.addEventListener("toggle", () => { if (d.open) openMx.add("b:" + d.dataset.mxblk); else openMx.delete("b:" + d.dataset.mxblk); }));
-}
-
+const lessonNo = id => id.slice(1, 2) + "." + id.split("-")[1];
+// Mistake Clinic: shared module (/clinic.js) so every course behaves identically.
+const CL = LMClinic.create({
+  course: "SCH4U", store: () => store, persist: () => persist(),
+  cards: D.MISTAKES || [], questions: () => D.Q,
+  view: q => ({ id: q.id, unit: q.u, type: q.t, tag: q.mx, prompt: q.p, options: q.o, correct: q.a, explain: q.s || [], dx: q.dx, answerText: q.t === "num" ? String(q.ans) + (q.un ? " " + q.un : "") : undefined }),
+  fmt: M,
+  get units(){ return D.UNITS.map(u => ({ id: u.id, label: u.no, icon: UNIT_ICON[u.id] })); },
+  openLesson: id => go("study", { lesson: id }), lessonLabel: lessonNo,
+  startQuiz: key => { quizSel.key = key; quizSel.diff = "any"; go("quiz"); },
+  openCard: id => { openAcc.add("clinic"); go("study", { clinic: id || true }); },
+  refresh: () => refreshStudy(), toast: m => toast(m)
+});
 const lessonCheck = {};
 const workedShown = {};
 /* Short self-hosted animation (rendered from /remotion). Never autoplays; has controls, a poster and a text description. */
@@ -2976,7 +2897,7 @@ function lessonHTML(l){
     <div class="example"><h4 style="margin-top:0">Example</h4><p class="m" style="font-weight:600">${M(l.ex.p)}</p><ol class="steps">${l.ex.s.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol></div>
     ${l.model ? `<div class="mdlbox" style="margin:10px 0"><h4 style="margin-top:0">🔬 Try it</h4><div data-model="${l.model}"></div></div>` : ""}
     <div class="explain bad"><b>⚠️ Watch out.</b> <span class="m">${M(l.watch)}</span></div>
-    ${mxBlockHTML(l)}
+    ${CL.blockHTML(l.id, l.mx)}
     <div class="qcheck"><h4 style="margin-top:0">Quick check</h4><p class="m">${M(l.check.p)}</p><div class="opts" style="margin-top:8px">${l.check.o.map((o, i) => {
       let cls = "opt"; if (c !== undefined){ if (i === l.check.a) cls += " correct"; else if (i === c) cls += " wrong"; }
       return `<button class="${cls}" data-lc="${l.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("")}</div>
@@ -3046,12 +2967,12 @@ function studySections(){
     <div class="lenrow">${MODEL_LIST.map(([k, l]) => `<button class="lenbtn ${modelSel === k ? "sel" : ""}" data-msel="${k}">${l}</button>`).join("")}</div>
     <div data-model="${modelSel}" style="margin-top:12px"></div>` };
   const guidedSec = { id: "guided", title: "🧩 Guided problems: solve it step by step", body: guidedHTML };
-  const clinic = { id: "clinic", title: `🩹 Mistake Clinic: fix the slips that cost marks (${mxCounts().fixed}/${mxCounts().n} fixed)`, body: clinicBody };
+  const clinic = { id: "clinic", title: `🩹 Mistake Clinic: fix the slips that cost marks (${CL.counts().fixed}/${CL.counts().n} fixed)`, body: () => CL.sectionHTML() };
   return [plan, p90, clinic].concat(units, [guidedSec, models, tools, equilibrium, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
-  if (opt && opt.clinic){ openAcc.add("clinic"); }
+  if (opt && opt.clinic) openAcc.add("clinic");
   if (opt && opt.lesson){ const l = D.LESSONS.find(x => x.id === opt.lesson); if (l){ openAcc.add(l.u); openLesson.add(l.id); } }
   const secs = studySections();
   views.innerHTML = `
@@ -3062,8 +2983,7 @@ function renderStudy(opt){
   if (openAcc.has("equilibrium")) wireEquilibriumModel();
   if (openAcc.has("guided")) wireGuided();
   mountModels();
-  if (opt && typeof opt.clinic === "string"){ const el = views.querySelector(`[data-sec="clinic"] [data-mx="${opt.clinic}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
-  else if (opt && opt.clinic){ const el = views.querySelector(`[data-sec="clinic"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
+  if (opt && opt.clinic){ const el = views.querySelector(typeof opt.clinic === "string" ? `[data-sec="clinic"] [data-mx="${opt.clinic}"]` : `[data-sec="clinic"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
   if (opt && opt.lesson){ const el = views.querySelector(`[data-lid="${opt.lesson}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
 }
 function refreshStudy(){ const y = window.scrollY; renderStudy(); window.scrollTo(0, y); }
@@ -3096,7 +3016,7 @@ function wireStudy(){
   });
   views.querySelectorAll("[data-msel]").forEach(b => b.onclick = () => { modelSel = b.dataset.msel; refreshStudy(); });
   views.querySelectorAll(".acc.sub").forEach(a => { if (openLesson.has(a.dataset.lid)) a.classList.add("open"); });
-  wireClinic();
+  CL.wire(views);
   views.querySelectorAll("[data-lc]").forEach(b => b.onclick = () => { lessonCheck[b.dataset.lc] = +b.dataset.i; refreshStudy(); });
   views.querySelectorAll("[data-lcr]").forEach(b => b.onclick = () => { delete lessonCheck[b.dataset.lcr]; refreshStudy(); });
   views.querySelectorAll("[data-ldone]").forEach(b => b.onclick = () => {

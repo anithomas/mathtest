@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
+<script src="/clinic.js"></script>
 <title>MathTest Trail · MHF4U Advanced Functions</title>
 <style>
 :root{
@@ -724,13 +725,13 @@ MHF4U.GLOSSARY = [
 
 MHF4U.LESSONS = [
 /* ---------- Unit 1 ---------- */
-{id:'u1-1',u:'u1',t:'Degree, leading coefficient and end behaviour',
+{id:'u1-1',u:'u1',mx:["mx-end-behaviour"],t:'Degree, leading coefficient and end behaviour',
  big:'A polynomial is a sum of terms like 3x^{4} or −5x with whole-number exponents. When x is very large (positive or negative), the term with the highest power is so much bigger than the others that it decides where the graph goes. So the ends of the graph depend on only two things: whether the degree is even or odd, and the sign of the leading coefficient.',
  how:['Find the leading term. If the polynomial is factored, multiply the highest-power part of each factor: for −(x − 1)^{2}(2x + 3) that is −(x^{2})(2x) = −2x^{3}.','Even degree: both ends point the same way (up if a > 0, down if a < 0).','Odd degree: the ends point opposite ways (up on the right if a > 0, down on the right if a < 0).','Describe it with quadrants (Q3 to Q1) or in words: as x → ∞, y → ∞.'],
  ex:{p:'Describe the end behaviour of f(x) = −3x^{4} + 2x − 1.',s:['Leading term −3x^{4}: degree 4 (even), a = −3 (negative).','Even degree and negative: both ends go down.','As x → −∞, y → −∞, and as x → ∞, y → −∞ (Q3 to Q4).']},
  watch:'Do not read the degree from the first term you see. In f(x) = 5 + 2x − x^{3} the leading term is −x^{3}.',
  check:{p:'What is the end behaviour of y = 2x(x − 3)^{2}(1 − x)?',o:['Q3 to Q1','Q2 to Q4','Q2 to Q1','Q3 to Q4'],a:3,why:'Leading term: 2x · x^{2} · (−x) = −2x^{4}. Even degree, negative coefficient: both ends down, Q3 to Q4.'}},
-{id:'u1-2',u:'u1',t:'Zeros, multiplicity and sketching',
+{id:'u1-2',u:'u1',mx:["mx-multiplicity"],t:'Zeros, multiplicity and sketching',
  big:'In factored form, each factor (x − r) gives a zero at x = r. The exponent on the factor is its multiplicity, and it tells you what the graph does at that zero. A polynomial of degree n has at most n zeros and at most n − 1 turning points.',
  how:['Find each zero and its multiplicity.','Multiplicity 1: the graph crosses the x-axis like a straight line.','Multiplicity 2: the graph touches the axis and turns back, like a parabola.','Multiplicity 3: the graph crosses but flattens out, like y = x^{3}.','Find the y-intercept (x = 0), use the end behaviour, and join the pieces smoothly.'],
  ex:{p:'Sketch f(x) = (x + 2)(x − 1)^{2}.',s:['Zeros: x = −2 (multiplicity 1, crosses) and x = 1 (multiplicity 2, touches).','y-intercept: f(0) = (2)(1) = 2.','Leading term x · x^{2} = x^{3}: odd and positive, so Q3 to Q1.','Start low on the left, cross at −2, rise through (0, 2), come down to touch at 1, then rise to the right.']},
@@ -748,7 +749,7 @@ MHF4U.LESSONS = [
  ex:{p:'x = 0, 1, 2, 3, 4 gives y = −2, −1, 6, 25, 62. Find the degree and leading coefficient.',s:['First differences: 1, 7, 19, 37.','Second differences: 6, 12, 18.','Third differences: 6, 6. Constant, so the degree is 3.','a · 3! = 6, so 6a = 6 and a = 1. (The function is y = x^{3} − 2.)']},
  watch:'If the x-values go up by a step h other than 1, the constant difference is a · n! · h^{n}.',
  check:{p:'The second differences of a table are constant at −10. What are the degree and leading coefficient?',o:['degree 2, a = −10','degree 2, a = −5','degree 3, a = −10','degree 1, a = −5'],a:1,why:'Constant second differences means degree 2. a · 2! = −10, so a = −5.'}},
-{id:'u1-5',u:'u1',t:'Dividing polynomials and the Remainder Theorem',
+{id:'u1-5',u:'u1',mx:["mx-remainder-sign"],t:'Dividing polynomials and the Remainder Theorem',
  big:'Dividing a polynomial by (x − a) works like long division with numbers. Synthetic division is a shortcut that uses only the coefficients. The Remainder Theorem gives the remainder without dividing: it is P(a).',
  how:['Write the coefficients in order of descending powers, with 0 for any missing power.','For division by (x − a), put a in the box. (For x + 3, use −3.)','Bring down the first coefficient. Multiply by a, add to the next coefficient, and repeat.','The last number is the remainder. The others are the quotient coefficients, one degree lower.','Division statement: P(x) = (x − a)Q(x) + R.'],
  ex:{p:'Divide x^{3} + 2x^{2} − 5x − 6 by x − 2.',s:['Coefficients 1, 2, −5, −6 with 2 in the box.','Bring down 1. 1 × 2 = 2, and 2 + 2 = 4. 4 × 2 = 8, and −5 + 8 = 3. 3 × 2 = 6, and −6 + 6 = 0.','Quotient x^{2} + 4x + 3, remainder 0.','Check: P(2) = 8 + 8 − 10 − 6 = 0.']},
@@ -766,7 +767,7 @@ MHF4U.LESSONS = [
  ex:{p:'A cubic has zeros −1, 2 and 3 and passes through (1, 8). Find its equation.',s:['f(x) = k(x + 1)(x − 2)(x − 3).','f(1) = k(2)(−1)(−2) = 4k = 8, so k = 2.','f(x) = 2(x + 1)(x − 2)(x − 3).']},
  watch:'The zero x = −1 gives the factor (x + 1). Sign errors here are the most common mistake.',
  check:{p:'A cubic has zeros 0, 2 and −2 and passes through (1, 6). What is k?',o:['2','−2','6','−3'],a:1,why:'f(x) = kx(x − 2)(x + 2). f(1) = k(1)(−1)(3) = −3k = 6, so k = −2.'}},
-{id:'u1-8',u:'u1',t:'Solving polynomial equations and inequalities',
+{id:'u1-8',u:'u1',mx:["mx-poly-ineq"],t:'Solving polynomial equations and inequalities',
  big:'To solve P(x) = 0, factor and set each factor to zero. To solve P(x) > 0 or P(x) < 0, find the zeros, then use a sign chart to see where the graph is above or below the x-axis.',
  how:['Move all terms to one side so the other side is 0.','Factor completely and list the zeros in order.','Make a sign chart: test one x-value in each interval.','Choose the intervals that match the inequality. Include zeros for ≥ or ≤; exclude them for > or <.','Write the answer with inequalities or interval notation.'],
  ex:{p:'Solve x^{3} − 4x ≤ 0.',s:['Factor: x(x − 2)(x + 2) ≤ 0. Zeros: −2, 0, 2.','Degree 3, a > 0: negative far left. Signs: − on (−∞, −2), + on (−2, 0), − on (0, 2), + on (2, ∞).','We need ≤ 0, and the zeros are included.','x ≤ −2 or 0 ≤ x ≤ 2.']},
@@ -785,7 +786,7 @@ MHF4U.LESSONS = [
  ex:{p:'Find the key features of f(x) = {2x − 1|x + 3}.',s:['Vertical asymptote: x = −3.','Horizontal asymptote: y = {2|1} = 2.','x-intercept: 2x − 1 = 0, so x = {1|2}.','y-intercept: f(0) = −{1|3}.','Test x = −2.9: f = {−6.8|0.1} = −68. The right branch drops toward −∞ near x = −3.']},
  watch:'The horizontal asymptote uses the x-coefficients, not the constants. For {4x + 1|2x − 6} it is y = 2.',
  check:{p:'For f(x) = {4x + 1|2x − 6}, the asymptotes are',o:['x = 3 and y = 2','x = −3 and y = 2','x = 6 and y = 4','x = 3 and y = −{1|6}'],a:0,why:'2x − 6 = 0 gives x = 3. The ratio of x-coefficients is {4|2} = 2.'}},
-{id:'u2-3',u:'u2',t:'Holes, asymptotes and degree rules',
+{id:'u2-3',u:'u2',mx:["mx-hole-vs-va","mx-horizontal-asymptote"],t:'Holes, asymptotes and degree rules',
  big:'Always factor first. A factor that cancels makes a hole (one missing point). A zero of the denominator that remains makes a vertical asymptote. The degrees of the top and bottom decide the horizontal asymptote.',
  how:['Factor fully and write the restrictions from the original denominator.','Cancelled factor (x − a): hole at x = a. Get its y-value from the simplified function.','Remaining zeros of the denominator: vertical asymptotes.','Top degree smaller: y = 0. Equal degrees: ratio of leading coefficients. Top degree bigger: no horizontal asymptote.','Enrichment (ask your teacher if it is tested): if the top degree is one more than the bottom, divide to find an oblique asymptote.'],
  ex:{p:'Analyse f(x) = {x^{2} − 1|x^{2} + x − 2}.',s:['f(x) = {(x − 1)(x + 1)|(x − 1)(x + 2)}, with x ≠ 1 and x ≠ −2.','(x − 1) cancels: g(x) = {x + 1|x + 2}. g(1) = {2|3}, so the hole is at (1, {2|3}).','Vertical asymptote: x = −2.','Equal degrees: horizontal asymptote y = 1.']},
@@ -797,20 +798,20 @@ MHF4U.LESSONS = [
  ex:{p:'Describe f(x) = {1|x − 2} near x = 2.',s:['x = 2.1: f = 10. x = 2.01: f = 100. So f → +∞ as x → 2 from the right.','x = 1.9: f = −10. x = 1.99: f = −100. So f → −∞ as x → 2 from the left.','Average rate on [2.1, 2.2]: {5 − 10|0.1} = −50. On [3, 3.1]: about −0.91. The graph is far steeper near the asymptote.']},
  watch:'Always say which side you are approaching from. The two sides usually go in opposite directions.',
  check:{p:'For f(x) = {x + 1|x − 3}, what happens as x approaches 3 from the left?',o:['f → +∞','f → −∞','f → 1','f → 0'],a:1,why:'At x = 2.9, f = {3.9|−0.1} = −39. The values become large and negative.'}},
-{id:'u2-5',u:'u2',t:'Solving rational equations',
+{id:'u2-5',u:'u2',mx:["mx-extraneous-root"],t:'Solving rational equations',
  big:'Clear the fractions by multiplying by the lowest common denominator, solve the simpler equation, then check each answer against the restrictions. An answer that makes a denominator 0 is rejected.',
  how:['Factor each denominator and write the restrictions.','Multiply every term by the LCD.','Solve the polynomial equation you get.','Reject any solution that breaks a restriction.'],
  ex:{p:'Solve {2|x − 1} = {3|x + 2}.',s:['Restrictions: x ≠ 1, x ≠ −2.','Cross-multiply: 2(x + 2) = 3(x − 1).','2x + 4 = 3x − 3, so x = 7.','x = 7 is allowed. Check: {2|6} = {3|9} = {1|3}.']},
  watch:'In {x|x − 2} + 1 = {2|x − 2}, clearing fractions gives x = 2, which is a restriction. So there is no solution.',
  check:{p:'Solve {6|x} = x − 1.',o:['x = 3 or x = −2','x = 3 only','x = −3 or x = 2','no solution'],a:0,why:'x ≠ 0. Multiply by x: 6 = x^{2} − x, so (x − 3)(x + 2) = 0. Both answers are allowed.'}},
-{id:'u2-6',u:'u2',t:'Solving rational inequalities',
+{id:'u2-6',u:'u2',mx:["mx-rational-ineq"],t:'Solving rational inequalities',
  big:'You cannot multiply both sides of an inequality by an expression whose sign you do not know. Instead, get 0 on one side, make one fraction, and use a sign chart.',
  how:['Move everything to one side so you compare with 0.','Combine into a single fraction and factor top and bottom.','Mark the zeros of the numerator and of the denominator on a number line.','Test a value in each interval.','Numerator zeros are included only for ≥ or ≤. Denominator zeros are never included.'],
  ex:{p:'Solve {x + 2|x − 3} ≥ 0.',s:['Critical values: x = −2 (numerator) and x = 3 (denominator).','x = −3: {−1|−6} > 0. x = 0: {2|−3} < 0. x = 4: {6|1} > 0.','We need ≥ 0: x ≤ −2 or x > 3.','−2 is included (value 0). 3 is excluded (undefined).']},
  watch:'Multiplying {x + 1|x − 2} ≤ 3 through by (x − 2) flips the answer for every x < 2.',
  check:{p:'Solve {x − 1|x + 4} < 0.',o:['x < −4 or x > 1','−4 < x < 1','−4 ≤ x ≤ 1','x > 1'],a:1,why:'Critical values −4 and 1. The fraction is negative between them. Neither endpoint counts: −4 makes it undefined and 1 makes it 0.'}},
 /* ---------- Unit 3 ---------- */
-{id:'u3-1',u:'u3',t:'Radians, arc length and angular velocity',
+{id:'u3-1',u:'u3',mx:["mx-radian-arc"],t:'Radians, arc length and angular velocity',
  big:'A radian is the angle that cuts off an arc exactly as long as the radius. Once around a circle is 2π radians, so π radians = 180°. Radians make arc length and speed formulas simple.',
  how:['Degrees to radians: multiply by {π|180}. Radians to degrees: multiply by {180|π}.','Arc length: a = rθ, with θ in radians.','Angular velocity: ω = {θ|t}, in radians per second (or minute).','One revolution is 2π radians, so n revolutions per minute is 2πn rad/min.'],
  ex:{p:'Convert 225° to radians. Then find the arc length on a circle of radius 8 cm for θ = {3π|4}.',s:['225 × {π|180} = {5π|4}.','a = rθ = 8 × {3π|4} = 6π ≈ 18.85 cm.']},
@@ -834,7 +835,7 @@ MHF4U.LESSONS = [
  ex:{p:'Describe y = sec x on 0 ≤ x ≤ 2π.',s:['cos x = 0 at {π|2} and {3π|2}: these are the vertical asymptotes.','cos x = 1 at 0 and 2π, so sec x = 1 there (lowest points of the upward branches).','cos x = −1 at π, so sec x = −1 there (highest point of the downward branch).','Range: y ≤ −1 or y ≥ 1.']},
  watch:'csc x is not sin^{−1} x. The reciprocal means 1 ÷ sin x.',
  check:{p:'What is the range of y = sec x?',o:['−1 ≤ y ≤ 1','y ≥ 1','y ≤ −1 or y ≥ 1','all real numbers'],a:2,why:'cos x is between −1 and 1, so 1 ÷ cos x is at least 1 or at most −1.'}},
-{id:'u3-5',u:'u3',t:'Transformations: y = a sin(k(x − d)) + c',
+{id:'u3-5',u:'u3',mx:["mx-phase-shift"],t:'Transformations: y = a sin(k(x − d)) + c',
  big:'Each parameter changes one feature of the wave. a sets the height, k squeezes it sideways, d slides it left or right, and c moves the middle line up or down.',
  how:['Factor k out of the bracket first: sin(2x − {π|2}) = sin(2(x − {π|4})).','Amplitude = |a|. If a < 0, the graph is reflected in the x-axis.','Period = 2π ÷ |k|.','Phase shift = d (to the right if d > 0).','Midline y = c. Maximum c + |a|, minimum c − |a|.'],
  ex:{p:'Describe y = 3 sin(2(x − {π|4})) − 1.',s:['Amplitude 3.','Period {2π|2} = π.','Phase shift {π|4} to the right.','Midline y = −1, maximum 2, minimum −4.']},
@@ -846,7 +847,7 @@ MHF4U.LESSONS = [
  ex:{p:'A Ferris wheel has a diameter of 20 m, its lowest point is 2 m above the ground, and it turns once every 40 s. You board at the bottom at t = 0. Write a model for your height.',s:['Maximum 22 m, minimum 2 m. Amplitude {22 − 2|2} = 10. Midline {22 + 2|2} = 12.','k = {2π|40} = {π|20}.','You start at the minimum, so use −cos.','h(t) = −10 cos({π|20}t) + 12.']},
  watch:'The period is one full cycle. High tide to the next low tide is only half a period.',
  check:{p:'Daylight in a city varies from 9 h to 15 h over a year. What are the amplitude and midline of a model?',o:['amplitude 6, midline 12','amplitude 3, midline 12','amplitude 3, midline 9','amplitude 6, midline 9'],a:1,why:'Amplitude {15 − 9|2} = 3. Midline {15 + 9|2} = 12.'}},
-{id:'u3-7',u:'u3',t:'Trig identities and proofs',
+{id:'u3-7',u:'u3',mx:["mx-proof-one-side"],t:'Trig identities and proofs',
  big:'An identity is an equation that is true for every value where both sides are defined. To prove one, you transform one side step by step until it matches the other side.',
  how:['Write LS and RS separately. Never move terms across the equal sign.','Start with the more complicated side.','Rewrite tan, csc, sec and cot in terms of sin and cos.','Look for sin^{2}x + cos^{2}x = 1, common denominators and factoring.','Finish with LS = RS.'],
  ex:{p:'Prove tan x + cot x = sec x csc x.',s:['LS = {sin x|cos x} + {cos x|sin x}.','= {sin^{2}x + cos^{2}x|sin x cos x}.','= {1|sin x cos x}.','RS = {1|cos x} · {1|sin x} = {1|sin x cos x}.','LS = RS. ∎']},
@@ -858,7 +859,7 @@ MHF4U.LESSONS = [
  ex:{p:'Find the exact value of cos({π|12}).',s:['{π|12} = {π|3} − {π|4}.','cos({π|3} − {π|4}) = cos({π|3})cos({π|4}) + sin({π|3})sin({π|4}).','= ({1|2})({√2|2}) + ({√3|2})({√2|2}).','= {√2 + √6|4}.']},
  watch:'cos(A − B) has a plus sign in the middle.',
  check:{p:'sin({5π|12}) = sin({π|4} + {π|6}) equals',o:['{√6 + √2|4}','{√6 − √2|4}','{√3 + 1|4}','{√2|2}'],a:0,why:'({√2|2})({√3|2}) + ({√2|2})({1|2}) = {√6|4} + {√2|4}.'}},
-{id:'u3-9',u:'u3',t:'Solving trig equations',
+{id:'u3-9',u:'u3',mx:["mx-cast-solutions"],t:'Solving trig equations',
  big:'A trig equation usually has several solutions in 0 ≤ x ≤ 2π, because each ratio value appears in two quadrants. Solve for the ratio first, then find every angle.',
  how:['Isolate the trig ratio. For quadratics, factor as if sin x or cos x were a variable.','If needed, use an identity so there is one kind of ratio (for example sin 2x = 2 sin x cos x).','For each value, find the reference angle, then use CAST to find the quadrants.','List all solutions in the interval, including 0 and 2π if they work.','Don\'t divide by sin x or cos x: you can lose solutions where it equals 0. Factor instead.'],
  ex:{p:'Solve sin 2x = sin x for 0 ≤ x ≤ 2π.',s:['2 sin x cos x − sin x = 0.','sin x(2 cos x − 1) = 0.','sin x = 0: x = 0, π, 2π.','cos x = {1|2}: x = {π|3}, {5π|3}.','Solutions: 0, {π|3}, π, {5π|3}, 2π.']},
@@ -883,7 +884,7 @@ MHF4U.LESSONS = [
  ex:{p:'Describe y = 2 log_{3}(x − 1) + 4.',s:['Vertical asymptote x = 1; domain x > 1.','Key points of log_{3} x: (1, 0) and (3, 1).','Map (x, y) → (x + 1, 2y + 4): (2, 4) and (4, 6).','Range: all real numbers.']},
  watch:'For y = log(5 − x), the argument must be positive: 5 − x > 0, so x < 5.',
  check:{p:'What is the domain of y = log(5 − x)?',o:['x > 5','x < 5','x > −5','all real numbers'],a:1,why:'5 − x > 0 gives x < 5.'}},
-{id:'u4-4',u:'u4',t:'Laws of logarithms',
+{id:'u4-4',u:'u4',mx:["mx-log-laws"],t:'Laws of logarithms',
  big:'Because logs are exponents, the exponent laws turn into log laws. They let you combine several logs into one, or split one log apart.',
  how:['Product: log_{b}(xy) = log_{b} x + log_{b} y.','Quotient: log_{b}({x|y}) = log_{b} x − log_{b} y.','Power: log_{b}(x^{n}) = n log_{b} x.','Change of base: log_{b} x = {log x|log b}, for calculator work.'],
  ex:{p:'Evaluate log_{2} 12 + log_{2} 6 − log_{2} 9.',s:['Combine: log_{2}({12 × 6|9}).','= log_{2}({72|9}) = log_{2} 8.','= 3.']},
@@ -895,7 +896,7 @@ MHF4U.LESSONS = [
  ex:{p:'Solve 3^{x + 2} = 7^{x}.',s:['Take logs: (x + 2) log 3 = x log 7.','x log 3 + 2 log 3 = x log 7.','x(log 7 − log 3) = 2 log 3.','x = {2 log 3|log 7 − log 3} ≈ 2.59.']},
  watch:'log 7 − log 3 is not log 4. It equals log({7|3}).',
  check:{p:'Solve 2^{2x} − 6(2^{x}) + 8 = 0.',o:['x = 2, 4','x = 1, 2','x = 1 only','x = 4, 16'],a:1,why:'Let u = 2^{x}: u^{2} − 6u + 8 = (u − 2)(u − 4) = 0. 2^{x} = 2 gives x = 1; 2^{x} = 4 gives x = 2.'}},
-{id:'u4-6',u:'u4',t:'Solving logarithmic equations',
+{id:'u4-6',u:'u4',mx:["mx-log-domain"],t:'Solving logarithmic equations',
  big:'Use the log laws to get a single log, then rewrite in exponential form. Always check your answers, because the log of 0 or a negative number is undefined.',
  how:['Write the restrictions: every argument must be positive.','Combine logs using the laws.','Convert log_{b} A = c to A = b^{c}, or use log_{b} A = log_{b} B so A = B.','Solve, then reject answers that break a restriction.'],
  ex:{p:'Solve log x + log(x − 3) = 1.',s:['Restrictions: x > 0 and x > 3, so x > 3.','log[x(x − 3)] = 1, so x(x − 3) = 10.','x^{2} − 3x − 10 = 0, so (x − 5)(x + 2) = 0.','x = −2 is rejected. The solution is x = 5.']},
@@ -908,7 +909,7 @@ MHF4U.LESSONS = [
  watch:'For 4% per year compounded monthly, i = {0.04|12} and n = 12 × the number of years.',
  check:{p:'A solution with pH 3 is how many times as acidic as one with pH 6?',o:['3 times','2 times','100 times','1000 times'],a:3,why:'The pH values differ by 3, so the ratio of [H^{+}] is 10^{3} = 1000.'}},
 /* ---------- Unit 5 ---------- */
-{id:'u5-1',u:'u5',t:'Average rate of change',
+{id:'u5-1',u:'u5',mx:["mx-average-rate"],t:'Average rate of change',
  big:'The average rate of change tells you how fast something changes over an interval, on average. On a graph it is the slope of the secant line joining two points.',
  how:['Find the two points (a, f(a)) and (b, f(b)).','Average rate = {f(b) − f(a)|b − a}.','Include units: output units per input unit.','Positive: increasing on average. Negative: decreasing on average.'],
  ex:{p:'A town had 12 400 people in 2015 and 14 200 in 2023. Find the average rate of change.',s:['Change in population: 14 200 − 12 400 = 1800.','Change in time: 8 years.','Average rate = {1800|8} = 225 people per year.']},
@@ -932,7 +933,7 @@ MHF4U.LESSONS = [
  ex:{p:'f(x) = √x and g(x) = x − 4. Find ({f|g})(x) and its domain.',s:['({f|g})(x) = {√x|x − 4}.','√x needs x ≥ 0.','The denominator needs x ≠ 4.','Domain: x ≥ 0, x ≠ 4.']},
  watch:'Find the domain from the original functions, before you simplify.',
  check:{p:'f(x) = x^{2} and g(x) = √(x + 1). The domain of f + g is',o:['all real numbers','x ≥ −1','x ≥ 0','x > −1'],a:1,why:'f is defined everywhere; g needs x + 1 ≥ 0. Both together: x ≥ −1.'}},
-{id:'u5-5',u:'u5',t:'Composition of functions',
+{id:'u5-5',u:'u5',mx:["mx-composition-order"],t:'Composition of functions',
  big:'In a composition, the output of one function becomes the input of the next. f(g(x)) means do g first, then f.',
  how:['Work from the inside out: find g(x), then substitute it into f.','Order matters: f(g(x)) and g(f(x)) are usually different.','Domain: x must be in the domain of g, and g(x) must be in the domain of f.','To evaluate at a number, such as f(g(2)), find g(2) first.'],
  ex:{p:'f(x) = x^{2} and g(x) = x + 3. Find f(g(2)) and g(f(2)).',s:['g(2) = 5, so f(g(2)) = f(5) = 25.','f(2) = 4, so g(f(2)) = g(4) = 7.','Different answers: order matters.']},
@@ -1375,6 +1376,1034 @@ MHF4U.GUIDED = [
   {q:'Check: evaluate f(6.5).',ans:4,h:'{2(6.5) + 1|6.5 − 3} = {14|3.5}.',why:'f(6.5) = 4 ✔. The inverse undoes f.'},
   {q:'What is the vertical asymptote of f^{−1}? Enter the x-value.',ans:2,h:'Where the inverse\'s denominator x − 2 = 0.',why:'x = 2, which equals the horizontal asymptote of f (y = 2): asymptotes swap under inversion.'}]},
 ];
+
+/* ---------- Mistake Clinic: generic misconception cards + the practice questions that rehearse them (2026-11-03) ---------- */
+MHF4U.MISTAKES = [
+ {
+  "id": "mx-end-behaviour",
+  "u": "u1",
+  "l": "u1-1",
+  "t": "Reading end behaviour",
+  "wrong": "Reading the end behaviour of g(x) = 4x^{3} − x^{4} + 2x from the first term written, 4x^{3}, and answering \"Q3 to Q1\".",
+  "why": "End behaviour comes from the leading term, which is the term with the highest power. It is not always written first. The degree decides whether the ends point the same way or opposite ways, and the sign of its coefficient decides which way the right end points.",
+  "fix": "1) Find the highest power and rewrite the polynomial in descending order. 2) Even degree: both ends point the same way. Odd degree: they point opposite ways. 3) Positive coefficient: the right end goes up. Negative: it goes down. For −x^{4} the degree is even and the coefficient is negative, so both ends go down: Q3 to Q4.",
+  "redo": {
+   "p": "Which describes the end behaviour of f(x) = 5x − 2x^{3} + x^{2}?",
+   "o": [
+    "Q2 to Q4",
+    "Q3 to Q1",
+    "Q2 to Q1",
+    "Q3 to Q4"
+   ],
+   "a": 0,
+   "why": "The highest power is x^{3} with coefficient −2. Odd degree means the ends point opposite ways, and a negative coefficient means the right end goes down: Q2 to Q4."
+  }
+ },
+ {
+  "id": "mx-remainder-sign",
+  "u": "u1",
+  "l": "u1-5",
+  "t": "Remainder Theorem and the sign of the divisor",
+  "wrong": "Finding the remainder when f(x) is divided by x + 3 by calculating f(3).",
+  "why": "The Remainder Theorem says the remainder on division by x − a is f(a). The divisor x + 3 is x − (−3), so a = −3. Copying the number from the divisor without changing its sign gives the wrong value.",
+  "fix": "Set the divisor equal to zero and solve. x + 3 = 0 gives x = −3, so the remainder is f(−3). For a divisor such as 2x − 1, use x = {1|2}. The same value tests the Factor Theorem: if f(−3) = 0, then x + 3 is a factor.",
+  "redo": {
+   "p": "What is the remainder when f(x) = x^{3} − 2x + 5 is divided by x + 2?",
+   "o": [
+    "9",
+    "1",
+    "−1",
+    "17"
+   ],
+   "a": 1,
+   "why": "x + 2 = 0 gives x = −2. f(−2) = (−2)^{3} − 2(−2) + 5 = −8 + 4 + 5 = 1. The value 9 comes from using f(2)."
+  }
+ },
+ {
+  "id": "mx-multiplicity",
+  "u": "u1",
+  "l": "u1-2",
+  "t": "Zeros of odd and even multiplicity",
+  "wrong": "Sketching f(x) = (x − 2)^{2}(x + 1) so that the graph crosses the x-axis at x = 2.",
+  "why": "Every zero is an x-intercept, but the exponent on its factor controls how the graph behaves there. It is easy to remember \"zero means intercept\" and forget to check the exponent.",
+  "fix": "Odd multiplicity (1, 3, …): the graph crosses the axis. Multiplicity 1 passes straight through; multiplicity 3 flattens as it crosses. Even multiplicity (2, 4, …): the graph touches the axis and turns around without crossing. For (x − 2)^{2}(x + 1) the graph crosses at x = −1 and touches at x = 2.",
+  "redo": {
+   "p": "f(x) = (x + 1)^{3}(x − 4)^{2}. Which statement about the zeros is correct?",
+   "o": [
+    "It touches at x = −1 and crosses at x = 4",
+    "It crosses straight through both zeros",
+    "It crosses at x = −1 (flattened) and touches at x = 4",
+    "It touches the axis at both zeros"
+   ],
+   "a": 2,
+   "why": "Multiplicity 3 at x = −1 is odd, so the graph crosses there, flattening because the exponent is greater than 1. Multiplicity 2 at x = 4 is even, so the graph touches the axis and turns."
+  }
+ },
+ {
+  "id": "mx-poly-ineq",
+  "u": "u1",
+  "l": "u1-8",
+  "t": "Zeros in polynomial inequalities",
+  "wrong": "Solving (x − 1)^{2}(x + 3) > 0 and answering x > −3, without excluding x = 1.",
+  "why": "A strict inequality does not include the zeros, because there the product equals 0, not a positive number. A zero of even multiplicity does not change the sign, so the sign chart looks the same on both sides of x = 1, but the single point x = 1 still has to be removed.",
+  "fix": "Mark each zero on a number line, test one value in each interval, and write the intervals that satisfy the inequality. For > and < the zeros are excluded. For ≥ and ≤ they are included. Here the product is positive for x > −3 except at x = 1, so the answer is x > −3, x ≠ 1.",
+  "redo": {
+   "p": "Solve (x + 2)^{2}(x − 4) ≥ 0.",
+   "o": [
+    "x ≥ 4",
+    "x > 4",
+    "x ≥ −2",
+    "x ≥ 4 or x = −2"
+   ],
+   "a": 3,
+   "why": "The product is negative for every x < 4 except where it equals 0. It equals 0 at x = −2 and at x = 4. Because the inequality is ≥, both zeros are included: x ≥ 4 or x = −2."
+  }
+ },
+ {
+  "id": "mx-hole-vs-va",
+  "u": "u2",
+  "l": "u2-3",
+  "t": "Hole or vertical asymptote?",
+  "wrong": "Saying f(x) = {x^{2} − 4|x − 2} has a vertical asymptote at x = 2 because the denominator is zero there.",
+  "why": "A zero denominator only tells you that x = 2 is a restriction. Whether it is a vertical asymptote or a hole depends on whether the same factor cancels with the numerator.",
+  "fix": "Factor the top and bottom completely. A factor that cancels gives a hole at that x-value. A factor left in the denominator gives a vertical asymptote. Find the y-value of a hole by substituting into the simplified function. Here (x − 2)(x + 2) over (x − 2) simplifies to x + 2, so there is a hole at (2, 4) and no asymptote.",
+  "redo": {
+   "p": "f(x) = {(x − 3)(x + 1)|(x − 3)(x + 2)}. Which statement is correct?",
+   "o": [
+    "A hole at x = 3 and a vertical asymptote at x = −2",
+    "Vertical asymptotes at x = 3 and x = −2",
+    "A hole at x = −2 and a vertical asymptote at x = 3",
+    "A vertical asymptote at x = −1 only"
+   ],
+   "a": 0,
+   "why": "The factor x − 3 cancels, which leaves a hole at x = 3. The factor x + 2 stays in the denominator, so x = −2 is a vertical asymptote."
+  }
+ },
+ {
+  "id": "mx-horizontal-asymptote",
+  "u": "u2",
+  "l": "u2-3",
+  "t": "Horizontal asymptote by degree",
+  "wrong": "Giving the horizontal asymptote of f(x) = {6x^{2} − x|2x^{2} + 5} as y = 0, or as y = 6.",
+  "why": "The horizontal asymptote comes from comparing the degrees of the numerator and the denominator. It is a ratio of leading coefficients only when the degrees are equal.",
+  "fix": "Numerator degree smaller: y = 0. Equal degrees: y = (leading coefficient on top) ÷ (leading coefficient on the bottom), here {6|2} = 3. Numerator one degree larger: there is no horizontal asymptote, but there is an oblique one (use division).",
+  "redo": {
+   "p": "The horizontal asymptote of f(x) = {5x^{3} + 2x|10x^{3} − 7} is",
+   "o": [
+    "y = 0",
+    "y = {1|2}",
+    "y = 5",
+    "y = 2"
+   ],
+   "a": 1,
+   "why": "Both degrees are 3, so the asymptote is the ratio of the leading coefficients: {5|10} = {1|2}."
+  }
+ },
+ {
+  "id": "mx-extraneous-root",
+  "u": "u2",
+  "l": "u2-5",
+  "t": "Extraneous roots in rational equations",
+  "wrong": "Solving {x^{2}|x − 3} = {9|x − 3} and giving x = 3 and x = −3 as solutions.",
+  "why": "Solving can create roots that the original equation never allowed. x = 3 makes both denominators zero, so it is not in the domain of the original equation.",
+  "fix": "State the restrictions first (x ≠ 3). Solve, then check every answer against the restrictions. A root equal to a restricted value is extraneous and must be rejected. Here x² = 9 gives x = ±3, but x = 3 is rejected, so the only solution is x = −3.",
+  "redo": {
+   "p": "Solve {x^{2}|x − 5} = {25|x − 5}.",
+   "o": [
+    "x = 5 and x = −5",
+    "x = 5 only",
+    "x = −5 only",
+    "There is no solution"
+   ],
+   "a": 2,
+   "why": "The restriction is x ≠ 5. The denominators match, so x² = 25 and x = ±5. The root x = 5 is extraneous. The only solution is x = −5."
+  }
+ },
+ {
+  "id": "mx-rational-ineq",
+  "u": "u2",
+  "l": "u2-6",
+  "t": "Multiplying by an unknown sign",
+  "wrong": "Solving {3|x − 1} > 2 by multiplying both sides by x − 1 and answering x < 2.5.",
+  "why": "The expression x − 1 can be positive or negative. If it is negative, multiplying flips the inequality; if it is positive it does not. You cannot tell which, so multiplying produces an answer that is only valid on one side of the asymptote.",
+  "fix": "Never multiply by an expression whose sign you do not know. Move everything to one side and make one fraction: {3|x − 1} − 2 > 0 becomes {5 − 2x|x − 1} > 0. Find where the numerator and the denominator are zero (2.5 and 1), then use a sign chart. The fraction is positive for 1 < x < 2.5.",
+  "redo": {
+   "p": "Solve {2|x + 1} < 1.",
+   "o": [
+    "x > 1",
+    "−1 < x < 1",
+    "x < 1",
+    "x < −1 or x > 1"
+   ],
+   "a": 3,
+   "why": "{2|x + 1} − 1 < 0 gives {1 − x|x + 1} < 0. The critical values are x = −1 (never allowed) and x = 1. The fraction is negative for x < −1 and for x > 1."
+  }
+ },
+ {
+  "id": "mx-radian-arc",
+  "u": "u3",
+  "l": "u3-1",
+  "t": "Arc length needs radians",
+  "wrong": "Using a = rθ with the angle in degrees: for 30° and r = 6 cm, writing a = 6 × 30 = 180 cm.",
+  "why": "The formula a = rθ is only true when θ is in radians. A degree measure must be converted first.",
+  "fix": "Convert by multiplying by {π|180}, then apply a = rθ. 30° = {π|6} rad, so a = 6 × {π|6} = π cm, about 3.14 cm. Keep π in exact answers, and check whether your calculator is in degree or radian mode.",
+  "redo": {
+   "p": "A circle has radius 12 cm. What is the arc length for a central angle of 45°?",
+   "o": [
+    "3π cm",
+    "540 cm",
+    "{π|4} cm",
+    "12π cm"
+   ],
+   "a": 0,
+   "why": "45° = {π|4} rad. a = rθ = 12 × {π|4} = 3π cm. The value 540 comes from using 45 as if it were in radians."
+  }
+ },
+ {
+  "id": "mx-cast-solutions",
+  "u": "u3",
+  "l": "u3-9",
+  "t": "Choosing quadrants when solving",
+  "wrong": "Solving sin θ = −{1|2} on [0, 2π] and answering θ = {π|6} and {5π|6}.",
+  "why": "The reference angle is {π|6}, but those two angles are where sine is positive (Q1 and Q2). The sign of the ratio tells you which quadrants to use.",
+  "fix": "Step 1: find the reference angle from the positive value ({π|6}). Step 2: use CAST to choose the quadrants where the ratio has the right sign. Sine is negative in Q3 and Q4. Step 3: build the angles: π + {π|6} = {7π|6} and 2π − {π|6} = {11π|6}.",
+  "redo": {
+   "p": "Solve cos θ = −{√3|2} for 0 ≤ θ ≤ 2π.",
+   "o": [
+    "θ = {π|6} and {11π|6}",
+    "θ = {5π|6} and {7π|6}",
+    "θ = {π|6} and {5π|6}",
+    "θ = {7π|6} and {11π|6}"
+   ],
+   "a": 1,
+   "why": "The reference angle is {π|6}. Cosine is negative in Q2 and Q3, so θ = π − {π|6} = {5π|6} and θ = π + {π|6} = {7π|6}."
+  }
+ },
+ {
+  "id": "mx-proof-one-side",
+  "u": "u3",
+  "l": "u3-7",
+  "t": "Proving an identity",
+  "wrong": "Proving {1 − cos^{2}x|sin x} = sin x by multiplying both sides by sin x.",
+  "why": "A proof must show the two sides are equal without assuming they are. Doing the same operation to both sides starts from the very statement you are trying to prove.",
+  "fix": "Work on one side only, usually the more complicated one, and use identities until it matches the other side. Here LS = {1 − cos^{2}x|sin x} = {sin^{2}x|sin x} = sin x = RS. Finish with the conclusion LS = RS.",
+  "redo": {
+   "p": "Which is a valid first step in proving {sin x|cos x} + {cos x|sin x} = {1|sin x cos x}?",
+   "o": [
+    "Multiply both sides by sin x cos x",
+    "Subtract 1 from both sides",
+    "Write the left side over the common denominator sin x cos x",
+    "Cross-multiply the two sides"
+   ],
+   "a": 2,
+   "why": "In a proof you change only one side. Combining the left side over a common denominator gives {sin^{2}x + cos^{2}x|sin x cos x} = {1|sin x cos x}."
+  }
+ },
+ {
+  "id": "mx-phase-shift",
+  "u": "u3",
+  "l": "u3-5",
+  "t": "Reading the phase shift",
+  "wrong": "Reading the phase shift of y = 3 sin(2x − π) + 1 as π units to the right.",
+  "why": "The shift is read from the form sin(k(x − d)) with k factored out. In 2x − π the 2 multiplies x, so the shift is not π.",
+  "fix": "Factor out the coefficient of x: 2x − π = 2(x − {π|2}), so d = {π|2} to the right. The period is {2π|k} = π, the amplitude is 3 and the midline is y = 1.",
+  "redo": {
+   "p": "What is the phase shift of y = 2 cos(3x + π)?",
+   "o": [
+    "π to the left",
+    "{π|3} to the right",
+    "3π to the left",
+    "{π|3} to the left"
+   ],
+   "a": 3,
+   "why": "3x + π = 3(x + {π|3}), which has the form k(x − d) with d = −{π|3}. The graph is shifted {π|3} to the left."
+  }
+ },
+ {
+  "id": "mx-log-laws",
+  "u": "u4",
+  "l": "u4-4",
+  "t": "Splitting a log",
+  "wrong": "Writing log(x + 3) = log x + log 3.",
+  "why": "The product law turns a product inside a log into a sum of logs, log(ab) = log a + log b. It says nothing about a sum inside a log. No law splits log(a + b).",
+  "fix": "There are three laws: log(ab) = log a + log b; log({a|b}) = log a − log b; log(a^{n}) = n log a. Before splitting, check that the inside of the log is a product, quotient or power. A sum or difference inside a log cannot be split.",
+  "redo": {
+   "p": "Which is equal to log_{2}(x^{2}y)?",
+   "o": [
+    "2 log_{2}x + log_{2}y",
+    "2 log_{2}(x + y)",
+    "(log_{2}x^{2})(log_{2}y)",
+    "2(log_{2}x)(log_{2}y)"
+   ],
+   "a": 0,
+   "why": "x²y is a product, so it splits into a sum, and the power law moves the exponent 2 in front of log x: 2 log x + log y."
+  }
+ },
+ {
+  "id": "mx-log-domain",
+  "u": "u4",
+  "l": "u4-6",
+  "t": "Rejecting roots in log equations",
+  "wrong": "Solving log_{2}x + log_{2}(x − 2) = 3 and giving both x = 4 and x = −2.",
+  "why": "The log of zero or a negative number is undefined. Combining logs and solving can produce roots that make an argument negative.",
+  "fix": "Combine: log_{2}[x(x − 2)] = 3, so x(x − 2) = 8 and x² − 2x − 8 = 0, giving x = 4 or x = −2. Substitute back: x = −2 makes log_{2}(−2) undefined, so it is rejected. State the restriction (x > 2) at the start and check every root.",
+  "redo": {
+   "p": "Solve log x + log(x − 3) = 1.",
+   "o": [
+    "x = 5 and x = −2",
+    "x = 5 only",
+    "x = −2 only",
+    "x = 10"
+   ],
+   "a": 1,
+   "why": "log[x(x − 3)] = 1 means x(x − 3) = 10, so x² − 3x − 10 = 0 and x = 5 or x = −2. The argument x must be positive, so x = −2 is rejected."
+  }
+ },
+ {
+  "id": "mx-composition-order",
+  "u": "u5",
+  "l": "u5-5",
+  "t": "Order in a composite function",
+  "wrong": "Calculating (f ∘ g)(x) by putting f inside g.",
+  "why": "(f ∘ g)(x) means f(g(x)): the function on the right acts first. Reading it left to right, as with ordinary multiplication, reverses the order and usually gives a different function.",
+  "fix": "Rewrite (f ∘ g)(x) as f(g(x)). Work out the inside function first, then substitute that result into the outside function. With f(x) = 2x + 1 and g(x) = x²: f(g(x)) = 2x² + 1, but g(f(x)) = (2x + 1)². They are not the same.",
+  "redo": {
+   "p": "f(x) = 3x − 2 and g(x) = x². What is (f ∘ g)(2)?",
+   "o": [
+    "16",
+    "4",
+    "10",
+    "28"
+   ],
+   "a": 2,
+   "why": "g(2) = 4, then f(4) = 3(4) − 2 = 10. The value 16 is g(f(2)), the composition in the wrong order."
+  }
+ },
+ {
+  "id": "mx-average-rate",
+  "u": "u5",
+  "l": "u5-1",
+  "t": "Average rate of change",
+  "wrong": "Finding the average rate of change of f(x) = x² from x = 1 to x = 4 as f(4) − f(1) = 15.",
+  "why": "A rate compares the change in output with the change in input. Dividing by the change in x is what turns a difference of outputs into a rate. Leaving it out gives a total change.",
+  "fix": "Average rate of change = {f(b) − f(a)|b − a}, the slope of the secant line. Here {16 − 1|4 − 1} = {15|3} = 5. Write the units: output units per input unit.",
+  "redo": {
+   "p": "Find the average rate of change of g(x) = x² + 1 from x = 2 to x = 5.",
+   "o": [
+    "21",
+    "{21|5}",
+    "3",
+    "7"
+   ],
+   "a": 3,
+   "why": "g(5) = 26 and g(2) = 5. The average rate is {26 − 5|5 − 2} = {21|3} = 7. The value 21 is only the change in output."
+  }
+ }
+];
+MHF4U.Q = MHF4U.Q.concat([
+ {
+  "id": "w261103mx01",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-end-behaviour",
+  "p": "What is the end behaviour of f(x) = −x^{3} + 5x^{2} − 7?",
+  "o": [
+   "Q2 to Q4",
+   "Q3 to Q1",
+   "Q2 to Q1",
+   "Q3 to Q4"
+  ],
+  "a": 0,
+  "h": "Look only at the leading term.",
+  "s": [
+   "The leading term is −x^{3}: odd degree and a negative coefficient.",
+   "Odd degree means the ends point opposite ways. A negative coefficient means the right end goes down.",
+   "So the graph runs from Q2 to Q4."
+  ],
+  "dx": {
+   "1": "Q3 to Q1 is the behaviour of a positive odd-degree function. The leading coefficient here is negative, so the right end goes down.",
+   "2": "Q2 to Q1 needs an even degree and a positive coefficient. This polynomial has degree 3.",
+   "3": "Q3 to Q4 needs an even degree. The degree here is 3, which is odd, so the ends point opposite ways."
+  }
+ },
+ {
+  "id": "w261103mx02",
+  "u": "u1",
+  "c": "T",
+  "t": "mc",
+  "mx": "mx-end-behaviour",
+  "p": "A polynomial has degree 6, a negative leading coefficient and f(0) = 4. Which statement must be true?",
+  "o": [
+   "It has at least one x-intercept",
+   "It has no x-intercepts",
+   "It has exactly 6 x-intercepts",
+   "Its range is all real numbers"
+  ],
+  "a": 0,
+  "h": "Even degree and a negative coefficient: where do both ends go?",
+  "s": [
+   "Even degree with a negative leading coefficient: both ends point down.",
+   "The graph passes through (0, 4), which is above the x-axis.",
+   "To get from far down on the left up to y = 4, and back down on the right, it must cross the axis at least twice.",
+   "So it has at least one x-intercept (in fact at least two)."
+  ],
+  "dx": {
+   "1": "f(0) = 4 is above the axis, but both ends go down, so the graph has to cross the x-axis on each side.",
+   "2": "A degree-6 polynomial can have up to 6 x-intercepts, but it may have fewer.",
+   "3": "An even-degree polynomial has a maximum or a minimum, so its range is limited on one side."
+  }
+ },
+ {
+  "id": "w261103mx03",
+  "u": "u1",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-remainder-sign",
+  "p": "Find the remainder when f(x) = 2x^{3} + x^{2} − 5x + 4 is divided by x + 1.",
+  "ans": 8,
+  "h": "Which value of x makes x + 1 equal to zero?",
+  "s": [
+   "x + 1 = 0 gives x = −1.",
+   "f(−1) = 2(−1)^{3} + (−1)^{2} − 5(−1) + 4 = −2 + 1 + 5 + 4 = 8.",
+   "The remainder is 8."
+  ]
+ },
+ {
+  "id": "w261103mx04",
+  "u": "u1",
+  "c": "T",
+  "t": "num",
+  "mx": "mx-remainder-sign",
+  "p": "When f(x) = x^{3} + kx − 6 is divided by x + 2, the remainder is −4. Find k.",
+  "ans": -5,
+  "h": "Use the Remainder Theorem to write an equation for k.",
+  "s": [
+   "The remainder is f(−2), so f(−2) = −4.",
+   "(−2)^{3} + k(−2) − 6 = −8 − 2k − 6 = −14 − 2k.",
+   "−14 − 2k = −4 gives −2k = 10, so k = −5."
+  ]
+ },
+ {
+  "id": "w261103mx05",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-multiplicity",
+  "p": "At x = 3, the graph of y = x(x − 3)^{2}(x + 2) will",
+  "o": [
+   "touch the x-axis and turn around",
+   "cross the x-axis straight through",
+   "cross the x-axis with a flattened shape",
+   "have a vertical asymptote"
+  ],
+  "a": 0,
+  "h": "Check the exponent on (x − 3).",
+  "s": [
+   "The factor (x − 3) has exponent 2, so x = 3 is a zero of multiplicity 2.",
+   "Even multiplicity: the graph touches the x-axis and turns around."
+  ],
+  "dx": {
+   "1": "A factor with exponent 1 passes straight through. Here the exponent on (x − 3) is 2.",
+   "2": "Flattening happens at an odd multiplicity of 3 or more. Multiplicity 2 is even.",
+   "3": "Polynomials never have vertical asymptotes."
+  }
+ },
+ {
+  "id": "w261103mx06",
+  "u": "u1",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-multiplicity",
+  "p": "A degree-4 polynomial with a positive leading coefficient touches the x-axis at x = 1 and crosses it at x = −2 and x = 5. Which could be its equation?",
+  "o": [
+   "y = (x − 1)^{2}(x + 2)(x − 5)",
+   "y = −(x − 1)^{2}(x + 2)(x − 5)",
+   "y = (x − 1)(x + 2)^{2}(x − 5)",
+   "y = (x − 1)^{2}(x + 2)^{2}"
+  ],
+  "a": 0,
+  "h": "Touching needs an even exponent; crossing needs an odd exponent.",
+  "s": [
+   "Touching at x = 1: the factor (x − 1)^{2}.",
+   "Crossing at x = −2 and x = 5: the factors (x + 2) and (x − 5) with exponent 1.",
+   "The degree is 2 + 1 + 1 = 4 and the leading coefficient is +1."
+  ],
+  "dx": {
+   "1": "A negative leading coefficient makes both ends go down. The graph should open up.",
+   "2": "This version touches at x = −2 and crosses at x = 1, the opposite of what is described.",
+   "3": "This has degree 4 but only two zeros, and it touches at both. It never crosses."
+  }
+ },
+ {
+  "id": "w261103mx07",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-poly-ineq",
+  "p": "Solve x^{2}(x − 5) < 0.",
+  "o": [
+   "x < 5, x ≠ 0",
+   "x < 5",
+   "0 < x < 5",
+   "x < 0"
+  ],
+  "a": 0,
+  "h": "A square is never negative, so only (x − 5) can make the product negative.",
+  "s": [
+   "x² ≥ 0 for every x, and x² = 0 only at x = 0.",
+   "The product is negative when x − 5 < 0 and x ≠ 0.",
+   "Solution: x < 5 and x ≠ 0."
+  ],
+  "dx": {
+   "1": "At x = 0 the product is 0, which is not less than 0. The zero has to be excluded.",
+   "2": "This ignores the sign change at x = 5 but, more importantly, it misses that the graph touches the axis at x = 0.",
+   "3": "For 0 < x < 5 the product is negative, but so is the product for x < 0."
+  }
+ },
+ {
+  "id": "w261103mx08",
+  "u": "u1",
+  "c": "T",
+  "t": "mc",
+  "mx": "mx-poly-ineq",
+  "p": "Which values of x satisfy (x + 1)(x − 2)(x − 4) ≤ 0?",
+  "o": [
+   "x ≤ −1 or 2 ≤ x ≤ 4",
+   "−1 ≤ x ≤ 2 or x ≥ 4",
+   "x < −1 or 2 < x < 4",
+   "x ≤ −1 or x ≥ 4"
+  ],
+  "a": 0,
+  "h": "Use a sign chart with zeros at −1, 2 and 4.",
+  "s": [
+   "The leading coefficient is positive, so the graph ends high on the right.",
+   "Signs: x < −1 negative; −1 < x < 2 positive; 2 < x < 4 negative; x > 4 positive.",
+   "We need negative or zero: x ≤ −1 or 2 ≤ x ≤ 4."
+  ],
+  "dx": {
+   "1": "This is the set where the product is positive or zero, the opposite of what is asked.",
+   "2": "The zeros are included because the inequality is ≤, so the endpoints should be closed.",
+   "3": "This keeps the zeros out; with ≤ they must be included."
+  }
+ },
+ {
+  "id": "w261103mx09",
+  "u": "u2",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-hole-vs-va",
+  "p": "The function f(x) = {x^{2} − 9|x − 3} has a hole. What is the y-coordinate of the hole?",
+  "ans": 6,
+  "h": "Simplify first, then substitute the x-value of the hole.",
+  "s": [
+   "{(x − 3)(x + 3)|x − 3} simplifies to x + 3 for x ≠ 3.",
+   "The hole is at x = 3. Substitute: 3 + 3 = 6.",
+   "The hole is at (3, 6)."
+  ]
+ },
+ {
+  "id": "w261103mx10",
+  "u": "u2",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-hole-vs-va",
+  "p": "Which function has a hole at x = 1 and a vertical asymptote at x = −3?",
+  "o": [
+   "{(x − 1)(x + 2)|(x − 1)(x + 3)}",
+   "{(x + 1)(x + 2)|(x + 1)(x − 3)}",
+   "{x − 1|x + 3}",
+   "{(x − 1)(x + 3)|(x − 1)(x + 2)}"
+  ],
+  "a": 0,
+  "h": "A hole needs the same factor top and bottom. An asymptote needs a factor left in the denominator.",
+  "s": [
+   "A hole at x = 1 needs the factor (x − 1) in both the numerator and denominator.",
+   "A vertical asymptote at x = −3 needs (x + 3) left in the denominator after cancelling.",
+   "{(x − 1)(x + 2)|(x − 1)(x + 3)} does both."
+  ],
+  "dx": {
+   "1": "This one has the hole at x = −1 and the asymptote at x = 3, the signs are flipped.",
+   "2": "There is no common factor, so there is no hole at all. It only has an asymptote.",
+   "3": "The hole is at x = 1 but the vertical asymptote is at x = −2, not −3."
+  }
+ },
+ {
+  "id": "w261103mx11",
+  "u": "u2",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-horizontal-asymptote",
+  "p": "Which function has y = 0 as its horizontal asymptote?",
+  "o": [
+   "{3x + 1|x^{2} − 4}",
+   "{3x^{2} + 1|x^{2} − 4}",
+   "{x^{3} − 1|x^{2} + 4}",
+   "{3x^{2} + 1|x − 4}"
+  ],
+  "a": 0,
+  "h": "y = 0 when the denominator has the higher degree.",
+  "s": [
+   "y = 0 requires the degree of the denominator to be greater than the degree of the numerator.",
+   "Only {3x + 1|x^{2} − 4} has numerator degree 1 and denominator degree 2."
+  ],
+  "dx": {
+   "1": "The degrees are equal, so the asymptote is y = 3, not 0.",
+   "2": "The numerator has the higher degree, so there is no horizontal asymptote.",
+   "3": "The numerator has the higher degree, so there is no horizontal asymptote."
+  }
+ },
+ {
+  "id": "w261103mx12",
+  "u": "u2",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-horizontal-asymptote",
+  "p": "The oblique asymptote of f(x) = {x^{2} + 3x + 1|x − 1} is",
+  "o": [
+   "y = x + 4",
+   "y = x + 3",
+   "y = x − 1",
+   "y = x + 2"
+  ],
+  "a": 0,
+  "h": "Divide the numerator by x − 1; the quotient (without the remainder) is the asymptote.",
+  "s": [
+   "Synthetic division by 1 with coefficients 1, 3, 1: bring down 1; 1 + 3 = 4; 4 + 1 = 5.",
+   "The quotient is x + 4 with remainder 5.",
+   "The oblique asymptote is y = x + 4."
+  ],
+  "dx": {
+   "1": "This drops the contribution from dividing 3x by x − 1. Complete the division.",
+   "2": "That is the denominator, not the quotient.",
+   "3": "Check the division again: the second term of the quotient is 4, not 2."
+  }
+ },
+ {
+  "id": "w261103mx13",
+  "u": "u2",
+  "c": "T",
+  "t": "mc",
+  "mx": "mx-extraneous-root",
+  "p": "Solve {1|x} + {1|x − 2} = {2|x(x − 2)}.",
+  "o": [
+   "There is no solution",
+   "x = 2",
+   "x = 0",
+   "x = 0 and x = 2"
+  ],
+  "a": 0,
+  "h": "State the restrictions first, then multiply by x(x − 2).",
+  "s": [
+   "Restrictions: x ≠ 0 and x ≠ 2.",
+   "Multiply by x(x − 2): (x − 2) + x = 2, so 2x − 2 = 2 and x = 2.",
+   "x = 2 is a restricted value, so it is extraneous. There is no solution."
+  ],
+  "dx": {
+   "1": "x = 2 comes out of the algebra, but it makes a denominator zero, so it must be rejected.",
+   "2": "x = 0 is also a restricted value, and it is not what the algebra produces either.",
+   "3": "Both of these values make a denominator zero."
+  }
+ },
+ {
+  "id": "w261103mx14",
+  "u": "u2",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-extraneous-root",
+  "p": "Solve {x^{2} − 4|x − 2} = 4.",
+  "o": [
+   "There is no solution",
+   "x = 2",
+   "x = 6",
+   "x = 2 and x = −2"
+  ],
+  "a": 0,
+  "h": "Factor and cancel, solve, then check against the restriction x ≠ 2.",
+  "s": [
+   "{(x − 2)(x + 2)|x − 2} = x + 2 for x ≠ 2.",
+   "x + 2 = 4 gives x = 2.",
+   "But x = 2 is not allowed, so there is no solution."
+  ],
+  "dx": {
+   "1": "x = 2 would make the denominator zero in the original equation.",
+   "2": "Check the algebra: x + 2 = 4 gives x = 2, not 6.",
+   "3": "Only x = 2 comes out of the simplified equation, and it is restricted."
+  }
+ },
+ {
+  "id": "w261103mx15",
+  "u": "u2",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-rational-ineq",
+  "p": "Solve {x − 2|x + 3} ≥ 0.",
+  "o": [
+   "x < −3 or x ≥ 2",
+   "x ≤ −3 or x ≥ 2",
+   "−3 < x ≤ 2",
+   "x ≥ 2"
+  ],
+  "a": 0,
+  "h": "Use a sign chart with critical values −3 and 2.",
+  "s": [
+   "The numerator is zero at x = 2. The denominator is zero at x = −3.",
+   "x < −3: negative ÷ negative = positive. −3 < x < 2: negative ÷ positive = negative. x > 2: positive.",
+   "We need positive or zero: x < −3 or x ≥ 2."
+  ],
+  "dx": {
+   "1": "x = −3 makes the denominator zero, so it can never be included.",
+   "2": "This is the interval where the fraction is negative or zero.",
+   "3": "This misses the interval x < −3 where the numerator and the denominator are both negative."
+  }
+ },
+ {
+  "id": "w261103mx16",
+  "u": "u2",
+  "c": "T",
+  "t": "mc",
+  "mx": "mx-rational-ineq",
+  "p": "Which values of x satisfy {x + 1|x − 2} ≤ 3?",
+  "o": [
+   "x < 2 or x ≥ {7|2}",
+   "x ≤ 2 or x ≥ {7|2}",
+   "2 < x ≤ {7|2}",
+   "x ≥ {7|2}"
+  ],
+  "a": 0,
+  "h": "Subtract 3 from both sides and combine into one fraction.",
+  "s": [
+   "{x + 1|x − 2} − 3 ≤ 0 gives {x + 1 − 3x + 6|x − 2} = {7 − 2x|x − 2} ≤ 0.",
+   "Critical values: x = {7|2} (numerator) and x = 2 (denominator).",
+   "x < 2: positive ÷ negative = negative (✔). 2 < x < {7|2}: positive. x > {7|2}: negative ÷ positive (✔).",
+   "Solution: x < 2 or x ≥ {7|2}."
+  ],
+  "dx": {
+   "1": "x = 2 makes the denominator zero, so it cannot be included.",
+   "2": "This is the interval where the fraction is greater than 3.",
+   "3": "This misses the part x < 2, where the fraction is negative and so certainly less than 3."
+  }
+ },
+ {
+  "id": "w261103mx17",
+  "u": "u3",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-radian-arc",
+  "p": "What is the arc length of a sector with radius 8 cm and central angle {3π|4}? Round to 2 decimal places.",
+  "ans": 18.85,
+  "h": "The angle is already in radians.",
+  "s": [
+   "a = rθ = 8 × {3π|4} = 6π.",
+   "6π ≈ 18.85 cm."
+  ],
+  "tol": 0.06,
+  "un": " cm"
+ },
+ {
+  "id": "w261103mx18",
+  "u": "u3",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-radian-arc",
+  "p": "A wheel of radius 0.5 m turns through 72°. How far does a point on the rim travel? Round to 2 decimal places.",
+  "ans": 0.63,
+  "h": "Convert the angle to radians first.",
+  "s": [
+   "72° = 72 × {π|180} = {2π|5} rad.",
+   "a = rθ = 0.5 × {2π|5} = {π|5} ≈ 0.63 m."
+  ],
+  "tol": 0.006,
+  "un": " m"
+ },
+ {
+  "id": "w261103mx19",
+  "u": "u3",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-cast-solutions",
+  "p": "In which quadrants is tan θ negative?",
+  "o": [
+   "Q2 and Q4",
+   "Q1 and Q3",
+   "Q3 and Q4",
+   "Q1 and Q2"
+  ],
+  "a": 0,
+  "h": "tan θ = {sin θ|cos θ}. When is the ratio negative?",
+  "s": [
+   "tan θ is negative when sin θ and cos θ have opposite signs.",
+   "That happens in Q2 (sine +, cosine −) and Q4 (sine −, cosine +)."
+  ],
+  "dx": {
+   "1": "Tangent is positive in Q1 and Q3.",
+   "2": "Q3 and Q4 are the quadrants where sine is negative.",
+   "3": "Q1 and Q2 are where sine is positive."
+  }
+ },
+ {
+  "id": "w261103mx20",
+  "u": "u3",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-cast-solutions",
+  "p": "Solve 2 sin θ + 1 = 0 for 0 ≤ θ < 2π.",
+  "o": [
+   "θ = {7π|6} and {11π|6}",
+   "θ = {π|6} and {5π|6}",
+   "θ = {7π|6} only",
+   "θ = {5π|6} and {7π|6}"
+  ],
+  "a": 0,
+  "h": "Isolate sin θ first, then use CAST.",
+  "s": [
+   "sin θ = −{1|2}. The reference angle is {π|6}.",
+   "Sine is negative in Q3 and Q4: π + {π|6} = {7π|6} and 2π − {π|6} = {11π|6}."
+  ],
+  "dx": {
+   "1": "These are the solutions of sin θ = +{1|2}. The ratio is negative here.",
+   "2": "Sine is negative in two quadrants, so there are two solutions, not one.",
+   "3": "{5π|6} has a positive sine. The negative values are in Q3 and Q4."
+  }
+ },
+ {
+  "id": "w261103mx21",
+  "u": "u3",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-proof-one-side",
+  "p": "To prove a trigonometric identity, which approach is correct?",
+  "o": [
+   "Simplify one side until it equals the other side",
+   "Multiply both sides by the same expression",
+   "Substitute a value such as x = 0 and check",
+   "Move every term to one side and set equal to zero"
+  ],
+  "a": 0,
+  "h": "The two sides are not assumed equal at the start.",
+  "s": [
+   "A proof shows LS = RS without assuming it.",
+   "Work on one side only, using identities, until it matches the other."
+  ],
+  "dx": {
+   "1": "That is a method for solving an equation. In a proof you cannot assume the two sides are equal.",
+   "2": "A single value that works does not show the identity is true for all x.",
+   "3": "This treats the identity as an equation to solve, which assumes what you have to prove."
+  }
+ },
+ {
+  "id": "w261103mx22",
+  "u": "u3",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-proof-one-side",
+  "p": "In proving tan x · cos x = sin x, which line correctly simplifies the left side?",
+  "o": [
+   "LS = {sin x|cos x} · cos x = sin x",
+   "LS = tan x · cos x, so sin x · cos x = sin x · cos x",
+   "LS = sin x because tan x = 1",
+   "LS = {sin x|cos x} + cos x = sin x"
+  ],
+  "a": 0,
+  "h": "Replace tan x using the quotient identity.",
+  "s": [
+   "tan x = {sin x|cos x}.",
+   "LS = {sin x|cos x} · cos x = sin x = RS."
+  ],
+  "dx": {
+   "1": "This restates the left side and then multiplies both sides, which is not allowed in a proof.",
+   "2": "tan x is not 1. It equals {sin x|cos x}.",
+   "3": "tan x is multiplied by cos x, not added to it."
+  }
+ },
+ {
+  "id": "w261103mx23",
+  "u": "u3",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-phase-shift",
+  "p": "What is the period of y = −4 sin(3x − π) + 2? Round to 2 decimal places.",
+  "ans": 2.09,
+  "h": "Period = {2π|k}, where k is the coefficient of x.",
+  "s": [
+   "k = 3, so the period is {2π|3}.",
+   "{2π|3} ≈ 2.09."
+  ],
+  "tol": 0.006
+ },
+ {
+  "id": "w261103mx24",
+  "u": "u3",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-phase-shift",
+  "p": "Which equation has amplitude 3, period π, phase shift {π|4} to the right and midline y = −1?",
+  "o": [
+   "y = 3 sin(2(x − {π|4})) − 1",
+   "y = 3 sin(2x − {π|4}) − 1",
+   "y = 3 sin(x − {π|4}) − 1",
+   "y = 3 sin(2(x + {π|4})) − 1"
+  ],
+  "a": 0,
+  "h": "Period π means k = 2, and the shift must be visible when k is factored out.",
+  "s": [
+   "Period π gives k = {2π|π} = 2.",
+   "The shift {π|4} to the right means the bracket is 2(x − {π|4}).",
+   "Amplitude 3 and midline −1: y = 3 sin(2(x − {π|4})) − 1."
+  ],
+  "dx": {
+   "1": "2x − {π|4} = 2(x − {π|8}), so this shifts only {π|8}.",
+   "2": "This has period 2π, not π.",
+   "3": "The + sign shifts the graph to the left."
+  }
+ },
+ {
+  "id": "w261103mx25",
+  "u": "u4",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-log-laws",
+  "p": "Evaluate log_{3}18 + log_{3}{1|2}.",
+  "ans": 2,
+  "h": "Combine using the product law.",
+  "s": [
+   "log_{3}18 + log_{3}{1|2} = log_{3}(18 × {1|2}) = log_{3}9.",
+   "log_{3}9 = 2."
+  ]
+ },
+ {
+  "id": "w261103mx26",
+  "u": "u4",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-log-laws",
+  "p": "If log a = 2 and log b = 3, what is log({a^{2}|b})?",
+  "o": [
+   "1",
+   "{4|3}",
+   "5",
+   "7"
+  ],
+  "a": 0,
+  "h": "Apply the quotient law, then the power law.",
+  "s": [
+   "log({a^{2}|b}) = log a^{2} − log b = 2 log a − log b.",
+   "= 2(2) − 3 = 1."
+  ],
+  "dx": {
+   "1": "The quotient law gives a subtraction, not a division of the values.",
+   "2": "The power law makes 2 log a = 4 and the quotient law subtracts log b.",
+   "3": "The quotient law subtracts the logs, it does not add them."
+  }
+ },
+ {
+  "id": "w261103mx27",
+  "u": "u4",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-log-domain",
+  "p": "For log_{3}(x − 5) to be defined, x must satisfy",
+  "o": [
+   "x > 5",
+   "x ≥ 5",
+   "x < 5",
+   "x > 0"
+  ],
+  "a": 0,
+  "h": "The argument of a logarithm must be positive.",
+  "s": [
+   "x − 5 > 0 gives x > 5."
+  ],
+  "dx": {
+   "1": "x = 5 gives log_{3}0, which is undefined.",
+   "2": "This is the opposite inequality.",
+   "3": "The argument is x − 5, not x. It must be positive."
+  }
+ },
+ {
+  "id": "w261103mx28",
+  "u": "u4",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-log-domain",
+  "p": "Solve log_{2}(x + 1) + log_{2}(x − 1) = 3.",
+  "ans": 3,
+  "h": "Combine the logs, solve, then check the restriction x > 1.",
+  "s": [
+   "log_{2}[(x + 1)(x − 1)] = 3 gives x² − 1 = 8, so x² = 9 and x = ±3.",
+   "The argument x − 1 must be positive, so x > 1 and x = −3 is rejected.",
+   "x = 3."
+  ]
+ },
+ {
+  "id": "w261103mx29",
+  "u": "u5",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-composition-order",
+  "p": "f(x) = x + 4 and g(x) = 2x. Find (g ∘ f)(3).",
+  "ans": 14,
+  "h": "(g ∘ f)(3) = g(f(3)). Work from the inside.",
+  "s": [
+   "f(3) = 7.",
+   "g(7) = 14."
+  ]
+ },
+ {
+  "id": "w261103mx30",
+  "u": "u5",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-composition-order",
+  "p": "f(x) = x² and g(x) = x − 3. Which expression is (f ∘ g)(x)?",
+  "o": [
+   "x^{2} − 6x + 9",
+   "x^{2} − 3",
+   "x^{2} − 9",
+   "x^{2} − 6x − 9"
+  ],
+  "a": 0,
+  "h": "Substitute g(x) into f.",
+  "s": [
+   "(f ∘ g)(x) = f(g(x)) = f(x − 3) = (x − 3)².",
+   "(x − 3)² = x² − 6x + 9."
+  ],
+  "dx": {
+   "1": "That is g(f(x)): the functions are in the wrong order.",
+   "2": "This squares only the x, not the whole of g(x).",
+   "3": "Expand (x − 3)² carefully: the last term is +9."
+  }
+ },
+ {
+  "id": "w261103mx31",
+  "u": "u5",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-average-rate",
+  "p": "f(x) = 2x² − x. Find the average rate of change from x = 1 to x = 3.",
+  "ans": 7,
+  "h": "Use {f(b) − f(a)|b − a}.",
+  "s": [
+   "f(3) = 18 − 3 = 15 and f(1) = 2 − 1 = 1.",
+   "{15 − 1|3 − 1} = {14|2} = 7."
+  ]
+ },
+ {
+  "id": "w261103mx32",
+  "u": "u5",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-average-rate",
+  "p": "A population is P(t) = 500(1.1)^{t}, where t is in years. Find the average rate of change from t = 0 to t = 2, in people per year.",
+  "ans": 52.5,
+  "h": "Evaluate P at both times first.",
+  "s": [
+   "P(0) = 500 and P(2) = 500(1.21) = 605.",
+   "{605 − 500|2 − 0} = {105|2} = 52.5 people per year."
+  ],
+  "tol": 0.05
+ }
+]);
 </script>
 
 <!-- APP LOGIC -->
@@ -1394,7 +2423,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1471,7 +2500,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "mhf4u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, mlog: store.mlog || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
@@ -1514,11 +2543,11 @@ function markSyncBlocked(){
 }
 function mergeInto(d){
   if (!d) return;
-  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0;
+  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {}, localMlog = store.mlog || {};
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
   if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
   else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
-  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled);
+  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = CL.mergeClinic(d.clinic, localClinic); store.mlog = CL.mergeLog(d.mlog, localMlog);
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -1546,6 +2575,7 @@ function poolFor(key){
   if (key === "mixed") return D.Q.slice();
   if (key === "word") return D.Q.filter(q => q.w);
   if (key === "weak") return D.Q.filter(q => (store.missed || {})[q.id]);
+  const cp = CL.pool(key); if (cp) return cp;
   return D.Q.filter(q => q.u === key);
 }
 function draw(poolKey, pool, n){
@@ -1895,7 +2925,7 @@ function gameStats(){
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5},
     {i:"🃏",n:"Memory Keeper",d:"Complete 100 flashcard reviews",e:(store.reviews||0)>=100}
   ];
-  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + badges.filter(b=>b.e).length*100;
+  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + CL.counts().fixed*15 + badges.filter(b=>b.e).length*100;
   let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
   const next = LEVELS[li+1];
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges, lessonsDone };
@@ -1967,9 +2997,11 @@ function renderHome(){
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 25-question final-exam run (5 per unit) or a 15-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
     <div class="card homecard c-study" data-go="cards"><h3>🃏 Daily Review</h3><p>${(() => { const n = cardStatus().dueAll; return n ? `<b>${n} card${n === 1 ? "" : "s"} due today.</b> ` : ""; })()}Spaced flashcards for every formula, key term and question you've missed. Five minutes a day.</p><div class="go">Start reviewing →</div></div>
+    ${CL.homeHTML()}
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Every MHF4U formula and theorem by unit, how marks are earned, test-day strategies and a glossary.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
+  CL.wire(views);
   views.querySelectorAll("[data-lesson]").forEach(a => a.onclick = e => { e.preventDefault(); go("study", { lesson: a.dataset.lesson }); });
 }
 
@@ -2160,7 +3192,7 @@ function mountModels(){
 let quizSel = { key: "mixed", len: 10, diff: null };
 function quizPool(){
   let pool = poolFor(quizSel.key);
-  if (quizSel.diff === "any") pool = pool.filter(q => q.t !== "write" && !q.h2);
+  if (quizSel.diff === "any") pool = CL.isPoolKey(quizSel.key) ? pool : pool.filter(q => q.t !== "write" && !q.h2); // clinic quizzes keep every question; written ones are self-marked
   else pool = pool.filter(q => qDiff(q) === +quizSel.diff);
   return pool;
 }
@@ -2170,6 +3202,7 @@ function renderQuizSetup(){
   const opts = [["mixed", "🎲 Mixed", "All five units"]]
     .concat(D.UNITS.map(u => [u.id, UNIT_ICON[u.id] + " " + u.name, u.no + " · " + u.strand.replace("Strand ", "").split(":")[0] + " strand"]))
     .concat([["word", "🧩 Word problems", "Real-world applications from every unit"]])
+    .concat(CL.quizOptions())
     .concat([["weak", "🎯 Fix my weak spots", Object.keys(store.missed || {}).length + " missed question(s) waiting — get each one right to clear it"]]);
   views.innerHTML = `
   <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, level, and length. Questions won't repeat until you've seen the whole set.</p></div>
@@ -2195,7 +3228,7 @@ function renderQuizSetup(){
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another level");
     const n = Math.min(quizSel.len, pool.length);
-    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : UN[quizSel.key].name;
+    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : CL.isPoolKey(quizSel.key) ? CL.label(quizSel.key) : UN[quizSel.key].name;
     const label = focus + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
@@ -2293,7 +3326,7 @@ function renderQuestion(){
     <div class="qtext m">${M(q.p)}</div>
     ${item.hint && !answered ? `<div class="explain hintbox"><b>💡 Hint</b><br><span class="m">${M(q.h)}</span></div><div class="spacer"></div>` : ""}
     ${answerBody(item, showFeedback, st)}
-    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>` : ""}
+    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>${item.correct ? "" : CL.dxHTML(q, q.t === "mc" ? item.order[item.sel] : null) + (q.t === "write" ? "" : CL.recoverHTML(q))}` : ""}
     <div class="qactions">
       <button class="btn soft" id="btn-quit">Save &amp; exit</button>
       <span>
@@ -2310,6 +3343,7 @@ function renderQuestion(){
     item.sel = +b.dataset.di;
     item.correct = item.order[item.sel] === q.a;
     item.answered = true;
+    if (st.kind === "quiz") CL.record(q, item.correct, item.order[item.sel]);
     renderQuestion();
   });
   const nc = $("#btn-numcheck");
@@ -2318,6 +3352,7 @@ function renderQuestion(){
       const raw = $("#num-in").value, v = parseNum(raw);
       if (!raw.trim() || !isFinite(v)){ $("#num-err").classList.remove("hidden"); return; }
       item.val = raw.trim(); item.correct = numOk(q, v); item.answered = true;
+      if (st.kind === "quiz") CL.record(q, item.correct, item.val);
       renderQuestion();
     };
     nc.onclick = submit;
@@ -2331,6 +3366,7 @@ function renderQuestion(){
     item.correct = q.chk.every((_, i) => item.chk[i]);
   });
   const hb = $("#tool-hint"); if (hb) hb.onclick = () => { item.hint = true; renderQuestion(); };
+  CL.wire(views);
   $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); window.scrollTo({ top: 0 }); } };
   const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
   $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); $("#notepad").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
@@ -2356,6 +3392,7 @@ function finishSession(){
     cats[k] = cats[k] || { c: 0, t: 0 }; cats[k].t++;
     store.missed = store.missed || {};
     if (it.q.t !== "write" && it.answered){ if (it.correct) delete store.missed[it.q.id]; else store.missed[it.q.id] = 1; }
+    if (it.answered && st.kind !== "quiz") CL.record(it.q, it.correct, it.order && it.sel != null && it.q.t === "mc" ? it.order[it.sel] : it.val);
     if (it.correct){ strands[s].c++; cats[k].c++; correct++; if (it.q.w) word++; }
   });
   const pct = Math.round(100 * correct / st.qs.length);
@@ -2504,6 +3541,19 @@ function renderProgress(){
 }
 
 /* ================= study hub ================= */
+const lessonNo = id => id.slice(1, 2) + "." + id.split("-")[1];
+// Mistake Clinic: shared module (/clinic.js) so every course behaves identically.
+const CL = LMClinic.create({
+  course: "MHF4U", store: () => store, persist: () => persist(),
+  cards: D.MISTAKES || [], questions: () => D.Q,
+  view: q => ({ id: q.id, unit: q.u, type: q.t, tag: q.mx, prompt: q.p, options: q.o, correct: q.a, explain: q.s || [], dx: q.dx, answerText: q.t === "num" ? String(q.ans) + (q.un ? " " + q.un : "") : undefined }),
+  fmt: M,
+  get units(){ return D.UNITS.map(u => ({ id: u.id, label: u.no, icon: UNIT_ICON[u.id] })); },
+  openLesson: id => go("study", { lesson: id }), lessonLabel: lessonNo,
+  startQuiz: key => { quizSel.key = key; quizSel.diff = "any"; go("quiz"); },
+  openCard: id => { openAcc.add("clinic"); go("study", { clinic: id || true }); },
+  refresh: () => refreshStudy(), toast: m => toast(m)
+});
 const lessonCheck = {};
 const workedShown = {};
 function lessonHTML(l){
@@ -2513,6 +3563,7 @@ function lessonHTML(l){
     <h4>How to do it</h4><ol class="steps">${l.how.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol>
     <div class="example"><h4 style="margin-top:0">Example</h4><p class="m" style="font-weight:600">${M(l.ex.p)}</p><ol class="steps">${l.ex.s.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol></div>
     <div class="explain bad"><b>⚠️ Watch out.</b> <span class="m">${M(l.watch)}</span></div>
+    ${CL.blockHTML(l.id, l.mx)}
     <div class="qcheck"><h4 style="margin-top:0">Quick check</h4><p class="m">${M(l.check.p)}</p><div class="opts" style="margin-top:8px">${l.check.o.map((o, i) => {
       let cls = "opt"; if (c !== undefined){ if (i === l.check.a) cls += " correct"; else if (i === c) cls += " wrong"; }
       return `<button class="${cls}" data-lc="${l.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("")}</div>
@@ -2579,10 +3630,12 @@ function studySections(){
     <div class="lenrow">${MODEL_LIST.map(([k, l]) => `<button class="lenbtn ${modelSel === k ? "sel" : ""}" data-msel="${k}">${l}</button>`).join("")}</div>
     <div data-model="${modelSel}" style="margin-top:12px"></div>` };
   const guidedSec = { id: "guided", title: "🧩 Guided problems: solve it step by step", body: guidedHTML };
-  return [plan, p90].concat(units, [guidedSec], MODEL_LIST.length ? [models] : [], [tools, res]);
+  const clinic = { id: "clinic", title: `🩹 Mistake Clinic: fix the slips that cost marks (${CL.counts().fixed}/${CL.counts().n} fixed)`, body: () => CL.sectionHTML() };
+  return [plan, p90, clinic].concat(units, [guidedSec], MODEL_LIST.length ? [models] : [], [tools, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
+  if (opt && opt.clinic) openAcc.add("clinic");
   if (opt && opt.lesson){ const l = D.LESSONS.find(x => x.id === opt.lesson); if (l){ openAcc.add(l.u); openLesson.add(l.id); } }
   const secs = studySections();
   views.innerHTML = `
@@ -2592,6 +3645,7 @@ function renderStudy(opt){
   if (openAcc.has("tools")) renderTool();
   if (openAcc.has("guided")) wireGuided();
   mountModels();
+  if (opt && opt.clinic){ const el = views.querySelector(typeof opt.clinic === "string" ? `[data-sec="clinic"] [data-mx="${opt.clinic}"]` : `[data-sec="clinic"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
   if (opt && opt.lesson){ const el = views.querySelector(`[data-lid="${opt.lesson}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
 }
 function refreshStudy(){ const y = window.scrollY; renderStudy(); window.scrollTo(0, y); }
@@ -2607,6 +3661,7 @@ function wireStudy(){
   });
   views.querySelectorAll("[data-msel]").forEach(b => b.onclick = () => { modelSel = b.dataset.msel; refreshStudy(); });
   views.querySelectorAll(".acc.sub").forEach(a => { if (openLesson.has(a.dataset.lid)) a.classList.add("open"); });
+  CL.wire(views);
   views.querySelectorAll("[data-lc]").forEach(b => b.onclick = () => { lessonCheck[b.dataset.lc] = +b.dataset.i; refreshStudy(); });
   views.querySelectorAll("[data-lcr]").forEach(b => b.onclick = () => { delete lessonCheck[b.dataset.lcr]; refreshStudy(); });
   views.querySelectorAll("[data-ldone]").forEach(b => b.onclick = () => {
