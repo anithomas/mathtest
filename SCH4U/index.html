@@ -286,6 +286,22 @@ details.sol summary{cursor:pointer;font-weight:600;color:var(--teal);font-size:.
 .lm-vid figcaption{font-size:.88rem;color:var(--ink-soft);margin-top:6px}
 .lm-vid-desc{font-size:.9rem;margin-top:4px}
 .lm-vid-desc summary{cursor:pointer;color:var(--teal-deep);font-weight:600}
+.mx-block,.mx-card{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:8px 0}
+.mx-block>summary,.mx-card>summary{cursor:pointer;padding:10px 14px;font-weight:600;color:var(--teal-deep);list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.mx-block>summary::-webkit-details-marker,.mx-card>summary::-webkit-details-marker{display:none}
+.mx-block>summary::before,.mx-card>summary::before{content:"▸";display:inline-block;transition:transform .15s}
+.mx-block[open]>summary::before,.mx-card[open]>summary::before{transform:rotate(90deg)}
+.mx-block>.mx-card{margin:6px 10px}
+.mx-card.open{border-color:#e76f51;box-shadow:0 0 0 2px rgba(231,111,81,.15)}
+.mx-card.fixed{border-color:#7fa37f;background:#f6fbf7}
+.mx-t{flex:1;min-width:160px}
+.mx-body{padding:0 14px 14px}
+.mx-row{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:8px;margin:6px 0;background:var(--parchment)}
+.mx-row.bad{background:#fdf0ec}.mx-row.good{background:#e8f3ed}
+.mx-k{font-size:.78rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em}
+.mx-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.mx-recover{margin-top:10px}
+.mx-bar{height:10px;border-radius:6px;background:var(--parchment-deep);overflow:hidden;margin:8px 0}.mx-bar i{display:block;height:100%;background:var(--teal)}
 .thisweek{margin-top:16px;border-top:4px solid var(--gold)}
 .thisweek h3{font-size:1.1rem}
 .linkrow a{cursor:pointer}
@@ -386,6 +402,7 @@ nav.tabs button.active{color:#fff;background:#246b55;box-shadow:inset 3px 0 #d8b
 @media(prefers-reduced-motion:reduce){.eq-molecule{animation:none;left:50%}}
 
 /* ---------- interactive models (models.js) ---------- */
+.qn-lobe{stroke:var(--teal-deep);stroke-width:1.5}.qn-lobe.a{fill:rgba(42,157,143,.45)}.qn-lobe.b{fill:rgba(231,111,81,.4)}.qn-nuc{fill:var(--ink)}.qn-note{font-size:9px;fill:var(--ink-soft)}
 .mdl-controls{display:grid;gap:10px;margin:10px 0}
 .mdl-controls.two{grid-template-columns:1fr 1fr}
 @media(max-width:560px){.mdl-controls.two{grid-template-columns:1fr}}
@@ -503,7 +520,7 @@ text.a-teal,text.a-coral,text.a-gold{stroke:none;font-weight:700}
     </svg>
     <h1>MathTest Trail</h1>
     <p><b>SCH4U · Grade 12 University Chemistry.</b><br>Build confidence with guided lessons, worked examples, interactive calculators and exam-style practice.</p>
-    <div class="signin-proof" aria-label="Course contents"><span><b>38</b> lessons</span><span><b>275</b> questions</span><span><b>22</b> worked examples</span></div>
+    <div class="signin-proof" aria-label="Course contents"><span><b>41</b> lessons</span><span><b>326</b> questions</span><span><b>22</b> worked examples</span></div>
     <button id="btn-google" class="gbtn">
       <img alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
       Continue with Google
@@ -607,10 +624,10 @@ var SCH4U = {};
 SCH4U.UNITS = [
  {id:'u1',no:'Unit 1',name:'Organic Chemistry',strand:'Strand A: Organic Chemistry',
   goal:'Name, draw and classify organic compounds and predict their reactions.',
-  can:['Name and draw structural, condensed and line (skeletal) formulas for alkanes, alkenes, alkynes and benzene rings','Identify and name compounds with one functional group: alcohols, aldehydes, ketones, carboxylic acids, esters, ethers, amines and halides','Draw and name structural isomers, including geometric (cis/trans) isomers','Predict the products of addition, substitution, elimination, condensation (esterification) and combustion reactions','Describe addition and condensation polymerization and identify a monomer–polymer pair','Relate physical properties such as boiling point and solubility to functional group and intermolecular forces','Explain the importance of organic compounds in everyday products, fuels and the environment']},
+  can:['Use a naming checklist (longest chain, branched groups, lowest locants) to name tricky structures and to draw a structure from its name','Predict products and name the type for hydrogenation, halogenation, hydrohalogenation, hydration, nitration of benzene, oxidation of alcohols and reduction of carbonyl compounds','Name and draw structural, condensed and line (skeletal) formulas for alkanes, alkenes, alkynes and benzene rings','Identify and name compounds with one functional group: alcohols, aldehydes, ketones, carboxylic acids, esters, ethers, amines and halides','Draw and name structural isomers, including geometric (cis/trans) isomers','Predict the products of addition, substitution, elimination, condensation (esterification) and combustion reactions','Describe addition and condensation polymerization and identify a monomer–polymer pair','Relate physical properties such as boiling point and solubility to functional group and intermolecular forces','Explain the importance of organic compounds in everyday products, fuels and the environment']},
  {id:'u2',no:'Unit 2',name:'Structure and Properties of Matter',strand:'Strand B: Structure and Properties of Matter',
   goal:'Use atomic structure, periodic trends and bonding theories to explain and predict the properties of elements and compounds.',
-  can:['Describe how atomic theory evolved (Dalton, Thomson, Rutherford, Bohr) and the experimental evidence behind each model','Use c = λf, E = hf and the Bohr energy-level equation to relate photon energy, frequency, wavelength and electron transitions in hydrogen','Describe the quantum-mechanical model (orbitals, wave–particle duality, the uncertainty principle) and use the four quantum numbers n, l, m_{l} and m_{s}','Write electron configurations and orbital diagrams using the Aufbau principle, Pauli exclusion principle and Hund\'s rule','Explain and predict periodic trends: atomic radius, ionization energy, electronegativity and electron affinity','Draw Lewis structures for molecules and ions, including resonance structures and exceptions to the octet rule','Use VSEPR theory to predict molecular shape, bond angles and polarity','Classify bonding as ionic, covalent (polar or non-polar) or metallic and explain the properties that result','Identify intermolecular forces (dispersion, dipole–dipole, hydrogen bonding) and relate them to boiling point and solubility','Relate bonding and structural models to real materials, including network and molecular solids']},
+  can:['Write the configurations of ions, find isoelectronic species and explain why transition metals are multivalent','Describe how atomic theory evolved (Dalton, Thomson, Rutherford, Bohr) and the experimental evidence behind each model','Use c = λf, E = hf and the Bohr energy-level equation to relate photon energy, frequency, wavelength and electron transitions in hydrogen','Describe the quantum-mechanical model (orbitals, wave–particle duality, the uncertainty principle) and use the four quantum numbers n, l, m_{l} and m_{s}','Write electron configurations and orbital diagrams using the Aufbau principle, Pauli exclusion principle and Hund\'s rule','Explain and predict periodic trends: atomic radius, ionization energy, electronegativity and electron affinity','Draw Lewis structures for molecules and ions, including resonance structures and exceptions to the octet rule','Use VSEPR theory to predict molecular shape, bond angles and polarity','Classify bonding as ionic, covalent (polar or non-polar) or metallic and explain the properties that result','Identify intermolecular forces (dispersion, dipole–dipole, hydrogen bonding) and relate them to boiling point and solubility','Relate bonding and structural models to real materials, including network and molecular solids']},
  {id:'u3',no:'Unit 3',name:'Energy Changes and Rates of Reaction',strand:'Strand C: Energy Changes and Rates of Reaction',
   goal:'Quantify the energy changes in chemical reactions and the factors that control how fast they occur.',
   can:['Draw and interpret potential energy diagrams for endothermic and exothermic reactions','Calculate enthalpy changes using calorimetry data, Hess\'s law and average bond energies','Write thermochemical equations and use molar enthalpies of reaction, formation and combustion','Determine the rate of a reaction from experimental data and write a rate law from initial-rates data','Use collision theory and activation energy to explain how concentration, temperature, surface area and catalysts affect rate','Interpret the Arrhenius equation qualitatively and describe a reaction mechanism with a rate-determining step','Connect energy and rate concepts to real systems such as engines, cold packs and industrial processes']},
@@ -636,6 +653,9 @@ SCH4U.STRATEGIES = [
  'Show one line per step in multi-step stoichiometry or equilibrium problems. Communication marks come from the steps, not only the final number.',
  'Track significant figures using the least-precise given value, and report pH to the same number of decimal places as the sig figs in [H^{+}].',
  'Check an answer\'s sign and size: an exothermic ΔH is negative, a K_{eq} much greater than 1 favours products, and a voltaic cell has a positive E°_{cell}.',
+ 'Draw from a name carefully: draw and number the parent chain first, place each group on its locant, then count four bonds on every carbon.',
+ 'Answer only what is asked. Extra facts about things that are not in the question (for example water when the solvent is benzene) cost marks when they are wrong.',
+ 'For "explain" questions give a claim and a reason: name the rule or force, say where it comes from, and link it to the result.',
  'Leave 5 minutes to reread the question for words like "net ionic", "at equilibrium", "standard conditions" and "limiting reagent".'
 ];
 
@@ -647,9 +667,17 @@ SCH4U.FORMULAS = [
  ['u1','Functional group suffixes','−ol (alcohol), −al (aldehyde), −one (ketone), −oic acid (carboxylic acid), −oate (ester), −amine, −amide.'],
  ['u1','Esterification (condensation)','carboxylic acid + alcohol ⇌ ester + water (acid catalyst, reversible).'],
  ['u1','Addition reaction','An alkene or alkyne + X_{2}, HX or H_{2}O adds across the multiple bond; the multiple bond becomes a single bond.'],
+ ['u1','Naming checklist','1) principal functional group (acid > aldehyde > ketone > alcohol); 2) longest chain through that group, even through a branch; 3) lowest locants (group first, then multiple bond, then branches; ties go to the branch first alphabetically); 4) name each branch (a branched group such as tert-butyl is ONE branch); 5) alphabetical order; 6) count carbons and bonds.'],
+ ['u1','Markovnikov\'s rule','When HX or H_{2}O adds to an unsymmetrical alkene, H goes to the double-bond carbon with more H atoms; X or −OH goes to the other carbon. Propene + H_{2}O → 2-propanol.'],
+ ['u1','Benzene reactions','Benzene undergoes substitution (an H is replaced, the ring is kept), not addition: C_{6}H_{6} + HNO_{3} → C_{6}H_{5}NO_{2} + H_{2}O (nitrobenzene).'],
+ ['u1','Alcohol oxidation and carbonyl reduction','Oxidation by class: primary → aldehyde → carboxylic acid; secondary → ketone; tertiary → no reaction. LiAlH_{4} reduces aldehydes, ketones and acids to alcohols. Check that every carbon has four bonds.'],
  ['u1','Complete combustion of a hydrocarbon','C_{x}H_{y} + O_{2} → x CO_{2} + {y|2} H_{2}O.'],
  ['u1','Empirical formula from combustion data','Find n(C) from n(CO_{2}) and n(H) from 2×n(H_{2}O); divide both by the smaller to get the simplest whole-number ratio, then scale to the molar mass for the molecular formula.'],
  ['u2','Electron configuration order','Fill subshells by increasing energy: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p … (Aufbau principle).'],
+ ['u2','Orbit versus orbital','Orbit (Bohr): a fixed circular path at an exact distance. Orbital (quantum mechanics): a three-dimensional region where there is a high probability of finding the electron; the exact position cannot be known (uncertainty principle).'],
+ ['u2','Isoelectronic species','Same number of electrons (not protons). Ions: electrons = Z − charge. N^{3−}, O^{2−}, F^{−}, Ne, Na^{+}, Mg^{2+} all have 10 electrons.'],
+ ['u2','Noble-gas core and the f block','Use the noble gas just before the element, subtract its Z, then fill s, then d or f. Nd (Z = 60): [Xe] 6s^{2} 4f^{4}.'],
+ ['u2','Multivalent transition metals','The outer ns and (n − 1)d electrons are close in energy, so different numbers of electrons can be lost: Fe^{2+} and Fe^{3+}; Hg^{2+} (both 6s electrons lost).'],
  ['u2','Hund\'s rule','Electrons fill degenerate orbitals singly, with parallel spins, before any pairing occurs.'],
  ['u2','Periodic trend: atomic radius','Decreases across a period (more protons pull the electrons in); increases down a group (more occupied shells).'],
  ['u2','Periodic trend: ionization energy','Increases across a period; decreases down a group — the opposite trend to atomic radius.'],
@@ -758,13 +786,140 @@ SCH4U.GLOSSARY = [
  ['Electroplating','Using electrolysis to deposit a thin, controlled layer of metal onto an object\'s surface, usually for protection or appearance.']
 ];
 
+/* Mistake Clinic: the slips students make most often, what is wrong with each, the fix, and a quick redo.
+   Written from patterns seen in graded unit tests (organic chemistry; atomic theory and quantum mechanics).
+   Cards are generic: they describe the mistake, never a particular student's paper. `mx` on a question links it to a card. */
+SCH4U.MISTAKES = [
+ {id:'mx-longest-chain',u:'u1',l:'u1-8',t:'Choosing the parent chain',
+  wrong:'Naming CH_{3}CH_{2}CH(C_{6}H_{5})CH_{2}CH(CH_{2}CH_{3})CH_{3} as a hexane, because the chain drawn straight across the page has six carbons.',
+  why:'The parent chain is the longest continuous chain of carbons anywhere in the structure, not the chain that happens to be drawn in a line. A branch can make a chain longer.',
+  fix:'Trace every path between two end carbons and count. The longest path is the parent. Here the path through the ethyl branch has seven carbons, so the parent is heptane. The locants tie at 3 and 5 from either end, so the branch that comes first alphabetically gets the lower number: 3-methyl-5-phenylheptane.',
+  redo:{p:'Name CH_{3}CH_{2}CH_{2}CH(CH_{2}CH_{3})CH_{2}CH_{2}CH_{3}.',o:['4-ethylheptane','3-propylhexane','3-ethylheptane','4-propylhexane'],a:0,why:'The longest chain runs from one propyl arm through the central carbon to the other: 3 + 1 + 3 = 7 carbons (heptane), with the ethyl on C4. The chain through the ethyl has only 6 carbons.'}},
+ {id:'mx-ring-branch',u:'u1',l:'u1-8',t:'Branched groups on a ring',
+  wrong:'Naming cyclohexane with a −C(CH_{3})_{3} group as "1,1,1-trimethylcyclohexane".',
+  why:'A ring carbon has only two bonds left over for substituents, so a ring can never carry three groups on one carbon. The three CH_{3} groups are on the carbon outside the ring, and together with that carbon they form ONE branch.',
+  fix:'Find the atom bonded to the ring and name the whole group it starts. −C(CH_{3})_{3} is tert-butyl (also called 1,1-dimethylethyl). The compound is tert-butylcyclohexane. Other common groups: isopropyl −CH(CH_{3})_{2}, sec-butyl, phenyl −C_{6}H_{5}.',
+  redo:{p:'A cyclopentane ring carries a −C(CH_{3})_{3} group. What is its name?',o:['tert-butylcyclopentane','1,1,1-trimethylcyclopentane','butylcyclopentane','1,1-dimethylcyclopentane'],a:0,why:'The group attached to the ring is C(CH_{3})_{3}, which is tert-butyl. "1,1,1-" is impossible because one ring carbon cannot hold three groups.'}},
+ {id:'mx-aldehyde-chain',u:'u1',l:'u1-8',t:'Counting the chain of an aldehyde',
+  wrong:'Naming CH_{3}CH_{2}CH=O as "3-methylpropanal", treating the end CH_{3} as a branch.',
+  why:'The end CH_{3} is part of the main chain. In an aldehyde the −CHO carbon is C1, and every carbon in the unbroken chain counts. A methyl on the last carbon just lengthens the chain.',
+  fix:'Count all the carbons from the C=O carbon (C1) to the far end. Only carbons that stick out of that chain are branches. CH_{3}CH_{2}CHO has 3 carbons in the chain: propanal.',
+  redo:{p:'Name CH_{3}CH_{2}CH_{2}CH=O.',o:['butanal','3-methylpropanal','butanone','propanal'],a:0,why:'Counting from the C=O carbon: C1 (CHO), C2, C3, C4 (CH_{3}). Four carbons in one chain make butanal. "3-Methylpropanal" is not a valid name.'}},
+ {id:'mx-draw-from-name',u:'u1',l:'u1-8',t:'Drawing a structure from its name',
+  wrong:'Drawing 3-isopropyl-2-hexanol with the isopropyl or the −OH on the wrong carbon, or giving a carbon too many bonds.',
+  why:'The locants are positions on the numbered parent chain. If the groups are put on by guesswork they land on the wrong carbons.',
+  fix:'Draw and number the parent chain first (hexane: C1 to C6). Put −OH on C2 and the isopropyl on C3. Then add hydrogens until every carbon has four bonds. Finally count carbons to check against the name.',
+  redo:{p:'Which condensed formula is 3-isopropyl-2-hexanol?',o:['CH_{3}CH(OH)CH(CH(CH_{3})_{2})CH_{2}CH_{2}CH_{3}','CH_{3}CH(OH)CH_{2}CH(CH(CH_{3})_{2})CH_{2}CH_{3}','CH_{3}CH_{2}CH(OH)CH(CH(CH_{3})_{2})CH_{2}CH_{3}','HOCH_{2}CH(CH(CH_{3})_{2})CH_{2}CH_{2}CH_{2}CH_{3}'],a:0,why:'C1 is CH_{3}, C2 carries the −OH, C3 carries the isopropyl, and C4 to C6 are CH_{2}CH_{2}CH_{3}. The others place the −OH or the isopropyl on a different carbon.'}},
+ {id:'mx-locant-alcohol',u:'u1',l:'u1-8',t:'Numbering an alcohol (lowest locant)',
+  wrong:'Writing the hydration product of propene as "3-propanol".',
+  why:'Number the chain from the end that gives the −OH the lowest number. A three-carbon chain can only put −OH on C1 or C2; "3" would mean numbering from the far end.',
+  fix:'Number both ways and choose the direction that gives the functional group the smaller locant. For CH_{3}CH(OH)CH_{3} that is 2-propanol (propan-2-ol).',
+  redo:{p:'Name CH_{3}CH_{2}CH_{2}CH(OH)CH_{3}.',o:['2-pentanol','4-pentanol','3-pentanol','1-pentanol'],a:0,why:'Numbering from the right puts the −OH on C2; from the left it would be C4. The lowest locant wins: 2-pentanol.'}},
+ {id:'mx-markovnikov',u:'u1',l:'u1-9',t:'Where the −OH or halogen goes (Markovnikov)',
+  wrong:'Adding the −OH or Br to the end carbon when water or HBr adds to propene.',
+  why:'When HX or H_{2}O adds to an unsymmetrical alkene, the H goes to the double-bond carbon that already has more H atoms. The other group goes to the carbon with fewer H atoms. This is Markovnikov\'s rule.',
+  fix:'Count H atoms on each double-bond carbon. H adds to the carbon with more H. Then redraw the double bond as a single bond and finish with a bond count. Propene + H_{2}O gives CH_{3}CH(OH)CH_{3}, 2-propanol.',
+  redo:{p:'HBr adds to 1-butene, CH_{2}=CHCH_{2}CH_{3}. What is the major product?',o:['2-bromobutane','1-bromobutane','1,2-dibromobutane','2-bromo-2-methylpropane'],a:0,why:'The CH_{2} end has 2 H atoms and the other double-bond carbon has 1. H adds to the CH_{2} end, so Br ends up on C2: 2-bromobutane.'}},
+ {id:'mx-benzene-substitution',u:'u1',l:'u1-9',t:'Benzene substitutes; it does not add',
+  wrong:'Treating benzene like an alkene, so that HNO_{3} adds across the ring to give a nitro-cyclohexane such as "1,3-dinitrocyclohexane".',
+  why:'The six π electrons of benzene are delocalized around the ring, which makes the ring unusually stable. Addition would destroy that stability, so benzene keeps its ring and swaps one H for another group (substitution).',
+  fix:'Alkene or alkyne: addition (the multiple bond opens). Benzene: substitution (an H is replaced, the ring stays). Nitration: C_{6}H_{6} + HNO_{3} → C_{6}H_{5}NO_{2} + H_{2}O (H_{2}SO_{4} catalyst). The product is nitrobenzene.',
+  redo:{p:'Benzene reacts with HNO_{3} in the presence of H_{2}SO_{4}. What is the type of reaction and the major organic product?',o:['Substitution; nitrobenzene','Addition; nitrocyclohexane','Addition; 1,3-dinitrocyclohexane','Substitution; cyclohexane'],a:0,why:'Benzene substitutes. One ring H is replaced by −NO_{2}: nitrobenzene. A product with no ring double bonds (a cyclohexane) would mean the ring stability was lost.'}},
+ {id:'mx-reaction-type',u:'u1',l:'u1-9',t:'Naming the reaction type',
+  wrong:'Calling the addition of HBr "hydration", or the addition of Br_{2} "hydrohalogenation".',
+  why:'The type names tell you what adds: hydro-gen-ation adds H_{2}, halo-gen-ation adds X_{2}, hydro-halo-gen-ation adds HX and hydration adds H_{2}O.',
+  fix:'Read the reagent: H_{2} → hydrogenation; Br_{2} or Cl_{2} → halogenation; HBr or HCl → hydrohalogenation; H_{2}O (H_{2}SO_{4}) → hydration. All four are addition reactions.',
+  redo:{p:'Ethene reacts with HCl to form chloroethane. What type of reaction is this?',o:['Hydrohalogenation','Halogenation','Hydration','Hydrogenation'],a:0,why:'HCl (a hydrogen halide) adds across the double bond: hydrohalogenation. Halogenation would use Cl_{2}.'}},
+ {id:'mx-carbon-valence',u:'u1',l:'u1-9',t:'Every carbon needs four bonds',
+  wrong:'Drawing the product of oxidizing 3-pentanol with an H still on the carbonyl carbon, so the carbon has five bonds.',
+  why:'A carbonyl carbon in a ketone has a double bond to O (counts as 2) and two single bonds to carbons: that is already four bonds. The hydrogen that was on the carbon bearing the −OH is removed in the oxidation.',
+  fix:'After drawing ANY structure, count the bonds: C 4, N 3, O 2, H 1. Ketone: C=O carbon has no H. Aldehyde: C=O carbon has exactly one H.',
+  redo:{p:'How many hydrogen atoms are bonded to the carbonyl carbon of 3-pentanone, CH_{3}CH_{2}COCH_{2}CH_{3}?',o:['0','1','2','3'],a:0,why:'The carbonyl carbon has 2 bonds to carbons and a double bond to O: four bonds, so no H.'}},
+ {id:'mx-oxidation-class',u:'u1',l:'u1-9',t:'What an alcohol oxidizes to',
+  wrong:'Oxidizing every alcohol to a ketone, or oxidizing a tertiary alcohol.',
+  why:'Oxidation removes an H from the carbon that carries the −OH. The number of H atoms on that carbon decides the product.',
+  fix:'Primary alcohol (2 H on the carbinol carbon) → aldehyde, then carboxylic acid. Secondary (1 H) → ketone. Tertiary (0 H) → no reaction.',
+  redo:{p:'Which statement about oxidizing alcohols is correct?',o:['Primary → aldehyde (then acid); secondary → ketone; tertiary → no reaction','Primary → ketone; secondary → aldehyde; tertiary → acid','All alcohols give carboxylic acids','Tertiary → ketone; secondary → no reaction'],a:0,why:'It depends on the number of H atoms on the carbon bearing the −OH: two H (primary), one H (secondary), none (tertiary).'}},
+ {id:'mx-reduction',u:'u1',l:'u1-9',t:'Reducing every carbonyl group',
+  wrong:'Adding H to only one of two carbonyl groups, or leaving the C=O unchanged, when LiAlH_{4} reduces a molecule that has both an aldehyde and a carboxylic acid.',
+  why:'LiAlH_{4} is a strong reducing agent. It adds H to every C=O present. Reduction adds H (or removes O); it never adds O.',
+  fix:'Aldehyde → primary alcohol (−CH_{2}OH). Ketone → secondary alcohol (−CHOH−). Carboxylic acid → primary alcohol (−CH_{2}OH). Find every C=O and convert each one.',
+  redo:{p:'Which compound forms when 2-butanone is reduced with LiAlH_{4}?',o:['2-butanol','1-butanol','butanal','butanoic acid'],a:0,why:'A ketone is reduced to a secondary alcohol, keeping the same carbon chain: 2-butanone → 2-butanol.'}},
+ {id:'mx-like-dissolves',u:'u2',l:'u2-11',t:'Solubility in a non-polar solvent',
+  wrong:'Saying a carboxylic acid is the most soluble in benzene because "it can hydrogen bond with benzene".',
+  why:'Benzene is non-polar and has no O−H or N−H bond, so it cannot hydrogen bond. It can only form London dispersion forces. Substances dissolve best when the new attractions are similar to the ones broken: like dissolves like.',
+  fix:'Ask what forces the SOLVENT can form. Benzene: London forces only, so the best solute is non-polar (a hydrocarbon). Polar and hydrogen-bonding solutes need a polar solvent. Answer only what is asked: do not bring in water if water is not in the question.',
+  redo:{p:'Which solute is most soluble in hexane, a non-polar solvent?',o:['octane','ethanol','glucose','sodium chloride'],a:0,why:'Octane is non-polar, held together by London forces like hexane. The other three are polar or ionic and are held together by much stronger forces than hexane can offer.'}},
+ {id:'mx-explain-bp',u:'u2',l:'u2-11',t:'Explaining a boiling point for full marks',
+  wrong:'"Carboxylic acids have the highest boiling point because they have the strongest forces."',
+  why:'That is true but incomplete. An explanation needs the NAME of the force, where it comes from, and the link to energy and boiling point.',
+  fix:'Use this pattern: (1) name the force in each substance (London, dipole–dipole, hydrogen bonding), (2) say where it comes from (non-polar bonds, polar C=O, O−H), (3) compare strengths, (4) stronger forces need more energy to separate the molecules, so the boiling point is higher.',
+  redo:{p:'Which sentence best explains why ethanol (78 °C) boils higher than propane (−42 °C), two molecules of similar molar mass?',o:['Ethanol molecules hydrogen bond through their O−H groups, which is stronger than the London forces between propane molecules, so more energy is needed to separate them.','Ethanol has stronger intermolecular forces.','Propane is a gas.','Ethanol has a much larger molar mass.'],a:0,why:'It names the force (hydrogen bonding), its source (O−H), compares it with London forces and links it to energy. The others are incomplete or untrue (the molar masses are nearly equal).'}},
+ {id:'mx-l-range',u:'u2',l:'u2-4',t:'Allowed values of l',
+  wrong:'For n = 3, writing only l = 2, "because l = n − 1".',
+  why:'n − 1 is the LARGEST allowed value of l, not the only one. The quantum number l takes every whole-number value from 0 up to n − 1.',
+  fix:'l = 0, 1, …, n − 1. Each value is a subshell: 0 = s, 1 = p, 2 = d, 3 = f. For n = 3: l = 0, 1, 2 (3s, 3p, 3d).',
+  redo:{p:'For n = 4, which list shows every allowed value of l?',o:['0, 1, 2, 3','3','1, 2, 3, 4','0, 1, 2, 3, 4'],a:0,why:'l runs from 0 to n − 1 = 3, so 0, 1, 2, 3 (4s, 4p, 4d, 4f).'}},
+ {id:'mx-ml-meaning',u:'u2',l:'u2-4',t:'What m_{l} tells you',
+  wrong:'Saying that m_{l} tells you the sublevel (subshell).',
+  why:'The subshell comes from l. The number m_{l} tells you WHICH orbital of that subshell you mean, that is, how the orbital is oriented in space.',
+  fix:'n → energy level and size. l → subshell and shape. m_{l} → orientation (which orbital). m_{s} → spin of the electron.',
+  redo:{p:'What does the quantum number m_{l} tell you?',o:['Which orbital of a subshell, i.e. its orientation in space','Which subshell (s, p, d or f) the electron is in','The energy level of the electron','The spin of the electron'],a:0,why:'m_{l} labels the individual orbitals within a subshell (their orientation). The subshell is l, the level is n and the spin is m_{s}.'}},
+ {id:'mx-ml-per-l',u:'u2',l:'u2-4',t:'Listing m_{l} for each l',
+  wrong:'For n = 3, writing m_{l} = −2, −1, 0, +1, +2 once, as if it applied to the whole level.',
+  why:'The allowed m_{l} values depend on l, so each subshell has its own list.',
+  fix:'For each l, m_{l} runs from −l to +l. l = 0: 0 (1 orbital). l = 1: −1, 0, +1 (3 orbitals). l = 2: −2 to +2 (5 orbitals). n = 3 therefore has 1 + 3 + 5 = 9 orbitals (= n^{2}).',
+  redo:{p:'Which list gives all the allowed values of m_{l} when l = 2?',o:['−2, −1, 0, +1, +2','−1, 0, +1','0, 1, 2','−3, −2, −1, 0, +1, +2, +3'],a:0,why:'m_{l} runs from −l to +l, so −2 to +2: five values and five d orbitals.'}},
+ {id:'mx-draw-p',u:'u2',l:'u2-4',t:'The shape of the l = 1 orbital',
+  wrong:'Drawing a circle for the orbital defined by l = 1.',
+  why:'A sphere is the s orbital (l = 0). An orbital with l = 1 is a p orbital: two lobes on opposite sides of the nucleus, with the nucleus between them, pointing along an axis.',
+  fix:'l = 0: sphere. l = 1: two lobes (dumbbell) along x, y or z; there are three such orbitals. l = 2: mostly four lobes (one has two lobes and a ring). Draw the axis and the nucleus.',
+  redo:{p:'A student draws a circle for the orbital with l = 1. What should the shape be?',o:['Two lobes on opposite sides of the nucleus','Four lobes in a cloverleaf','A larger circle','A ring around the nucleus'],a:0,why:'l = 1 is a p orbital, which has two lobes along one axis. The circle is the s orbital.'}},
+ {id:'mx-orbit-orbital',u:'u2',l:'u2-4',t:'Orbit versus orbital',
+  wrong:'"An orbital shows the exact location of the electron, only more precisely than an orbit."',
+  why:'An orbital does not give an exact location at all. Heisenberg\'s uncertainty principle says we cannot know an electron\'s exact position and momentum together, so an orbital is a region where the electron is likely to be found.',
+  fix:'Orbit (Bohr–Rutherford): a fixed circular path at an exact distance. Orbital (quantum mechanics): a three-dimensional region of space with a high probability (for example 90%) of finding the electron. Use the words "region" and "probability".',
+  redo:{p:'Which statement correctly compares an orbit and an orbital?',o:['An orbit is a fixed path at an exact distance; an orbital is a region where the electron is likely to be found','An orbit is a region of probability; an orbital is a fixed path','They are the same thing with different names','An orbital shows exactly where the electron is at every moment'],a:0,why:'Bohr orbits are exact paths. Orbitals are probability regions, which is what the uncertainty principle allows.'}},
+ {id:'mx-allowed-set',u:'u2',l:'u2-4',t:'Testing a set of quantum numbers',
+  wrong:'Saying n = 4, l = 4, m_{l} = 0 is not allowed "because l should have been 3".',
+  why:'The set fails because l is too big, but l is not required to be 3: any whole number from 0 to n − 1 is allowed.',
+  fix:'Check the rules in order. n: whole number from 1. l: 0 to n − 1. m_{l}: −l to +l. m_{s}: +½ or −½. Name the rule that fails and give the legal range: "for n = 4, l can be 0, 1, 2 or 3".',
+  redo:{p:'Which rule is broken by n = 2, l = 2, m_{l} = 0?',o:['l must be from 0 to n − 1, which is 0 or 1 for n = 2','m_{l} must be 0','n must be at least 3','m_{s} is missing'],a:0,why:'For n = 2 the largest l is 1. The value l = 2 is not allowed, whatever m_{l} is.'}},
+ {id:'mx-ion-charge',u:'u2',l:'u2-12',t:'The charge on a monatomic ion',
+  wrong:'Writing the nitride ion as N^{2−} and counting 9 electrons.',
+  why:'A non-metal gains the number of electrons that completes its octet. Nitrogen is in group 15, so it gains 3 electrons: N^{3−}, with 7 + 3 = 10 electrons.',
+  fix:'Charge from the group: groups 1, 2, 13 → 1+, 2+, 3+; groups 15, 16, 17 → 3−, 2−, 1−. Electrons = Z − charge (so Z + 3 for a 3− ion).',
+  redo:{p:'How many electrons does the oxide ion, O^{2−}, have?',o:['10','8','6','9'],a:0,why:'Oxygen has 8 electrons and gains 2: 8 + 2 = 10.'}},
+ {id:'mx-isoelectronic',u:'u2',l:'u2-12',t:'Isoelectronic means the same electrons',
+  wrong:'Saying the nitride ion is isoelectronic with fluorine.',
+  why:'Isoelectronic species have the same number of electrons (not protons). N^{3−} has 10 electrons, the same as neon. The fluorine atom has 9.',
+  fix:'Count electrons for each species, then compare. Species with 10 electrons: N^{3−}, O^{2−}, F^{−}, Ne, Na^{+}, Mg^{2+}, Al^{3+}.',
+  redo:{p:'Which ion is isoelectronic with the neon atom?',o:['Mg^{2+}','Mg','Cl^{−}','K^{+}'],a:0,why:'Mg^{2+} has 12 − 2 = 10 electrons, the same as Ne. Cl^{−} and K^{+} each have 18.'}},
+ {id:'mx-core-lanthanide',u:'u2',l:'u2-12',t:'The right noble-gas core and the f block',
+  wrong:'Writing neodymium as [Kr] 5s^{2} 4f^{4}.',
+  why:'The core must be the noble gas just BEFORE the element, here xenon (Z = 54), because Nd has Z = 60. After [Xe] the next subshell to fill is 6s, then 4f.',
+  fix:'Find the previous noble gas and subtract its Z: 60 − 54 = 6 electrons left. Fill 6s (2), then 4f (the rest): [Xe] 6s^{2} 4f^{4}. Check that the electrons add up to Z.',
+  redo:{p:'What is the electron configuration of neodymium, Nd (Z = 60)?',o:['[Xe] 6s^{2} 4f^{4}','[Kr] 5s^{2} 4f^{4}','[Xe] 5s^{2} 4f^{4}','[Xe] 6s^{2} 4f^{6}'],a:0,why:'Xenon has 54 electrons, so 6 remain: 6s^{2} 4f^{4}. The others use the wrong core or do not add up to 60.'}},
+ {id:'mx-identify-species',u:'u2',l:'u2-12',t:'Atom or ion? Reading a configuration',
+  wrong:'Answering "Xe" for a configuration that ends 5p^{6}, without checking whether the question describes an ion.',
+  why:'Many species share one configuration: Xe, I^{−}, Te^{2−}, Cs^{+} and Ba^{2+} all have 54 electrons. The clues in the question (cation or anion, charge, group, period) decide which one it is.',
+  fix:'Count the electrons first. A neutral atom has Z = electrons. A cation has Z = electrons + charge. An anion has Z = electrons − charge. Then use Z to find the element.',
+  redo:{p:'A cation with a 2+ charge has the configuration 1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}. Which ion is it?',o:['Ca^{2+}','K^{+}','S^{2−}','Ar'],a:0,why:'18 electrons and a 2+ charge means 20 protons: calcium. K^{+} is 1+, S^{2−} is an anion and Ar is neutral.'}},
+ {id:'mx-multivalent',u:'u2',l:'u2-12',t:'Why transition metals are multivalent',
+  wrong:'"Mercury is multivalent because the f block is too long" (or because of the s and p blocks).',
+  why:'The reason is the energy of the outer electrons. In a transition metal the outer s electrons and the (n − 1)d electrons are close in energy, so atoms can lose different numbers of electrons and form ions of different charge.',
+  fix:'Write the configuration, then say: "the ns and (n − 1)d electrons are close in energy, so a different number of electrons can be lost". Example: Hg [Xe] 6s^{2} 4f^{14} 5d^{10} loses both 6s electrons (Hg^{2+}) or just one (Hg^{+}, found as Hg_{2}^{2+}).',
+  redo:{p:'Which explanation best describes why iron forms both Fe^{2+} and Fe^{3+}?',o:['The 4s and 3d electrons are close in energy, so Fe can lose two or three electrons','Iron has an unusually long f block','Iron has too many electrons to be stable','Iron can only lose electrons from the 3d subshell'],a:0,why:'Variable charge comes from the closeness in energy of the 4s and 3d electrons: Fe loses its two 4s electrons (Fe^{2+}) or two 4s and one 3d (Fe^{3+}).'}}
+];
+
 SCH4U.LESSONS = [
 /* ---------- Unit 1: Organic Chemistry ---------- */
 {id:'u1-1',u:'u1',t:'Alkanes: structure and IUPAC naming',
+ mx:['mx-longest-chain','mx-ring-branch'],
  big:'Alkanes are hydrocarbons with only single bonds, general formula C_{n}H_{2n+2}. The IUPAC name tells you the longest carbon chain (the parent) and any branches (substituents) attached to it, each with a number showing where it is attached.',
  how:['Find the longest continuous carbon chain; its length gives the parent name (meth-, eth-, prop-, but-, pent-, hex-, hept-, oct-…).','Number the chain from the end that gives the lowest locants to the substituents.','Name each branch as an alkyl group (methyl, ethyl, propyl…) with its locant.','List substituents alphabetically, using di-, tri- for repeats (ignored in alphabetizing), and combine into one name.'],
  ex:{p:'Name CH_{3}CH(CH_{3})CH_{2}CH_{3}.',s:['The longest chain has 4 carbons: a butane parent.','Numbering from the end nearer the branch: C1–C2–C3–C4, with a methyl group on C2.','Name: 2-methylbutane.']},
- watch:'Always find the longest chain first — it is not always drawn in a straight horizontal line, so look for chains that bend at a branch point.',
+ watch:'Always find the longest chain first — it is not always drawn in a straight horizontal line, so look for chains that bend at a branch point. The longest chain can run through a branch, and a branched group on a ring (such as −C(CH_{3})_{3}) is one branch named tert-butyl. See lesson 1.8 for the full naming checklist.',
  check:{p:'What is the IUPAC name of CH_{3}CH_{2}CH(CH_{3})CH_{2}CH_{3}?',o:['2-methylpentane','3-methylpentane','2-ethylbutane','pentane'],a:1,why:'The longest chain has 5 carbons (pentane). Numbering from either end puts the methyl group on C3, which is the same either way, so the name is 3-methylpentane.'}},
 {id:'u1-2',u:'u1',t:'Alkenes, alkynes and structural/geometric isomers',
  big:'Alkenes (C_{n}H_{2n}) have at least one C=C double bond; alkynes (C_{n}H_{2n−2}) have at least one C≡C triple bond. Both are named like alkanes but end in -ene or -yne, with a locant showing where the multiple bond starts. Because rotation around a double bond is restricted, some alkenes show cis/trans (geometric) isomerism in addition to ordinary structural isomerism.',
@@ -773,22 +928,25 @@ SCH4U.LESSONS = [
  watch:'A carbon with two identical groups attached (such as =CH_{2} or =CCl_{2}) cannot show cis/trans isomerism at that bond.',
  check:{p:'Which compound can show cis/trans isomerism?',o:['CH_{2}=CH_{2}','CH_{2}=CCl_{2}','CHCl=CHCl','CH_{2}=CHCH_{3} has it on the CH_{2} carbon'],a:2,why:'In CHCl=CHCl, each double-bond carbon has two different groups (H and Cl), so cis and trans forms both exist. In the others, at least one carbon has two identical groups.'}},
 {id:'u1-3',u:'u1',t:'Aromatic hydrocarbons',
+ mx:['mx-benzene-substitution'],
  big:'Benzene, C_{6}H_{6}, is a flat ring of six carbons often drawn as alternating double and single bonds, or as a hexagon with a circle to show that the six π electrons are shared (delocalized) equally around the ring rather than fixed in place. Aromatic compounds are generally less reactive toward addition than ordinary alkenes because that delocalization is especially stable.',
  how:['Draw the hexagon with one H on each ring carbon unless a substituent replaces it.','Name a single substituent as a prefix on "benzene" (e.g., methylbenzene, chlorobenzene) or by its common name where IUPAC retains one (toluene is accepted as methylbenzene\'s common name).','For two or more substituents, number the ring to give the lowest locants and use ortho (1,2), meta (1,3) or para (1,4) if only two groups are present.'],
  ex:{p:'Name the compound formed by replacing one ring H of benzene with a −NH_{2} group.',s:['A single substituent is named as a prefix on benzene.','−NH_{2} is the amine (amino) group.','The compound is aminobenzene, commonly called aniline.']},
- watch:'Do not draw benzene\'s ring with three separate, fixed double bonds and expect it to react like three independent alkenes — the delocalized electrons make it far less reactive toward addition.',
+ watch:'Do not draw benzene\'s ring with three separate, fixed double bonds and expect it to react like three independent alkenes — the delocalized electrons make it far less reactive toward addition. Benzene reacts by substitution, so nitrating it gives nitrobenzene (the ring is kept), never a cyclohexane.',
  check:{p:'What best describes the bonding in benzene?',o:['Three isolated C=C double bonds alternating with three C−C single bonds','One C≡C triple bond and two C−C single bonds','Six equivalent carbon–carbon bonds with delocalized π electrons around the ring','Six C−C single bonds only'],a:2,why:'Experimentally all six carbon–carbon bonds in benzene are equivalent in length, which is explained by delocalization of the π electrons around the whole ring rather than three fixed double bonds.'}},
 {id:'u1-4',u:'u1',t:'Alcohols, ethers and halides',
+ mx:['mx-locant-alcohol','mx-oxidation-class'],
  big:'An alcohol has an −OH group bonded to a carbon chain and is named with the suffix -ol. An ether has an oxygen between two carbon groups (R−O−R′) and is usually named with "oxy" as a prefix or as a common name. A halide replaces an H with a halogen (F, Cl, Br, I), named with a halo- prefix such as chloro- or bromo-.',
  how:['For alcohols: find the longest chain containing the carbon with −OH, number to give −OH the lowest locant, and change the -e ending to -ol.','For ethers: name the smaller alkyl group plus "oxy" as a prefix on the name of the larger chain, or use the common "alkyl alkyl ether" form.','For halides: name the halogen as a prefix (fluoro-, chloro-, bromo-, iodo-) with its locant, alphabetized with any other substituents.','Classify alcohols as primary, secondary or tertiary by how many carbons are attached to the carbon bearing −OH.'],
  ex:{p:'Name CH_{3}CH_{2}CH(OH)CH_{3} and classify it.',s:['The longest chain with −OH is 4 carbons: a butanol parent.','Numbering to give −OH the lower locant: the OH is on C2.','Name: butan-2-ol. The OH-bearing carbon is attached to two other carbons (C1 and C3), so it is a secondary alcohol.']},
- watch:'Small alcohols (methanol, ethanol) are fully miscible with water because of hydrogen bonding, but solubility drops quickly as the hydrocarbon chain gets longer — do not assume all alcohols dissolve well in water.',
+ watch:'Small alcohols (methanol, ethanol) are fully miscible with water because of hydrogen bonding, but solubility drops quickly as the hydrocarbon chain gets longer — do not assume all alcohols dissolve well in water. Number the chain from the end that gives the −OH the lowest locant: there is no such compound as 3-propanol.',
  check:{p:'Which is the correct IUPAC name for CH_{3}OCH_{2}CH_{3}?',o:['methoxyethane','ethoxymethane','propan-1-ol','dimethyl ether'],a:0,why:'The oxygen links a methyl group and an ethyl group. Naming the smaller group (methyl) as "methoxy" on the larger chain (ethane) gives methoxyethane.'}},
 {id:'u1-5',u:'u1',t:'Aldehydes, ketones and carboxylic acids',
+ mx:['mx-aldehyde-chain','mx-reduction'],
  big:'These three functional groups all contain a carbonyl (C=O) and form a reactivity "ladder": a primary alcohol oxidizes to an aldehyde, which oxidizes further to a carboxylic acid; a secondary alcohol oxidizes only as far as a ketone. Aldehydes have the C=O at the end of the chain (suffix -al); ketones have it within the chain (suffix -one); carboxylic acids have a −COOH group (suffix -oic acid).',
  how:['Identify the carbonyl\'s position: end of chain with an H attached → aldehyde; within the chain → ketone; with an −OH also attached to the same carbon → carboxylic acid.','Number the chain to give the functional group carbon the lowest possible locant (C1 for aldehydes and acids, since they end a chain).','Name with -al, -one (with a locant for the C=O position) or -oic acid.'],
  ex:{p:'What functional group and name describes CH_{3}CH_{2}COCH_{3}, and what alcohol would oxidize to form it?',s:['The C=O is the third carbon of a 4-carbon chain, not at the end: this is a ketone, butan-2-one.','A ketone comes from oxidizing a secondary alcohol, where the OH-bearing carbon is attached to two other carbons.','The parent alcohol is butan-2-ol.']},
- watch:'A ketone cannot be oxidized further under the same mild conditions that turn an aldehyde into a carboxylic acid — this is how the two groups are told apart experimentally (e.g., with Tollens\' reagent).',
+ watch:'A ketone cannot be oxidized further under the same mild conditions that turn an aldehyde into a carboxylic acid — this is how the two groups are told apart experimentally (e.g., with Tollens\' reagent). The −CHO carbon is C1 and the end CH_{3} is part of the chain, so CH_{3}CH_{2}CHO is propanal, not 3-methylpropanal.',
  check:{p:'Which oxidation sequence is correct?',o:['primary alcohol → ketone → carboxylic acid','secondary alcohol → aldehyde → carboxylic acid','primary alcohol → aldehyde → carboxylic acid','tertiary alcohol → aldehyde'],a:2,why:'A primary alcohol (OH carbon attached to one other carbon) oxidizes first to an aldehyde, then further to a carboxylic acid. A secondary alcohol oxidizes only to a ketone; a tertiary alcohol does not oxidize this way.'}},
 {id:'u1-6',u:'u1',t:'Esters, amines, amides and esterification',
  big:'An ester (R−COO−R′) forms when a carboxylic acid reacts with an alcohol in a condensation (esterification) reaction, releasing water; it is reversible, and the reverse reaction (hydrolysis) breaks the ester back into the acid and alcohol. Amines (−NH_{2} on a carbon chain) are organic relatives of ammonia; amides (−CONH_{2}) contain both a carbonyl and a nitrogen and are far less basic than amines.',
@@ -797,19 +955,35 @@ SCH4U.LESSONS = [
  watch:'Do not confuse the direction the water comes from: the −OH leaves the acid and the H leaves the alcohol (not the reverse) when the new C−O bond forms.',
  check:{p:'What functional groups react together in an esterification reaction?',o:['an alcohol and a ketone','a carboxylic acid and an alcohol','an aldehyde and an amine','two carboxylic acids'],a:1,why:'Esterification joins a carboxylic acid with an alcohol, releasing water and forming an ester; it is catalyzed by acid and is reversible.'}},
 {id:'u1-7',u:'u1',t:'Reactions of organic compounds and polymers',
+ mx:['mx-reaction-type','mx-markovnikov','mx-carbon-valence'],
  vid:{f:'polymerization',alt:'Animation: addition polymerisation (monomers open their C=C bonds and join) and condensation polymerisation (H₂O released at each link).',desc:'Scene 1: four ethene molecules, each with a C=C double bond, open their double bonds and join into a chain, polyethene, and nothing is released. Scene 2: a diacid and a diamine alternate; as they join, each link releases a small H_{2}O molecule, forming a polyamide such as nylon.'},
  big:'Organic compounds react in a few recognizable patterns: addition (across a multiple bond, no atoms lost), substitution (one atom or group replaces another, common for saturated and aromatic compounds), elimination (a small molecule such as H_{2}O or HX is removed to form a multiple bond) and condensation (two molecules join with loss of a small molecule, as in esterification). Polymers form when many small monomers link together: addition polymers simply join across double bonds with no by-product; condensation polymers join with loss of a small molecule (often water) at every link.',
  how:['Identify the starting functional group and what is added, removed or substituted to classify the reaction type.','For addition polymerization, redraw the monomer\'s double bond as a single bond repeating unit, "–(CH_{2}–CHX)_{n}–".','For condensation polymerization, find the two functional groups on each monomer that react and repeat, releasing a small molecule at each new bond (e.g., polyester from a diacid and a diol).'],
  ex:{p:'Classify the reaction CH_{2}=CH_{2} + Br_{2} → CH_{2}BrCH_{2}Br, and state what type of polymer ethene forms.',s:['Br_{2} adds across the double bond with no atoms removed: this is an addition reaction.','Ethene\'s monomer (CH_{2}=CH_{2}) opens its double bond and links repeatedly with no small molecule lost.','Ethene forms the addition polymer polyethylene, –(CH_{2}–CH_{2})_{n}–.']},
- watch:'A reaction that both adds and removes atoms (not simply substituting one for another) is a condensation, not a substitution — check whether a small molecule such as water is produced.',
+ watch:'A reaction that both adds and removes atoms (not simply substituting one for another) is a condensation, not a substitution — check whether a small molecule such as water is produced. Name the type from the reagent (H_{2}, X_{2}, HX or H_{2}O adds), and see lesson 1.9 for Markovnikov, oxidation and reduction.',
  check:{p:'A polyester forms from a dicarboxylic acid and a diol, releasing water at every link. What type of reaction and polymer is this?',o:['Addition reaction; addition polymer','Substitution reaction; addition polymer','Condensation reaction; condensation polymer','Elimination reaction; addition polymer'],a:2,why:'Each ester link forms by condensation (loss of water between the acid and alcohol groups), repeated many times, making this a condensation polymer.'}},
+{id:'u1-8',u:'u1',t:'Naming checklist for tricky structures',
+ mx:['mx-longest-chain','mx-ring-branch','mx-aldehyde-chain','mx-draw-from-name','mx-locant-alcohol'],
+ big:'Most IUPAC naming errors come from the same few traps: choosing the wrong parent chain, grouping a branch wrongly, miscounting the chain of an aldehyde or acid, and numbering from the wrong end. Use the same checklist every time and check the result by counting carbons and bonds.',
+ how:['Circle the principal functional group. Priority for the suffix: carboxylic acid, ester, amide, aldehyde, ketone, alcohol, amine, then alkene or alkyne. The carbon of −COOH or −CHO is always C1.','Trace every path through the structure that includes that group and count carbons. The longest path is the parent chain, even if it bends through a branch.','Number from the end that gives the principal group the lowest locant. If still tied, give the multiple bond the lowest number, then all the branches together. If branch locants still tie, the branch first in alphabetical order gets the lower number.','Name each branch: methyl, ethyl, propyl, isopropyl −CH(CH_{3})_{2}, tert-butyl −C(CH_{3})_{3}, phenyl −C_{6}H_{5}. A branched group such as tert-butyl is ONE branch. A ring carbon can carry at most two groups.','List the branches alphabetically (ignore di-, tri-), with a locant for each, in front of the parent name. Finish by counting carbons and checking that every carbon has four bonds.'],
+ ex:{p:'Name CH_{3}CH_{2}CH(C_{6}H_{5})CH_{2}CH(CH_{2}CH_{3})CH_{3}.',s:['Paths: the chain drawn across the page has 6 carbons, but the path that runs through the ethyl branch has 7: parent = heptane.','The two branches left on the chain are a phenyl and a methyl (the carbon that was the end of the 6-carbon chain).','Number from either end and the locants are 3 and 5. They tie, so the branch first alphabetically (methyl) gets the lower number.','Name: 3-methyl-5-phenylheptane.']},
+ watch:'A "1,1,1-" prefix on a ring is a warning sign: you have split a branched group such as tert-butyl into separate methyl groups. And a name like 3-methylpropanal cannot exist, because a methyl on the end carbon just makes the chain longer (butanal).',
+ check:{p:'What is the IUPAC name of CH_{3}CH_{2}CHO?',o:['propanal','3-methylpropanal','propanone','1-propanal'],a:0,why:'The chain has three carbons counted from the C=O carbon (C1), so it is propanal. The end CH_{3} is part of the chain, not a methyl branch.'}},
+{id:'u1-9',u:'u1',t:'Reaction toolkit: predict the product and name the type',
+ mx:['mx-reaction-type','mx-markovnikov','mx-benzene-substitution','mx-oxidation-class','mx-reduction','mx-carbon-valence'],
+ big:'Every reaction in this unit is one of a few patterns. Name the type from the reagent, change only the atoms involved, and finish with a bond count. Alkenes and alkynes undergo addition (hydrogenation, halogenation, hydrohalogenation, hydration). Benzene keeps its ring and undergoes substitution. Alcohols are oxidized according to their class, and carbonyl compounds are reduced to alcohols by LiAlH_{4}.',
+ how:['Read the reagent. H_{2} (Pt): hydrogenation. Br_{2} or Cl_{2}: halogenation. HBr or HCl: hydrohalogenation. H_{2}O with H_{2}SO_{4}: hydration. All four add across C=C or C≡C.','For HX or H_{2}O adding to an unsymmetrical alkene, H goes to the double-bond carbon with more H atoms; X or −OH goes to the other carbon (Markovnikov).','Benzene with HNO_{3}/H_{2}SO_{4} (or a halogen with a catalyst): substitution. One ring H is replaced and the ring is kept: C_{6}H_{6} + HNO_{3} → C_{6}H_{5}NO_{2} + H_{2}O.','Oxidation of an alcohol: look at the carbon bearing −OH. Two H: aldehyde then acid. One H: ketone. No H: no reaction. Reduction goes the other way: every C=O (aldehyde, ketone, acid) becomes an alcohol with LiAlH_{4}.','Finish by counting bonds: carbon 4, oxygen 2, hydrogen 1. A drawing with a five-bond carbon is wrong.'],
+ ex:{p:'Draw the major organic product of propene + H_{2}O (H_{2}SO_{4} catalyst), name it, and name the type of reaction.',s:['CH_{3}CH=CH_{2}: the middle carbon has 1 H and the end carbon has 2 H.','Markovnikov: H adds to the end carbon (more H) and −OH adds to the middle carbon.','Product: CH_{3}CH(OH)CH_{3}, 2-propanol. Every carbon has four bonds.','Type of reaction: hydration, an addition reaction.']},
+ watch:'Benzene is not an alkene: it does not add across the ring, so "nitrocyclohexane" is never the product of nitrating benzene. And no alcohol is called "3-propanol": the −OH on a three-carbon chain is at C1 or C2.',
+ check:{p:'2-Propanol is oxidized. What is the organic product?',o:['propanone','propanal','propanoic acid','no reaction'],a:0,why:'2-Propanol is a secondary alcohol (one H on the carbon bearing −OH). Its oxidation gives a ketone: propanone, CH_{3}COCH_{3}.'}},
 /* ---------- Unit 2: Structure and Properties of Matter ---------- */
 {id:'u2-1',u:'u2',t:'Atomic theory: from Dalton to Rutherford',
+ mx:['mx-orbit-orbital'],
  vid:{f:'gold-foil',alt:'Animation: the Thomson model\'s prediction compared with Rutherford\'s gold-foil result.',desc:'Two panels. On the left, alpha particles fired at an atom with positive charge spread through it pass almost straight through, with tiny deflections. On the right, alpha particles fired at gold foil mostly pass almost straight through an atom that is mostly empty space, but a few are deflected at large angles and one bounces nearly straight back from a tiny, dense, positive nucleus. Counters group the particles by deflection angle. In the real experiment only about 1 alpha particle in 8000 bounced back.'},
  big:'Atomic models change when new evidence contradicts them. Dalton pictured indivisible spheres. Thomson\'s cathode-ray experiments (1897) showed that atoms contain negative electrons, giving the "raisin bun" model: electrons embedded in a positive sphere. Rutherford\'s gold-foil experiment (1911) showed that most of an atom is empty space with a tiny, dense, positive nucleus at its centre.',
  how:['Match each model to its evidence: cathode rays → electrons exist (Thomson); alpha particles fired at gold foil → a dense nucleus (Rutherford).','Compare each model with what it predicted. Thomson\'s model predicted that alpha particles would pass through with only tiny deflections.','Use the observation to state the new idea: most particles passed straight through (mostly empty space), a few were deflected at large angles or bounced back (a small, concentrated, positive nucleus).','Note what Rutherford\'s model could not explain: why orbiting electrons do not spiral into the nucleus, and why atoms emit only certain colours of light. That gap led to Bohr.'],
  ex:{p:'In the gold-foil experiment, about 1 alpha particle in 8000 bounced almost straight back. What does this show about the atom?',s:['Thomson\'s model has the positive charge spread through the whole atom, so no strong repulsion is possible and no particle should bounce back.','A particle can only be turned around by a very strong force from a very small, concentrated, massive positive charge.','So the atom has a tiny, dense, positively charged nucleus. The rarity of large deflections shows the nucleus is very small compared with the whole atom.']},
- watch:'Do not mix up what each experiment showed: cathode rays gave the electron (Thomson); gold-foil scattering gave the nucleus (Rutherford).',
+ watch:'Do not mix up what each experiment showed: cathode rays gave the electron (Thomson); gold-foil scattering gave the nucleus (Rutherford). An orbit is not an orbital: Bohr orbits are fixed paths; orbitals (lesson 2.4) are probability regions.',
  check:{p:'Which observation in the gold-foil experiment supported a small, dense nucleus?',o:['All alpha particles passed straight through','A few alpha particles were deflected through large angles','Electrons were seen leaving the foil','The foil glowed with a continuous spectrum'],a:1,why:'Only a small, dense, positive centre can deflect a fast alpha particle through a large angle. That a few were deflected and most were not shows the nucleus is tiny.'}},
 {id:'u2-2',u:'u2',t:'Light, photons and the photoelectric effect',
  vid:{f:'photoelectric',alt:'Animation: why bright red light frees no electrons but dim violet light does.',desc:'Light shines on a metal surface that contains electrons. Bright red light sends many photons, but none frees an electron because each red photon carries about 1.8 eV, less than the roughly 2.3 eV needed. Dim violet light sends only a few photons, but each carries about 3.1 eV, so each one frees an electron. A bar chart compares the energy of one red photon and one violet photon with the energy needed to free an electron.'},
@@ -826,17 +1000,20 @@ SCH4U.LESSONS = [
  watch:'Energy levels get closer together as n increases, so a jump between low levels (such as n = 2 → 1) releases much more energy than a jump between high levels (such as n = 5 → 4).',
  check:{p:'Which hydrogen transition emits the photon with the longest wavelength?',o:['n = 2 → n = 1','n = 3 → n = 1','n = 3 → n = 2','n = 4 → n = 3'],a:3,why:'Longest wavelength means lowest photon energy, which means the smallest energy gap. The levels are closest together at higher n, so n = 4 → 3 has the smallest gap.'}},
 {id:'u2-4',u:'u2',t:'Quantum numbers and the wave-mechanical model',
+ model:'qnum',
+ mx:['mx-l-range','mx-ml-meaning','mx-ml-per-l','mx-draw-p','mx-orbit-orbital','mx-allowed-set'],
  vid:{f:'orbitals',alt:'Animation: probability clouds for 1s, 2p and 3d orbitals, with how many orbitals each subshell has.',desc:'Three panels build up clouds of dots, each dot a place the electron might be found. The 1s orbital is a sphere (l = 0, one orbital, two electrons). The 2p orbital has two lobes (l = 1, three orbitals, six electrons). The 3d example shown, d(z^{2}), has two lobes plus a ring (l = 2, five orbitals, ten electrons). A subshell has 2l + 1 orbitals and each orbital holds two electrons.'},
  big:'De Broglie showed that moving particles such as electrons have wave properties, and Heisenberg\'s uncertainty principle says we cannot know an electron\'s exact position and momentum at the same time. So the wave-mechanical (Schrödinger) model describes an orbital: a region where an electron is most likely to be found. Each electron is described by four quantum numbers: n (main energy level), l (subshell and shape), m_{l} (orbital orientation) and m_{s} (spin).',
- how:['n = 1, 2, 3… sets the energy level and size. A shell holds 2n^{2} electrons.','l can be 0, 1, … (n − 1). The value l = 0, 1, 2, 3 corresponds to the s, p, d, f subshells.','m_{l} runs from −l to +l, so a subshell has (2l + 1) orbitals (s: 1, p: 3, d: 5, f: 7). Each orbital holds two electrons.','m_{s} = +{1|2} or −{1|2}. By the Pauli exclusion principle, no two electrons in an atom can share all four quantum numbers.'],
+ how:['n = 1, 2, 3… sets the energy level and size. A shell holds 2n^{2} electrons.','l takes EVERY whole-number value from 0 to n − 1 (for n = 3: 0, 1, 2), not only n − 1. The values l = 0, 1, 2, 3 correspond to the s, p, d, f subshells.','m_{l} runs from −l to +l, so a subshell has (2l + 1) orbitals (s: 1, p: 3, d: 5, f: 7). Each orbital holds two electrons.','m_{s} = +{1|2} or −{1|2}. By the Pauli exclusion principle, no two electrons in an atom can share all four quantum numbers.','Orbit versus orbital: a Bohr orbit is a fixed path at an exact distance from the nucleus. An orbital is a three-dimensional region where the electron is likely to be found, because we cannot know its exact position.','Shapes: s is a sphere, p has two lobes on opposite sides of the nucleus along an axis (three orientations: p_{x}, p_{y}, p_{z}), and d is mostly four lobes (d(z^{2}) has two lobes and a ring). Try the explorer below.'],
  ex:{p:'List the subshells in the n = 3 level, and find the number of orbitals and the maximum number of electrons.',s:['For n = 3, l = 0, 1, 2, so the subshells are 3s, 3p and 3d.','Orbitals: 3s has 1, 3p has 3, 3d has 5, giving 1 + 3 + 5 = 9 orbitals.','Electrons: 9 orbitals × 2 = 18, which matches 2n^{2} = 2(3)^{2} = 18.']},
- watch:'The limits depend on the previous number: l cannot exceed n − 1, and m_{l} cannot go beyond ±l. A set such as n = 2, l = 2 is impossible.',
+ watch:'The limits depend on the previous number: l cannot exceed n − 1, and m_{l} cannot go beyond ±l. A set such as n = 2, l = 2 is impossible. An orbital shows where the electron is likely to be, never exactly where it is. m_{l} gives the orientation of the orbital, not its subshell, and the m_{l} list depends on each l.',
  check:{p:'How many orbitals are in the 4d subshell?',o:['1','3','5','7'],a:2,why:'The d subshell has l = 2, so m_{l} = −2, −1, 0, +1, +2: five orbitals, whatever the value of n.'}},
 {id:'u2-5',u:'u2',t:'Electron configurations and orbital diagrams',
+ mx:['mx-ion-charge','mx-isoelectronic','mx-core-lanthanide'],
  big:'Electrons fill the lowest-energy orbitals available first (Aufbau principle), each orbital holds at most two electrons with opposite spins (Pauli exclusion principle), and electrons spread out singly across orbitals of equal energy before pairing (Hund\'s rule). Writing a configuration such as 1s^{2}2s^{2}2p^{6} tells you how many electrons are in each subshell.',
  how:['List subshells in filling order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s, 4f, 5d, 6p…','Add electrons to each subshell up to its capacity (s: 2, p: 6, d: 10, f: 14) until all the atom\'s electrons are placed.','For an orbital diagram, draw each orbital in a subshell as a box and fill singly (parallel arrows) before pairing (opposite arrows), per Hund\'s rule.','For an ion, remove electrons from the highest-energy occupied subshell for cations, or add them for anions.'],
  ex:{p:'Write the electron configuration of phosphorus (Z = 15) and of the P^{3−} ion.',s:['Fill in order: 1s^{2}2s^{2}2p^{6}3s^{2}3p^{3} — this totals 2+2+6+2+3 = 15 electrons. ✓','P^{3−} gains 3 electrons, filling 3p to its full capacity: 1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}.','P^{3−} now has the same configuration as argon (isoelectronic with Ar).']},
- watch:'4s fills before 3d, but when writing a transition-metal ion\'s configuration, electrons are removed from 4s before 3d, since 3d becomes lower in energy once it is occupied.',
+ watch:'4s fills before 3d, but when writing a transition-metal ion\'s configuration, electrons are removed from 4s before 3d, since 3d becomes lower in energy once it is occupied. Use the noble gas just before the element as the core ([Xe] for neodymium, not [Kr]) and check that the electrons add up to Z. For ions, see lesson 2.12.',
  check:{p:'What is the electron configuration of Mg^{2+} (Z = 12)?',o:['1s^{2}2s^{2}2p^{6}3s^{2}','1s^{2}2s^{2}2p^{6}','1s^{2}2s^{2}2p^{4}','1s^{2}2s^{2}2p^{6}3s^{2}3p^{2}'],a:1,why:'Neutral Mg is 1s^{2}2s^{2}2p^{6}3s^{2} (12 electrons). Mg^{2+} has lost both 3s electrons, leaving 1s^{2}2s^{2}2p^{6} (10 electrons) — isoelectronic with neon.'}},
 {id:'u2-6',u:'u2',t:'Periodic trends: atomic and ionic radius',
  big:'Atomic radius shrinks across a period because each added proton pulls the same outer shell in more tightly, and it grows down a group because each new period adds another occupied shell farther from the nucleus. Forming a cation removes the outermost electrons (and often a whole shell), shrinking the ion; forming an anion adds electrons to the same shell, increasing repulsion and expanding the ion.',
@@ -869,11 +1046,19 @@ SCH4U.LESSONS = [
  watch:'Do not judge melting point from bond type alone without considering whether the substance is a lattice (ionic/network/metallic) or small separate molecules (molecular covalent) — the latter melts at a much lower temperature because only weak intermolecular forces need to be overcome, not the strong covalent bonds themselves.',
  check:{p:'Which property is typical of an ionic compound, but not of a molecular covalent compound?',o:['Low melting point','Conducts electricity when molten or dissolved in water','Exists as discrete, separate molecules','Shares electrons between atoms'],a:1,why:'Ionic compounds conduct when molten or in solution because the ions become free to move; a molecular covalent compound has no free ions, so it generally does not conduct in either state.'}},
 {id:'u2-11',u:'u2',t:'Intermolecular forces and physical properties',
+ mx:['mx-like-dissolves','mx-explain-bp'],
  big:'Intermolecular forces are the (much weaker) attractions between separate molecules, not the bonds within them. Every molecule has dispersion (London) forces from temporary shifts in electron distribution; polar molecules also have dipole–dipole forces; and molecules with H bonded directly to N, O or F have the especially strong hydrogen bond. Stronger intermolecular forces mean more energy (a higher temperature) is needed to separate molecules, raising boiling point and melting point.',
  how:['Identify whether the molecule is polar or non-polar, and whether it has an H atom bonded directly to N, O or F.','Rank present forces: hydrogen bonding > dipole–dipole > dispersion, remembering every molecule has dispersion forces, which also grow stronger with more electrons (larger molar mass).','Compare molecules of similar size by force type; compare molecules of the same force type by size (molar mass).','Link stronger forces to higher boiling/melting points and often lower solubility in a solvent of very different polarity ("like dissolves like").'],
  ex:{p:'Explain why CH_{3}OH (methanol) has a much higher boiling point than CH_{3}F (fluoromethane), even though both have similar molar mass and both are polar.',s:['Both are polar molecules of similar size, so both have dispersion and dipole–dipole forces of similar strength.','Methanol has an O−H bond, so its molecules can hydrogen bond to each other; fluoromethane\'s H atoms are bonded to C, not directly to F, so it cannot hydrogen bond.','The extra hydrogen bonding in methanol requires more energy to overcome, giving it the higher boiling point.']},
- watch:'Hydrogen bonding requires H bonded directly to N, O or F in the molecule itself — a molecule that merely contains N, O or F elsewhere (not bonded to H) does not hydrogen bond.',
- check:{p:'Which pair of molecules can hydrogen bond with each other?',o:['CH_{4} and CH_{4}','H_{2}O and NH_{3}','CH_{3}Cl and CH_{3}Cl','CO_{2} and CO_{2}'],a:1,why:'Both H_{2}O and NH_{3} have H bonded directly to a highly electronegative atom (O and N) with a lone pair available on the other — exactly the setup needed for hydrogen bonding between them.'}}
+ watch:'Hydrogen bonding requires H bonded directly to N, O or F in the molecule itself — a molecule that merely contains N, O or F elsewhere (not bonded to H) does not hydrogen bond. When a question asks you to explain a boiling point or solubility, name the force, say where it comes from (non-polar, polar C=O, O−H), compare strengths and link to the energy needed. Answer only what is asked: do not bring in water if the question has none.',
+ check:{p:'Which pair of molecules can hydrogen bond with each other?',o:['CH_{4} and CH_{4}','H_{2}O and NH_{3}','CH_{3}Cl and CH_{3}Cl','CO_{2} and CO_{2}'],a:1,why:'Both H_{2}O and NH_{3} have H bonded directly to a highly electronegative atom (O and N) with a lone pair available on the other — exactly the setup needed for hydrogen bonding between them.'}},
+{id:'u2-12',u:'u2',t:'Ions, isoelectronic species and tricky configurations',
+ mx:['mx-ion-charge','mx-isoelectronic','mx-core-lanthanide','mx-identify-species','mx-multivalent'],
+ big:'Configuration questions reuse the same moves. Find the number of electrons (an atom has Z; an ion has Z minus its charge), write the core as the noble gas just before the element, then fill s, then the d or f subshells in order. A monatomic ion\'s charge comes from its group (nitride is N^{3−} with 10 electrons), species with the same number of electrons are isoelectronic, and transition metals are multivalent because their outer s and (n − 1)d electrons are close in energy.',
+ how:['Electrons = Z for an atom; Z − charge for an ion. N^{3−}: 7 + 3 = 10 electrons. Mg^{2+}: 12 − 2 = 10 electrons.','Isoelectronic means the same number of electrons, not protons. N^{3−}, O^{2−}, F^{−}, Ne, Na^{+}, Mg^{2+} and Al^{3+} all have 10.','For a configuration in core form, use the noble gas just before the element, then fill in order …5s, 4d, 5p, 6s, 4f, 5d, 6p. Neodymium (Z = 60): 60 − 54 = 6 electrons after [Xe], so [Xe] 6s^{2} 4f^{4}.','To identify a species from its configuration, count the electrons, then use the clues (atom, cation or anion, group, period). Cation: Z = electrons + charge. Anion: Z = electrons − charge.','Transition metals form ions of more than one charge because the ns and (n − 1)d electrons are close in energy, so different numbers of electrons can be lost (Fe^{2+}, Fe^{3+}; Hg^{2+}).'],
+ ex:{p:'Write the electron configuration of the nitride ion, draw its orbital diagram in words, and name the noble gas atom it is isoelectronic with.',s:['Nitrogen is in group 15, so it gains 3 electrons: N^{3−}.','Electrons: 7 + 3 = 10, so 1s^{2}2s^{2}2p^{6}.','Orbital diagram: 1s, 2s and all three 2p orbitals each hold a pair of arrows, with no unpaired electrons.','10 electrons is the number in neon, so N^{3−} is isoelectronic with Ne.']},
+ watch:'Count electrons before anything else. N^{2−} and fluorine (9 electrons) are the classic wrong turn for nitride: nitride is 3−, it has 10 electrons, and it matches neon.',
+ check:{p:'Which atom is isoelectronic with the oxide ion, O^{2−}?',o:['Ne','Ar','F','Mg'],a:0,why:'O^{2−} has 8 + 2 = 10 electrons. Neon has 10. F has 9, Mg has 12 and Ar has 18.'}}
 ];
 
 SCH4U.LESSONS = SCH4U.LESSONS.concat([
@@ -1431,21 +1616,73 @@ SCH4U.Q = SCH4U.Q.concat([
  {id:'w261102u2q11',u:'u2',c:'T',h2:1,t:'num',p:'In a single atom, how many electrons could have the quantum numbers n = 3 and m_{l} = +1?',ans:4,h:'Find every subshell in n = 3 that has an orbital with m_{l} = +1, then count two electrons per orbital.',s:['For n = 3, l can be 0, 1 or 2.','m_{l} = +1 is possible only when l ≥ 1: one orbital in 3p and one in 3d. (3s has only m_{l} = 0.)','Two orbitals × 2 electrons each = 4 electrons.']},
  {id:'w261102u2q12',u:'u2',c:'C',t:'write',p:'Explain how the Bohr model accounts for the line spectrum of hydrogen, and give one reason it was replaced by the wave-mechanical model.',model:'Bohr proposed that the electron in a hydrogen atom can only have certain fixed energies, labelled by n. When an electron drops from a higher level to a lower one, the atom emits a photon whose energy equals the difference between the two levels (E = hf). Because only certain energy gaps exist, only certain frequencies, and so only certain coloured lines, appear in the line spectrum, and they match what is observed for hydrogen. The model was replaced because it only works for atoms with a single electron, it cannot explain the finer structure of spectra or the behaviour of multi-electron atoms, and it treats the electron as a particle in a fixed orbit. The wave-mechanical model instead uses orbitals (regions of probability) and four quantum numbers, consistent with the uncertainty principle and the wave nature of electrons.',chk:['States that electron energies are quantized into fixed levels','States that a photon is emitted when an electron drops between levels, with energy equal to the gap','Links the fixed energy gaps to the distinct lines of the spectrum','Gives a valid reason Bohr\'s model was replaced (single-electron only, fixed orbits, or the uncertainty principle)']},
  {id:'w261102u2q13',u:'u2',c:'K',t:'mc',p:'Which subshell has the quantum number l = 2?',o:['s','p','d','f'],a:2,h:'l = 0, 1, 2, 3 correspond to s, p, d, f.',s:['l = 2 is the d subshell.']},
+/* ---------- 2026-11-03 Mistake Clinic practice (each question is tagged with the card it rehearses) ---------- */
+ {id:'w261103mx01',u:'u1',c:'A',t:'num',mx:'mx-longest-chain',p:'How many carbon atoms are in the parent (longest) chain of CH_{3}CH(CH_{2}CH_{3})CH_{2}CH(CH_{3})CH_{2}CH_{2}CH_{3}?',ans:8,h:'Check every path from one end carbon to another. The longest chain can run through a branch.',s:['Call the carbons a (the left CH_{3}), b (the CH with an ethyl branch), c (CH_{2}), d (the CH with a methyl branch), then e, f, g (CH_{2}CH_{2}CH_{3}).','The path from the end of the ethyl branch through b, c, d, e, f, g has 2 + 6 = 8 carbons. The path that starts at the left CH_{3} has only 7.','The parent chain has 8 carbons (octane).']},
+ {id:'w261103mx02',u:'u1',c:'T',t:'mc',mx:'mx-longest-chain',p:'What is the IUPAC name of CH_{3}CH(CH_{2}CH_{3})CH_{2}CH(CH_{3})CH_{2}CH_{2}CH_{3}?',o:['3,5-dimethyloctane','2-ethyl-4-methylheptane','4,6-dimethyloctane','3,5-dimethylheptane'],a:0,dx:{1:'That uses a 7-carbon chain. The chain through the ethyl branch has 8 carbons, so the parent is octane.',2:'The parent is right but the numbering is from the wrong end. Number so the set of locants is lowest: 3,5 beats 4,6.',3:'Heptane has 7 carbons, but the longest chain has 8.'},h:'First find the longest chain (see the previous question), then number from the end that gives the lower set of locants.',s:['The parent chain is 8 carbons long (octane), running from the ethyl branch to the far end.','Numbering from the ethyl end puts the two methyl groups on C3 and C5. Numbering from the other end gives 4 and 6.','Lowest locants: 3,5-dimethyloctane.']},
+ {id:'w261103mx03',u:'u1',c:'K',t:'mc',mx:'mx-ring-branch',p:'What is the name of a benzene ring bonded to a −C(CH_{3})_{3} group?',o:['tert-butylbenzene','1,1,1-trimethylbenzene','butylbenzene','1,3,5-trimethylbenzene'],a:0,dx:{1:'The three CH_{3} groups are on the carbon outside the ring. Together with that carbon they form one branch, tert-butyl. A ring carbon cannot carry three groups.',2:'Butyl would be a straight chain, −CH_{2}CH_{2}CH_{2}CH_{3}. Here the attached carbon carries three methyl groups.',3:'That name puts three separate CH_{3} groups on three ring carbons.'},h:'Find the carbon attached to the ring and name the whole group it starts.',s:['The carbon bonded to the ring is bonded to three CH_{3} groups: −C(CH_{3})_{3}.','That group is tert-butyl, so the compound is tert-butylbenzene.']},
+ {id:'w261103mx04',u:'u1',c:'T',t:'mc',mx:'mx-ring-branch',p:'Why can "1,1,1-trimethylcyclohexane" not be a correct name for any compound?',o:['A ring carbon has only two bonds left for groups, so it cannot hold three methyl groups','Methyl groups cannot be attached to a ring','A ring must always be numbered clockwise','Cyclohexane can have only one substituent'],a:0,dx:{1:'Methyl groups can be attached to rings: methylcyclohexane exists.',2:'Direction does not matter: you choose the direction that gives the lowest locants.',3:'A ring can have many substituents (for example 1,2-dimethylcyclohexane).'},h:'Count the bonds on a ring carbon: two go to ring neighbours.',s:['A carbon forms four bonds. In a ring, two of them go to the neighbouring ring carbons.','That leaves two bonds, so at most two substituents on one ring carbon: 1,1-dimethyl is possible, 1,1,1- is not.']},
+ {id:'w261103mx05',u:'u1',c:'K',t:'mc',mx:'mx-aldehyde-chain',p:'What is the IUPAC name of CH_{3}CH_{2}CH=O?',o:['propanal','3-methylpropanal','propanone','ethanal'],a:0,dx:{1:'The end CH_{3} is part of the main chain. A methyl on the last carbon would just make the chain longer, so this name cannot exist.',2:'Propanone is a ketone, with the C=O in the middle. Here the C=O carbon is at the end and has an H.',3:'Ethanal has only two carbons.'},h:'Count every carbon from the C=O carbon (C1) to the far end of the chain.',s:['The C=O carbon is C1, then CH_{2} (C2), then CH_{3} (C3): three carbons in one chain.','An aldehyde ends in -al: propanal.']},
+ {id:'w261103mx06',u:'u1',c:'A',t:'mc',mx:'mx-aldehyde-chain',p:'What is the IUPAC name of (CH_{3})_{2}CHCH_{2}CHO?',o:['3-methylbutanal','4-methylbutanal','2-methylbutanal','3-methylpropanal'],a:0,dx:{1:'A methyl on C4 of a four-carbon chain would just extend the chain. The longest chain would then be pentanal.',2:'The methyl is on the third carbon from the C=O, not the second.',3:'The longest chain has four carbons, not three.'},h:'The CHO carbon is C1. Count the longest chain from it.',s:['C1 is the CHO carbon, C2 is CH_{2}, C3 is CH (with one CH_{3} branch) and C4 is the other CH_{3} on that carbon.','Four carbons in the chain: butanal, with a methyl on C3.','Name: 3-methylbutanal.']},
+ {id:'w261103mx07',u:'u1',c:'T',t:'mc',mx:'mx-draw-from-name',p:'Which condensed formula represents 2-methyl-3-hexanol?',o:['(CH_{3})_{2}CHCH(OH)CH_{2}CH_{2}CH_{3}','CH_{3}CH_{2}CH(OH)CH(CH_{3})CH_{2}CH_{3}','CH_{3}CH(OH)CH(CH_{3})CH_{2}CH_{2}CH_{3}','(CH_{3})_{2}C(OH)CH_{2}CH_{2}CH_{2}CH_{3}'],a:0,dx:{1:'This is 4-methyl-3-hexanol: the methyl is on C4, not C2.',2:'This is 3-methyl-2-hexanol: the −OH is on C2 and the methyl on C3.',3:'This is 2-methyl-2-hexanol: both the −OH and the methyl are on C2.'},h:'Draw six carbons and number them. Put the −OH on C3 and the methyl on C2, then add hydrogens.',s:['Hexane: C1 to C6. Put −OH on C3 and a CH_{3} on C2.','C1 CH_{3}, C2 CH(CH_{3}), C3 CH(OH), C4 CH_{2}, C5 CH_{2}, C6 CH_{3}.','That is (CH_{3})_{2}CHCH(OH)CH_{2}CH_{2}CH_{3}.']},
+ {id:'w261103mx08',u:'u1',c:'A',t:'num',mx:'mx-draw-from-name',p:'How many carbon atoms are in one molecule of 4-methylnonanoic acid?',ans:10,h:'Count the parent chain (non- means 9, and the −COOH carbon is one of them), then add the branch.',s:['Nonanoic acid has a 9-carbon chain, and the −COOH carbon is C1 of it.','The methyl branch adds 1 carbon: 9 + 1 = 10 carbons.']},
+ {id:'w261103mx09',u:'u1',c:'T',t:'num',mx:'mx-draw-from-name',p:'How many hydrogen atoms are in one molecule of 4-methylnonanoic acid?',ans:20,h:'A saturated carboxylic acid with one −COOH group has the formula C_{n}H_{2n}O_{2}.',s:['4-Methylnonanoic acid has 10 carbons (9 in the chain + 1 methyl).','C_{n}H_{2n}O_{2} with n = 10 gives C_{10}H_{20}O_{2}.','So there are 20 hydrogen atoms.']},
+ {id:'w261103mx10',u:'u1',c:'K',t:'mc',mx:'mx-locant-alcohol',p:'What is the IUPAC name of CH_{3}CH_{2}CH(OH)CH_{3}?',o:['2-butanol','3-butanol','1-butanol','2-propanol'],a:0,dx:{1:'Number from the end that gives the −OH the lower number. From the right the −OH is on C2, so "3" is never used here.',2:'The −OH is on the second carbon, not the end carbon.',3:'The chain has four carbons, not three.'},h:'Number the four-carbon chain both ways and pick the lower locant for −OH.',s:['From the right-hand CH_{3}: C1 CH_{3}, C2 CH(OH), C3 CH_{2}, C4 CH_{3}. The −OH is on C2.','From the other end it would be C3. The lowest locant wins: 2-butanol.']},
+ {id:'w261103mx11',u:'u1',c:'T',t:'mc',mx:'mx-locant-alcohol',p:'Which of these names cannot be correct for any alcohol?',o:['3-propanol','2-propanol','3-pentanol','2-methyl-2-propanol'],a:0,h:'Number the chain from the end nearest the −OH. What is the highest locant a three-carbon chain can give?',s:['On a three-carbon chain the −OH can only be on C1 or C2, because you number from the end nearest it.','So "3-propanol" is impossible.','3-Pentanol is fine: the −OH is on the middle carbon of five.']},
+ {id:'w261103mx12',u:'u1',c:'K',t:'mc',mx:'mx-markovnikov',p:'What is the major product when HBr adds to propene, CH_{3}CH=CH_{2}?',o:['2-bromopropane','1-bromopropane','1,2-dibromopropane','propane'],a:0,dx:{1:'This puts Br on the carbon that already has more H atoms. Markovnikov says H goes to the carbon with more H, so Br goes to the middle carbon.',2:'Only one HBr adds, so only one Br is added.',3:'Propane would form by adding H_{2}, not HBr.'},h:'Count the H atoms on each double-bond carbon. H adds to the carbon with more H.',s:['The end carbon (CH_{2}) has 2 H; the middle carbon (CH) has 1 H.','H adds to the end carbon and Br to the middle carbon.','Product: CH_{3}CHBrCH_{3}, 2-bromopropane.']},
+ {id:'w261103mx13',u:'u1',c:'T',t:'mc',mx:'mx-markovnikov',p:'Which alkene gives 2-methyl-2-propanol as the major product when water adds in the presence of H_{2}SO_{4}?',o:['2-methylpropene','1-butene','2-butene','propene'],a:0,dx:{1:'1-Butene + H_{2}O gives 2-butanol (the −OH goes on the more substituted carbon).',2:'2-Butene + H_{2}O also gives 2-butanol.',3:'Propene gives 2-propanol, a three-carbon alcohol.'},h:'2-Methyl-2-propanol is (CH_{3})_{3}C−OH. Work backwards: which alkene puts −OH on the carbon with the three carbon neighbours?',s:['The product (CH_{3})_{3}C−OH has the −OH on a carbon bonded to three other carbons.','That carbon had no H on the double bond, so the alkene is CH_{2}=C(CH_{3})_{2}: H adds to the CH_{2} end and −OH to the carbon with fewer H.','The alkene is 2-methylpropene.']},
+ {id:'w261103mx14',u:'u1',c:'K',t:'mc',mx:'mx-benzene-substitution',p:'Benzene reacts with Cl_{2} in the presence of a catalyst. Which statement is correct?',o:['One H is replaced by Cl and the ring stays intact (substitution)','Cl_{2} adds across three double bonds to give hexachlorocyclohexane','The ring opens to form a chain','Two Cl atoms add to one double bond, as they would in an alkene'],a:0,dx:{1:'Addition to the ring happens only under extreme conditions (such as UV light). With a catalyst, benzene substitutes, because addition would destroy the delocalized π system that makes the ring so stable.',2:'The ring is not broken by this reaction.',3:'Benzene has no separate double bonds to add to: its π electrons are delocalized over the whole ring.'},h:'Is benzene more like an alkene or does it keep its ring?',s:['Benzene\'s delocalized π electrons make the ring especially stable.','So it undergoes substitution: one ring H is replaced by Cl, giving chlorobenzene and HCl.']},
+ {id:'w261103mx15',u:'u1',c:'C',t:'write',mx:'mx-benzene-substitution',p:'Explain why benzene reacts with HNO_{3} (in the presence of H_{2}SO_{4}) by substitution rather than addition, and give the organic product.',model:'The six π electrons in benzene are delocalized around the whole ring, which makes the ring unusually stable (about 150 kJ/mol more stable than three separate double bonds). An addition reaction would break up this delocalized system and lose that stability, so benzene instead undergoes substitution: one hydrogen on the ring is replaced by another group and the ring is kept. With HNO_{3} and an H_{2}SO_{4} catalyst, one H is replaced by −NO_{2}, forming nitrobenzene: C_{6}H_{6} + HNO_{3} → C_{6}H_{5}NO_{2} + H_{2}O.',chk:['States that benzene\'s π electrons are delocalized, making the ring very stable','States that addition would destroy this stability, so benzene substitutes','Says one H is replaced (the ring is kept)','Names the product as nitrobenzene (C_{6}H_{5}NO_{2}), with water as the other product']},
+ {id:'w261103mx16',u:'u1',c:'K',t:'mc',mx:'mx-reaction-type',p:'What type of reaction is CH_{3}CH=CH_{2} + Cl_{2} → CH_{3}CHClCH_{2}Cl?',o:['Halogenation','Hydrohalogenation','Hydration','Hydrogenation'],a:0,dx:{1:'Hydrohalogenation adds HX (such as HCl). Here Cl_{2} adds, so it is halogenation.',2:'Hydration adds H_{2}O.',3:'Hydrogenation adds H_{2}.'},h:'The name tells you what adds. What molecule adds here?',s:['Cl_{2} (a halogen molecule) adds across the C=C bond.','Adding X_{2} is halogenation, one kind of addition reaction.']},
+ {id:'w261103mx17',u:'u1',c:'A',t:'mc',mx:'mx-reaction-type',p:'Which reagents bring about the hydration of an alkene?',o:['H_{2}O with an H_{2}SO_{4} catalyst','H_{2} with a platinum catalyst','HBr','Br_{2}'],a:0,h:'Hydration means adding water.',s:['Hydration adds H_{2}O across the double bond, with H_{2}SO_{4} as the catalyst.','H_{2}/Pt is hydrogenation, HBr is hydrohalogenation and Br_{2} is halogenation.']},
+ {id:'w261103mx18',u:'u1',c:'K',t:'num',mx:'mx-carbon-valence',p:'How many bonds does the carbonyl carbon of propanone, CH_{3}COCH_{3}, form in total? (Count a double bond as two bonds.)',ans:4,h:'Count the bonds to the two CH_{3} carbons and the double bond to oxygen.',s:['The carbonyl carbon is bonded to two CH_{3} carbons: 2 bonds.','It is doubly bonded to oxygen: 2 more bonds.','Total: 4 bonds, the number every carbon forms, so there is no H on this carbon.']},
+ {id:'w261103mx19',u:'u1',c:'T',t:'mc',mx:'mx-carbon-valence',p:'A student draws the oxidation product of 3-pentanol as CH_{3}CH_{2}C(=O)(H)CH_{2}CH_{3}, with an H on the carbonyl carbon. What is wrong with this structure?',o:['The carbonyl carbon would have five bonds','Oxygen cannot be doubly bonded to carbon','3-Pentanol cannot be oxidized','The product should have lost a carbon atom'],a:0,dx:{1:'C=O double bonds are fine: they are what a ketone has.',2:'3-Pentanol is a secondary alcohol and is oxidized to a ketone.',3:'Oxidation of an alcohol keeps the carbon chain.'},h:'Count the bonds on the carbonyl carbon: C=O counts as two.',s:['The carbonyl carbon has a double bond to O (2), two bonds to carbons (2) and one to H (1): 5 bonds.','Carbon can only form 4. The H on the carbon that carried the −OH is lost in the oxidation, so the product is 3-pentanone, CH_{3}CH_{2}COCH_{2}CH_{3}.']},
+ {id:'w261103mx20',u:'u1',c:'K',t:'mc',mx:'mx-oxidation-class',p:'Which alcohol cannot be oxidized to a carbonyl compound?',o:['2-methyl-2-propanol','2-propanol','1-propanol','ethanol'],a:0,h:'Oxidation removes an H from the carbon that carries the −OH. Which alcohol has no H on that carbon?',s:['2-Methyl-2-propanol, (CH_{3})_{3}COH, is a tertiary alcohol: the carbon with −OH has no H.','With no H to lose, it is not oxidized.']},
+ {id:'w261103mx21',u:'u1',c:'A',t:'mc',mx:'mx-oxidation-class',p:'What is the organic product when 2-butanol is oxidized?',o:['2-butanone','butanal','butanoic acid','2-butene'],a:0,dx:{1:'Butanal comes from a primary alcohol (1-butanol).',2:'Butanoic acid comes from further oxidation of 1-butanol.',3:'2-Butene would form by elimination (dehydration), not by oxidation.'},h:'Is 2-butanol primary, secondary or tertiary?',s:['2-Butanol is a secondary alcohol (one H on the carbon bearing −OH).','Secondary alcohols are oxidized to ketones: 2-butanone.']},
+ {id:'w261103mx22',u:'u1',c:'A',t:'mc',mx:'mx-reduction',p:'What is the product when 3-pentanone is reduced with LiAlH_{4}?',o:['3-pentanol','pentanal','pentanoic acid','pentane'],a:0,dx:{1:'Pentanal would come from oxidizing 1-pentanol. Reduction of a ketone does not move the C=O to the end of the chain.',2:'Pentanoic acid is more oxidized. Reduction adds H; it does not add O.',3:'LiAlH_{4} converts C=O into C−OH. It does not remove the oxygen completely.'},h:'Reduction of a ketone gives a secondary alcohol.',s:['LiAlH_{4} adds H to the C=O carbon and O.','The ketone carbon becomes a CH−OH carbon: 3-pentanol.']},
+ {id:'w261103mx23',u:'u1',c:'T',t:'mc',mx:'mx-reduction',p:'LiAlH_{4} reduces every carbonyl group in HOOCCH_{2}CHO. Which is the product?',o:['HOCH_{2}CH_{2}CH_{2}OH','HOOCCH_{2}CH_{2}OH','OHCCH_{2}CH_{2}OH','CH_{3}CH_{2}CH_{2}OH'],a:0,dx:{1:'Only the aldehyde was reduced. The carboxylic acid is reduced as well.',2:'Only the carboxylic acid was reduced. The aldehyde is reduced as well.',3:'This also removed the oxygen of the alcohol groups, which reduction with LiAlH_{4} does not do.'},h:'List every C=O in the molecule, then turn each one into a C−OH (a −CH_{2}OH group at a chain end).',s:['There are two C=O groups: the carboxylic acid carbon (C1) and the aldehyde carbon (C3).','Each end carbon becomes −CH_{2}OH. The middle CH_{2} is unchanged.','Product: HOCH_{2}CH_{2}CH_{2}OH (1,3-propanediol).']},
+ {id:'w261103mx24',u:'u2',c:'K',t:'mc',mx:'mx-like-dissolves',p:'Which compound is most soluble in benzene, a non-polar solvent?',o:['hexene','methanol','1,2-ethanediol','sodium chloride'],a:0,dx:{1:'Methanol is polar and hydrogen bonds with itself. Benzene cannot offer attractions of that strength.',2:'1,2-Ethanediol has two −OH groups and hydrogen bonds strongly with itself, but benzene cannot hydrogen bond.',3:'An ionic solid needs a polar solvent to separate its ions.'},h:'Benzene is non-polar and can only form London dispersion forces. Which solute is also non-polar?',s:['Like dissolves like: a non-polar solvent dissolves non-polar solutes.','Hexene is a non-polar hydrocarbon held together by London forces, the same force as in benzene.']},
+ {id:'w261103mx25',u:'u2',c:'C',t:'write',mx:'mx-like-dissolves',p:'Which of 4-methylnonene, 4-methylnonanal and 4-methylnonanoic acid is most soluble in benzene? Explain, using intermolecular forces.',model:'4-Methylnonene is the most soluble. Benzene is non-polar and has no O−H or N−H bond, so it can form only London dispersion forces and it cannot hydrogen bond. An alkene is also non-polar, so it is held together by London forces too: mixing it into benzene replaces similar attractions with similar attractions ("like dissolves like"). The aldehyde is polar (dipole–dipole forces) and the carboxylic acid hydrogen bonds strongly with other acid molecules; benzene cannot offer attractions as strong as the ones they would give up, so they are less soluble. Water is not part of this question.',chk:['Identifies benzene as non-polar, so it can form only London dispersion forces','States that benzene cannot hydrogen bond (no O−H or N−H)','Chooses 4-methylnonene because it is also non-polar (like dissolves like)','Explains why the polar aldehyde and the hydrogen-bonding acid are less soluble']},
+ {id:'w261103mx26',u:'u2',c:'C',t:'write',mx:'mx-explain-bp',p:'Order pentane, butanal and butanoic acid from lowest to highest boiling point, and explain each position using intermolecular forces.',model:'Pentane < butanal < butanoic acid. Pentane (72 g/mol) is non-polar, so only weak London dispersion forces act between its molecules. Butanal has almost the same molar mass (72 g/mol), but its C=O bond is polar, so it also has dipole–dipole forces, and more energy is needed to separate its molecules. Butanoic acid has a −COOH group with an O−H bond, so its molecules hydrogen bond (often in pairs called dimers); hydrogen bonding is the strongest of the three forces and the acid also has the largest molar mass (88 g/mol). The stronger the forces between molecules, the more energy is needed to separate them, so the higher the boiling point.',chk:['Gives the order pentane < butanal < butanoic acid','Names London dispersion forces for pentane','Names dipole–dipole forces for butanal (polar C=O)','Names hydrogen bonding for butanoic acid (O−H)','Links stronger forces to more energy needed, so a higher boiling point']},
+ {id:'w261103mx27',u:'u2',c:'A',t:'mc',mx:'mx-explain-bp',p:'Which statement about the boiling points of butanal and butanoic acid would earn full marks?',o:['Butanoic acid boils higher because its O−H bond lets its molecules hydrogen bond, which is stronger than the dipole–dipole forces in butanal, so more energy is needed to separate them.','Butanoic acid boils higher because it has stronger forces.','Butanal boils higher because it is non-polar.','Butanoic acid boils higher only because its molar mass is larger.'],a:0,dx:{1:'True, but incomplete: it does not name the forces, where they come from, or link them to the energy needed.',2:'Butanal is polar (it has a C=O bond), and it boils lower than the acid.',3:'Molar mass matters a little, but the main reason is hydrogen bonding.'},h:'A full-mark explanation names the force, says where it comes from, compares strengths and links to energy.',s:['The best answer names hydrogen bonding (from O−H) in the acid and dipole–dipole forces in the aldehyde.','It then says hydrogen bonding is stronger, so more energy is needed to separate the molecules and the boiling point is higher.']},
+ {id:'w261103mx28',u:'u2',c:'K',t:'mc',mx:'mx-l-range',p:'For n = 2, which values of l are allowed?',o:['0 and 1','1 only','0, 1 and 2','1 and 2'],a:0,dx:{1:'n − 1 = 1 is the largest allowed l, but every whole number from 0 up to n − 1 is allowed.',2:'l cannot equal n. Its maximum is n − 1 = 1.',3:'l starts at 0, not 1.'},h:'l runs from 0 to n − 1.',s:['n − 1 = 1, so l = 0 and l = 1.','These are the 2s and 2p subshells.']},
+ {id:'w261103mx29',u:'u2',c:'A',t:'num',mx:'mx-l-range',p:'How many subshells are in the n = 5 energy level?',ans:5,h:'Each allowed value of l is one subshell. Count the values from 0 to n − 1.',s:['l = 0, 1, 2, 3, 4: that is 5 values.','The number of subshells in a level equals n.']},
+ {id:'w261103mx30',u:'u2',c:'K',t:'mc',mx:'mx-ml-meaning',p:'Which quantum number describes the orientation of an orbital in space?',o:['m_{l}','n','l','m_{s}'],a:0,h:'Think about which number distinguishes the three p orbitals from each other.',s:['m_{l} labels the individual orbitals in a subshell, which point in different directions.','n is the level, l is the subshell and shape, and m_{s} is the spin.']},
+ {id:'w261103mx31',u:'u2',c:'T',t:'mc',mx:'mx-ml-meaning',p:'Which statement about the quantum numbers is correct?',o:['l identifies the subshell, and m_{l} identifies which orbital within it','m_{l} identifies the subshell, and l identifies the orbital','n identifies the orbital, and m_{l} identifies the energy level','m_{s} identifies the shape of the orbital'],a:0,h:'Match each number to what it describes: level, subshell and shape, orientation, spin.',s:['n: energy level. l: subshell and shape. m_{l}: which orbital (orientation). m_{s}: spin.']},
+ {id:'w261103mx32',u:'u2',c:'A',t:'num',mx:'mx-ml-per-l',p:'How many orbitals are in the n = 4 energy level?',ans:16,h:'Add the orbitals in each subshell (s: 1, p: 3, d: 5, f: 7), or use n^{2}.',s:['For n = 4, l = 0, 1, 2, 3 (4s, 4p, 4d, 4f).','1 + 3 + 5 + 7 = 16 orbitals, which equals n^{2} = 16.']},
+ {id:'w261103mx33',u:'u2',c:'T',t:'num',mx:'mx-ml-per-l',p:'How many values of m_{l} are allowed when l = 3?',ans:7,h:'m_{l} runs from −l to +l.',s:['m_{l} = −3, −2, −1, 0, +1, +2, +3.','That is 2l + 1 = 7 values, the seven f orbitals.']},
+ {id:'w261103mx34',u:'u2',c:'K',t:'mc',mx:'mx-draw-p',p:'Which description fits the shape of the orbitals with l = 1?',o:['Two lobes on opposite sides of the nucleus (a dumbbell)','A sphere centred on the nucleus','Four lobes in a cloverleaf','A single ring around the nucleus'],a:0,dx:{1:'A sphere is the s orbital (l = 0).',2:'Four lobes describes most d orbitals (l = 2).',3:'No SCH4U orbital is just a ring.'},h:'l = 1 is a p orbital.',s:['l = 1 corresponds to the p subshell.','A p orbital has two lobes along one axis, with the nucleus between them.']},
+ {id:'w261103mx35',u:'u2',c:'T',t:'mc',mx:'mx-draw-p',p:'The three orbitals of a p subshell differ in:',o:['their orientation along the x, y or z axis','their shape','the number of electrons they can hold','which energy level they belong to'],a:0,h:'m_{l} = −1, 0, +1 labels the three p orbitals.',s:['All three p orbitals have the same two-lobe shape, the same energy and hold two electrons each.','They differ in orientation: p_{x}, p_{y} and p_{z}.']},
+ {id:'w261103mx36',u:'u2',c:'K',t:'mc',mx:'mx-orbit-orbital',p:'Which statement best describes an orbital in the quantum-mechanical model?',o:['A region of space where an electron is likely to be found','The exact circular path followed by an electron','The nucleus of the atom','A shell that holds exactly eight electrons'],a:0,dx:{1:'That describes a Bohr orbit, not an orbital.',2:'The nucleus is at the centre; an orbital is the region around it.',3:'An orbital holds at most two electrons.'},h:'An orbital is about probability.',s:['Because the exact position cannot be known, the model gives a region of high probability.']},
+ {id:'w261103mx37',u:'u2',c:'C',t:'write',mx:'mx-orbit-orbital',p:'Explain the difference between an orbit in the Bohr–Rutherford model and an orbital in the quantum-mechanical model of the atom.',model:'In the Bohr–Rutherford model an orbit is a fixed circular path at a set distance from the nucleus, and the electron is pictured at an exact position travelling along it. In the quantum-mechanical model an orbital is not a path. Because of Heisenberg\'s uncertainty principle we cannot know an electron\'s exact position and momentum at the same time, so an orbital describes a three-dimensional region of space where there is a high probability (for example about 90%) of finding the electron. Orbitals have shapes (s spherical, p two lobes, d more complex) and each holds at most two electrons.',chk:['Describes an orbit as a fixed path or shell at a set distance (Bohr)','Describes an orbital as a region of space or a probability, not an exact location','Mentions that the exact position cannot be known (uncertainty principle) or that it is a probability','Mentions the shape of orbitals or that an orbital holds at most two electrons']},
+ {id:'w261103mx38',u:'u2',c:'A',t:'mc',mx:'mx-allowed-set',p:'Which set of quantum numbers (n, l, m_{l}, m_{s}) is allowed?',o:['3, 2, −2, +1/2','3, 3, 0, +1/2','2, 1, 2, −1/2','4, 0, 1, +1/2'],a:0,dx:{1:'For n = 3, l can only be 0, 1 or 2, so l = 3 is not allowed.',2:'When l = 1, m_{l} can only be −1, 0 or +1, so m_{l} = 2 is not allowed.',3:'When l = 0, m_{l} must be 0.'},h:'Check n, then l (0 to n − 1), then m_{l} (−l to +l), then m_{s}.',s:['n = 3 allows l = 0, 1, 2, so l = 2 is fine.','l = 2 allows m_{l} from −2 to +2, so −2 is fine, and m_{s} = +1/2 is fine.']},
+ {id:'w261103mx39',u:'u2',c:'T',t:'mc',mx:'mx-allowed-set',p:'Which rule is broken by the set n = 3, l = 1, m_{l} = 2?',o:['m_{l} must be between −l and +l, here −1 to +1','l must be less than n','n must be a whole number','m_{s} must be +1/2 or −1/2'],a:0,dx:{1:'l = 1 is less than n = 3, so that rule is satisfied.',2:'n = 3 is a whole number.',3:'m_{s} is not part of this set.'},h:'Test each number in order. Which one is out of range?',s:['n = 3 is fine and l = 1 is within 0 to 2.','For l = 1, m_{l} can be −1, 0 or +1. The value 2 is outside that range.']},
+ {id:'w261103mx40',u:'u2',c:'C',t:'write',mx:'mx-allowed-set',p:'State whether n = 4, l = 4, m_{l} = 0 is an allowable set of quantum numbers for an atomic orbital. Explain your answer.',model:'It is not allowable. For n = 4, l can be any whole number from 0 up to n − 1 = 3 (so l = 0, 1, 2 or 3). A value of l = 4 is greater than the maximum of 3, so the set breaks the rule l ≤ n − 1. For example, n = 4, l = 3, m_{l} = 0 would be allowed (a 4f orbital).',chk:['Says the set is not allowable','States the rule that l runs from 0 to n − 1 (not just n − 1)','Applies it to n = 4: l can only be 0, 1, 2 or 3','Notes that l = 4 is too large (or gives an allowed alternative)']},
+ {id:'w261103mx41',u:'u2',c:'K',t:'num',mx:'mx-ion-charge',p:'How many electrons are in a nitride ion, N^{3−}?',ans:10,h:'Start from the number of electrons in a nitrogen atom and add the charge.',s:['Nitrogen (Z = 7) has 7 electrons. The 3− charge means it gained 3.','7 + 3 = 10 electrons.']},
+ {id:'w261103mx42',u:'u2',c:'A',t:'mc',mx:'mx-ion-charge',p:'Which is the correct symbol for the sulfide ion?',o:['S^{2−}','S^{−}','S^{2+}','S^{6−}'],a:0,h:'Sulfur is in group 16.',s:['Sulfur is in group 16, so it gains 2 electrons to complete its octet: S^{2−}.']},
+ {id:'w261103mx43',u:'u2',c:'T',t:'mc',mx:'mx-ion-charge',p:'Which describes the orbital diagram of N^{3−} correctly?',o:['1s, 2s and all three 2p orbitals each hold a pair of electrons (no unpaired electrons)','1s and 2s are full and the three 2p orbitals hold 5 electrons in total','1s and 2s are full and each 2p orbital holds one electron','1s and 2s are full and 2p holds 6 electrons in two orbitals'],a:0,dx:{1:'That is a 9-electron arrangement, N^{2−}. Nitride gains three electrons, not two.',2:'That is neutral nitrogen (7 electrons), not the ion.',3:'An orbital holds at most two electrons, so six electrons need three 2p orbitals.'},h:'N^{3−} has 10 electrons. Fill 1s, 2s, then the three 2p orbitals.',s:['10 electrons: 1s^{2} 2s^{2} 2p^{6}.','Each of the three 2p orbitals holds a pair, so none is unpaired.']},
+ {id:'w261103mx44',u:'u2',c:'K',t:'mc',mx:'mx-isoelectronic',p:'Which atom is isoelectronic with the nitride ion, N^{3−}?',o:['Ne','F','O','Na'],a:0,dx:{1:'Isoelectronic species have the same number of electrons. F has 9, and N^{3−} has 10.',2:'O has 8 electrons.',3:'Na has 11 electrons (Na^{+} would have 10).'},h:'Count the electrons in N^{3−} first.',s:['N^{3−} has 7 + 3 = 10 electrons.','Neon has 10 electrons, so N^{3−} is isoelectronic with Ne.']},
+ {id:'w261103mx45',u:'u2',c:'T',t:'mc',mx:'mx-isoelectronic',p:'Which group contains only species with the same number of electrons?',o:['S^{2−}, Cl^{−}, K^{+}, Ca^{2+}','O^{2−}, F, Ne, Na','Na, Mg, Al, Si','Li^{+}, Be, B^{−}, C'],a:0,h:'Work out the electron count of every species in each list.',s:['S^{2−}: 16 + 2 = 18. Cl^{−}: 17 + 1 = 18. K^{+}: 19 − 1 = 18. Ca^{2+}: 20 − 2 = 18.','The other lists contain atoms or ions with different electron counts (for example F has 9, but O^{2−} has 10).']},
+ {id:'w261103mx46',u:'u2',c:'A',t:'mc',mx:'mx-core-lanthanide',p:'What is the electron configuration of praseodymium, Pr (Z = 59)?',o:['[Xe] 6s^{2} 4f^{3}','[Kr] 5s^{2} 4f^{3}','[Xe] 6s^{2} 5d^{3}','[Xe] 4f^{5}'],a:0,dx:{1:'The core must be xenon, the noble gas just before Pr. Krypton has only 36 electrons, so this does not add up to 59.',2:'After 6s, the lanthanides fill 4f, not 5d.',3:'The numbers add up to 59, but 6s fills before 4f, so the 6s electrons must appear.'},h:'Use the noble gas just before Pr, subtract its Z, and fill 6s then 4f.',s:['The previous noble gas is xenon (Z = 54).','59 − 54 = 5 electrons remain: 6s^{2} then 4f^{3}.','[Xe] 6s^{2} 4f^{3}.']},
+ {id:'w261103mx47',u:'u2',c:'T',t:'num',mx:'mx-core-lanthanide',p:'A neutral samarium atom (Sm, Z = 62) is written [Xe] 6s^{2} 4f^{x}. Find x.',ans:6,h:'Subtract the electrons in xenon, then subtract the 6s electrons.',s:['62 − 54 = 8 electrons after the [Xe] core.','The 6s subshell takes 2, leaving 8 − 2 = 6 in 4f.']},
+ {id:'w261103mx48',u:'u2',c:'A',t:'mc',mx:'mx-identify-species',p:'A species has 18 electrons and a charge of 1−. Which is it?',o:['Cl^{−}','Ar','K^{+}','S^{2−}'],a:0,dx:{1:'Ar is a neutral atom (18 protons and 18 electrons), so its charge is 0.',2:'K^{+} has 18 electrons but a 1+ charge.',3:'S^{2−} has 18 electrons but a 2− charge.'},h:'An anion has more electrons than protons. Find Z, then the element.',s:['Anion with charge 1−: Z = 18 − 1 = 17.','Z = 17 is chlorine, so the species is Cl^{−}.']},
+ {id:'w261103mx49',u:'u2',c:'T',t:'num',mx:'mx-identify-species',p:'A 2+ cation has the configuration 1s^{2}2s^{2}2p^{6}3s^{2}3p^{6}4s^{2}3d^{10}4p^{6}. What is the atomic number of the element?',ans:38,h:'Count the electrons, then add the charge to get the number of protons.',s:['Electrons: 2 + 2 + 6 + 2 + 6 + 2 + 10 + 6 = 36.','A 2+ ion has lost 2 electrons, so the atom had 38 electrons and Z = 38 (strontium).']},
+ {id:'w261103mx50',u:'u2',c:'K',t:'mc',mx:'mx-multivalent',p:'Why do many transition metals form ions with more than one charge?',o:['Their outer s and (n − 1)d electrons are close in energy, so different numbers of electrons can be lost','They have more protons than other elements','Their f block is too long','They have unpaired p electrons'],a:0,dx:{1:'The number of protons does not explain variable charge.',2:'The f subshells are not the reason.',3:'Transition metals are filling d subshells, not p.'},h:'Think about the energy of the outer electrons.',s:['In a transition metal the outer s electrons and the (n − 1)d electrons are close in energy.','So atoms can lose different numbers of electrons at similar energy cost, forming ions of different charge.']},
+ {id:'w261103mx51',u:'u2',c:'C',t:'write',mx:'mx-multivalent',p:'Mercury, Hg (Z = 80), has the configuration [Xe] 6s^{2} 4f^{14} 5d^{10}. Write the configuration of Hg^{2+} and explain why transition metals can be multivalent.',model:'Hg^{2+} has lost its two 6s electrons: [Xe] 4f^{14} 5d^{10} (78 electrons). Transition metals can be multivalent because their outer s electrons and the (n − 1)d electrons are close in energy, so atoms can lose different numbers of electrons at similar energy cost, giving ions of different charges (for example Fe^{2+} and Fe^{3+}). Mercury can lose both 6s electrons to form Hg^{2+}, or only one to form Hg^{+}, which is found as the Hg_{2}^{2+} ion.',chk:['Writes Hg^{2+} as [Xe] 4f^{14} 5d^{10} (the 6s electrons removed first)','States that the s and d electrons are close in energy','Explains that this lets different numbers of electrons be lost','Links this to different ion charges (for example 2+ and 1+)']},
 ]);
 SCH4U.PLAN = [
  {w:'Week 1',t:'Organic chemistry',d:[
   'Day 1: Take the Unit 1 quiz cold as a diagnostic. Then learn lessons 1.1 to 1.3 (alkanes, alkenes/alkynes and isomers, aromatic hydrocarbons).',
   'Day 2: Learn lessons 1.4 to 1.6 (alcohols/ethers/halides, aldehydes/ketones/carboxylic acids, esters/amines/amides). Name five compounds from structure and five structures from a name.',
-  'Day 3: Learn lesson 1.7 (reactions and polymers). Work the three Unit 1 worked examples: cover the steps, solve, then reveal.',
-  'Day 4: All Unit 1 Knowledge and Application practice questions, plus Unit 1 flashcards until each is marked "Got it".',
+  'Day 3: Learn lessons 1.7 to 1.9 (reactions and polymers, the naming checklist for tricky structures, the reaction toolkit). Work the Unit 1 worked examples: cover the steps, solve, then reveal.',
+  'Day 4: Open the Mistake Clinic and redo every Unit 1 card. Then all Unit 1 Knowledge and Application practice questions, plus Unit 1 flashcards until each is marked "Got it".',
   'Day 5: All Unit 1 Thinking and Communication practice questions. Write your C answers before revealing the model.',
   'Day 6: Retake the Unit 1 quiz. Aim for 8 out of 10, and redo every miss.']},
  {w:'Week 2',t:'Structure and properties of matter',d:[
   'Day 1: Learn lessons 2.1 to 2.3 (atomic theory, light and photons, the Bohr model and line spectra). Watch each short animation, then work the photon-energy worked example.',
-  'Day 2: Learn lessons 2.4 to 2.6 (quantum numbers and orbitals, electron configurations, periodic trends in radius).',
+  'Day 2: Learn lessons 2.4 to 2.6 and 2.12 (quantum numbers and orbitals, electron configurations, periodic trends in radius, ions and tricky configurations). Use the quantum-number explorer until allowed sets and orbital shapes are automatic.',
   'Day 3: Learn lessons 2.7 to 2.9 (ionization energy/electron affinity/electronegativity, Lewis structures/resonance, VSEPR shapes). Draw and predict the shape of five molecules.',
   'Day 4: Learn lessons 2.10 and 2.11 (bonding types, intermolecular forces). Work the other Unit 2 worked examples.',
-  'Day 5: All Unit 2 practice questions, including quantum-number sets, hydrogen transitions and boiling-point comparisons.',
+  'Day 5: Redo every Unit 2 Mistake Clinic card, then all Unit 2 practice questions, including quantum-number sets, ions and isoelectronic species, hydrogen transitions and boiling-point comparisons.',
   'Day 6: Take the Unit 2 quiz. Redo every miss the next day.']},
  {w:'Week 3',t:'Energy changes, rates of reaction and equilibrium',d:[
   'Day 1: Learn lessons 3.1 to 3.4 (enthalpy diagrams, calorimetry, Hess\'s law, bond energies). Use the molar mass/mole tool to check every mole conversion.',
@@ -1466,14 +1703,14 @@ SCH4U.PLAN = [
 if (typeof module !== 'undefined') module.exports = SCH4U;
 
 SCH4U.PLAN8 = [
- {t:'Organic chemistry: hydrocarbons and isomers 🧪',d:'Lessons 1.1 to 1.4 (alkanes, alkenes/alkynes/isomers, aromatics, alcohols/ethers/halides) and the first Unit 1 worked examples, then a short Unit 1 quiz starting at Knowledge.',lessons:['u1-1','u1-2','u1-3','u1-4']},
- {t:'Organic chemistry: functional groups and reactions',d:'Lessons 1.5 to 1.7 (aldehydes/ketones/carboxylic acids, esters/amines/amides, reactions and polymers), then begin Unit 2 with lessons 2.1 to 2.3 (atomic theory, light and photons, the Bohr model and line spectra). Finish the week with the full Unit 1 quiz, redoing every miss.',lessons:['u1-5','u1-6','u1-7','u2-1','u2-2','u2-3']},
- {t:'Structure and properties of matter 🔬',d:'Lessons 2.4 to 2.9: quantum numbers and orbitals, electron configurations, periodic trends, electronegativity, Lewis structures and resonance, and VSEPR shapes. Draw ten Lewis structures and predict their molecular shapes, and write five sets of quantum numbers.',lessons:['u2-4','u2-5','u2-6','u2-7','u2-8','u2-9']},
- {t:'Intermolecular forces and thermochemistry 🔥',d:'Lessons 2.10 and 2.11 (bonding types, intermolecular forces) finish Unit 2; then lessons 3.1 to 3.4 begin Unit 3 (enthalpy diagrams, calorimetry, Hess\'s law, bond energies). Use the molar mass/mole calculator for every stoichiometry step.',lessons:['u2-10','u2-11','u3-1','u3-2','u3-3','u3-4']},
- {t:'Rates of reaction and the equilibrium law ⚖',d:'Lessons 3.5 to 3.7 finish Unit 3 (rates, rate laws from data, catalysts and Arrhenius), then lessons 4.1 and 4.2 begin Unit 4 (the equilibrium law and ICE tables). End the week with a mini exam simulation as a baseline.',lessons:['u3-5','u3-6','u3-7','u4-1','u4-2']},
- {t:'Acids, bases and solubility equilibria',d:'Lessons 4.3 to 4.7: Le Chatelier\'s principle, acid-base conjugate pairs, pH/pOH, weak-acid/base K_{a}/K_{b}, and titrations/K_{sp}. Use the pH/pOH converter tool until the log conversions are automatic.',lessons:['u4-3','u4-4','u4-5','u4-6','u4-7']},
+ {t:'Organic chemistry: hydrocarbons, alcohols and naming 🧪',d:'Lessons 1.1 to 1.4 (alkanes, alkenes/alkynes/isomers, aromatics, alcohols/ethers/halides) and lesson 1.8, the naming checklist for tricky structures (longest chain, branched groups, aldehydes). Draw ten structures from names and name ten from structures, then redo the Unit 1 naming cards in the Mistake Clinic.',lessons:['u1-1','u1-2','u1-3','u1-4','u1-8']},
+ {t:'Organic reactions and the start of atomic theory',d:'Lessons 1.5 to 1.7 (aldehydes/ketones/carboxylic acids, esters/amines/amides, reactions and polymers) and lesson 1.9, the reaction toolkit: predict the product and name the type. Then begin Unit 2 with lessons 2.1 and 2.2 (atomic theory; light and photons). Finish the organic part with the full Unit 1 quiz and the Unit 1 cards in the Mistake Clinic.',lessons:['u1-5','u1-6','u1-7','u1-9','u2-1','u2-2']},
+ {t:'Structure and properties of matter 🔬',d:'Lessons 2.3 to 2.7 and 2.12: the Bohr model, quantum numbers and orbitals, electron configurations, ions and tricky configurations, periodic trends and electronegativity. Use the quantum-number explorer until allowed sets and orbital shapes are automatic, and redo the Unit 2 cards in the Mistake Clinic.',lessons:['u2-3','u2-4','u2-5','u2-12','u2-6','u2-7']},
+ {t:'Bonding, intermolecular forces and thermochemistry 🔥',d:'Lessons 2.8 to 2.11 (Lewis structures, VSEPR, bonding types, intermolecular forces) finish Unit 2; then lessons 3.1 and 3.2 begin Unit 3 (enthalpy diagrams and calorimetry). Draw ten Lewis structures and predict their shapes. Use the molar mass/mole calculator for every stoichiometry step.',lessons:['u2-8','u2-9','u2-10','u2-11','u3-1','u3-2']},
+ {t:'Energy, rates and the equilibrium law ⚖',d:'Lessons 3.3 to 3.7 finish Unit 3 (Hess\'s law, bond energies, rates, rate laws from data, catalysts and Arrhenius), then lesson 4.1 begins Unit 4 (the equilibrium law). End the week with a mini exam simulation as a baseline.',lessons:['u3-3','u3-4','u3-5','u3-6','u3-7','u4-1']},
+ {t:'Acids, bases and solubility equilibria',d:'Lessons 4.2 to 4.7: ICE tables, Le Chatelier\'s principle, acid-base conjugate pairs, pH/pOH, weak-acid/base K_{a}/K_{b}, and titrations/K_{sp}. Use the pH/pOH converter tool until the log conversions are automatic.',lessons:['u4-2','u4-3','u4-4','u4-5','u4-6','u4-7']},
  {t:'Electrochemistry ⚡',d:'All six Unit 5 lessons: oxidation numbers, balancing redox half-reactions, standard reduction potentials, voltaic cells, electrolytic cells, and Faraday\'s law. Balance at least six redox equations by hand before the Unit 5 quiz.',lessons:['u5-1','u5-2','u5-3','u5-4','u5-5','u5-6']},
- {t:'Exam preparation 🏔',d:'A full exam simulation early in the week, review every miss, rewrite the formula sheet from memory, retake quizzes for your weakest unit, then a second full simulation. Light review only the day before.',lessons:[]}
+ {t:'Exam preparation 🏔',d:'A full exam simulation early in the week, then the Mistake Clinic quiz and every card you have not fixed, review every miss, rewrite the formula sheet from memory, retake quizzes for your weakest unit, then a second full simulation. Light review only the day before.',lessons:[]}
 ];
 
 /* Guided multi-step problems: the student enters each intermediate value, so a wrong method shows up at the step it happens. */
@@ -1526,7 +1763,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1603,7 +1840,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "sch4u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
@@ -1646,11 +1883,11 @@ function markSyncBlocked(){
 }
 function mergeInto(d){
   if (!d) return;
-  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0;
+  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {};
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
   if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
   else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
-  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled);
+  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = mergeClinic(d.clinic, localClinic);
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -1678,6 +1915,8 @@ function poolFor(key){
   if (key === "mixed") return D.Q.slice();
   if (key === "word") return D.Q.filter(q => q.w);
   if (key === "weak") return D.Q.filter(q => (store.missed || {})[q.id]);
+  if (key === "clinic") return D.Q.filter(q => q.mx);
+  if (key.startsWith("mx:")) return D.Q.filter(q => q.mx === key.slice(3));
   return D.Q.filter(q => q.u === key);
 }
 function draw(poolKey, pool, n){
@@ -2027,7 +2266,7 @@ function gameStats(){
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5},
     {i:"🃏",n:"Memory Keeper",d:"Complete 100 flashcard reviews",e:(store.reviews||0)>=100}
   ];
-  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + badges.filter(b=>b.e).length*100;
+  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + (D.MISTAKES || []).filter(m => mxState(m.id) === "fixed").length*15 + badges.filter(b=>b.e).length*100;
   let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
   const next = LEVELS[li+1];
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges, lessonsDone };
@@ -2099,9 +2338,11 @@ function renderHome(){
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 25-question final-exam run (5 per unit) or a 15-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
     <div class="card homecard c-study" data-go="cards"><h3>🃏 Daily Review</h3><p>${(() => { const n = cardStatus().dueAll; return n ? `<b>${n} card${n === 1 ? "" : "s"} due today.</b> ` : ""; })()}Spaced flashcards for every formula, key term and question you've missed. Five minutes a day.</p><div class="go">Start reviewing →</div></div>
+    <div class="card homecard c-prog" data-goclinic="1"><h3>🩹 Mistake Clinic</h3><p>${(() => { const k = mxCounts(); return (k.open ? `<b>${k.open} card${k.open === 1 ? "" : "s"} need another look.</b> ` : "") + `${k.fixed} of ${k.n} common mistakes fixed. `; })()}Each card shows the slip, why it fails, the fix and a quick redo.</p><div class="go">Open the clinic →</div></div>
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Every SCH4U formula and theorem by unit, how marks are earned, test-day strategies and a glossary.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
+  views.querySelectorAll("[data-goclinic]").forEach(c => c.onclick = () => openMxCard());
   views.querySelectorAll("[data-lesson]").forEach(a => a.onclick = e => { e.preventDefault(); go("study", { lesson: a.dataset.lesson }); });
 }
 
@@ -2279,7 +2520,7 @@ function wireGuided(){
 }
 
 /* ================= interactive models (loaded from models.js) ================= */
-const MODEL_LIST = [["energy", "🔥 Energy diagram & temperature"], ["titration", "⚖️ Titration curve"], ["cell", "⚡ Galvanic cell"], ["vsepr", "⚛️ VSEPR shapes"]];
+const MODEL_LIST = [["energy", "🔥 Energy diagram & temperature"], ["titration", "⚖️ Titration curve"], ["cell", "⚡ Galvanic cell"], ["vsepr", "⚛️ VSEPR shapes"], ["qnum", "🎯 Quantum numbers & orbitals"]];
 let modelSel = "energy", modelsMod = null;
 function mountModels(){
   if (!views.querySelector("[data-model],[data-cmap]")) return;
@@ -2292,7 +2533,7 @@ function mountModels(){
 let quizSel = { key: "mixed", len: 10, diff: null };
 function quizPool(){
   let pool = poolFor(quizSel.key);
-  if (quizSel.diff === "any") pool = pool.filter(q => q.t !== "write" && !q.h2);
+  if (quizSel.diff === "any") pool = (quizSel.key === "clinic" || quizSel.key.startsWith("mx:")) ? pool : pool.filter(q => q.t !== "write" && !q.h2); // clinic quizzes keep every question, written ones are self-marked
   else pool = pool.filter(q => qDiff(q) === +quizSel.diff);
   return pool;
 }
@@ -2302,6 +2543,7 @@ function renderQuizSetup(){
   const opts = [["mixed", "🎲 Mixed", "All five units"]]
     .concat(D.UNITS.map(u => [u.id, UNIT_ICON[u.id] + " " + u.name, u.no + " · " + u.strand.replace("Strand ", "").split(":")[0] + " strand"]))
     .concat([["word", "🧩 Word problems", "Real-world applications from every unit"]])
+    .concat([["clinic", "🩹 Mistake Clinic quiz", D.Q.filter(q => q.mx).length + " questions that rehearse the slips students lose the most marks on"]])
     .concat([["weak", "🎯 Fix my weak spots", Object.keys(store.missed || {}).length + " missed question(s) waiting — get each one right to clear it"]]);
   views.innerHTML = `
   <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, level, and length. Questions won't repeat until you've seen the whole set.</p></div>
@@ -2327,7 +2569,7 @@ function renderQuizSetup(){
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another level");
     const n = Math.min(quizSel.len, pool.length);
-    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : UN[quizSel.key].name;
+    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : quizSel.key === "clinic" ? "Mistake Clinic" : quizSel.key.startsWith("mx:") ? "Mistake: " + plain(MX[quizSel.key.slice(3)].t) : UN[quizSel.key].name;
     const label = focus + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
@@ -2425,7 +2667,7 @@ function renderQuestion(){
     <div class="qtext m">${M(q.p)}</div>
     ${item.hint && !answered ? `<div class="explain hintbox"><b>💡 Hint</b><br><span class="m">${M(q.h)}</span></div><div class="spacer"></div>` : ""}
     ${answerBody(item, showFeedback, st)}
-    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>` : ""}
+    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>${item.correct ? "" : dxHTML(q, item) + (q.t === "write" ? "" : mxRecover(q))}` : ""}
     <div class="qactions">
       <button class="btn soft" id="btn-quit">Save &amp; exit</button>
       <span>
@@ -2442,6 +2684,7 @@ function renderQuestion(){
     item.sel = +b.dataset.di;
     item.correct = item.order[item.sel] === q.a;
     item.answered = true;
+    if (st.kind === "quiz") noteMx(q, item.correct);
     renderQuestion();
   });
   const nc = $("#btn-numcheck");
@@ -2450,6 +2693,7 @@ function renderQuestion(){
       const raw = $("#num-in").value, v = parseNum(raw);
       if (!raw.trim() || !isFinite(v)){ $("#num-err").classList.remove("hidden"); return; }
       item.val = raw.trim(); item.correct = numOk(q, v); item.answered = true;
+      if (st.kind === "quiz") noteMx(q, item.correct);
       renderQuestion();
     };
     nc.onclick = submit;
@@ -2463,6 +2707,7 @@ function renderQuestion(){
     item.correct = q.chk.every((_, i) => item.chk[i]);
   });
   const hb = $("#tool-hint"); if (hb) hb.onclick = () => { item.hint = true; renderQuestion(); };
+  views.querySelectorAll("[data-mxopen]").forEach(b => b.onclick = () => openMxCard(b.dataset.mxopen));
   $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); window.scrollTo({ top: 0 }); } };
   const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
   $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); $("#notepad").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
@@ -2488,6 +2733,7 @@ function finishSession(){
     cats[k] = cats[k] || { c: 0, t: 0 }; cats[k].t++;
     store.missed = store.missed || {};
     if (it.q.t !== "write" && it.answered){ if (it.correct) delete store.missed[it.q.id]; else store.missed[it.q.id] = 1; }
+    if (it.answered) noteMx(it.q, it.correct);
     if (it.correct){ strands[s].c++; cats[k].c++; correct++; if (it.q.w) word++; }
   });
   const pct = Math.round(100 * correct / st.qs.length);
@@ -2636,6 +2882,82 @@ function renderProgress(){
 }
 
 /* ================= study hub ================= */
+/* ================= Mistake Clinic ================= */
+// Cards come from SCH4U.MISTAKES. A card is "fixed" when its redo was answered correctly more recently than the last
+// miss on a question tagged with it (store.clinic[id] = { f: last fixed, m: last missed }), so a new slip reopens it.
+const MX = {}; (D.MISTAKES || []).forEach(m => MX[m.id] = m);
+const mxCheck = {}, openMx = new Set();
+let mxFilter = "all";
+function mxState(id){ const c = (store.clinic || {})[id] || {}; return c.f && c.f >= (c.m || 0) ? "fixed" : c.m ? "open" : "new"; }
+function markClinic(id, kind){ if (!MX[id]) return; store.clinic = store.clinic || {}; const c = store.clinic[id] = Object.assign({}, store.clinic[id]); c[kind] = Date.now(); persist(); }
+function noteMx(q, correct){ if (q.mx && !correct) markClinic(q.mx, "m"); }
+function mergeClinic(a, b){
+  const out = {}; a = a || {}; b = b || {};
+  new Set(Object.keys(a).concat(Object.keys(b))).forEach(id => { const x = a[id] || {}, y = b[id] || {}; out[id] = { f: Math.max(x.f || 0, y.f || 0), m: Math.max(x.m || 0, y.m || 0) }; });
+  return out;
+}
+function mxCounts(){ const all = D.MISTAKES || []; return { n: all.length, fixed: all.filter(m => mxState(m.id) === "fixed").length, open: all.filter(m => mxState(m.id) === "open").length }; }
+function lessonNo(id){ return id.slice(1, 2) + "." + id.split("-")[1]; }
+function mxCardHTML(m, inLesson){
+  const st = mxState(m.id), c = mxCheck[m.id], redo = m.redo, nq = D.Q.filter(q => q.mx === m.id).length;
+  const badge = st === "fixed" ? `<span class="pill teal">✔ Fixed</span>` : st === "open" ? `<span class="pill coral">Needs another look</span>` : `<span class="pill gold">New</span>`;
+  const opts = redo.o.map((o, i) => { let cls = "opt"; if (c !== undefined){ if (i === redo.a) cls += " correct"; else if (i === c) cls += " wrong"; }
+    return `<button class="${cls}" data-mxc="${m.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("");
+  return `<details class="mx-card ${st}" data-mx="${m.id}" ${openMx.has(m.id) ? "open" : ""}>
+    <summary><span class="mx-t">${M(m.t)}</span>${badge}</summary>
+    <div class="mx-body">
+      <div class="mx-row bad"><span class="mx-k">❌ A common answer</span><span class="m">${M(m.wrong)}</span></div>
+      <div class="mx-row"><span class="mx-k">🤔 Why it goes wrong</span><span class="m">${M(m.why)}</span></div>
+      <div class="mx-row good"><span class="mx-k">✅ The fix</span><span class="m">${M(m.fix)}</span></div>
+      <div class="qcheck"><h4 style="margin-top:0">Redo it</h4><p class="m">${M(redo.p)}</p><div class="opts" style="margin-top:8px">${opts}</div>
+        ${c !== undefined ? `<div class="explain ${c === redo.a ? "good" : "bad"}"><b>${c === redo.a ? "Fixed it! ✔" : "Not quite. Read the fix again, then try once more."}</b> <span class="m">${M(redo.why)}</span></div><button class="btn soft" data-mxr="${m.id}" style="margin-top:8px;padding:7px 14px">Try again</button>` : ""}</div>
+      <div class="mx-actions"><button class="btn primary" data-mxq="${m.id}" style="padding:8px 16px">Practise this mistake (${nq} questions) →</button>${inLesson ? "" : `<button class="btn ghost" data-mxl="${m.l}" style="padding:8px 16px">Open lesson ${lessonNo(m.l)} →</button>`}</div>
+    </div></details>`;
+}
+function mxBlockHTML(l){
+  const cards = (l.mx || []).map(id => MX[id]).filter(Boolean); if (!cards.length) return "";
+  const open = cards.filter(m => mxState(m.id) === "open").length;
+  return `<details class="mx-block" data-mxblk="${l.id}" ${openMx.has("b:" + l.id) ? "open" : ""}><summary>🩹 Common mistakes in this lesson (${cards.length})${open ? ` · <b>${open} need another look</b>` : ""}</summary>${cards.map(m => mxCardHTML(m, true)).join("")}</details>`;
+}
+function clinicBody(){
+  const k = mxCounts(), pct = k.n ? Math.round(100 * k.fixed / k.n) : 0;
+  const unitsWith = D.UNITS.filter(u => D.MISTAKES.some(m => m.u === u.id));
+  const list = D.MISTAKES.filter(m => mxFilter === "all" || m.u === mxFilter);
+  return `<p style="font-size:.92rem">These are the slips that cost the most marks on graded unit tests. Each card shows the typical wrong answer, <b>why</b> it fails, the fix and a quick redo. A card turns green when you redo it correctly, and it reopens if you miss a practice question about it.</p>
+    <div class="mx-bar" role="img" aria-label="${k.fixed} of ${k.n} mistake cards fixed"><i style="width:${pct}%"></i></div>
+    <p class="note" style="margin:0 0 8px"><b>${k.fixed} of ${k.n}</b> fixed${k.open ? ` · <b>${k.open} need another look</b>` : ""}</p>
+    <div class="lenrow">${[["all", "All"]].concat(unitsWith.map(u => [u.id, UNIT_ICON[u.id] + " " + u.no])).map(([v, l]) => `<button class="lenbtn ${mxFilter === v ? "sel" : ""}" data-mxf="${v}">${l}</button>`).join("")}</div>
+    <div style="margin:10px 0"><button class="btn primary" data-mxq="all" style="padding:9px 16px">🩹 Quiz me on these mistakes →</button></div>
+    ${list.map(m => mxCardHTML(m, false)).join("")}`;
+}
+function dxHTML(q, item){
+  if (q.t !== "mc" || !q.dx || item.sel == null) return "";
+  const oi = item.order[item.sel];
+  if (oi === q.a || !q.dx[oi]) return "";
+  return `<div class="explain hintbox" style="margin-top:8px"><b>🤔 Why that answer is tempting</b><br><span class="m">${M(q.dx[oi])}</span></div>`;
+}
+function mxRecover(q){
+  const m = q.mx && MX[q.mx]; if (!m) return "";
+  return `<div class="explain mx-recover"><b>🩹 A common mistake: ${M(m.t)}</b>
+    <div class="mx-row bad"><span class="mx-k">❌ A common answer</span><span class="m">${M(m.wrong)}</span></div>
+    <div class="mx-row good"><span class="mx-k">✅ The fix</span><span class="m">${M(m.fix)}</span></div>
+    <button class="btn soft" data-mxopen="${m.id}" style="margin-top:8px;padding:7px 14px">Open this card in the Mistake Clinic</button></div>`;
+}
+function openMxCard(id){ openAcc.add("clinic"); if (id) openMx.add(id); go("study", { clinic: id || true }); }
+function wireClinic(){
+  views.querySelectorAll("[data-mxc]").forEach(b => b.onclick = () => {
+    const id = b.dataset.mxc, i = +b.dataset.i, ok = i === MX[id].redo.a;
+    mxCheck[id] = i; openMx.add(id); markClinic(id, ok ? "f" : "m"); refreshStudy();
+    if (ok) toast("Mistake fixed ✔ +15 XP");
+  });
+  views.querySelectorAll("[data-mxr]").forEach(b => b.onclick = () => { delete mxCheck[b.dataset.mxr]; openMx.add(b.dataset.mxr); refreshStudy(); });
+  views.querySelectorAll("[data-mxq]").forEach(b => b.onclick = () => { quizSel.key = b.dataset.mxq === "all" ? "clinic" : "mx:" + b.dataset.mxq; quizSel.diff = "any"; go("quiz"); });
+  views.querySelectorAll("[data-mxl]").forEach(b => b.onclick = () => go("study", { lesson: b.dataset.mxl }));
+  views.querySelectorAll("[data-mxf]").forEach(b => b.onclick = () => { mxFilter = b.dataset.mxf; refreshStudy(); });
+  views.querySelectorAll("details.mx-card").forEach(d => d.addEventListener("toggle", () => { if (d.open) openMx.add(d.dataset.mx); else openMx.delete(d.dataset.mx); }));
+  views.querySelectorAll("details.mx-block").forEach(d => d.addEventListener("toggle", () => { if (d.open) openMx.add("b:" + d.dataset.mxblk); else openMx.delete("b:" + d.dataset.mxblk); }));
+}
+
 const lessonCheck = {};
 const workedShown = {};
 /* Short self-hosted animation (rendered from /remotion). Never autoplays; has controls, a poster and a text description. */
@@ -2652,7 +2974,9 @@ function lessonHTML(l){
     ${l.vid ? videoHTML(l.vid) : ""}
     <h4>How to do it</h4><ol class="steps">${l.how.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol>
     <div class="example"><h4 style="margin-top:0">Example</h4><p class="m" style="font-weight:600">${M(l.ex.p)}</p><ol class="steps">${l.ex.s.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol></div>
+    ${l.model ? `<div class="mdlbox" style="margin:10px 0"><h4 style="margin-top:0">🔬 Try it</h4><div data-model="${l.model}"></div></div>` : ""}
     <div class="explain bad"><b>⚠️ Watch out.</b> <span class="m">${M(l.watch)}</span></div>
+    ${mxBlockHTML(l)}
     <div class="qcheck"><h4 style="margin-top:0">Quick check</h4><p class="m">${M(l.check.p)}</p><div class="opts" style="margin-top:8px">${l.check.o.map((o, i) => {
       let cls = "opt"; if (c !== undefined){ if (i === l.check.a) cls += " correct"; else if (i === c) cls += " wrong"; }
       return `<button class="${cls}" data-lc="${l.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("")}</div>
@@ -2722,10 +3046,12 @@ function studySections(){
     <div class="lenrow">${MODEL_LIST.map(([k, l]) => `<button class="lenbtn ${modelSel === k ? "sel" : ""}" data-msel="${k}">${l}</button>`).join("")}</div>
     <div data-model="${modelSel}" style="margin-top:12px"></div>` };
   const guidedSec = { id: "guided", title: "🧩 Guided problems: solve it step by step", body: guidedHTML };
-  return [plan, p90].concat(units, [guidedSec, models, tools, equilibrium, res]);
+  const clinic = { id: "clinic", title: `🩹 Mistake Clinic: fix the slips that cost marks (${mxCounts().fixed}/${mxCounts().n} fixed)`, body: clinicBody };
+  return [plan, p90, clinic].concat(units, [guidedSec, models, tools, equilibrium, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
+  if (opt && opt.clinic){ openAcc.add("clinic"); }
   if (opt && opt.lesson){ const l = D.LESSONS.find(x => x.id === opt.lesson); if (l){ openAcc.add(l.u); openLesson.add(l.id); } }
   const secs = studySections();
   views.innerHTML = `
@@ -2736,6 +3062,8 @@ function renderStudy(opt){
   if (openAcc.has("equilibrium")) wireEquilibriumModel();
   if (openAcc.has("guided")) wireGuided();
   mountModels();
+  if (opt && typeof opt.clinic === "string"){ const el = views.querySelector(`[data-sec="clinic"] [data-mx="${opt.clinic}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
+  else if (opt && opt.clinic){ const el = views.querySelector(`[data-sec="clinic"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
   if (opt && opt.lesson){ const el = views.querySelector(`[data-lid="${opt.lesson}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
 }
 function refreshStudy(){ const y = window.scrollY; renderStudy(); window.scrollTo(0, y); }
@@ -2768,6 +3096,7 @@ function wireStudy(){
   });
   views.querySelectorAll("[data-msel]").forEach(b => b.onclick = () => { modelSel = b.dataset.msel; refreshStudy(); });
   views.querySelectorAll(".acc.sub").forEach(a => { if (openLesson.has(a.dataset.lid)) a.classList.add("open"); });
+  wireClinic();
   views.querySelectorAll("[data-lc]").forEach(b => b.onclick = () => { lessonCheck[b.dataset.lc] = +b.dataset.i; refreshStudy(); });
   views.querySelectorAll("[data-lcr]").forEach(b => b.onclick = () => { delete lessonCheck[b.dataset.lcr]; refreshStudy(); });
   views.querySelectorAll("[data-ldone]").forEach(b => b.onclick = () => {

@@ -155,3 +155,13 @@ cathodic protection, fuel cell, electroplating.
 - w261030c08 (u4): pH of a strong dibasic hydroxide
 - w261030c09 (u5, Challenge): series electrolytic cells, copper mass deposited
 - w261030c10 (u5): spontaneity from standard reduction potentials
+
+## 2026-11-03: SCH4U Mistake Clinic
+
+Driven by the kinds of errors students make on graded organic-chemistry and atomic-theory unit tests. All content is generic misconception patterns; no student names, grades or work are in the repository.
+
+- **Mistake Clinic (+24 cards):** each card shows a typical wrong answer, why it fails, the fix and a one-question redo. Cards reopen if a tagged practice question is missed. Progress syncs through the existing `sch4u/{uid}` document.
+- **Lessons (+3):** 1.8 Naming and drawing organic structures, 1.9 Reaction types and mechanisms, 2.12 Ions, isoelectronic species and electron configurations. Appended so saved progress is unaffected.
+- **Questions (+51, 326 total):** `w261103mx01` to `w261103mx51`, all tagged to a card, with answer-specific "why that answer is tempting" notes and rubrics for written items.
+- **Interactive:** quantum-number checker, orbital shapes and an "is this set allowed?" drill in lesson 2.4 and the Models section.
+- **Plan:** 8-week plan rebalanced to include the new lessons; new formula-sheet rules and test-day strategies.
