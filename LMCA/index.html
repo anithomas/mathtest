@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
+<script src="/clinic.js"></script>
 <title>LogicManse Study · Lakehead Math Competency Prep</title>
 <meta name="description" content="Independent Grade 6/7-level math practice for Lakehead University's Primary/Junior Mathematics Competency Assessment (EDUC 0450) — 15 open-response questions, no calculator.">
 <style>
@@ -575,6 +576,757 @@ const BANK = [
 {id:"CF15",sec:"content",strand:"Commercial & Financial Math",grade:"6",q:"A fruit stand buys apples for $0.40 each and sells them for $0.65 each. If they sell 50 apples, what is the total profit?",opts:["$10.00","$11.00","$12.50","$15.00"],ans:2,exp:"Profit per apple = $0.65 − $0.40 = $0.25. Total profit on 50 apples = 50 × $0.25 = $12.50."},
 {id:"CF16",sec:"content",strand:"Commercial & Financial Math",grade:"7",q:"A sporting goods store sells a bike for $270, which is a 20% markup over its cost. What was the cost price?",opts:["$200","$216","$225","$240"],ans:2,exp:"Selling price = cost × 1.20, so cost = 270 ÷ 1.20 = $225."}
 ];
+
+/* ---------- Mistake Clinic: generic misconception cards + the questions that rehearse them (2026-11-03) ---------- */
+const MISTAKES = [
+ {
+  "id": "mx-add-fractions",
+  "u": "Number Sense & Numeration",
+  "l": null,
+  "t": "Adding fractions with different denominators",
+  "wrong": "Working out 3/4 + 1/6 as 4/10, by adding the tops and adding the bottoms.",
+  "why": "The denominator names the size of the pieces. Fourths and sixths are different sizes, so they have to be renamed as the same size before you add. Only the numerators are added.",
+  "fix": "Find a common denominator (12), rename: 3/4 = 9/12 and 1/6 = 2/12, then add the numerators: 9/12 + 2/12 = 11/12. Quick check: the answer must be larger than 3/4, and 4/10 is smaller.",
+  "redo": {
+   "p": "What is 5/6 + 1/4?",
+   "o": [
+    "13/12 (or 1 1/12)",
+    "6/10",
+    "5/24",
+    "6/12"
+   ],
+   "a": 0,
+   "why": "The common denominator is 12: 5/6 = 10/12 and 1/4 = 3/12. 10 + 3 = 13, so 13/12 = 1 1/12."
+  }
+ },
+ {
+  "id": "mx-decimal-order",
+  "u": "Number Sense & Numeration",
+  "l": null,
+  "t": "Ordering decimals",
+  "wrong": "Ordering 0.5, 0.45 and 0.375 from least to greatest as 0.5, 0.45, 0.375 because \"5 is the smallest number\".",
+  "why": "Decimals are compared by place value, not by counting digits. More digits does not mean a bigger number.",
+  "fix": "Give every number the same number of decimal places: 0.500, 0.450, 0.375. Then compare as whole numbers: 375 < 450 < 500. So the order is 0.375, 0.45, 0.5.",
+  "redo": {
+   "p": "Which list is in order from least to greatest?",
+   "o": [
+    "0.2, 0.125, 0.1, 0.09",
+    "0.09, 0.1, 0.125, 0.2",
+    "0.1, 0.09, 0.125, 0.2",
+    "0.125, 0.09, 0.1, 0.2"
+   ],
+   "a": 1,
+   "why": "Write to three places: 0.090, 0.100, 0.125, 0.200. That is already in order from least to greatest."
+  }
+ },
+ {
+  "id": "mx-percent-decimal",
+  "u": "Number Sense & Numeration",
+  "l": null,
+  "t": "Turning a percent into a decimal",
+  "wrong": "Writing 6% as 0.6 and finding 6% of 250 as 150.",
+  "why": "Percent means \"per hundred\", so you divide by 100: that moves the decimal point two places, not one.",
+  "fix": "6% = 6 ÷ 100 = 0.06. Then 6% of 250 = 0.06 × 250 = 15. Check: 10% of 250 is 25, so 6% must be a bit more than half of that.",
+  "redo": {
+   "p": "What is 8% of 150?",
+   "o": [
+    "120",
+    "1.2",
+    "12",
+    "1200"
+   ],
+   "a": 2,
+   "why": "8% = 0.08. 0.08 × 150 = 12. A check: 10% of 150 is 15, so 8% should be a little less."
+  }
+ },
+ {
+  "id": "mx-ratio-share",
+  "u": "Number Sense & Numeration",
+  "l": null,
+  "t": "Sharing in a ratio",
+  "wrong": "Sharing $40 in the ratio 3 : 2 by working out 40 ÷ 3 and 40 ÷ 2.",
+  "why": "A ratio compares parts of ONE whole. The amount is divided by the total number of parts, not by each ratio number separately.",
+  "fix": "Add the parts: 3 + 2 = 5. One part = 40 ÷ 5 = $8. The shares are 3 × 8 = $24 and 2 × 8 = $16. Check that they add to $40.",
+  "redo": {
+   "p": "$60 is shared between two people in the ratio 2 : 3. How much does the larger share receive?",
+   "o": [
+    "$24",
+    "$40",
+    "$20",
+    "$36"
+   ],
+   "a": 3,
+   "why": "There are 2 + 3 = 5 parts. One part is 60 ÷ 5 = $12. The larger share is 3 × 12 = $36."
+  }
+ },
+ {
+  "id": "mx-area-perimeter",
+  "u": "Measurement",
+  "l": null,
+  "t": "Area or perimeter, and the unit",
+  "wrong": "Giving the area of an 8 cm by 5 cm rectangle as 26 cm.",
+  "why": "Perimeter is the distance around (add the sides). Area is the amount of surface inside (multiply length by width) and is measured in square units.",
+  "fix": "Area = 8 × 5 = 40 cm². Perimeter = 2(8 + 5) = 26 cm. Ask first: am I measuring a boundary (cm) or a surface (cm²)?",
+  "redo": {
+   "p": "A rectangle is 9 cm long and 4 cm wide. What is its area?",
+   "o": [
+    "36 cm²",
+    "26 cm",
+    "13 cm²",
+    "36 cm"
+   ],
+   "a": 0,
+   "why": "Area = 9 × 4 = 36, in square units: 36 cm². The 26 cm is the perimeter."
+  }
+ },
+ {
+  "id": "mx-area-conversion",
+  "u": "Measurement",
+  "l": null,
+  "t": "Converting square units",
+  "wrong": "Converting 2 m² to cm² by multiplying by 100.",
+  "why": "A square metre is a square 100 cm by 100 cm. Both dimensions are converted, so the factor is squared.",
+  "fix": "1 m = 100 cm, so 1 m² = 100 × 100 = 10 000 cm². Then 2 m² = 20 000 cm². For volume, cube the factor: 1 m³ = 1 000 000 cm³.",
+  "redo": {
+   "p": "Convert 3 m² to cm².",
+   "o": [
+    "300 cm²",
+    "30 000 cm²",
+    "3000 cm²",
+    "300 000 cm²"
+   ],
+   "a": 1,
+   "why": "1 m² = 10 000 cm², so 3 m² = 30 000 cm²."
+  }
+ },
+ {
+  "id": "mx-distribute-negative",
+  "u": "Patterning & Algebra",
+  "l": null,
+  "t": "Distributing a negative",
+  "wrong": "Expanding −2(x − 5) as −2x − 10.",
+  "why": "The number outside the bracket multiplies every term inside, and its sign comes with it. (−2)(−5) is positive 10.",
+  "fix": "(−2)(x) = −2x and (−2)(−5) = +10, so −2(x − 5) = −2x + 10. Check with x = 6: both forms give −2.",
+  "redo": {
+   "p": "Expand −3(x − 4).",
+   "o": [
+    "−3x − 12",
+    "−3x − 4",
+    "−3x + 12",
+    "3x − 12"
+   ],
+   "a": 2,
+   "why": "(−3)(x) = −3x and (−3)(−4) = +12, so −3x + 12."
+  }
+ },
+ {
+  "id": "mx-two-step-equation",
+  "u": "Patterning & Algebra",
+  "l": null,
+  "t": "Undoing an equation in the right order",
+  "wrong": "Solving 3x + 5 = 20 as x = 20 − 5 ÷ 3.",
+  "why": "An equation is undone in the reverse order. The whole left side is divided by 3 together, so the 5 must be removed first.",
+  "fix": "Subtract 5, then divide by 3: 3x = 15 and x = 5. Check: 3(5) + 5 = 20.",
+  "redo": {
+   "p": "Solve 2x − 7 = 11.",
+   "o": [
+    "x = 2",
+    "x = 4",
+    "x = 18",
+    "x = 9"
+   ],
+   "a": 3,
+   "why": "Add 7: 2x = 18. Divide by 2: x = 9. Check: 2(9) − 7 = 11."
+  }
+ },
+ {
+  "id": "mx-median-order",
+  "u": "Data Management & Probability",
+  "l": null,
+  "t": "Ordering the data before finding the median",
+  "wrong": "Taking the middle number of 9, 14, 3, 12, 6 as it is written, and answering 3.",
+  "why": "The median is the middle value of the data in order from smallest to largest. The middle position of an unordered list is meaningless.",
+  "fix": "Order first: 3, 6, 9, 12, 14. With an odd number of values the median is the middle one: 9. With an even number, average the two middle values.",
+  "redo": {
+   "p": "What is the median of 9, 14, 3, 12, 6?",
+   "o": [
+    "9",
+    "3",
+    "8.8",
+    "14"
+   ],
+   "a": 0,
+   "why": "In order: 3, 6, 9, 12, 14. The middle value is 9. The 8.8 is the mean."
+  }
+ },
+ {
+  "id": "mx-independent-probability",
+  "u": "Data Management & Probability",
+  "l": null,
+  "t": "Probability of two things both happening",
+  "wrong": "Saying the probability of heads twice in a row is 1/2 + 1/2 = 1.",
+  "why": "\"Both\" means the chances multiply, so the probability gets smaller. A probability can never be greater than 1.",
+  "fix": "For independent events, P(A and B) = P(A) × P(B). Heads twice: 1/2 × 1/2 = 1/4.",
+  "redo": {
+   "p": "A spinner lands on red 1/3 of the time. What is the probability of red on two spins in a row?",
+   "o": [
+    "2/3",
+    "1/9",
+    "1/6",
+    "1/3"
+   ],
+   "a": 1,
+   "why": "The spins are independent, so multiply: 1/3 × 1/3 = 1/9."
+  }
+ },
+ {
+  "id": "mx-markup-margin",
+  "u": "Commercial & Financial Math",
+  "l": null,
+  "t": "Markup and profit margin use different bases",
+  "wrong": "Finding the markup on an item that costs $40 and sells for $50 as 10 ÷ 50 = 20%.",
+  "why": "Markup is the profit as a percent of the COST. Profit margin is the profit as a percent of the SELLING price. Using the wrong base swaps the two.",
+  "fix": "Profit = 50 − 40 = $10. Markup = 10 ÷ 40 = 25% (of cost). Profit margin = 10 ÷ 50 = 20% (of selling price).",
+  "redo": {
+   "p": "An item costs a store $60 and sells for $80. What is the markup as a percent of cost?",
+   "o": [
+    "25%",
+    "20%",
+    "33⅓%",
+    "75%"
+   ],
+   "a": 2,
+   "why": "Profit = 80 − 60 = $20. Markup is based on cost: 20 ÷ 60 = 33⅓%. The 25% is the profit margin (20 ÷ 80)."
+  }
+ },
+ {
+  "id": "mx-unit-cost",
+  "u": "Commercial & Financial Math",
+  "l": null,
+  "t": "Comparing prices per unit",
+  "wrong": "Deciding that 10 pens for $7 is worse than 6 pens for $4.50 because $7 is more than $4.50.",
+  "why": "The totals are for different amounts, so they cannot be compared directly. Compare the price of ONE item.",
+  "fix": "Divide the cost by the number of items: 4.50 ÷ 6 = $0.75 each and 7 ÷ 10 = $0.70 each. The lower unit cost is the better buy: 10 for $7.",
+  "redo": {
+   "p": "Which is the better buy?",
+   "o": [
+    "5 for $4.00 (80¢ each)",
+    "They cost the same",
+    "It cannot be determined",
+    "12 for $9.00 (75¢ each)"
+   ],
+   "a": 3,
+   "why": "$9.00 ÷ 12 = $0.75 and $4.00 ÷ 5 = $0.80. The lower unit price is 75¢ each, so 12 for $9.00 is better."
+  }
+ }
+];
+BANK.push(...[
+ {
+  "id": "MX01",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "6",
+  "q": "What is 2/3 + 1/5?",
+  "opts": [
+   "13/15",
+   "3/8",
+   "2/15",
+   "3/15"
+  ],
+  "ans": 0,
+  "exp": "The common denominator is 15: 2/3 = 10/15 and 1/5 = 3/15. 10 + 3 = 13, so 13/15.",
+  "mx": "mx-add-fractions",
+  "dx": {
+   "1": "This adds the tops and the bottoms, which is not allowed.",
+   "2": "2/15 multiplies the fractions instead of adding them.",
+   "3": "This adds the tops over the wrong denominator."
+  }
+ },
+ {
+  "id": "MX02",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "7",
+  "q": "Sam used 3/4 of a tank of gas on Monday and 1/8 on Tuesday. What fraction of a tank did he use in total?",
+  "opts": [
+   "7/8",
+   "4/12",
+   "3/32",
+   "1/2"
+  ],
+  "ans": 0,
+  "exp": "3/4 = 6/8, so 6/8 + 1/8 = 7/8.",
+  "mx": "mx-add-fractions",
+  "dx": {
+   "1": "This adds tops and bottoms (3 + 1 over 4 + 8).",
+   "2": "3/32 multiplies the fractions.",
+   "3": "1/2 is smaller than the amount used on Monday alone."
+  }
+ },
+ {
+  "id": "MX03",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "6",
+  "q": "Which decimal is the greatest?",
+  "opts": [
+   "0.4",
+   "0.399",
+   "0.35",
+   "0.075"
+  ],
+  "ans": 0,
+  "exp": "Write them to three places: 0.400, 0.399, 0.350, 0.075. The greatest is 0.400.",
+  "mx": "mx-decimal-order",
+  "dx": {
+   "1": "0.399 is just under 0.4, so it is smaller.",
+   "2": "0.35 is less than 0.4.",
+   "3": "0.075 is less than a tenth."
+  }
+ },
+ {
+  "id": "MX04",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "6",
+  "q": "Which shows 0.6, 0.06 and 0.606 in order from least to greatest?",
+  "opts": [
+   "0.06, 0.6, 0.606",
+   "0.06, 0.606, 0.6",
+   "0.6, 0.606, 0.06",
+   "0.606, 0.6, 0.06"
+  ],
+  "ans": 0,
+  "exp": "To three places: 0.060, 0.600, 0.606. Order: 0.06, 0.6, 0.606.",
+  "mx": "mx-decimal-order",
+  "dx": {
+   "1": "0.606 is greater than 0.6, so it comes last.",
+   "2": "0.06 is the smallest, so it comes first.",
+   "3": "This is in order from greatest to least."
+  }
+ },
+ {
+  "id": "MX05",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "7",
+  "q": "What is 4% of 350?",
+  "opts": [
+   "14",
+   "140",
+   "1.4",
+   "1400"
+  ],
+  "ans": 0,
+  "exp": "4% = 0.04. 0.04 × 350 = 14.",
+  "mx": "mx-percent-decimal",
+  "dx": {
+   "1": "This uses 0.4 (40%).",
+   "2": "This uses 0.004.",
+   "3": "This uses 4 (400%)."
+  }
+ },
+ {
+  "id": "MX06",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "7",
+  "q": "A jacket costs $90 and is marked 5% off. How many dollars is the discount?",
+  "opts": [
+   "$4.50",
+   "$45",
+   "$0.45",
+   "$85"
+  ],
+  "ans": 0,
+  "exp": "5% = 0.05, and 0.05 × 90 = $4.50.",
+  "mx": "mx-percent-decimal",
+  "dx": {
+   "1": "$45 is 50% of $90.",
+   "2": "$0.45 is 0.5%.",
+   "3": "$85 is the price after taking off 5 dollars, not 5 percent."
+  }
+ },
+ {
+  "id": "MX07",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "6",
+  "q": "A recipe uses flour and sugar in the ratio 3 : 1. How much flour is in 20 cups of the mixture?",
+  "opts": [
+   "15 cups",
+   "6.7 cups",
+   "3 cups",
+   "60 cups"
+  ],
+  "ans": 0,
+  "exp": "There are 3 + 1 = 4 parts. One part is 20 ÷ 4 = 5 cups. Flour is 3 × 5 = 15 cups.",
+  "mx": "mx-ratio-share",
+  "dx": {
+   "1": "This divides 20 by 3, ignoring the total number of parts.",
+   "2": "3 is just the ratio number.",
+   "3": "This multiplies 20 by 3."
+  }
+ },
+ {
+  "id": "MX08",
+  "sec": "content",
+  "strand": "Number Sense & Numeration",
+  "grade": "7",
+  "q": "A prize of $90 is split between Ana and Ben in the ratio 4 : 5. How much does Ana receive?",
+  "opts": [
+   "$40",
+   "$50",
+   "$22.50",
+   "$36"
+  ],
+  "ans": 0,
+  "exp": "There are 9 parts. One part is $10. Ana gets 4 × 10 = $40.",
+  "mx": "mx-ratio-share",
+  "dx": {
+   "1": "$50 is Ben's share.",
+   "2": "This divides 90 by 4.",
+   "3": "$36 is 90 × 0.4."
+  }
+ },
+ {
+  "id": "MX09",
+  "sec": "content",
+  "strand": "Measurement",
+  "grade": "6",
+  "q": "A square garden has sides of 7 m. What is its perimeter?",
+  "opts": [
+   "28 m",
+   "49 m²",
+   "14 m",
+   "49 m"
+  ],
+  "ans": 0,
+  "exp": "Perimeter = 4 × 7 = 28 m. The 49 m² is the area.",
+  "mx": "mx-area-perimeter",
+  "dx": {
+   "1": "This is the area, in square units.",
+   "2": "14 m is the length of just two sides.",
+   "3": "49 is the area number. Perimeter is the distance around: 4 × 7 = 28."
+  }
+ },
+ {
+  "id": "MX10",
+  "sec": "content",
+  "strand": "Measurement",
+  "grade": "7",
+  "q": "A rectangle has an area of 60 cm² and a width of 5 cm. What is its perimeter?",
+  "opts": [
+   "34 cm",
+   "60 cm",
+   "17 cm",
+   "65 cm"
+  ],
+  "ans": 0,
+  "exp": "Length = 60 ÷ 5 = 12 cm. Perimeter = 2(12 + 5) = 34 cm.",
+  "mx": "mx-area-perimeter",
+  "dx": {
+   "1": "60 is the area.",
+   "2": "17 is half the perimeter.",
+   "3": "65 adds the area and the width."
+  }
+ },
+ {
+  "id": "MX11",
+  "sec": "content",
+  "strand": "Measurement",
+  "grade": "7",
+  "q": "A tile covers 0.5 m². How many cm² is that?",
+  "opts": [
+   "5000 cm²",
+   "50 cm²",
+   "500 cm²",
+   "50 000 cm²"
+  ],
+  "ans": 0,
+  "exp": "1 m² = 10 000 cm², so 0.5 m² = 5000 cm².",
+  "mx": "mx-area-conversion",
+  "dx": {
+   "1": "This uses 1 m² = 100 cm².",
+   "2": "This uses 1 m² = 1000 cm².",
+   "3": "This uses 1 m² = 100 000 cm²."
+  }
+ },
+ {
+  "id": "MX12",
+  "sec": "content",
+  "strand": "Measurement",
+  "grade": "7",
+  "q": "Which is equal to 250 000 cm²?",
+  "opts": [
+   "25 m²",
+   "2500 m²",
+   "250 m²",
+   "2.5 m²"
+  ],
+  "ans": 0,
+  "exp": "Divide by 10 000: 250 000 ÷ 10 000 = 25 m².",
+  "mx": "mx-area-conversion",
+  "dx": {
+   "1": "This divides by 100.",
+   "2": "This divides by 1000.",
+   "3": "This divides by 100 000."
+  }
+ },
+ {
+  "id": "MX13",
+  "sec": "content",
+  "strand": "Patterning & Algebra",
+  "grade": "7",
+  "q": "Expand −(x − 7).",
+  "opts": [
+   "−x + 7",
+   "−x − 7",
+   "x − 7",
+   "−x + 1"
+  ],
+  "ans": 0,
+  "exp": "The minus sign multiplies both terms: −x and −(−7) = +7.",
+  "mx": "mx-distribute-negative",
+  "dx": {
+   "1": "The sign of the second term must change as well.",
+   "2": "The minus sign applies to both terms.",
+   "3": "−(−7) is +7, not +1."
+  }
+ },
+ {
+  "id": "MX14",
+  "sec": "content",
+  "strand": "Patterning & Algebra",
+  "grade": "7",
+  "q": "Which expression equals 4 − 3(2 − x)?",
+  "opts": [
+   "3x − 2",
+   "1 − 3x",
+   "−2 − 3x",
+   "3x + 10"
+  ],
+  "ans": 0,
+  "exp": "3(2 − x) = 6 − 3x. Subtracting: 4 − 6 + 3x = 3x − 2.",
+  "mx": "mx-distribute-negative",
+  "dx": {
+   "1": "This subtracts 3 from 4 first, which breaks the order of operations.",
+   "2": "The minus sign must also flip −3x into +3x.",
+   "3": "4 − 6 is −2, not +10."
+  }
+ },
+ {
+  "id": "MX15",
+  "sec": "content",
+  "strand": "Patterning & Algebra",
+  "grade": "6",
+  "q": "Solve 3x + 4 = 19.",
+  "opts": [
+   "x = 5",
+   "x = 7.67",
+   "x = 15",
+   "x = 23"
+  ],
+  "ans": 0,
+  "exp": "Subtract 4: 3x = 15. Divide by 3: x = 5.",
+  "mx": "mx-two-step-equation",
+  "dx": {
+   "1": "This adds 4 and then divides by 3. The 4 must be subtracted.",
+   "2": "This subtracts 4 but forgets to divide by 3.",
+   "3": "This adds 4 to 19 and forgets to divide."
+  }
+ },
+ {
+  "id": "MX16",
+  "sec": "content",
+  "strand": "Patterning & Algebra",
+  "grade": "7",
+  "q": "Solve (x ÷ 4) − 3 = 5.",
+  "opts": [
+   "x = 32",
+   "x = 8",
+   "x = 2",
+   "x = 12"
+  ],
+  "ans": 0,
+  "exp": "Add 3: x ÷ 4 = 8. Multiply by 4: x = 32.",
+  "mx": "mx-two-step-equation",
+  "dx": {
+   "1": "8 is the value of x ÷ 4. You still have to undo the division.",
+   "2": "This subtracts 3 from 5 and stops. The division by 4 still has to be undone.",
+   "3": "This adds 4 to 8 instead of multiplying by 4."
+  }
+ },
+ {
+  "id": "MX17",
+  "sec": "content",
+  "strand": "Data Management & Probability",
+  "grade": "7",
+  "q": "What is the median of 21, 5, 18, 9, 30?",
+  "opts": [
+   "18",
+   "9",
+   "16.6",
+   "5"
+  ],
+  "ans": 0,
+  "exp": "In order: 5, 9, 18, 21, 30. The middle value is 18.",
+  "mx": "mx-median-order",
+  "dx": {
+   "1": "9 is the middle of the unordered list.",
+   "2": "16.6 is the mean.",
+   "3": "5 is the smallest value."
+  }
+ },
+ {
+  "id": "MX18",
+  "sec": "content",
+  "strand": "Data Management & Probability",
+  "grade": "7",
+  "q": "What is the median of 12, 4, 20, 8, 6, 10?",
+  "opts": [
+   "9",
+   "20",
+   "10",
+   "8.5"
+  ],
+  "ans": 0,
+  "exp": "In order: 4, 6, 8, 10, 12, 20. With six values, average the middle two: (8 + 10) ÷ 2 = 9.",
+  "mx": "mx-median-order",
+  "dx": {
+   "1": "20 is the largest value.",
+   "2": "10 is only one of the two middle values.",
+   "3": "8.5 is not the average of the middle pair."
+  }
+ },
+ {
+  "id": "MX19",
+  "sec": "content",
+  "strand": "Data Management & Probability",
+  "grade": "7",
+  "q": "A fair die is rolled twice. What is the probability of a 6 both times?",
+  "opts": [
+   "1/36",
+   "1/3",
+   "1/6",
+   "2/6"
+  ],
+  "ans": 0,
+  "exp": "The rolls are independent: 1/6 × 1/6 = 1/36.",
+  "mx": "mx-independent-probability",
+  "dx": {
+   "1": "Adding gives 1/3, but \"both\" needs the probabilities multiplied.",
+   "2": "1/6 is the chance on a single roll.",
+   "3": "2/6 adds the probabilities."
+  }
+ },
+ {
+  "id": "MX20",
+  "sec": "content",
+  "strand": "Data Management & Probability",
+  "grade": "7",
+  "q": "A bag has 3 red and 2 blue marbles. One marble is drawn, replaced, and a second drawn. What is the probability both are blue?",
+  "opts": [
+   "4/25",
+   "2/5",
+   "4/10",
+   "2/10"
+  ],
+  "ans": 0,
+  "exp": "Replacing keeps the draws independent: 2/5 × 2/5 = 4/25.",
+  "mx": "mx-independent-probability",
+  "dx": {
+   "1": "2/5 is the chance for one draw.",
+   "2": "This adds 2/5 + 2/5.",
+   "3": "2/10 uses the wrong total."
+  }
+ },
+ {
+  "id": "MX21",
+  "sec": "content",
+  "strand": "Commercial & Financial Math",
+  "grade": "7",
+  "q": "A shirt costs a store $25 and is sold for $40. What is the markup as a percent of cost?",
+  "opts": [
+   "60%",
+   "37.5%",
+   "15%",
+   "160%"
+  ],
+  "ans": 0,
+  "exp": "Profit = 40 − 25 = $15. Markup = 15 ÷ 25 = 60% of cost.",
+  "mx": "mx-markup-margin",
+  "dx": {
+   "1": "37.5% is the profit margin (15 ÷ 40).",
+   "2": "15 is the dollar profit, not a percent.",
+   "3": "160% is the selling price as a percent of the cost."
+  }
+ },
+ {
+  "id": "MX22",
+  "sec": "content",
+  "strand": "Commercial & Financial Math",
+  "grade": "7",
+  "q": "A shop sells a toy for $50 and the toy cost $30. What is the profit margin as a percent of the selling price?",
+  "opts": [
+   "40%",
+   "66⅔%",
+   "20%",
+   "60%"
+  ],
+  "ans": 0,
+  "exp": "Profit = 50 − 30 = $20. Margin = 20 ÷ 50 = 40% of the selling price.",
+  "mx": "mx-markup-margin",
+  "dx": {
+   "1": "66⅔% is the markup on cost (20 ÷ 30).",
+   "2": "20 is the dollar profit.",
+   "3": "60% is the cost as a percent of the selling price."
+  }
+ },
+ {
+  "id": "MX23",
+  "sec": "content",
+  "strand": "Commercial & Financial Math",
+  "grade": "6",
+  "q": "Which is the best buy?",
+  "opts": [
+   "6 juice boxes for $4.20 (70¢ each)",
+   "4 juice boxes for $3.00 (75¢ each)",
+   "10 juice boxes for $7.50 (75¢ each)",
+   "3 juice boxes for $2.40 (80¢ each)"
+  ],
+  "ans": 0,
+  "exp": "Unit prices: 70¢, 75¢, 75¢ and 80¢. The lowest is 70¢, so 6 for $4.20.",
+  "mx": "mx-unit-cost",
+  "dx": {
+   "1": "75¢ is more than 70¢.",
+   "2": "The bigger pack is not automatically cheaper per box.",
+   "3": "80¢ is the highest unit price."
+  }
+ },
+ {
+  "id": "MX24",
+  "sec": "content",
+  "strand": "Commercial & Financial Math",
+  "grade": "7",
+  "q": "A car travels 270 km on 18 L of gas. How many kilometres per litre is that?",
+  "opts": [
+   "15 km/L",
+   "0.067 km/L",
+   "252 km/L",
+   "288 km/L"
+  ],
+  "ans": 0,
+  "exp": "270 ÷ 18 = 15 km per litre.",
+  "mx": "mx-unit-cost",
+  "dx": {
+   "1": "This divides 18 by 270, the wrong way round.",
+   "2": "This subtracts 270 − 18.",
+   "3": "This adds 270 + 18."
+  }
+ }
+]);
+
 </script>
 
 <!-- APP LOGIC -->
@@ -588,7 +1340,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [] };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; }
 let quizState = null;        // active quiz/mock session
 let saveTimer = null;
 
@@ -647,14 +1399,14 @@ function persist(){
     clearTimeout(saveTimer);
     saveTimer = setTimeout(async () => {
       try {
-        const data = { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), updated: Date.now() };
+        const data = { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), clinic: store.clinic || {}, mlog: store.mlog || {}, updated: Date.now() };
         await cloud.fns.setDoc(cloud.fns.doc(cloud.db, LMCA_COLLECTION, user.uid), data, { merge: true });
       } catch(e){ console.warn("Cloud save failed (kept locally):", e.message); }
     }, 600);
   }
 }
 async function loadCloud(){
-  let data = null;
+  let data = null; const lc = store.clinic, lm = store.mlog;
   try {
     const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, LMCA_COLLECTION, user.uid));
     if (snap.exists()) data = snap.data();
@@ -664,12 +1416,14 @@ async function loadCloud(){
     if (cloudN >= localN) store = { attempts: data.attempts || [], seen: data.seen || {}, profile: data.profile || store.profile || null, notes: data.notes || store.notes || [] };
     else { if (data.profile && !store.profile) store.profile = data.profile; if (data.notes && !(store.notes || []).length) store.notes = data.notes; }
   }
+  if (data){ store.clinic = CL.mergeClinic(data.clinic, lc); store.mlog = CL.mergeLog(data.mlog, lm); }
   normalizeStore();
   persist();
 }
 
 /* ================= question drawing ================= */
 function poolFor(key){
+  const cp = CL.pool(key); if (cp) return cp;
   if (key === "mixed") return BANK.filter(q => q.sec === "content");
   return BANK.filter(q => q.strand === key);
 }
@@ -1020,7 +1774,7 @@ function gameStats(){
     {i:"🌟",n:"Seasoned Hiker",d:"Complete 15 sessions",e:att.length>=15},
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5}
   ];
-  const xp = totalC*10 + mocks.length*50 + badges.filter(b=>b.e).length*100;
+  const xp = totalC*10 + mocks.length*50 + CL.counts().fixed*15 + badges.filter(b=>b.e).length*100;
   let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
   const next = LEVELS[li+1];
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges };
@@ -1091,18 +1845,33 @@ function renderHome(){
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Practice Set</h3><p>A 10-question run across all five strands, or the 15-question full set matching the real exam's length. No feedback until the end, so you can build stamina.</p><div class="go">Start practice →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Your readiness report vs the 75% pass line, strand strengths, focus recommendations, and full history — synced to your account.</p><div class="go">See progress →</div></div>
     <div class="card homecard c-study" data-go="study"><h3>📚 Study Hub</h3><p>Key concepts for each strand, exactly what the real assessment covers and requires, and curated free resources.</p><div class="go">Open study hub →</div></div>
+    ${CL.homeHTML()}
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Quick-reference formulas and facts for every strand — everything on one page.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
+  CL.wire(views);
 }
 
 /* ================= quiz setup ================= */
+let clinicOpen = false;
+// Mistake Clinic: shared module (/clinic.js) so every course behaves identically.
+const CL = LMClinic.create({
+  course: "LMCA", store: () => store, persist: () => persist(),
+  cards: MISTAKES, questions: () => BANK,
+  view: q => ({ id: q.id, unit: q.strand, type: "mc", tag: q.mx, prompt: q.q, options: q.opts, correct: q.ans, explain: q.exp ? [q.exp] : [], dx: q.dx }),
+  fmt: esc,
+  get units(){ return CONTENT_STRANDS.map(s => ({ id: s, label: s })); },
+  startQuiz: key => { quizSel.key = key; quizSel.diff = "any"; go("quiz"); },
+  openCard: id => { clinicOpen = true; go("study"); setTimeout(() => { const el = views.querySelector(id ? `[data-sec="clinic"] [data-mx="${id}"]` : '[data-sec="clinic"]'); if (el) el.scrollIntoView({ block: "start", behavior: "smooth" }); }, 80); },
+  refresh: () => { clinicOpen = true; renderStudy(); }, toast: m => toast(m)
+});
 let quizSel = { key: "mixed", len: 10, diff: null };
 function renderQuizSetup(){
   quizState = null;
   if (quizSel.diff === null) quizSel.diff = store.profile?.diff || "any";
   const opts = [["mixed", "Mixed", "A bit of everything, Grade 6/7 level"]]
-    .concat(CONTENT_STRANDS.map(s => [s, s, STRAND_DESC[s]]));
+    .concat(CONTENT_STRANDS.map(s => [s, s, STRAND_DESC[s]]))
+    .concat(CL.quizOptions());
   views.innerHTML = `
   <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, difficulty, and length. Questions won't repeat until you've seen the whole set.</p></div>
   <div class="card">
@@ -1124,7 +1893,7 @@ function renderQuizSetup(){
   };
   const quizPool = () => {
     let pool = poolFor(quizSel.key);
-    if (quizSel.diff !== "any") pool = pool.filter(q => qDiff(q) === +quizSel.diff);
+    if (quizSel.diff !== "any" && !CL.isPoolKey(quizSel.key)) pool = pool.filter(q => qDiff(q) === +quizSel.diff);
     return pool;
   };
   views.querySelectorAll(".secbtn").forEach(b => b.onclick = () => { quizSel.key = b.dataset.key; renderQuizSetup(); });
@@ -1135,7 +1904,7 @@ function renderQuizSetup(){
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another difficulty");
     const n = Math.min(quizSel.len, pool.length);
-    const label = (quizSel.key === "mixed" ? "Mixed" : quizSel.key) + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
+    const label = (quizSel.key === "mixed" ? "Mixed" : CL.isPoolKey(quizSel.key) ? CL.label(quizSel.key) : quizSel.key) + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
 }
@@ -1215,7 +1984,7 @@ function renderQuestion(){
         return `<button class="${cls}" data-di="${di}" ${showFeedback ? "disabled" : ""}><span class="key">${"ABCD"[di]}</span><span>${esc(q.opts[oi])}</span></button>`;
       }).join("")}
     </div>
-    ${showFeedback ? `<div class="explain ${item.correct ? "good" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b><br>${esc(q.exp)}</div>` : ""}
+    ${showFeedback ? `<div class="explain ${item.correct ? "good" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b><br>${esc(q.exp)}</div>${item.correct ? "" : CL.dxHTML(q, item.order[item.sel]) + CL.recoverHTML(q)}` : ""}
     <div class="qactions">
       <button class="btn soft" id="btn-quit">Save &amp; exit</button>
       <span>
@@ -1231,8 +2000,10 @@ function renderQuestion(){
     if (st.kind === "quiz" && item.sel !== null) return;
     item.sel = +b.dataset.di;
     item.correct = item.order[item.sel] === q.ans;
+    if (st.kind === "quiz") CL.record(q, item.correct, item.order[item.sel]);
     renderQuestion();
   });
+  CL.wire(views);
   $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); } };
   const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
   $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); $("#notepad").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
@@ -1257,6 +2028,7 @@ function finishSession(){
     strands[s] = strands[s] || { c: 0, t: 0 };
     strands[s].t++;
     if (it.correct){ strands[s].c++; correct++; }
+    if (st.kind !== "quiz" && it.sel !== null) CL.record(it.q, it.correct, it.order[it.sel]);
   });
   const pct = Math.round(100 * correct / st.qs.length);
   const attempt = { t: Date.now(), kind: st.kind, label: st.label, score: correct, total: st.qs.length, pct, dur, strands };
@@ -1487,8 +2259,11 @@ STUDY.push({title:"🎯 Strong open-response habits + fraction model",body:`
 function renderStudy(){
   views.innerHTML = `
   <div class="viewhead"><h2>Study Hub</h2><p>Short, friendly refreshers — pair with a quiz on the same strand while it's fresh.</p></div>
+  <div class="acc ${clinicOpen ? "open" : ""}" data-sec="clinic"><button><span>🩹 Mistake Clinic: fix the slips that cost marks (${CL.counts().fixed}/${CL.counts().n} fixed)</span><span class="chev">›</span></button><div class="body">${CL.sectionHTML()}</div></div>
   ${STUDY.map((s, i) => `<div class="acc" data-i="${i}"><button><span>${s.title}</span><span class="chev">›</span></button><div class="body">${s.body}</div></div>`).join("")}`;
   views.querySelectorAll(".acc > button").forEach(b => b.onclick = () => b.parentElement.classList.toggle("open"));
+  const cb = views.querySelector('[data-sec="clinic"] > button'); if (cb) cb.addEventListener("click", () => { clinicOpen = cb.parentElement.classList.contains("open"); });
+  CL.wire(views);
   const psi = $("#plan-start-input"), pss = $("#plan-start-save");
   if (psi){
     if (store.profile?.planStart) psi.value = store.profile.planStart;

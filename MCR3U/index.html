@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
+<script src="/clinic.js"></script>
 <title>MathTest Trail · MCR3U Functions</title>
 <style>
 :root{
@@ -721,13 +722,13 @@ MCR3U.GLOSSARY = [
 ];
 MCR3U.LESSONS = [
 /* ---------- Unit 1: Characteristics of Functions ---------- */
-{id:'u1-1',u:'u1',t:'Function notation, domain and range',
+{id:'u1-1',u:'u1',mx:["mx-function-notation"],t:'Function notation, domain and range',
  big:'A function is a special relation: every input (x-value) produces exactly one output (y-value). We write the output as f(x) instead of y, so f(3) means “the output when x = 3.” The domain is every x-value you are allowed to put in; the range is every y-value that comes out.',
  how:['Use the vertical line test: if a vertical line ever crosses the graph twice, it is not a function.','To find domain restrictions, look for even roots (the inside must be ≥ 0) and denominators (must be ≠ 0).','Evaluate f(a) by substituting x = a everywhere in the rule.','Read the range from the graph, or from the lowest/highest value the expression can produce.'],
  ex:{p:'For f(x) = √(x − 2), state the domain and range, and evaluate f(11).',s:['Domain: the inside of the root must be ≥ 0, so x − 2 ≥ 0 and x ≥ 2.','Range: a square root is never negative, so f(x) ≥ 0, meaning y ≥ 0.','f(11) = √(11 − 2) = √9 = 3.']},
  watch:'y^{2} = x is a relation, not a function: x = 4 gives both y = 2 and y = −2, so it fails the vertical line test.',
  check:{p:'What is the domain of g(x) = {1|x + 5}?',o:['x ≠ 5','x ≠ −5','all real numbers','x > −5'],a:1,why:'The denominator x + 5 cannot be 0, so x ≠ −5.'}},
-{id:'u1-2',u:'u1',t:'Transformations I: translations and reflections',
+{id:'u1-2',u:'u1',mx:["mx-transform-direction"],t:'Transformations I: translations and reflections',
  big:'Changing f(x) to f(x) + c or f(x − d) slides the graph without changing its shape. Putting a negative sign in front of f, or in front of x inside f, flips the graph.',
  how:['y = f(x) + c shifts up c (down if c < 0).','y = f(x − d) shifts right d (left if d < 0) — the sign inside is the opposite of the direction.','y = −f(x) reflects in the x-axis (flips vertically).','y = f(−x) reflects in the y-axis (flips horizontally).'],
  ex:{p:'Describe how y = √(x + 3) − 4 is obtained from y = √x.',s:['x + 3 = x − (−3), so d = −3: a shift of 3 units left.','−4: a shift of 4 units down.','So: the graph of y = √x shifts 3 units left and 4 units down.']},
@@ -739,19 +740,19 @@ MCR3U.LESSONS = [
  ex:{p:'The point (4, 2) is on y = f(x). Find the image point on y = 3f(2(x − 1)) + 5.',s:['a = 3, k = 2, d = 1, c = 5.','New x: {4|2} + 1 = 2 + 1 = 3.','New y: 3(2) + 5 = 6 + 5 = 11.','Image point: (3, 11).']},
  watch:'y = f(2x) compresses horizontally by a factor of {1|2} — it does NOT stretch, even though 2 > 1. Only the y-coefficient a stretches the way you would expect.',
  check:{p:'The point (6, −2) is on y = f(x). What is its image on y = f({1|2}x)?',o:['(3, −2)','(12, −2)','(6, −1)','(6, −4)'],a:1,why:'y = f(kx) with k = {1|2} maps x → {x|k} = x ÷ {1|2} = 2x, so 6 → 12. The y-value is unchanged: (12, −2).'}},
-{id:'u1-4',u:'u1',t:'Inverse functions',
+{id:'u1-4',u:'u1',mx:["mx-inverse-function"],t:'Inverse functions',
  big:'The inverse of a function undoes it: if f takes 3 to 7, f^{−1} takes 7 back to 3. Algebraically, swap x and y and solve for y. Graphically, the inverse is the reflection in the line y = x.',
  how:['Replace f(x) with y.','Swap x and y.','Solve the new equation for y.','Replace y with f^{−1}(x). The domain of f becomes the range of f^{−1}, and vice versa.'],
  ex:{p:'Find the inverse of f(x) = 2x − 6.',s:['y = 2x − 6.','Swap: x = 2y − 6.','Solve: x + 6 = 2y, so y = {x + 6|2}.','f^{−1}(x) = {x + 6|2} (or {1|2}x + 3).']},
  watch:'The inverse of f(x) = x^{2} is NOT a function unless you restrict the domain (e.g. x ≥ 0), because f is not one-to-one: (2, 4) and (−2, 4) are both on f, so swapping gives two y-values for x = 4.',
  check:{p:'f(x) = √(x − 1), x ≥ 1. What is f^{−1}(x), and what is its domain?',o:['f^{−1}(x) = x^{2} + 1, domain x ≥ 0','f^{−1}(x) = x^{2} − 1, domain x ≥ 0','f^{−1}(x) = x^{2} + 1, domain all real numbers','f^{−1}(x) = (x + 1)^{2}, domain x ≥ 0'],a:0,why:'Swap and solve: x = √(y − 1) means x^{2} = y − 1, so y = x^{2} + 1. The range of f was y ≥ 0, which becomes the domain of f^{−1}: x ≥ 0.'}},
-{id:'u1-5',u:'u1',t:'Quadratic functions: vertex form and completing the square',
+{id:'u1-5',u:'u1',mx:["mx-vertex-sign","mx-complete-square"],t:'Quadratic functions: vertex form and completing the square',
  big:'Standard form y = ax^{2} + bx + c hides the vertex. Completing the square rewrites it as vertex form y = a(x − h)^{2} + k, which shows the vertex (h, k) directly.',
  how:['Factor a out of the x^{2} and x terms only.','Inside the brackets, take half the x-coefficient, square it, then add and subtract it.','Multiply the subtracted constant by a before moving it back outside the bracket.','Simplify to y = a(x − h)^{2} + k.'],
  ex:{p:'Write y = 2x^{2} − 12x + 7 in vertex form.',s:['Factor 2 from the first two terms: y = 2(x^{2} − 6x) + 7.','Half of −6 is −3; (−3)^{2} = 9. Add and subtract 9 inside: y = 2(x^{2} − 6x + 9 − 9) + 7.','y = 2[(x − 3)^{2} − 9] + 7 = 2(x − 3)^{2} − 18 + 7.','y = 2(x − 3)^{2} − 11. Vertex (3, −11).']},
  watch:'Forgetting to multiply the subtracted 9 by a = 2 before moving it outside the bracket — it becomes −18, not −9.',
  check:{p:'The vertex of y = −3(x + 2)^{2} + 5 is',o:['(2, 5)','(−2, 5)','(−2, −5)','(2, −5)'],a:1,why:'y = a(x − h)^{2} + k: here x + 2 = x − (−2), so h = −2, and k = 5.'}},
-{id:'u1-6',u:'u1',t:'Quadratic equations and the discriminant',
+{id:'u1-6',u:'u1',mx:["mx-discriminant"],t:'Quadratic equations and the discriminant',
  big:'Quadratic equations ax^{2} + bx + c = 0 can be solved by factoring when possible, or always by the quadratic formula. The discriminant b^{2} − 4ac tells you how many real solutions to expect before you even finish solving.',
  how:['Try factoring first if the numbers look friendly.','Otherwise use x = {−b ± √(b^{2} − 4ac)|2a}.','Compute the discriminant Δ = b^{2} − 4ac: positive gives 2 real roots, zero gives 1, negative gives none.','State exact values (with radicals) unless told to round.'],
  ex:{p:'Solve 2x^{2} − 3x − 5 = 0 and state the nature of the roots.',s:['a = 2, b = −3, c = −5. Δ = (−3)^{2} − 4(2)(−5) = 9 + 40 = 49.','Δ = 49 > 0 and a perfect square, so there are two rational roots.','x = {3 ± 7|4}: x = {10|4} = {5|2} or x = {−4|4} = −1.']},
@@ -763,26 +764,26 @@ MCR3U.LESSONS = [
  ex:{p:'A ball is thrown so its height is h(t) = −5t^{2} + 20t + 1 metres after t seconds. Find the maximum height and when it occurs.',s:['Vertex t-coordinate: t = −{b|2a} = −{20|2(−5)} = 2.','h(2) = −5(4) + 20(2) + 1 = −20 + 40 + 1 = 21.','The maximum height is 21 m, reached at t = 2 s.']},
  watch:'Using t = −{b|2a} but forgetting that a itself is negative, which flips the sign of the result.',
  check:{p:'A rectangular field is fenced with 200 m of fencing. What dimensions give the maximum possible area?',o:['50 m by 50 m','100 m by 0 m','25 m by 75 m','40 m by 60 m'],a:0,why:'Let the width be x; the length is 100 − x (since 2x + 2L = 200). Area = x(100 − x) = 100x − x^{2}, maximized at x = −{100|2(−1)} = 50: a 50 m by 50 m square.'}},
-{id:'u1-8',u:'u1',t:'Simplifying radical expressions',
+{id:'u1-8',u:'u1',mx:["mx-radical-add"],t:'Simplifying radical expressions',
  big:'Radicals can be simplified by pulling out perfect-square (or perfect-cube) factors, and combined like terms only when the radical part matches exactly.',
  how:['Find the largest perfect-square factor of the number under the root.','√(a^{2}b) = a√b for a ≥ 0.','Add or subtract radicals only when the root and the radicand match (like radicals).','Multiply radicals using √a·√b = √(ab), then simplify the result.'],
  ex:{p:'Simplify 3√50 − 2√18 + √8.',s:['√50 = √(25·2) = 5√2. √18 = √(9·2) = 3√2. √8 = √(4·2) = 2√2.','3(5√2) − 2(3√2) + 2√2 = 15√2 − 6√2 + 2√2.','= 11√2.']},
  watch:'√50 is NOT 25√2 — you take the square root of the perfect-square factor (√25 = 5), not just split it off unreduced.',
  check:{p:'Simplify √48 + √27.',o:['5√3','7√3','4√3 + 3√3, left unsimplified','75'],a:1,why:'√48 = 4√3, √27 = 3√3; 4√3 + 3√3 = 7√3.'}},
-{id:'u1-9',u:'u1',t:'Simplifying rational expressions',
+{id:'u1-9',u:'u1',mx:["mx-rational-restriction"],t:'Simplifying rational expressions',
  big:'A rational expression is a fraction of polynomials. Before doing anything else, state the restrictions from the ORIGINAL denominators — they stay in force even after a factor cancels.',
  how:['Factor every numerator and denominator fully.','State restrictions: every original denominator ≠ 0.','To multiply or divide: flip and multiply for division, then cancel common factors.','To add or subtract: find the lowest common denominator, rewrite each fraction, then combine the numerators.'],
  ex:{p:'Simplify {x^{2} − 4|x^{2} − 5x + 6} · {x − 3|x + 5}, stating restrictions.',s:['Factor: {(x − 2)(x + 2)|(x − 2)(x − 3)} · {x − 3|x + 5}.','Restrictions, from the original denominators: x ≠ 2, x ≠ 3, x ≠ −5.','Cancel (x − 2), then cancel (x − 3): left with {x + 2|x + 5}.','Simplified: {x + 2|x + 5}, x ≠ 2, 3, −5.']},
  watch:'Restrictions come from the ORIGINAL denominators, even ones that later cancel — here x ≠ 3 is still required even though (x − 3) cancels out.',
  check:{p:'Simplify {x^{2} − 1|x + 1}, stating the restriction.',o:['x − 1, x ≠ −1','x − 1, x ≠ 1','x + 1, x ≠ −1','x − 1, with no restriction'],a:0,why:'x^{2} − 1 = (x − 1)(x + 1); cancel (x + 1). The restriction from the original denominator is x ≠ −1.'}},
 /* ---------- Unit 2: Exponential Functions ---------- */
-{id:'u2-1',u:'u2',t:'Exponent laws',
+{id:'u2-1',u:'u2',mx:["mx-exponent-laws"],t:'Exponent laws',
  big:'The exponent laws let you simplify products, quotients and powers of powers without expanding. They work for any real exponents, including negative and rational ones.',
  how:['Multiplying the same base: add the exponents. Dividing the same base: subtract the exponents.','Power of a power: multiply the exponents. Power of a product: apply the exponent to each factor.','A negative exponent means reciprocal: a^{−n} = {1|a^{n}}.','Anything nonzero to the exponent 0 equals 1.'],
  ex:{p:'Simplify {x^{3}y^{−2}|x^{−1}y^{4}}, leaving only positive exponents.',s:['Subtract exponents for each base: x^{3 − (−1)} = x^{4}. y^{−2 − 4} = y^{−6}.','Result: x^{4}y^{−6}.','Written with positive exponents: {x^{4}|y^{6}}.']},
  watch:'Dividing the same base means top exponent MINUS bottom exponent: for y, that is −2 − 4 = −6, not −2 + 4.',
  check:{p:'Simplify (2a^{3}b^{−1})^{2}·a^{−2}.',o:['{4a^{4}|b^{2}}','{4a^{8}|b^{2}}','4a^{4}b^{2}','{2a^{4}|b^{2}}'],a:0,why:'(2a^{3}b^{−1})^{2} = 2^{2}a^{6}b^{−2} = 4a^{6}b^{−2}. Multiply by a^{−2}: 4a^{6−2}b^{−2} = 4a^{4}b^{−2} = {4a^{4}|b^{2}}.'}},
-{id:'u2-2',u:'u2',t:'Rational exponents',
+{id:'u2-2',u:'u2',mx:["mx-rational-exponent"],t:'Rational exponents',
  big:'A rational exponent combines a root and a power: a^{m/n} means take the n-th root, then raise to the m-th power (either order gives the same answer when both are defined).',
  how:['a^{1/n} = ⁿ√a.','a^{m/n} = (ⁿ√a)^{m} = ⁿ√(a^{m}) — usually easier to take the root first, then the power.','For a negative rational exponent, take the reciprocal first, as usual.','For a negative base, an even root is not a real number — check this before you start.'],
  ex:{p:'Evaluate 8^{2/3} and 16^{−3/4}.',s:['8^{2/3} = (³√8)^{2} = 2^{2} = 4.','16^{−3/4} = {1|16^{3/4}} = {1|(⁴√16)^{3}} = {1|2^{3}} = {1|8}.']},
@@ -800,13 +801,13 @@ MCR3U.LESSONS = [
  ex:{p:'A table shows (0, 5), (1, 10), (2, 20), (3, 40). Find the exponential model and its asymptote.',s:['Ratios: 10 ÷ 5 = 2, 20 ÷ 10 = 2, 40 ÷ 20 = 2 — a constant ratio of 2, so b = 2.','The y-intercept 5 gives a = 5: y = 5(2)^{x}.','Horizontal asymptote: y = 0 (there is no vertical shift).']},
  watch:'A table can look exponential at a glance but have a non-constant ratio — always check more than one pair of consecutive values.',
  check:{p:'y = −3(2)^{x} + 7 has horizontal asymptote and range',o:['y = 7; range y < 7','y = 7; range y > 7','y = −3; range y < −3','y = 0; range y < 7'],a:0,why:'The vertical shift c = 7 moves the asymptote to y = 7. Since a = −3 < 0, the basic growth curve is reflected below its asymptote, so every output is less than 7: range y < 7.'}},
-{id:'u2-5',u:'u2',t:'Solving exponential equations with a common base',
+{id:'u2-5',u:'u2',mx:["mx-common-base"],t:'Solving exponential equations with a common base',
  big:'When both sides of an exponential equation can be written with the same base, the exponents must be equal — this turns an exponential equation into a simpler linear one.',
  how:['Write every term as a power of the smallest common base (e.g. 4 = 2^{2}, 27 = 3^{3}, {1|9} = 3^{−2}).','Use the exponent laws to combine each side into a single power.','Set the exponents equal and solve.','Check your answer in the original equation.'],
  ex:{p:'Solve 9^{x+1} = 27^{x−2}.',s:['Write with base 3: 9 = 3^{2}, 27 = 3^{3}.','(3^{2})^{x+1} = (3^{3})^{x−2} → 3^{2x+2} = 3^{3x−6}.','2x + 2 = 3x − 6, so x = 8.']},
  watch:'(3^{2})^{x+1} = 3^{2(x+1)} = 3^{2x+2} — the exponent 2 multiplies the WHOLE bracket (x + 1), not just the x.',
  check:{p:'Solve 4^{2x} = ({1|8})^{x−1}.',o:['x = −{3|7}','x = 3','x = {3|7}','x = −3'],a:2,why:'Base 2: 4^{2x} = 2^{4x}. ({1|8})^{x−1} = (2^{−3})^{x−1} = 2^{−3x+3}. Set 4x = −3x + 3: 7x = 3, so x = {3|7}.'}},
-{id:'u2-6',u:'u2',t:'Applications: exponential growth and decay',
+{id:'u2-6',u:'u2',mx:["mx-growth-factor"],t:'Applications: exponential growth and decay',
  big:'Growth and decay problems use A(t) = A₀·b^{t/p}, where p is the time needed for one multiplication by b, or A = A₀(1 ± r)^{n} for a percent rate applied once per period.',
  how:['Identify the initial amount A₀, the growth/decay factor b, and the period p (a doubling time, a half-life, or “per year”).','Substitute the given t to find A, or substitute A and solve for t when a common base is possible.','For percent growth or decay, use A = A₀(1 + r)^{n} or A = A₀(1 − r)^{n}.','Answer in a sentence with units.'],
  ex:{p:'A bacteria culture of 200 cells doubles every 3 hours. How many cells are there after 12 hours?',s:['A(t) = 200(2)^{t/3}.','A(12) = 200(2)^{12/3} = 200(2)^{4} = 200(16) = 3200.','There are 3200 cells after 12 hours.']},
@@ -819,7 +820,7 @@ MCR3U.LESSONS = [
  watch:'Using the annual rate and the annual count even when compounding is quarterly or monthly — both i and n must match the compounding period.',
  check:{p:'$1000 is invested at 8%/year, compounded semi-annually, for 10 years. Find the final amount, to the nearest cent.',ans:2191.123143033421,tol:0.006,un:'$',h:'i = {0.08|2} = 0.04 per half-year; n = 10 × 2 = 20 half-years.',s:['A = 1000(1.04)^{20}.','(1.04)^{20} ≈ 2.191123.','A ≈ $2191.12.']}},
 /* ---------- Unit 3: Discrete Functions ---------- */
-{id:'u3-1',u:'u3',t:'Arithmetic sequences',
+{id:'u3-1',u:'u3',mx:["mx-nth-term"],t:'Arithmetic sequences',
  big:'An arithmetic sequence adds the same amount, the common difference d, to get from one term to the next. Knowing the first term a and d lets you jump straight to any term without listing them all.',
  how:['Find d by subtracting consecutive terms: d = t₂ − t₁ (check with another pair).','Recursive form: t₁ = a, tₙ = tₙ₋₁ + d.','General term: tₙ = a + (n − 1)d.','To find which term number a value is, set tₙ equal to it and solve for n — it must come out as a whole number.'],
  ex:{p:'A sequence begins 7, 11, 15, 19, … . Find t₂₀ and determine whether 150 is a term.',s:['a = 7, d = 4.','t₂₀ = 7 + (20 − 1)(4) = 7 + 76 = 83.','Set 7 + (n − 1)4 = 150: (n − 1)4 = 143, n − 1 = 35.75, n = 36.75 — not a whole number, so 150 is not a term.']},
@@ -843,7 +844,7 @@ MCR3U.LESSONS = [
  ex:{p:'Find the sum of the arithmetic series 5 + 9 + 13 + ⋯ + 101.',s:['a = 5, d = 4, last term tₙ = 101.','Find n: 5 + (n − 1)4 = 101 → (n − 1)4 = 96 → n − 1 = 24 → n = 25.','S₂₅ = {25|2}(5 + 101) = {25|2}(106) = 25(53) = 1325.']},
  watch:'Using the wrong n because the last term was never actually solved for — always find n before using the sum formula.',
  check:{p:'Evaluate Σ (n = 1 to 20) of (3n − 1).',ans:610,h:'This is an arithmetic series: at n = 1 the term is 2, and each term increases by 3 as n increases by 1.',s:['At n = 1, the term is 2; at n = 20, the term is 3(20) − 1 = 59. This is arithmetic with a = 2, d = 3, 20 terms.','S₂₀ = {20|2}(2 + 59) = 10(61) = 610.']}},
-{id:'u3-5',u:'u3',t:'Geometric series: finite and infinite',
+{id:'u3-5',u:'u3',mx:["mx-geometric-sum"],t:'Geometric series: finite and infinite',
  big:'A finite geometric series can be summed with a formula instead of adding every term. An infinite geometric series only has a finite sum when |r| < 1 — otherwise the terms don’t shrink and the sum grows without bound.',
  how:['Finite: Sₙ = {a(r^{n} − 1)|r − 1} (the equivalent {a(1 − r^{n})|1 − r} gives the same value).','Infinite: check |r| < 1 first. If it holds, S∞ = {a|1 − r}. If not, the series diverges (it has no sum).','Identify a and r directly from the first few terms.','A repeating decimal like 0.777… is a geometric series in disguise (a = 0.7, r = 0.1).'],
  ex:{p:'Find the sum of 4 + 2 + 1 + {1|2} + ⋯ to 8 terms, and find the sum to infinity.',s:['a = 4, r = {1|2}.','S₈ = {4(({1|2})^{8} − 1)|{1|2} − 1} = {4({1|256} − 1)|−{1|2}} = {255|32} = 7.96875.','Since |{1|2}| < 1, S∞ = {4|1 − {1|2}} = {4|{1|2}} = 8.']},
@@ -855,7 +856,7 @@ MCR3U.LESSONS = [
  ex:{p:'How much interest is earned on $4000 invested at 5%/year, compounded annually, for 6 years?',s:['A = 4000(1.05)^{6}.','(1.05)^{6} ≈ 1.340096.','A ≈ $5360.38.','Interest = A − P ≈ 5360.38 − 4000 = $1360.38.']},
  watch:'Rounding (1 + i)^{n} too early and carrying that rounding error through the rest of the calculation — keep several decimal places until the final step.',
  check:{p:'$1500 is invested at 4%/year, compounded monthly, for 3 years. Find the final amount, to the nearest cent.',ans:1690.9078117768718,tol:0.006,un:'$',h:'i = {0.04|12} per month; n = 3 × 12 = 36 months.',s:['A = 1500(1 + {0.04|12})^{36}.','≈ 1500(1.127272).','A ≈ $1690.91.']}},
-{id:'u3-7',u:'u3',t:'Future value of an annuity',
+{id:'u3-7',u:'u3',mx:["mx-annuity-periods"],t:'Future value of an annuity',
  big:'An ordinary annuity is a series of equal payments made at the END of each period. Each payment earns interest for a different length of time, so the future value formula adds up a whole geometric series of growing deposits.',
  how:['Identify R (the regular payment), i (the interest rate per period) and n (the number of payments).','Substitute into FV = R·{(1 + i)^{n} − 1|i}.','The last payment earns no interest (it is made at the very end); only the earlier payments do.','Total contributed = R×n; interest earned = FV − (R×n).'],
  ex:{p:'$200 is deposited at the end of every month into an account earning 6%/year compounded monthly, for 5 years. Find the future value.',s:['i = {0.06|12} = 0.005 per month; n = 5 × 12 = 60 months.','FV = 200·{(1.005)^{60} − 1|0.005}.','(1.005)^{60} ≈ 1.348850.','FV ≈ 200·{0.348850|0.005} ≈ $13 954.01. (Contributed $12 000, so about $1954.01 in interest.)']},
@@ -880,13 +881,13 @@ MCR3U.LESSONS = [
  ex:{p:'Prove that {sin θ|cos θ} + {cos θ|sin θ} = csc θ·sec θ.',s:['Work on the left side only: use a common denominator sin θ cos θ.','LS = {sin^{2}θ + cos^{2}θ|sin θ cos θ}.','sin^{2}θ + cos^{2}θ = 1, so LS = {1|sin θ cos θ}.','= {1|sin θ}·{1|cos θ} = csc θ·sec θ = RS.']},
  watch:'Cross-multiplying or moving terms across the equal sign in a proof — in a proof you only ever simplify one side.',
  check:{p:'If sin θ = {5|13} and θ is in Q2, find cot θ.',o:['−{12|5}','{12|5}','−{5|12}','{5|12}'],a:0,why:'In Q2, cos θ is negative: cos θ = −{12|13} (a 5–12–13 triple). cot θ = {cos θ|sin θ} = {−12/13|5/13} = −{12|5}.'}},
-{id:'u4-3',u:'u4',t:'The sine law, including the ambiguous case',
+{id:'u4-3',u:'u4',mx:["mx-ambiguous-case"],t:'The sine law, including the ambiguous case',
  big:'The sine law relates the sides and angles of ANY triangle, not just right triangles: each side divided by the sine of its opposite angle gives the same value. When you are given two sides and a non-included angle (SSA), there might be 0, 1 or 2 valid triangles — this is the ambiguous case.',
  how:['Set up {a|sin A} = {b|sin B} = {c|sin C}, matching each side with the angle directly across from it.','Use it when you know two angles and a side (AAS/ASA), or two sides and a non-included angle (SSA).','For SSA, after finding a possible angle with sin⁻¹, also test its supplement (180° minus that angle).','Keep a second triangle only if, together with the known angle, its three angles still add to less than 180°.'],
  ex:{p:'In △ABC, A = 40°, a = 10, b = 13. Find how many triangles are possible, and solve for angle B in each case.',s:['{sin B|13} = {sin 40°|10}, so sin B = {13 sin 40°|10} ≈ 0.8356.','B ≈ sin⁻¹(0.8356) ≈ 56.7°, or the supplement B ≈ 180° − 56.7° = 123.3°.','Check each with A = 40°: 40 + 56.7 = 96.7 < 180 ✔. 40 + 123.3 = 163.3 < 180 ✔.','Both work: this is the ambiguous case, with two possible triangles, B ≈ 56.7° or B ≈ 123.3°.']},
  watch:'Finding only the acute angle from sin⁻¹ and forgetting to test its obtuse supplement — that is exactly how the second triangle gets missed.',
  check:{p:'In △ABC, A = 110°, a = 20, b = 15. How many triangles are possible?',o:['0','1','2','Cannot be determined'],a:1,why:'Since A is already obtuse, B must be acute (a triangle has at most one obtuse angle), so only the acute solution from sin⁻¹ can work — exactly one triangle.'}},
-{id:'u4-4',u:'u4',t:'The cosine law',
+{id:'u4-4',u:'u4',mx:["mx-cosine-law"],t:'The cosine law',
  big:'The cosine law is used when the sine law cannot get started: either you know all three sides (SSS), or two sides and the INCLUDED angle between them (SAS). It looks like the Pythagorean theorem with an extra correction term.',
  how:['To find a missing side: c^{2} = a^{2} + b^{2} − 2ab·cos C, where C is the angle INCLUDED between the two known sides a and b.','To find a missing angle from three known sides: cos C = {a^{2} + b^{2} − c^{2}|2ab}, then take cos⁻¹.','Always isolate cos C (or cos A, cos B) before taking the inverse cosine.','A negative value of cos C means the angle is obtuse — that is expected sometimes, not an error.'],
  ex:{p:'In △ABC, a = 8, b = 11, and the included angle C = 65°. Find side c, to two decimal places.',s:['c^{2} = 8^{2} + 11^{2} − 2(8)(11)cos 65°.','c^{2} = 64 + 121 − 176(0.4226) ≈ 185 − 74.38 ≈ 110.62.','c ≈ √110.62 ≈ 10.52.']},
@@ -1289,6 +1290,983 @@ MCR3U.GUIDED = [
   {q:'What is the period, in hours?',ans:12.5,un:'h',h:'High to low is half a period: 9:15 − 3:00 = 6.25 h.',why:'Period = 12.5 h, so k = {360°|12.5} = 28.8° per hour and h(t) = 4 cos(28.8(t − 3)°) + 5.'},
   {q:'Find the depth at 6:00, to 2 decimal places.',ans:4*Math.cos(2*Math.PI*3/12.5)+5,tol:0.03,un:'m',h:'Substitute t = 6, with your calculator in degrees.',why:'h(6) = 4 cos(86.4°) + 5 = 4(0.0628) + 5 = 5.25 m.'}]},
 ];
+
+/* ---------- Mistake Clinic: generic misconception cards + the practice questions that rehearse them (2026-11-03) ---------- */
+MCR3U.MISTAKES = [
+ {
+  "id": "mx-function-notation",
+  "u": "u1",
+  "l": "u1-1",
+  "t": "Evaluating f(a + 2)",
+  "wrong": "Evaluating f(x + 1) for f(x) = 2x² − 1 as f(x) + 1 = 2x².",
+  "why": "f(x + 1) means \"replace every x in the rule with (x + 1)\". It is not the same as adding 1 to the output, which is f(x) + 1.",
+  "fix": "Write the rule with an empty bracket, f(□) = 2(□)² − 1, then put the whole input in the bracket and expand: f(x + 1) = 2(x + 1)² − 1 = 2x² + 4x + 1.",
+  "redo": {
+   "p": "f(x) = x² − 3x. What is f(a + 2)?",
+   "o": [
+    "a^{2} + a − 2",
+    "a^{2} − 3a + 2",
+    "a^{2} + a + 4",
+    "a^{2} − a − 2"
+   ],
+   "a": 0,
+   "why": "f(a + 2) = (a + 2)² − 3(a + 2) = a² + 4a + 4 − 3a − 6 = a² + a − 2. The option a² − 3a + 2 is f(a) + 2."
+  }
+ },
+ {
+  "id": "mx-transform-direction",
+  "u": "u1",
+  "l": "u1-2",
+  "t": "Shifts inside and outside the brackets",
+  "wrong": "Describing y = f(x + 4) − 2 as a shift of 4 units right and 2 units down.",
+  "why": "A change inside the brackets acts on x and works \"backwards\". A change outside acts on y and works as written.",
+  "fix": "In y = f(x − h) + k, the graph moves h units right (or left if h is negative) and k units up (or down if k is negative). So f(x + 4) − 2 is 4 units LEFT and 2 units down. Check with a point: (3, 4) on f becomes (3 − 4, 4 − 2) = (−1, 2).",
+  "redo": {
+   "p": "Which describes y = f(x − 3) + 5?",
+   "o": [
+    "Left 3 and up 5",
+    "Right 3 and up 5",
+    "Right 3 and down 5",
+    "Left 3 and down 5"
+   ],
+   "a": 1,
+   "why": "x − 3 inside the brackets moves the graph 3 units right. +5 outside moves it 5 units up."
+  }
+ },
+ {
+  "id": "mx-vertex-sign",
+  "u": "u1",
+  "l": "u1-5",
+  "t": "Reading the vertex",
+  "wrong": "Reading the vertex of y = −2(x + 5)² + 7 as (5, 7).",
+  "why": "Vertex form is y = a(x − h)² + k with the vertex at (h, k). The bracket holds x − h, so x + 5 is x − (−5), which means h = −5.",
+  "fix": "Match the bracket to x − h. Here x + 5 = x − (−5), so h = −5 and k = 7: the vertex is (−5, 7). Since a = −2 is negative, the parabola opens down, so 7 is a maximum.",
+  "redo": {
+   "p": "What is the vertex of y = 3(x − 4)² − 6?",
+   "o": [
+    "(−4, −6)",
+    "(4, 6)",
+    "(4, −6)",
+    "(−4, 6)"
+   ],
+   "a": 2,
+   "why": "The bracket x − 4 gives h = 4 and the constant −6 gives k = −6. The vertex is (4, −6)."
+  }
+ },
+ {
+  "id": "mx-complete-square",
+  "u": "u1",
+  "l": "u1-5",
+  "t": "Completing the square when a ≠ 1",
+  "wrong": "Writing y = 2x² + 12x + 5 as 2(x + 3)² + 5 − 9 = 2(x + 3)² − 4.",
+  "why": "The 9 that is added inside the bracket is multiplied by the 2 outside. To keep the equation balanced you must subtract 2 × 9 = 18, not 9.",
+  "fix": "Factor out a from the x-terms: 2(x² + 6x) + 5. Add and subtract (half of 6)² = 9 inside: 2(x² + 6x + 9 − 9) + 5. Take the −9 out of the bracket by multiplying by 2: 2(x + 3)² − 18 + 5 = 2(x + 3)² − 13.",
+  "redo": {
+   "p": "Write y = 3x² − 12x + 7 in vertex form.",
+   "o": [
+    "y = 3(x − 2)² + 3",
+    "y = 3(x + 2)² − 5",
+    "y = 3(x − 2)² − 1",
+    "y = 3(x − 2)² − 5"
+   ],
+   "a": 3,
+   "why": "3(x² − 4x) + 7 = 3(x² − 4x + 4 − 4) + 7 = 3(x − 2)² − 12 + 7 = 3(x − 2)² − 5. The version with + 3 forgets to multiply the 4 by 3."
+  }
+ },
+ {
+  "id": "mx-discriminant",
+  "u": "u1",
+  "l": "u1-6",
+  "t": "Signs in the discriminant",
+  "wrong": "Finding the discriminant of x² − 3x − 4 as (−3)² − 4(1)(4) = −7 and saying there are no real roots.",
+  "why": "In this equation c is −4, not 4. Using 4 drops the negative sign, so −4ac, which should be +16, becomes −16.",
+  "fix": "Write a, b and c with their signs first: a = 1, b = −3, c = −4. Then D = b² − 4ac = 9 − 4(1)(−4) = 9 + 16 = 25. D > 0: two distinct real roots. D = 0: one real root. D < 0: no real roots.",
+  "redo": {
+   "p": "How many real roots does 3x² − 2x − 1 = 0 have?",
+   "o": [
+    "Two distinct real roots",
+    "One real root",
+    "No real roots",
+    "It cannot be determined"
+   ],
+   "a": 0,
+   "why": "a = 3, b = −2, c = −1. D = (−2)² − 4(3)(−1) = 4 + 12 = 16 > 0, so there are two distinct real roots."
+  }
+ },
+ {
+  "id": "mx-inverse-function",
+  "u": "u1",
+  "l": "u1-4",
+  "t": "Inverse is not the reciprocal",
+  "wrong": "Finding the inverse of f(x) = 3x − 6 as {1|3x − 6}.",
+  "why": "The notation f⁻¹ does not mean 1 over f. The inverse is a different function that undoes f.",
+  "fix": "Write y = f(x), swap x and y, then solve for y. y = 3x − 6 becomes x = 3y − 6, so y = {x + 6|3}. Check: f(f⁻¹(x)) should equal x.",
+  "redo": {
+   "p": "Find f⁻¹(x) if f(x) = 4x + 8.",
+   "o": [
+    "{1|4x + 8}",
+    "{x − 8|4}",
+    "{x + 8|4}",
+    "4x − 8"
+   ],
+   "a": 1,
+   "why": "Swap: x = 4y + 8. Then 4y = x − 8, so y = {x − 8|4}."
+  }
+ },
+ {
+  "id": "mx-rational-restriction",
+  "u": "u1",
+  "l": "u1-9",
+  "t": "Restrictions when simplifying",
+  "wrong": "Simplifying {x² − 9|x − 3} to x + 3 and writing no restriction.",
+  "why": "Cancelling removes the factor, but the original expression still cannot be evaluated at x = 3. The simplified form hides that, so the restriction has to be stated.",
+  "fix": "Factor, list the restrictions from the ORIGINAL denominator, then cancel. {(x − 3)(x + 3)|x − 3} = x + 3, x ≠ 3.",
+  "redo": {
+   "p": "Simplify {x² − 25|x + 5} and state any restriction.",
+   "o": [
+    "x − 5, no restrictions",
+    "x + 5, x ≠ 5",
+    "x − 5, x ≠ −5",
+    "x − 5, x ≠ 5"
+   ],
+   "a": 2,
+   "why": "{(x − 5)(x + 5)|x + 5} = x − 5. The original denominator x + 5 is zero at x = −5, so x ≠ −5."
+  }
+ },
+ {
+  "id": "mx-radical-add",
+  "u": "u1",
+  "l": "u1-8",
+  "t": "Adding radicals",
+  "wrong": "Simplifying √50 + √8 as √58.",
+  "why": "Radicals can only be added when they have the same radicand, just as like terms are added in algebra. √a + √b is not √(a + b).",
+  "fix": "Simplify each radical first: √50 = 5√2 and √8 = 2√2. Now they are like radicals, so add the coefficients: 5√2 + 2√2 = 7√2.",
+  "redo": {
+   "p": "Simplify √72 − √18.",
+   "o": [
+    "√54",
+    "3√6",
+    "9√2",
+    "3√2"
+   ],
+   "a": 3,
+   "why": "√72 = 6√2 and √18 = 3√2. Subtract the coefficients: 6√2 − 3√2 = 3√2."
+  }
+ },
+ {
+  "id": "mx-exponent-laws",
+  "u": "u2",
+  "l": "u2-1",
+  "t": "Powers of products and negative exponents",
+  "wrong": "Simplifying (2x³)² as 2x⁶, and 5x⁻² as {1|5x²}.",
+  "why": "An exponent outside a bracket applies to every factor inside, including the coefficient. A negative exponent moves only the base it is attached to.",
+  "fix": "(2x³)² = 2² · x⁶ = 4x⁶. In 5x⁻², the exponent −2 belongs to x only, so 5x⁻² = {5|x²}.",
+  "redo": {
+   "p": "Simplify (3x^{2})^{3}.",
+   "o": [
+    "27x^{6}",
+    "3x^{6}",
+    "9x^{6}",
+    "27x^{5}"
+   ],
+   "a": 0,
+   "why": "The exponent 3 applies to both the 3 and the x²: 3³ · x⁶ = 27x⁶."
+  }
+ },
+ {
+  "id": "mx-rational-exponent",
+  "u": "u2",
+  "l": "u2-2",
+  "t": "Fractional exponents",
+  "wrong": "Evaluating 8^{2/3} as {16|3}, by multiplying 8 by {2|3}.",
+  "why": "A fractional exponent is an instruction to take a root and a power, not a number to multiply by.",
+  "fix": "a^{m/n} = (ⁿ√a)^{m}. The denominator is the root and the numerator is the power. 8^{2/3} = (∛8)² = 2² = 4. A negative exponent means reciprocal: 8^{−2/3} = {1|4}.",
+  "redo": {
+   "p": "Evaluate 27^{−2/3}.",
+   "o": [
+    "−18",
+    "{1|9}",
+    "9",
+    "{1|18}"
+   ],
+   "a": 1,
+   "why": "27^{2/3} = (∛27)² = 3² = 9. The negative sign gives the reciprocal: {1|9}."
+  }
+ },
+ {
+  "id": "mx-growth-factor",
+  "u": "u2",
+  "l": "u2-6",
+  "t": "Growth factor, not growth rate",
+  "wrong": "Modelling a 5% yearly increase as A(0.05)^{t}.",
+  "why": "The base of an exponential model is the factor each period multiplies the amount by. A 5% increase keeps 100% and adds 5%, so the factor is 1.05, not 0.05.",
+  "fix": "Growth: factor = 1 + rate, so 5% gives 1.05. Decay: factor = 1 − rate, so a 15% loss gives 0.85. The model is A = A₀(factor)^{t}, and t must be in the same units as the period.",
+  "redo": {
+   "p": "A town of 12 000 grows by 3% each year. Which model gives its population after t years?",
+   "o": [
+    "P = 12 000(0.03)^{t}",
+    "P = 12 000(3)^{t}",
+    "P = 12 000(1.03)^{t}",
+    "P = 12 000 + 0.03t"
+   ],
+   "a": 2,
+   "why": "The growth factor is 1 + 0.03 = 1.03, so P = 12 000(1.03)^{t}. The version with 0.03 shrinks the population almost to zero."
+  }
+ },
+ {
+  "id": "mx-common-base",
+  "u": "u2",
+  "l": "u2-5",
+  "t": "Matching bases",
+  "wrong": "Solving 4^{x} = 8^{x − 1} by writing 4x = 8(x − 1).",
+  "why": "The base and the exponent are not multiplied together. To compare exponents, both sides must be powers of the SAME base.",
+  "fix": "Write 4 and 8 as powers of 2: 2^{2x} = 2^{3(x − 1)}. With equal bases the exponents are equal: 2x = 3x − 3, so x = 3.",
+  "redo": {
+   "p": "Solve 9^{x} = 27^{x − 2}.",
+   "o": [
+    "x = −6",
+    "x = 2",
+    "x = 3",
+    "x = 6"
+   ],
+   "a": 3,
+   "why": "9 = 3² and 27 = 3³, so 3^{2x} = 3^{3(x − 2)}. Then 2x = 3x − 6 and x = 6."
+  }
+ },
+ {
+  "id": "mx-nth-term",
+  "u": "u3",
+  "l": "u3-1",
+  "t": "Number of steps in t_n",
+  "wrong": "Finding the 20th term of 5, 9, 13, … as 5 + 20(4) = 85.",
+  "why": "The first term has had no common differences added yet. By the 20th term only 19 differences have been added.",
+  "fix": "t_n = a + (n − 1)d. For 5, 9, 13, …: a = 5, d = 4, so t₂₀ = 5 + 19(4) = 81.",
+  "redo": {
+   "p": "Find t₁₅ of 7, 12, 17, …",
+   "o": [
+    "77",
+    "82",
+    "75",
+    "72"
+   ],
+   "a": 0,
+   "why": "a = 7 and d = 5. t₁₅ = 7 + 14(5) = 77. The value 82 comes from using 15 differences."
+  }
+ },
+ {
+  "id": "mx-geometric-sum",
+  "u": "u3",
+  "l": "u3-5",
+  "t": "Exponent in the geometric sum",
+  "wrong": "Finding S₈ of 3, 6, 12, … as {3(2⁷ − 1)|2 − 1}.",
+  "why": "The exponent in S_n = {a(r^{n} − 1)|r − 1} is n, the number of terms. The exponent n − 1 belongs to the nth term formula, not to the sum.",
+  "fix": "S_n = {a(r^{n} − 1)|r − 1}. Here a = 3, r = 2, n = 8: S₈ = {3(2⁸ − 1)|2 − 1} = 3(255) = 765.",
+  "redo": {
+   "p": "Find S₆ of 2, 6, 18, …",
+   "o": [
+    "242",
+    "728",
+    "1458",
+    "364"
+   ],
+   "a": 1,
+   "why": "a = 2 and r = 3. S₆ = {2(3⁶ − 1)|3 − 1} = {2(728)|2} = 728. The value 242 uses the exponent 5."
+  }
+ },
+ {
+  "id": "mx-annuity-periods",
+  "u": "u3",
+  "l": "u3-7",
+  "t": "Rate and periods per payment",
+  "wrong": "Using i = 0.06 and n = 3 for $200 a month at 6% per year, compounded monthly, for 3 years.",
+  "why": "In the annuity formulas, i is the interest rate per payment period and n is the number of payment periods. Both must match how often payments are made.",
+  "fix": "Monthly payments and monthly compounding: i = {0.06|12} = 0.005 and n = 12 × 3 = 36.",
+  "redo": {
+   "p": "Which values of i and n apply to $500 deposited quarterly for 4 years at 8% per year compounded quarterly?",
+   "o": [
+    "i = 0.08, n = 4",
+    "i = 0.02, n = 4",
+    "i = 0.02, n = 16",
+    "i = 0.08, n = 16"
+   ],
+   "a": 2,
+   "why": "Quarterly means 4 periods a year. i = {0.08|4} = 0.02 and n = 4 × 4 = 16."
+  }
+ },
+ {
+  "id": "mx-ambiguous-case",
+  "u": "u4",
+  "l": "u4-3",
+  "t": "The ambiguous case (SSA)",
+  "wrong": "Solving a triangle with A = 30°, a = 5 and b = 8 and giving only B = 53.1°.",
+  "why": "When you use the sine law to find an angle, the calculator gives only the acute angle. But an obtuse angle with the same sine also exists, and it may fit in the triangle too.",
+  "fix": "sin B = {8 sin 30°|5} = 0.8, so B = 53.1° or B = 180° − 53.1° = 126.9°. Check each: 30° + 126.9° = 156.9° < 180°, so the second triangle is valid too. There are two triangles. If B + A ≥ 180° the second one fails, and if sin B > 1 there is none.",
+  "redo": {
+   "p": "In triangle ABC, A = 40°, a = 6 and b = 8. How many triangles are possible?",
+   "o": [
+    "One",
+    "None",
+    "It cannot be determined",
+    "Two"
+   ],
+   "a": 3,
+   "why": "sin B = {8 sin 40°|6} ≈ 0.857, so B ≈ 59.0° or 121.0°. Both fit: 40° + 121.0° = 161.0° < 180°. Two triangles."
+  }
+ },
+ {
+  "id": "mx-cosine-law",
+  "u": "u4",
+  "l": "u4-4",
+  "t": "Finishing the cosine law",
+  "wrong": "Finding c from a = 7, b = 10 and C = 60° and answering c = 79.",
+  "why": "The cosine law c² = a² + b² − 2ab cos C gives c squared. The last step is to take the square root.",
+  "fix": "c² = 7² + 10² − 2(7)(10)cos 60° = 49 + 100 − 70 = 79. Then c = √79 ≈ 8.9. Use the cosine law when you know SAS or SSS, and keep the minus sign in front of 2ab cos C, even when cos C is negative.",
+  "redo": {
+   "p": "In triangle ABC, a = 5, b = 9 and C = 120°. Find c, to one decimal place.",
+   "o": [
+    "12.3",
+    "151",
+    "7.8",
+    "14"
+   ],
+   "a": 0,
+   "why": "c² = 25 + 81 − 2(5)(9)cos 120° = 106 − 90(−0.5) = 106 + 45 = 151, so c ≈ 12.3. The value 7.8 uses +cos instead of keeping the sign, and 151 is c², not c."
+  }
+ }
+];
+MCR3U.Q = MCR3U.Q.concat([
+ {
+  "id": "w261103mx01",
+  "u": "u1",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-function-notation",
+  "p": "f(x) = 3x² − 2x. Find f(−2).",
+  "ans": 16,
+  "h": "Substitute −2 for every x, using brackets.",
+  "s": [
+   "f(−2) = 3(−2)² − 2(−2) = 3(4) + 4.",
+   "= 12 + 4 = 16."
+  ]
+ },
+ {
+  "id": "w261103mx02",
+  "u": "u1",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-function-notation",
+  "p": "g(x) = 2x + 5. Which expression is g(x − 3)?",
+  "o": [
+   "2x − 1",
+   "2x + 2",
+   "2x + 8",
+   "2x − 6"
+  ],
+  "a": 0,
+  "h": "Replace x with (x − 3) in the whole rule.",
+  "s": [
+   "g(x − 3) = 2(x − 3) + 5.",
+   "= 2x − 6 + 5 = 2x − 1."
+  ],
+  "dx": {
+   "1": "That is g(x) − 3, which subtracts 3 from the output instead of the input.",
+   "2": "That is g(x + 3). The sign of the shift is reversed.",
+   "3": "This forgets to add the 5 after multiplying out 2(x − 3)."
+  }
+ },
+ {
+  "id": "w261103mx03",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-transform-direction",
+  "p": "The graph of y = f(x + 2) is the graph of y = f(x) shifted",
+  "o": [
+   "2 units left",
+   "2 units right",
+   "2 units up",
+   "2 units down"
+  ],
+  "a": 0,
+  "h": "The change is inside the brackets.",
+  "s": [
+   "f(x + 2) = f(x − (−2)), so h = −2.",
+   "The graph moves 2 units to the left."
+  ],
+  "dx": {
+   "1": "x − 2 would shift right. x + 2 is inside the brackets, so it works backwards: left.",
+   "2": "Vertical shifts come from adding outside the brackets, f(x) + 2.",
+   "3": "Down would come from subtracting outside the brackets."
+  }
+ },
+ {
+  "id": "w261103mx04",
+  "u": "u1",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-transform-direction",
+  "p": "The point (3, 4) is on y = f(x). Which point must be on y = f(x − 1) + 2?",
+  "o": [
+   "(4, 6)",
+   "(2, 6)",
+   "(4, 2)",
+   "(2, 2)"
+  ],
+  "a": 0,
+  "h": "Move the point 1 right and 2 up.",
+  "s": [
+   "x − 1 inside: shift 1 unit right, so x becomes 3 + 1 = 4.",
+   "+ 2 outside: shift 2 units up, so y becomes 4 + 2 = 6.",
+   "The point is (4, 6)."
+  ],
+  "dx": {
+   "1": "x − 1 moves the point right, not left, so the new x is 4.",
+   "2": "+2 outside moves the point up, so the new y is 6.",
+   "3": "Both directions are reversed in this option."
+  }
+ },
+ {
+  "id": "w261103mx05",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-vertex-sign",
+  "p": "The axis of symmetry of y = −(x + 2)² + 9 is",
+  "o": [
+   "x = −2",
+   "x = 2",
+   "x = 9",
+   "x = −9"
+  ],
+  "a": 0,
+  "h": "The axis is x = h.",
+  "s": [
+   "x + 2 = x − (−2), so h = −2.",
+   "The axis of symmetry is x = −2."
+  ],
+  "dx": {
+   "1": "x + 2 is x − (−2), so h = −2, not 2.",
+   "2": "9 is the maximum value k, not the axis of symmetry.",
+   "3": "This confuses h and k and also the sign."
+  }
+ },
+ {
+  "id": "w261103mx06",
+  "u": "u1",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-vertex-sign",
+  "p": "A ball’s height is h(t) = −5(t − 2)² + 22 (metres, seconds). What is its maximum height?",
+  "ans": 22,
+  "h": "Read k from the vertex form.",
+  "s": [
+   "The parabola opens down (a = −5) with vertex (2, 22).",
+   "The maximum height is 22 m."
+  ],
+  "un": " m"
+ },
+ {
+  "id": "w261103mx07",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-complete-square",
+  "p": "Complete the square: x² + 8x + 3.",
+  "o": [
+   "(x + 4)² − 13",
+   "(x + 4)² + 3",
+   "(x + 8)² − 61",
+   "(x + 4)² − 5"
+  ],
+  "a": 0,
+  "h": "Half of 8 is 4; add and subtract 4².",
+  "s": [
+   "x² + 8x + 16 − 16 + 3.",
+   "(x + 4)² − 13."
+  ],
+  "dx": {
+   "1": "(x + 4)² = x² + 8x + 16, so you must subtract 16 as well as keeping the 3.",
+   "2": "The number inside the bracket is half of 8, which is 4, not 8.",
+   "3": "You subtract 4² = 16 from 3 to get −13, not 8."
+  }
+ },
+ {
+  "id": "w261103mx08",
+  "u": "u1",
+  "c": "T",
+  "t": "num",
+  "mx": "mx-complete-square",
+  "p": "Find the minimum value of y = 2x² − 8x + 3.",
+  "ans": -5,
+  "h": "Complete the square, taking care with the 2.",
+  "s": [
+   "2(x² − 4x) + 3 = 2(x² − 4x + 4 − 4) + 3.",
+   "= 2(x − 2)² − 8 + 3 = 2(x − 2)² − 5.",
+   "The vertex is (2, −5), and the parabola opens up, so the minimum is −5."
+  ]
+ },
+ {
+  "id": "w261103mx09",
+  "u": "u1",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-discriminant",
+  "p": "Find the discriminant of 2x² + 3x − 5.",
+  "ans": 49,
+  "h": "D = b² − 4ac. Write a, b and c with signs first.",
+  "s": [
+   "a = 2, b = 3, c = −5.",
+   "D = 9 − 4(2)(−5) = 9 + 40 = 49."
+  ]
+ },
+ {
+  "id": "w261103mx10",
+  "u": "u1",
+  "c": "T",
+  "t": "num",
+  "mx": "mx-discriminant",
+  "p": "For what positive value of k does x² + kx + 9 = 0 have exactly one real root?",
+  "ans": 6,
+  "h": "One real root means D = 0.",
+  "s": [
+   "a = 1, b = k, c = 9.",
+   "D = k² − 36 = 0, so k² = 36 and k = ±6.",
+   "The positive value is k = 6."
+  ]
+ },
+ {
+  "id": "w261103mx11",
+  "u": "u1",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-inverse-function",
+  "p": "If f(x) = 2x + 5, find f⁻¹(11).",
+  "ans": 3,
+  "h": "Solve f(x) = 11, or find the inverse first.",
+  "s": [
+   "f⁻¹(11) is the x for which f(x) = 11.",
+   "2x + 5 = 11 gives x = 3."
+  ]
+ },
+ {
+  "id": "w261103mx12",
+  "u": "u1",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-inverse-function",
+  "p": "f(x) = x² + 1 for x ≥ 0. What is f⁻¹(x)?",
+  "o": [
+   "√(x − 1)",
+   "√x − 1",
+   "x² − 1",
+   "{1|x² + 1}"
+  ],
+  "a": 0,
+  "h": "Swap x and y, then solve for y.",
+  "s": [
+   "y = x² + 1 becomes x = y² + 1.",
+   "y² = x − 1, and since y ≥ 0, y = √(x − 1)."
+  ],
+  "dx": {
+   "1": "The 1 must be removed before taking the square root, so it goes inside the root.",
+   "2": "This undoes the exponent but not the + 1. It is not an inverse.",
+   "3": "This is the reciprocal 1 ÷ f(x), which is not the inverse."
+  }
+ },
+ {
+  "id": "w261103mx13",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-rational-restriction",
+  "p": "Which values of x are restricted in {x + 2|(x − 1)(x + 4)}?",
+  "o": [
+   "x = 1 and x = −4",
+   "x = −1 and x = 4",
+   "x = −2 only",
+   "x = 1 and x = 4"
+  ],
+  "a": 0,
+  "h": "Set each factor of the denominator equal to zero.",
+  "s": [
+   "x − 1 = 0 gives x = 1.",
+   "x + 4 = 0 gives x = −4."
+  ],
+  "dx": {
+   "1": "The signs are reversed. (x − 1) = 0 gives x = 1.",
+   "2": "x = −2 makes the numerator zero, which is allowed.",
+   "3": "(x + 4) = 0 gives x = −4, not 4."
+  }
+ },
+ {
+  "id": "w261103mx14",
+  "u": "u1",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-rational-restriction",
+  "p": "Simplify {2x² + 6x|x² − 9} and state the restrictions.",
+  "o": [
+   "{2x|x − 3}, x ≠ 3 and x ≠ −3",
+   "{2x|x − 3}, x ≠ 3",
+   "{2x|x + 3}, x ≠ −3",
+   "{2|x − 3}, x ≠ 3 and x ≠ −3"
+  ],
+  "a": 0,
+  "h": "Factor the top and the bottom, then list restrictions from the original.",
+  "s": [
+   "{2x(x + 3)|(x − 3)(x + 3)}.",
+   "Cancel x + 3: {2x|x − 3}.",
+   "Restrictions come from the original denominator: x ≠ 3 and x ≠ −3."
+  ],
+  "dx": {
+   "1": "x = −3 is still restricted: it makes the ORIGINAL denominator zero, even though the factor cancels.",
+   "2": "The factor that is left in the denominator is x − 3, not x + 3.",
+   "3": "The x in the numerator does not cancel. Only the common factor x + 3 cancels."
+  }
+ },
+ {
+  "id": "w261103mx15",
+  "u": "u1",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-radical-add",
+  "p": "Simplify √48.",
+  "o": [
+   "4√3",
+   "2√12",
+   "6√2",
+   "16√3"
+  ],
+  "a": 0,
+  "h": "Find the largest perfect square that divides 48.",
+  "s": [
+   "48 = 16 × 3.",
+   "√48 = √16 × √3 = 4√3."
+  ],
+  "dx": {
+   "1": "2√12 is not fully simplified, since 12 = 4 × 3 still has a square factor.",
+   "2": "√48 = √(16 × 3), not √(36 × 2).",
+   "3": "The square root of 16 is 4, so the coefficient is 4, not 16."
+  }
+ },
+ {
+  "id": "w261103mx16",
+  "u": "u1",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-radical-add",
+  "p": "√45 + √20 can be written as k√5. Find k.",
+  "ans": 5,
+  "h": "Simplify each radical first.",
+  "s": [
+   "√45 = 3√5 and √20 = 2√5.",
+   "3√5 + 2√5 = 5√5, so k = 5."
+  ]
+ },
+ {
+  "id": "w261103mx17",
+  "u": "u2",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-exponent-laws",
+  "p": "Simplify 4x^{−3}.",
+  "o": [
+   "{4|x^{3}}",
+   "{1|4x^{3}}",
+   "−4x^{3}",
+   "{1|x^{12}}"
+  ],
+  "a": 0,
+  "h": "The negative exponent applies only to x.",
+  "s": [
+   "x^{−3} = {1|x^{3}}.",
+   "4x^{−3} = {4|x^{3}}."
+  ],
+  "dx": {
+   "1": "The exponent −3 belongs to x only, so the 4 stays in the numerator.",
+   "2": "A negative exponent means reciprocal, not a negative sign.",
+   "3": "This raises 4 to the power −3 as well, but the 4 is not inside any bracket."
+  }
+ },
+ {
+  "id": "w261103mx18",
+  "u": "u2",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-exponent-laws",
+  "p": "Evaluate {(2^{3})^{2}|2^{4}}.",
+  "ans": 4,
+  "h": "Use the power of a power law, then the quotient law.",
+  "s": [
+   "(2³)² = 2⁶.",
+   "2⁶ ÷ 2⁴ = 2² = 4."
+  ]
+ },
+ {
+  "id": "w261103mx19",
+  "u": "u2",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-rational-exponent",
+  "p": "Evaluate 16^{3/4}.",
+  "ans": 8,
+  "h": "Denominator = root, numerator = power.",
+  "s": [
+   "16^{3/4} = (⁴√16)³.",
+   "⁴√16 = 2, and 2³ = 8."
+  ]
+ },
+ {
+  "id": "w261103mx20",
+  "u": "u2",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-rational-exponent",
+  "p": "Evaluate 25^{−1/2} as a decimal.",
+  "ans": 0.2,
+  "h": "A negative exponent means reciprocal.",
+  "s": [
+   "25^{1/2} = √25 = 5.",
+   "25^{−1/2} = {1|5} = 0.2."
+  ],
+  "tol": 0.001
+ },
+ {
+  "id": "w261103mx21",
+  "u": "u2",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-growth-factor",
+  "p": "A population of 200 grows 5% per year. Find the population after 10 years, to one decimal place.",
+  "ans": 325.8,
+  "h": "The growth factor is 1.05.",
+  "s": [
+   "P = 200(1.05)^{10}.",
+   "≈ 325.8."
+  ],
+  "tol": 0.2
+ },
+ {
+  "id": "w261103mx22",
+  "u": "u2",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-growth-factor",
+  "p": "A car worth $20 000 loses 15% of its value each year. What is it worth after 3 years? Give the answer to the nearest cent.",
+  "ans": 12282.5,
+  "h": "The decay factor is 1 − 0.15.",
+  "s": [
+   "V = 20 000(0.85)³.",
+   "= 20 000(0.614125) = $12 282.50."
+  ],
+  "tol": 0.02,
+  "un": " $"
+ },
+ {
+  "id": "w261103mx23",
+  "u": "u2",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-common-base",
+  "p": "Solve 2^{x} = 32.",
+  "ans": 5,
+  "h": "Write 32 as a power of 2.",
+  "s": [
+   "32 = 2⁵.",
+   "So x = 5."
+  ]
+ },
+ {
+  "id": "w261103mx24",
+  "u": "u2",
+  "c": "T",
+  "t": "num",
+  "mx": "mx-common-base",
+  "p": "Solve 4^{x + 1} = 8^{x}.",
+  "ans": 2,
+  "h": "Write both sides as powers of 2.",
+  "s": [
+   "4^{x + 1} = 2^{2x + 2} and 8^{x} = 2^{3x}.",
+   "2x + 2 = 3x, so x = 2."
+  ]
+ },
+ {
+  "id": "w261103mx25",
+  "u": "u3",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-nth-term",
+  "p": "Find t₁₂ of the sequence 3, 8, 13, …",
+  "ans": 58,
+  "h": "Use t_n = a + (n − 1)d.",
+  "s": [
+   "a = 3, d = 5.",
+   "t₁₂ = 3 + 11(5) = 58."
+  ]
+ },
+ {
+  "id": "w261103mx26",
+  "u": "u3",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-nth-term",
+  "p": "An arithmetic sequence has t₃ = 11 and t₇ = 27. Find t₁₀.",
+  "ans": 39,
+  "h": "First find d, then a.",
+  "s": [
+   "From t₃ to t₇ is 4 steps: d = (27 − 11) ÷ 4 = 4.",
+   "a = t₃ − 2d = 11 − 8 = 3.",
+   "t₁₀ = 3 + 9(4) = 39."
+  ]
+ },
+ {
+  "id": "w261103mx27",
+  "u": "u3",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-geometric-sum",
+  "p": "Find S₅ of 4, 8, 16, …",
+  "ans": 124,
+  "h": "S_n = a(r^n − 1) ÷ (r − 1).",
+  "s": [
+   "a = 4, r = 2, n = 5.",
+   "S₅ = 4(2⁵ − 1) ÷ 1 = 4(31) = 124."
+  ]
+ },
+ {
+  "id": "w261103mx28",
+  "u": "u3",
+  "c": "T",
+  "t": "num",
+  "mx": "mx-geometric-sum",
+  "p": "Find the sum of the infinite geometric series 5 + 2.5 + 1.25 + …",
+  "ans": 10,
+  "h": "S∞ = a ÷ (1 − r) when |r| < 1.",
+  "s": [
+   "a = 5 and r = 0.5.",
+   "S∞ = 5 ÷ (1 − 0.5) = 10."
+  ]
+ },
+ {
+  "id": "w261103mx29",
+  "u": "u3",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-annuity-periods",
+  "p": "For payments made monthly for 5 years at 6% per year compounded monthly, the number of periods is n =",
+  "o": [
+   "60",
+   "5",
+   "12",
+   "6"
+  ],
+  "a": 0,
+  "h": "n = (payments per year) × (years).",
+  "s": [
+   "12 payments per year × 5 years = 60."
+  ],
+  "dx": {
+   "1": "5 is the number of years, but n counts payment periods.",
+   "2": "12 is the number of periods in one year.",
+   "3": "6 is the annual percentage rate, not a count of periods."
+  }
+ },
+ {
+  "id": "w261103mx30",
+  "u": "u3",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-annuity-periods",
+  "p": "Find the future value of $100 paid at the end of each month for 1 year at 6% per year compounded monthly. Round to the nearest cent.",
+  "ans": 1233.56,
+  "h": "Use i = 0.005 and n = 12.",
+  "s": [
+   "FV = R · {(1 + i)^{n} − 1|i}.",
+   "= 100 · {1.005^{12} − 1|0.005} ≈ 100(12.3356).",
+   "≈ $1233.56."
+  ],
+  "tol": 0.02,
+  "un": " $"
+ },
+ {
+  "id": "w261103mx31",
+  "u": "u4",
+  "c": "K",
+  "t": "mc",
+  "mx": "mx-ambiguous-case",
+  "p": "The ambiguous case can arise when you are given",
+  "o": [
+   "two sides and a non-included angle (SSA)",
+   "three sides (SSS)",
+   "two sides and the included angle (SAS)",
+   "two angles and a side (ASA)"
+  ],
+  "a": 0,
+  "h": "Which case uses the sine law to find an ANGLE from a side opposite a known angle?",
+  "s": [
+   "SSA is the case where the same information can fit zero, one or two triangles."
+  ],
+  "dx": {
+   "1": "Three sides determine exactly one triangle.",
+   "2": "Two sides and the included angle determine exactly one triangle.",
+   "3": "Two angles and a side determine exactly one triangle."
+  }
+ },
+ {
+  "id": "w261103mx32",
+  "u": "u4",
+  "c": "A",
+  "t": "mc",
+  "mx": "mx-ambiguous-case",
+  "p": "In triangle ABC, A = 30°, a = 3 and b = 8. How many triangles exist?",
+  "o": [
+   "None",
+   "One",
+   "Two",
+   "It cannot be determined"
+  ],
+  "a": 0,
+  "h": "Find sin B and check whether it is possible.",
+  "s": [
+   "sin B = {8 sin 30°|3} = {4|3} ≈ 1.33.",
+   "sin B cannot be greater than 1, so no triangle exists."
+  ],
+  "dx": {
+   "1": "The sine law would need sin B ≤ 1 for any triangle to exist.",
+   "2": "There is no valid angle B, so there are zero triangles, not two.",
+   "3": "It can be determined: sin B > 1 means there is no solution."
+  }
+ },
+ {
+  "id": "w261103mx33",
+  "u": "u4",
+  "c": "K",
+  "t": "num",
+  "mx": "mx-cosine-law",
+  "p": "In triangle ABC, a = 6, b = 8 and C = 90°. Find c.",
+  "ans": 10,
+  "h": "cos 90° = 0.",
+  "s": [
+   "c² = 36 + 64 − 2(6)(8)cos 90° = 100.",
+   "c = 10."
+  ]
+ },
+ {
+  "id": "w261103mx34",
+  "u": "u4",
+  "c": "A",
+  "t": "num",
+  "mx": "mx-cosine-law",
+  "p": "In triangle ABC, a = 7, b = 10 and C = 60°. Find c, to one decimal place.",
+  "ans": 8.9,
+  "h": "Remember the last step: square root.",
+  "s": [
+   "c² = 49 + 100 − 2(7)(10)cos 60° = 149 − 70 = 79.",
+   "c = √79 ≈ 8.9."
+  ],
+  "tol": 0.06
+ }
+]);
 </script>
 
 <!-- APP LOGIC -->
@@ -1308,7 +2286,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1385,7 +2363,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "mcr3u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, mlog: store.mlog || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
@@ -1428,11 +2406,11 @@ function markSyncBlocked(){
 }
 function mergeInto(d){
   if (!d) return;
-  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0;
+  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {}, localMlog = store.mlog || {};
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
   if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
   else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
-  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled);
+  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = CL.mergeClinic(d.clinic, localClinic); store.mlog = CL.mergeLog(d.mlog, localMlog);
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -1460,6 +2438,7 @@ function poolFor(key){
   if (key === "mixed") return D.Q.slice();
   if (key === "word") return D.Q.filter(q => q.w);
   if (key === "weak") return D.Q.filter(q => (store.missed || {})[q.id]);
+  const cp = CL.pool(key); if (cp) return cp;
   return D.Q.filter(q => q.u === key);
 }
 function draw(poolKey, pool, n){
@@ -1809,7 +2788,7 @@ function gameStats(){
     {i:"📝",n:"Field Notes",d:"Save 5 question notes",e:(store.notes||[]).length>=5},
     {i:"🃏",n:"Memory Keeper",d:"Complete 100 flashcard reviews",e:(store.reviews||0)>=100}
   ];
-  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + badges.filter(b=>b.e).length*100;
+  const xp = totalC*10 + mocks.length*50 + lessonsDone*20 + (store.recalled||0)*2 + CL.counts().fixed*15 + badges.filter(b=>b.e).length*100;
   let li = 0; LEVELS.forEach(([t],i)=>{ if(xp>=t) li=i; });
   const next = LEVELS[li+1];
   return { xp, level:LEVELS[li][1], next: next?next[0]:null, prev:LEVELS[li][0], streak, badges, lessonsDone };
@@ -1881,9 +2860,11 @@ function renderHome(){
     <div class="card homecard c-mock" data-go="mock"><h3>📝 Exam Simulation</h3><p>A 20-question final-exam run (5 per unit) or a 12-question mini, marked at the end against Ontario's achievement levels.</p><div class="go">Take a simulation →</div></div>
     <div class="card homecard c-prog" data-go="progress"><h3>📈 Progress</h3><p>Readiness by unit against Level 4, K/A/T/C strengths, focus recommendations, history and badges — synced to your account.</p><div class="go">See progress →</div></div>
     <div class="card homecard c-study" data-go="cards"><h3>🃏 Daily Review</h3><p>${(() => { const n = cardStatus().dueAll; return n ? `<b>${n} card${n === 1 ? "" : "s"} due today.</b> ` : ""; })()}Spaced flashcards for every formula, key term and question you've missed. Five minutes a day.</p><div class="go">Start reviewing →</div></div>
+    ${CL.homeHTML()}
     <div class="card homecard c-quiz" data-go="cheat"><h3>🧾 Cheatsheet</h3><p>Every MCR3U formula and theorem by unit, how marks are earned, test-day strategies and a glossary.</p><div class="go">Open cheatsheet →</div></div>
   </div>`;
   views.querySelectorAll("[data-go]").forEach(c => c.onclick = () => go(c.dataset.go));
+  CL.wire(views);
   views.querySelectorAll("[data-lesson]").forEach(a => a.onclick = e => { e.preventDefault(); go("study", { lesson: a.dataset.lesson }); });
 }
 
@@ -2074,7 +3055,7 @@ function mountModels(){
 let quizSel = { key: "mixed", len: 10, diff: null };
 function quizPool(){
   let pool = poolFor(quizSel.key);
-  if (quizSel.diff === "any") pool = pool.filter(q => q.t !== "write" && !q.h2);
+  if (quizSel.diff === "any") pool = CL.isPoolKey(quizSel.key) ? pool : pool.filter(q => q.t !== "write" && !q.h2); // clinic quizzes keep every question; written ones are self-marked
   else pool = pool.filter(q => qDiff(q) === +quizSel.diff);
   return pool;
 }
@@ -2084,6 +3065,7 @@ function renderQuizSetup(){
   const opts = [["mixed", "🎲 Mixed", "All four units"]]
     .concat(D.UNITS.map(u => [u.id, UNIT_ICON[u.id] + " " + u.name, u.no + " · " + u.strand.replace("Strand ", "").split(":")[0] + " strand"]))
     .concat([["word", "🧩 Word problems", "Real-world applications from every unit"]])
+    .concat(CL.quizOptions())
     .concat([["weak", "🎯 Fix my weak spots", Object.keys(store.missed || {}).length + " missed question(s) waiting — get each one right to clear it"]]);
   views.innerHTML = `
   <div class="viewhead"><h2>Quick Quiz</h2><p>Choose a focus, level, and length. Questions won't repeat until you've seen the whole set.</p></div>
@@ -2109,7 +3091,7 @@ function renderQuizSetup(){
     const pool = quizPool();
     if (!pool.length) return toast("No questions match — try another level");
     const n = Math.min(quizSel.len, pool.length);
-    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : UN[quizSel.key].name;
+    const focus = quizSel.key === "mixed" ? "Mixed" : quizSel.key === "word" ? "Word problems" : quizSel.key === "weak" ? "Weak spots" : CL.isPoolKey(quizSel.key) ? CL.label(quizSel.key) : UN[quizSel.key].name;
     const label = focus + (quizSel.diff !== "any" ? " · " + DIFF_LABEL[+quizSel.diff].split(" ")[1] : "");
     startSession("quiz", draw("quiz-" + quizSel.key + "-" + quizSel.diff, pool, n), label);
   };
@@ -2207,7 +3189,7 @@ function renderQuestion(){
     <div class="qtext m">${M(q.p)}</div>
     ${item.hint && !answered ? `<div class="explain hintbox"><b>💡 Hint</b><br><span class="m">${M(q.h)}</span></div><div class="spacer"></div>` : ""}
     ${answerBody(item, showFeedback, st)}
-    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>` : ""}
+    ${showFeedback ? `<div class="explain ${item.correct ? "good celebrate" : "bad"}"><b>${item.correct ? "Nailed it! ✔" : "Not quite — and that's how we learn."}</b>${item.correct && st.kind === "quiz" ? `<span class="xpfloat">+10 XP</span>` : ""}${steps}</div>${item.correct ? "" : CL.dxHTML(q, q.t === "mc" ? item.order[item.sel] : null) + (q.t === "write" ? "" : CL.recoverHTML(q))}` : ""}
     <div class="qactions">
       <button class="btn soft" id="btn-quit">Save &amp; exit</button>
       <span>
@@ -2224,6 +3206,7 @@ function renderQuestion(){
     item.sel = +b.dataset.di;
     item.correct = item.order[item.sel] === q.a;
     item.answered = true;
+    if (st.kind === "quiz") CL.record(q, item.correct, item.order[item.sel]);
     renderQuestion();
   });
   const nc = $("#btn-numcheck");
@@ -2232,6 +3215,7 @@ function renderQuestion(){
       const raw = $("#num-in").value, v = parseNum(raw);
       if (!raw.trim() || !isFinite(v)){ $("#num-err").classList.remove("hidden"); return; }
       item.val = raw.trim(); item.correct = numOk(q, v); item.answered = true;
+      if (st.kind === "quiz") CL.record(q, item.correct, item.val);
       renderQuestion();
     };
     nc.onclick = submit;
@@ -2245,6 +3229,7 @@ function renderQuestion(){
     item.correct = q.chk.every((_, i) => item.chk[i]);
   });
   const hb = $("#tool-hint"); if (hb) hb.onclick = () => { item.hint = true; renderQuestion(); };
+  CL.wire(views);
   $("#btn-next").onclick = () => { if (st.i === st.qs.length - 1) finishSession(); else { st.i++; renderQuestion(); window.scrollTo({ top: 0 }); } };
   const back = $("#btn-back"); if (back) back.onclick = () => { st.i--; renderQuestion(); };
   $("#btn-quit").onclick = () => { clearInterval(window.__qt); quizState = null; $("#calc").classList.add("hidden"); $("#notepad").classList.add("hidden"); go("home"); toast("Session closed — no worries, it'll be fresh next time"); };
@@ -2270,6 +3255,7 @@ function finishSession(){
     cats[k] = cats[k] || { c: 0, t: 0 }; cats[k].t++;
     store.missed = store.missed || {};
     if (it.q.t !== "write" && it.answered){ if (it.correct) delete store.missed[it.q.id]; else store.missed[it.q.id] = 1; }
+    if (it.answered && st.kind !== "quiz") CL.record(it.q, it.correct, it.order && it.sel != null && it.q.t === "mc" ? it.order[it.sel] : it.val);
     if (it.correct){ strands[s].c++; cats[k].c++; correct++; if (it.q.w) word++; }
   });
   const pct = Math.round(100 * correct / st.qs.length);
@@ -2418,6 +3404,19 @@ function renderProgress(){
 }
 
 /* ================= study hub ================= */
+const lessonNo = id => id.slice(1, 2) + "." + id.split("-")[1];
+// Mistake Clinic: shared module (/clinic.js) so every course behaves identically.
+const CL = LMClinic.create({
+  course: "MCR3U", store: () => store, persist: () => persist(),
+  cards: D.MISTAKES || [], questions: () => D.Q,
+  view: q => ({ id: q.id, unit: q.u, type: q.t, tag: q.mx, prompt: q.p, options: q.o, correct: q.a, explain: q.s || [], dx: q.dx, answerText: q.t === "num" ? String(q.ans) + (q.un ? " " + q.un : "") : undefined }),
+  fmt: M,
+  get units(){ return D.UNITS.map(u => ({ id: u.id, label: u.no, icon: UNIT_ICON[u.id] })); },
+  openLesson: id => go("study", { lesson: id }), lessonLabel: lessonNo,
+  startQuiz: key => { quizSel.key = key; quizSel.diff = "any"; go("quiz"); },
+  openCard: id => { openAcc.add("clinic"); go("study", { clinic: id || true }); },
+  refresh: () => refreshStudy(), toast: m => toast(m)
+});
 const lessonCheck = {};
 const workedShown = {};
 function lessonHTML(l){
@@ -2427,6 +3426,7 @@ function lessonHTML(l){
     <h4>How to do it</h4><ol class="steps">${l.how.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol>
     <div class="example"><h4 style="margin-top:0">Example</h4><p class="m" style="font-weight:600">${M(l.ex.p)}</p><ol class="steps">${l.ex.s.map(s => `<li class="m">${M(s)}</li>`).join("")}</ol></div>
     <div class="explain bad"><b>⚠️ Watch out.</b> <span class="m">${M(l.watch)}</span></div>
+    ${CL.blockHTML(l.id, l.mx)}
     <div class="qcheck"><h4 style="margin-top:0">Quick check</h4><p class="m">${M(l.check.p)}</p>${l.check.o ? `<div class="opts" style="margin-top:8px">${l.check.o.map((o, i) => {
       let cls = "opt"; if (c !== undefined){ if (i === l.check.a) cls += " correct"; else if (i === c) cls += " wrong"; }
       return `<button class="${cls}" data-lc="${l.id}" data-i="${i}" ${c !== undefined ? "disabled" : ""}><span class="key">${"ABCD"[i]}</span><span class="m">${M(o)}</span></button>`; }).join("")}</div>
@@ -2494,10 +3494,12 @@ function studySections(){
     <div class="lenrow">${MODEL_LIST.map(([k, l]) => `<button class="lenbtn ${modelSel === k ? "sel" : ""}" data-msel="${k}">${l}</button>`).join("")}</div>
     <div data-model="${modelSel}" style="margin-top:12px"></div>` };
   const guidedSec = { id: "guided", title: "🧩 Guided problems: solve it step by step", body: guidedHTML };
-  return [plan, p90].concat(units, [guidedSec], MODEL_LIST.length ? [models] : [], [tools, res]);
+  const clinic = { id: "clinic", title: `🩹 Mistake Clinic: fix the slips that cost marks (${CL.counts().fixed}/${CL.counts().n} fixed)`, body: () => CL.sectionHTML() };
+  return [plan, p90, clinic].concat(units, [guidedSec], MODEL_LIST.length ? [models] : [], [tools, res]);
 }
 const openAcc = new Set(), openLesson = new Set();
 function renderStudy(opt){
+  if (opt && opt.clinic) openAcc.add("clinic");
   if (opt && opt.lesson){ const l = D.LESSONS.find(x => x.id === opt.lesson); if (l){ openAcc.add(l.u); openLesson.add(l.id); } }
   const secs = studySections();
   views.innerHTML = `
@@ -2507,6 +3509,7 @@ function renderStudy(opt){
   if (openAcc.has("tools")) renderTool();
   if (openAcc.has("guided")) wireGuided();
   mountModels();
+  if (opt && opt.clinic){ const el = views.querySelector(typeof opt.clinic === "string" ? `[data-sec="clinic"] [data-mx="${opt.clinic}"]` : `[data-sec="clinic"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
   if (opt && opt.lesson){ const el = views.querySelector(`[data-lid="${opt.lesson}"]`); if (el) setTimeout(() => el.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
 }
 function refreshStudy(){ const y = window.scrollY; renderStudy(); window.scrollTo(0, y); }
@@ -2522,6 +3525,7 @@ function wireStudy(){
   });
   views.querySelectorAll("[data-msel]").forEach(b => b.onclick = () => { modelSel = b.dataset.msel; refreshStudy(); });
   views.querySelectorAll(".acc.sub").forEach(a => { if (openLesson.has(a.dataset.lid)) a.classList.add("open"); });
+  CL.wire(views);
   views.querySelectorAll("[data-lc]").forEach(b => b.onclick = () => { lessonCheck[b.dataset.lc] = +b.dataset.i; refreshStudy(); });
   views.querySelectorAll("[data-lcr]").forEach(b => b.onclick = () => { delete lessonCheck[b.dataset.lcr]; refreshStudy(); });
   views.querySelectorAll("[data-lcn]").forEach(b => b.onclick = () => {

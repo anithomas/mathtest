@@ -7,7 +7,7 @@ A private study platform with a course catalogue at **https://mathtest.logicmans
 **MPT prep:** https://mathtest.logicmanse.ca/MPT/.
 
 **Grade 12 Advanced Functions (MHF4U):** https://mathtest.logicmanse.ca/MHF4U/. It has the same
-engine, sign-in and allowlist, with 38 lessons, worked examples, 245 practice questions (including a 70-question Challenge tier), interactive graphing
+engine, sign-in and allowlist, with 38 lessons, worked examples, 277 practice questions (including a 70-question Challenge tier), interactive graphing
 tools, step-checked guided problems, spaced-review flashcards, unit concept maps and an 8-week plan. See [MHF4U-SETUP.md](MHF4U-SETUP.md).
 
 **Lakehead Math Competency (LMCA):** https://mathtest.logicmanse.ca/LMCA/. An independent study aid for
@@ -27,7 +27,7 @@ step-checked guided problems, spaced-review flashcards, a score-trend chart, an 
 (rendered with Remotion; source in [remotion/](remotion/README.md)). See [SCH4U-SETUP.md](SCH4U-SETUP.md).
 
 **Grade 11 Functions (MCR3U):** https://mathtest.logicmanse.ca/MCR3U/. Same engine, sign-in and allowlist, with
-32 lessons, 12 worked examples, 184 practice questions (including a 56-question Challenge tier), an interactive
+32 lessons, 12 worked examples, 218 practice questions (including a 56-question Challenge tier), an interactive
 sign-chart tool, interactive models, guided problems, spaced-review flashcards and an 8-week plan. Works
 entirely in degrees (no radians, logarithms, or compound/double-angle identities — those arrive next year in
 MHF4U) and covers the sine law, cosine law, sequences/series, and financial math that MHF4U does not revisit in
@@ -89,12 +89,12 @@ Financial Literacy 18 · Pedagogy 42. The new fraction model and practice-habit 
 
 Questions are written for this app — official EQAO practice questions stay on [mathproficiencytest.ca](https://mathproficiencytest.ca), where the Study Hub links to them.
 
-90 original questions in the LMCA bank, covering Grade 6/7-level Ontario elementary math across Lakehead's
-five named strands: 18 questions in each strand. Its Study Hub includes an interactive equal-parts fraction
+104 original questions in the LMCA bank, covering Grade 6/7-level Ontario elementary math across Lakehead's
+five named strands. Its Study Hub includes an interactive equal-parts fraction
 model and written-response strategies to support the real assessment format.
 
-The MHF4U and SCH4U banks contain 245 and 326 questions, respectively, balanced across their five in-app
-units that map to the official course strands. The MCR3U bank contains 184 questions, balanced across its four
+The MHF4U and SCH4U banks contain 277 and 326 questions, respectively, balanced across their five in-app
+units that map to the official course strands. The MCR3U bank contains 218 questions, balanced across its four
 in-app units (44 each, including 13 Challenge items). Run
 `node scripts/audit-course-content.mjs` to check all five banks for unique IDs, valid answer structures, distinct
 answer choices, supported quiz strands and inline JavaScript syntax, and it exercises the slider-driven learning

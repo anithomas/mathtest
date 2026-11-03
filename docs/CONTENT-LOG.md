@@ -165,3 +165,12 @@ Driven by the kinds of errors students make on graded organic-chemistry and atom
 - **Questions (+51, 326 total):** `w261103mx01` to `w261103mx51`, all tagged to a card, with answer-specific "why that answer is tempting" notes and rubrics for written items.
 - **Interactive:** quantum-number checker, orbital shapes and an "is this set allowed?" drill in lesson 2.4 and the Models section.
 - **Plan:** 8-week plan rebalanced to include the new lessons; new formula-sheet rules and test-day strategies.
+
+## 2026-11-03: Mistake Clinic in every course (shared module)
+
+- `/clinic.js` is now the single implementation. SCH4U was moved onto it, and the clinic was added to MHF4U, MCR3U, MPT and LMCA. See `docs/MISTAKE-CLINIC.md`.
+- **New self-learning behaviour (all courses):** every miss is logged with the option chosen, repeated slips become "Your focus", fixed cards come back for spaced review, and *Smart review* builds a quiz from the student's own mistakes.
+- **MHF4U (+16 cards, +32 questions `w261103mx01-32`):** end behaviour, remainder-theorem sign, multiplicity, polynomial inequalities, hole vs asymptote, horizontal asymptotes, extraneous roots, rational inequalities, radians and arc length, CAST, proofs, phase shift, log laws, log domain, composition order, average rate of change.
+- **MCR3U (+17 cards, +34 questions):** function notation, shift direction, vertex sign, completing the square, discriminant, inverses, rational restrictions, radicals, exponent laws, rational exponents, growth factor, common bases, nth term, geometric sums, annuity periods, ambiguous case, cosine law.
+- **MPT (+14 cards, +28 questions `MX01-28`) and LMCA (+12 cards, +24 questions `MX01-24`):** fractions, decimals, percent change, order of operations, signed numbers, distributing negatives, equations, median, independent probability, area and perimeter, area conversion, discounts and tax, unit rates, ratio sharing, markup vs margin.
+- Question counts re-counted from the code: MHF4U 277, MCR3U 218, MPT 218, LMCA 104 (SCH4U 326 unchanged).
