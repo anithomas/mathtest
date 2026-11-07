@@ -180,5 +180,76 @@ for (const c of ['MPT', 'LMCA', 'MHF4U', 'MCR3U', 'SCH4U']) {
   });
 }
 
+/* ---------- Task 7: Google Analytics events, Firestore rules, event hooks ---------- */
+import vm from 'node:vm';
+function loadAnalytics() {
+  const store = { 'logicmanse-analytics-consent': 'yes' };
+  const el = () => ({ setAttribute() {}, appendChild() {}, addEventListener() {}, querySelectorAll: () => [], style: {}, remove() {} });
+  const ctx = {
+    localStorage: { getItem: k => (k in store ? store[k] : null), setItem: (k, v) => { store[k] = v; } },
+    location: { hostname: 'mathtest.logicmanse.ca', origin: 'https://mathtest.logicmanse.ca' },
+    document: { readyState: 'complete', createElement: el, head: el(), body: el(), addEventListener() {} },
+  };
+  ctx.window = ctx; vm.createContext(ctx);
+  vm.runInContext(fs.readFileSync(new URL('../analytics.js', import.meta.url), 'utf8'), ctx);
+  const events = () => (ctx.dataLayer || []).map(a => Array.from(a)).filter(a => a[0] === 'event');
+  return { ctx, events };
+}
+const GA_KEYS = new Set(['course_code', 'page_location', 'page_referrer', 'page_title', 'section_name']);
+test('GA: SCH4U and MCR3U are registered pages', () => {
+  for (const [c, path] of [['SCH4U', '/SCH4U/'], ['MCR3U', '/MCR3U/']]) {
+    const g = loadAnalytics(); g.ctx.lmTrackPage(c);
+    const view = g.events().find(e => e[1] === 'page_view'); assert.ok(view, c + ' page_view'); assert.equal(view[2].page_location, 'https://mathtest.logicmanse.ca' + path);
+  }
+});
+test('GA: section_opened carries only a fixed section name', () => {
+  const g = loadAnalytics(); g.ctx.lmTrackPage('SCH4U');
+  g.ctx.lmTrackEvent('section_opened', 'study');
+  const e = g.events().filter(x => x[1] === 'section_opened'); assert.equal(e.length, 1); assert.equal(e[0][2].section_name, 'study'); assert.equal(e[0][2].course_code, 'SCH4U');
+});
+test('GA: an unknown or identifying section is dropped, not sent', () => {
+  const g = loadAnalytics(); g.ctx.lmTrackPage('SCH4U');
+  ['bob@x.com', 'Ann Lee', '', undefined, 'admin', 'study '].forEach(v => g.ctx.lmTrackEvent('section_opened', v));
+  assert.equal(g.events().filter(x => x[1] === 'section_opened').length, 0);
+});
+test('GA: new events are allowed and an unknown event is ignored', () => {
+  const g = loadAnalytics(); g.ctx.lmTrackPage('MHF4U');
+  ['challenge_started', 'review_started', 'guided_completed', 'made_up_event'].forEach(n => g.ctx.lmTrackEvent(n));
+  assert.deepEqual(Array.from(g.events().map(x => x[1]).filter(n => n !== 'page_view')), ['challenge_started', 'review_started', 'guided_completed']);
+});
+test('GA: no event ever carries a key outside the fixed list', () => {
+  const g = loadAnalytics(); g.ctx.lmTrackPage('SCH4U');
+  g.ctx.lmTrackEvent('section_opened', 'quiz', { email: 'a@b.c', score: 99 }); g.ctx.lmTrackEvent('study_hub_opened'); g.ctx.lmTrackEvent('challenge_started', 'study', { name: 'x' });
+  g.events().forEach(e => Object.keys(e[2] || {}).forEach(k => assert.ok(GA_KEYS.has(k), 'unexpected GA key ' + k)));
+});
+test('Firestore rules: admins can read every course progress collection and never write it', () => {
+  const rules = fs.readFileSync(new URL('../firestore.rules', import.meta.url), 'utf8');
+  for (const coll of ['mpt', 'mhf4u', 'lmca', 'sch4u', 'mcr3u']) {
+    const m = rules.match(new RegExp('match /' + coll + String.raw`/\{uid\} \{([\s\S]*?)
+    \}`));
+    assert.ok(m, 'no rule block for ' + coll);
+    const stmts = m[1].replace(/\/\/.*$/gm, '').split(';').map(x => x.replace(/\s+/g, ' ').trim()).filter(x => x.startsWith('allow'));
+    const adminStmts = stmts.filter(x => x.includes('isAdmin()'));
+    assert.equal(adminStmts.length, 1, coll + ': exactly one admin rule');
+    assert.match(adminStmts[0], /^allow read: if isAdmin\(\)$/, coll + ': admin rule is read-only');
+    assert.ok(stmts.some(x => /request\.auth\.uid == uid/.test(x)), coll + ': owner rule still present');
+  }
+});
+for (const c of ['MPT', 'LMCA', 'MHF4U', 'MCR3U', 'SCH4U']) {
+  const html = fs.readFileSync(new URL('../' + c + '/index.html', import.meta.url), 'utf8');
+  test(c + ': section and Challenge events are sent for students only', () => {
+    assert.match(html, /if \(!adminMode\)\{ LMUsage\.bump\(store, view\); persist\(\); if \(window\.lmTrackEvent\) window\.lmTrackEvent\("section_opened", view\); \}/);
+    assert.match(html, /if \(!adminMode && \/Challenge\/\.test\(label \|\| ""\)\)\{ LMUsage\.bump\(store, "challenge"\); persist\(\); if \(window\.lmTrackEvent\) window\.lmTrackEvent\("challenge_started"\); \}/);
+  });
+}
+for (const c of ['MHF4U', 'MCR3U', 'SCH4U']) {
+  const html = fs.readFileSync(new URL('../' + c + '/index.html', import.meta.url), 'utf8');
+  test(c + ': guided and review events are sent for students only', () => {
+    assert.match(html, /LMUsage\.bump\(store, "guided"\); persist\(\); if \(window\.lmTrackEvent\) window\.lmTrackEvent\("guided_completed"\); \}/);
+    assert.match(html, /LMUsage\.bump\(store, "model"\); persist\(\); \}/);
+    assert.match(html, /if \(s\) s\.onclick = \(\) => \{\s*\n\s*if \(!adminMode && window\.lmTrackEvent\) window\.lmTrackEvent\("review_started"\);/);
+  });
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

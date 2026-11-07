@@ -2621,7 +2621,7 @@ const tabs = document.querySelectorAll("nav.tabs button");
 tabs.forEach(b => b.onclick = () => go(b.dataset.view));
 function go(view, opt){
   if (view === "study" && !adminMode && window.lmTrackEvent) window.lmTrackEvent("study_hub_opened");
-  if (!adminMode){ LMUsage.bump(store, view); persist(); }
+  if (!adminMode){ LMUsage.bump(store, view); persist(); if (window.lmTrackEvent) window.lmTrackEvent("section_opened", view); }
   tabs.forEach(b => b.classList.toggle("active", b.dataset.view === view));
   if (view === "home") renderHome();
   else if (view === "quiz") quizState && quizState.kind === "quiz" && !quizState.done ? renderQuestion() : renderQuizSetup();
@@ -2928,6 +2928,7 @@ function renderCards(){
   views.querySelectorAll("[data-deck]").forEach(b => b.onclick = () => { cardSel.deck = b.dataset.deck; if (cardSel.deck === "glossary") cardSel.unit = "any"; renderCards(); });
   views.querySelectorAll("[data-unit]").forEach(b => b.onclick = () => { cardSel.unit = b.dataset.unit; if (cardSel.deck === "glossary") cardSel.deck = "all"; renderCards(); });
   const s = $("#fc-start"); if (s) s.onclick = () => {
+    if (!adminMode && window.lmTrackEvent) window.lmTrackEvent("review_started");
     cardRun = { q: shuffle(st.due).slice(0, 30).concat(shuffle(st.fresh).slice(0, 10)), i: 0, flipped: false, got: 0 };
     renderCardFace();
   };
@@ -3032,7 +3033,7 @@ function wireGuided(){
   const g = D.GUIDED.find(x => x.id === guidedSel) || D.GUIDED[0], st = guided[g.id];
   views.querySelectorAll("[data-gsel]").forEach(b => b.onclick = () => { guidedSel = b.dataset.gsel; refreshStudy(); });
   const inp = $("#gd-in");
-  const advance = (val, missed) => { st.vals[st.step] = val; st.step++; if (st.step === g.steps.length && !adminMode) LMUsage.bump(store, "guided"); st.wrong = 0; if (missed) st.miss = (st.miss || 0) + 1; refreshStudy(); const n = $("#gd-in"); if (n) n.focus({ preventScroll: true }); };
+  const advance = (val, missed) => { st.vals[st.step] = val; st.step++; if (st.step === g.steps.length && !adminMode){ LMUsage.bump(store, "guided"); persist(); if (window.lmTrackEvent) window.lmTrackEvent("guided_completed"); } st.wrong = 0; if (missed) st.miss = (st.miss || 0) + 1; refreshStudy(); const n = $("#gd-in"); if (n) n.focus({ preventScroll: true }); };
   if (inp){
     const s = g.steps[st.step];
     const check = () => { const v = parseNum(inp.value); if (!inp.value.trim()) return; if (numOk(s, v)) advance(inp.value.trim(), st.wrong > 0); else { st.wrong++; refreshStudy(); const n = $("#gd-in"); if (n){ n.value = inp.value; n.focus({ preventScroll: true }); } } };
@@ -3048,7 +3049,7 @@ const MODEL_LIST = [["transform", "📈 Transformations"], ["growth", "💰 Grow
 let modelSel = "energy", modelsMod = null;
 let modelBumpAt = 0;
 function mountModels(){
-  if (!adminMode && views.querySelector("[data-model]") && Date.now() - modelBumpAt > 60000){ modelBumpAt = Date.now(); LMUsage.bump(store, "model"); }
+  if (!adminMode && views.querySelector("[data-model]") && Date.now() - modelBumpAt > 60000){ modelBumpAt = Date.now(); LMUsage.bump(store, "model"); persist(); }
   if (!views.querySelector("[data-model],[data-cmap]")) return;
   (modelsMod = modelsMod || import("./models.js"))
     .then(m => m.mountAll(views))
@@ -3127,7 +3128,7 @@ function renderMockIntro(){
 
 /* ================= session engine ================= */
 function startSession(kind, questions, label){
-  if (!adminMode && /Challenge/.test(label || "")) LMUsage.bump(store, "challenge");
+  if (!adminMode && /Challenge/.test(label || "")){ LMUsage.bump(store, "challenge"); persist(); if (window.lmTrackEvent) window.lmTrackEvent("challenge_started"); }
   quizState = {
     kind, label,
     qs: questions.map(q => ({ q, order: q.t === "mc" ? shuffle(q.o.map((_, i) => i)) : null, sel: null, val: "", correct: null, answered: false, hint: false, chk: {} })),

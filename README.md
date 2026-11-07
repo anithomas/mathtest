@@ -69,6 +69,10 @@ send names, emails, answers, or scores. The GA property is configured with Googl
 off, ad personalization disabled in all regions, and user/event retention set to two months. The browser cookie is
 limited to 60 days. See [privacy.html](privacy.html).
 
+**Admin analytics.** Each course's Admin tab has an Analytics card (class and per-student progress, section use,
+charts and a student roster) built from students' saved progress, not from Google Analytics. It needs the
+read-only admin rules in `firestore.rules` deployed. See [docs/ADMIN-ANALYTICS.md](docs/ADMIN-ANALYTICS.md).
+
 ## Setup
 
 See [SETUP.md](SETUP.md). No secrets live in this repo.

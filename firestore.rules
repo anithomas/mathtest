@@ -73,30 +73,40 @@ service cloud.firestore {
       allow read, write: if isSignedIn()
         && request.auth.uid == uid
         && hasCourseAccess('MPT');
+      // Course administrators can read students' saved progress for the Admin > Analytics tab (never write it).
+      allow read: if isAdmin();
     }
 
     match /mhf4u/{uid} {
       allow read, write: if isSignedIn()
         && request.auth.uid == uid
         && hasCourseAccess('MHF4U');
+      // Course administrators can read students' saved progress for the Admin > Analytics tab (never write it).
+      allow read: if isAdmin();
     }
 
     match /lmca/{uid} {
       allow read, write: if isSignedIn()
         && request.auth.uid == uid
         && hasCourseAccess('LMCA');
+      // Course administrators can read students' saved progress for the Admin > Analytics tab (never write it).
+      allow read: if isAdmin();
     }
 
     match /sch4u/{uid} {
       allow read, write: if isSignedIn()
         && request.auth.uid == uid
         && hasCourseAccess('SCH4U');
+      // Course administrators can read students' saved progress for the Admin > Analytics tab (never write it).
+      allow read: if isAdmin();
     }
 
     match /mcr3u/{uid} {
       allow read, write: if isSignedIn()
         && request.auth.uid == uid
         && hasCourseAccess('MCR3U');
+      // Course administrators can read students' saved progress for the Admin > Analytics tab (never write it).
+      allow read: if isAdmin();
     }
 
     match /profiles/{uid} {

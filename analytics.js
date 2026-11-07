@@ -11,9 +11,13 @@
     catalog: { path: "/", title: "LogicManse Study · Courses" },
     MPT: { path: "/MPT/", title: "MathTest Trail · MPT Prep" },
     MHF4U: { path: "/MHF4U/", title: "MathTest Trail · MHF4U" },
-    LMCA: { path: "/LMCA/", title: "MathTest Trail · Lakehead Math Competency" }
+    LMCA: { path: "/LMCA/", title: "MathTest Trail · Lakehead Math Competency" },
+    SCH4U: { path: "/SCH4U/", title: "MathTest Trail · SCH4U Chemistry" },
+    MCR3U: { path: "/MCR3U/", title: "MathTest Trail · MCR3U Functions" }
   };
-  const events = new Set(["study_hub_opened", "desmos_opened", "practice_started"]);
+  const events = new Set(["study_hub_opened", "desmos_opened", "practice_started", "section_opened", "challenge_started", "review_started", "guided_completed"]);
+  // section_opened may only name one of these fixed sections; anything else is dropped, never sent.
+  const sections = new Set(["home", "quiz", "mock", "progress", "study", "cheat", "cards", "notes", "clinic", "guided", "model", "challenge"]);
   let currentPage = "";
   let loaded = false;
 
@@ -65,15 +69,20 @@
     else sendPage();
   };
 
-  window.lmTrackEvent = function(eventName) {
+  window.lmTrackEvent = function(eventName, section) {
     if (!events.has(eventName) || !loaded || !currentPage || typeof window.gtag !== "function") return;
     const page = pages[currentPage];
-    window.gtag("event", eventName, {
+    const params = {
       course_code: currentPage === "catalog" ? "catalog" : currentPage,
       page_location: window.location.origin + page.path,
       page_referrer: window.location.origin,
       page_title: page.title
-    });
+    };
+    if (eventName === "section_opened") {
+      if (typeof section !== "string" || !sections.has(section)) return;
+      params.section_name = section;
+    }
+    window.gtag("event", eventName, params);
   };
 
   function showConsent() {

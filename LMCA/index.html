@@ -1615,7 +1615,7 @@ const tabs = document.querySelectorAll("nav.tabs button");
 tabs.forEach(b => b.onclick = () => go(b.dataset.view));
 function go(view){
   if (view === "study" && !adminMode && window.lmTrackEvent) window.lmTrackEvent("study_hub_opened");
-  if (!adminMode){ LMUsage.bump(store, view); persist(); }
+  if (!adminMode){ LMUsage.bump(store, view); persist(); if (window.lmTrackEvent) window.lmTrackEvent("section_opened", view); }
   tabs.forEach(b => b.classList.toggle("active", b.dataset.view === view));
   if (view === "home") renderHome();
   else if (view === "quiz") quizState && quizState.kind === "quiz" && !quizState.done ? renderQuestion() : renderQuizSetup();
@@ -1935,7 +1935,7 @@ function renderMockIntro(){
 
 /* ================= session engine ================= */
 function startSession(kind, questions, label){
-  if (!adminMode && /Challenge/.test(label || "")) LMUsage.bump(store, "challenge");
+  if (!adminMode && /Challenge/.test(label || "")){ LMUsage.bump(store, "challenge"); persist(); if (window.lmTrackEvent) window.lmTrackEvent("challenge_started"); }
   quizState = {
     kind, label,
     qs: questions.map(q => {
