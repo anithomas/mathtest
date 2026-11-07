@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin analytics preview (synthetic data)</title>
+<style>
+:root{--parchment:#faf5ec;--parchment-deep:#f3ecdd;--card:#fffdf8;--ink:#2b3a3a;--ink-soft:#5c6b6b;--teal:#0f6b6e;--teal-deep:#0a4f52;--teal-tint:#e3efef;--coral:#e76f51;--coral-tint:#fbe9e3;--line:#e6dcc8;--font-mono:ui-monospace,Menlo,monospace}
+body{margin:0;padding:16px;background:var(--parchment);color:var(--ink);font-family:system-ui,sans-serif}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.bar button{padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+#host{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;max-width:980px}
+</style></head><body>
+<h2 style="margin:0 0 6px">Admin analytics preview</h2>
+<p style="margin:0 0 10px;color:var(--ink-soft)">Local test harness: 25 synthetic students (no real data). Choose a scenario:</p>
+<div class="bar" id="bar"></div>
+<div id="host"></div>
+<script src="/usage.js"></script>
+<script src="/admin-analytics.js"></script>
+<script>
+  // Deterministic synthetic class so screenshots and numbers are repeatable.
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const NOW = Date.now(), DAY = 864e5;
+  const UNITS = ["Organic Chemistry", "Structure and Properties of Matter", "Energy Changes and Rates of Reaction", "Chemical Systems and Equilibrium", "Electrochemistry"];
+  const QS = ["Name the compound CH3CH(OH)CH3", "ΔH from Hess's law", "pH of a weak acid", "Balance the redox equation in acid", "Which shape has 2 lone pairs?", "Rate law from initial rates"];
+  const FIRST = ["Ava", "Ben", "Chloe", "Dev", "Ella", "Finn", "Gia", "Hugo", "Iris", "Jack", "Kai", "Lena", "Mo", "Nia", "Omar", "Pia", "Quinn", "Ravi", "Sam", "Tara", "Uma", "Vic", "Wes", "Xena", "Yara"];
+  function makeStudent(i) {
+    const profileMissing = i === 24, idle = i % 6 === 5, empty = i === 23;
+    const n = empty ? 0 : 3 + Math.floor(rnd() * 14), base = 45 + rnd() * 35, drift = (rnd() - 0.35) * 2.2;
+    const attempts = [];
+    for (let k = 0; k < n; k++) {
+      const pct = Math.max(20, Math.min(100, Math.round(base + drift * k + (rnd() - 0.5) * 12)));
+      const strands = {}; UNITS.forEach((u, ui) => { if (rnd() < 0.7) { const t = 2 + Math.floor(rnd() * 4); strands[u] = { c: Math.round(t * Math.max(0, Math.min(1, pct / 100 + (ui === i % 5 ? -0.3 : 0.05)))), t }; } });
+      const daysAgo = (idle ? 20 + (n - k) * 2 : (n - k) * 2.3 + rnd());
+      attempts.push({ t: NOW - daysAgo * DAY, kind: rnd() < 0.25 ? "mock" : "quiz", label: "x", score: 1, total: 10, pct, strands });
+    }
+    const usage = {};
+    for (let w = 0; w < 6; w++) { const key = LMUsage.weekKey(NOW - w * 7 * DAY); usage[key] = { quiz: Math.floor(rnd() * 6), study: Math.floor(rnd() * 5), cards: Math.floor(rnd() * 4), home: 1 + Math.floor(rnd() * 3), progress: Math.floor(rnd() * 3), mock: Math.floor(rnd() * 2), challenge: Math.floor(rnd() * 2) }; }
+    const mlog = {}; QS.forEach((q, qi) => { if (rnd() < 0.5) mlog["s" + qi] = { n: 1 + Math.floor(rnd() * 4) }; });
+    return { uid: "u" + i, data: { email: FIRST[i] ? FIRST[i].toLowerCase() + "@example.com" : "x@example.com", attempts, lessons: Object.fromEntries(Array.from({ length: Math.floor(rnd() * 12) }, (_, k) => ["l" + k, true])), reviews: Math.floor(rnd() * 60), mlog, usage } };
+  }
+  const docs = Array.from({ length: 25 }, (_, i) => makeStudent(i));
+  const profiles = {}; docs.forEach((d, i) => { if (i !== 24) profiles[d.uid] = { email: d.data.email, displayName: i === 3 ? "Dev <img src=x onerror=alert(1)> & Co" : FIRST[i] + " Student" }; });
+  const scenarios = {
+    normal: () => Promise.resolve({ docs, profiles }),
+    empty: () => Promise.resolve({ docs: [], profiles: {} }),
+    denied: () => Promise.reject(Object.assign(new Error("Missing or insufficient permissions."), { code: "permission-denied" })),
+    error: () => Promise.reject(new Error("network down")),
+  };
+  let mode = "normal";
+  const host = document.getElementById("host");
+  const ctx = {
+    courses: [{ id: "SCH4U", label: "Grade 12 · SCH4U", coll: "sch4u" }, { id: "MHF4U", label: "Grade 12 · MHF4U", coll: "mhf4u" }], courseId: "SCH4U", order: UNITS,
+    fetchCourse: coll => (coll === "mhf4u" && mode === "normal" ? scenarios.empty() : scenarios[mode]()),
+    describe: id => QS[Number(String(id).replace(/\D/g, "")) % QS.length] || id,
+  };
+  const bar = document.getElementById("bar");
+  Object.keys(scenarios).forEach(k => { const b = document.createElement("button"); b.textContent = k; b.onclick = () => { mode = k; LMAdminAnalytics.render(host, ctx); }; bar.appendChild(b); });
+  LMAdminAnalytics.render(host, ctx);
+</script></body></html>

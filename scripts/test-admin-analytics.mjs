@@ -108,5 +108,59 @@ test('aggregate: empty class and malformed documents do not throw', () => {
   assert.equal(JSON.stringify(m).includes('NaN'), false);
 });
 
+/* ---------- Task 5: chart and table helpers ---------- */
+test('escapeHtml escapes & < > " and apostrophes', () => assert.equal(AA.escapeHtml('<b>&"\''), '&lt;b&gt;&amp;&quot;&#39;'));
+test('escapeHtml tolerates non-strings', () => { assert.equal(AA.escapeHtml(null), ''); assert.equal(AA.escapeHtml(undefined), ''); assert.equal(AA.escapeHtml(5), '5'); });
+test('barChartSvg: labelled bars, escaped text, empty state', () => {
+  const svg = AA.barChartSvg([{ label: 'Unit <1>', value: 40 }, { label: 'U2', value: 100 }], { max: 100, unit: '%' });
+  assert.ok(svg.includes('<svg') && svg.includes('Unit &lt;1&gt;') && svg.includes('40%') && svg.includes('100%') && !svg.includes('<1>'));
+  const none = AA.barChartSvg([]); assert.ok(!none.includes('<svg') && none.includes('aa-empty'));
+});
+test('lineChartSvg: points, single point, empty state', () => {
+  const two = AA.lineChartSvg([{ label: 'Quiz A', value: 50 }, { label: 'Exam B', value: 80 }]);
+  assert.ok(two.includes('<polyline') && two.includes('Quiz A') && two.includes('Exam B'));
+  assert.ok(AA.lineChartSvg([{ label: 'only', value: 70 }]).includes('<circle'));
+  assert.ok(!AA.lineChartSvg([]).includes('<svg') && AA.lineChartSvg([]).includes('aa-empty'));
+});
+test('histogramSvg: counts and labels, empty when nobody has a score', () => {
+  const bins = [{ label: '<50', count: 0 }, { label: '50-59', count: 2 }];
+  const svg = AA.histogramSvg(bins); assert.ok(svg.includes('<svg') && svg.includes('50-59') && svg.includes('>2<'));
+  assert.ok(AA.histogramSvg([{ label: 'a', count: 0 }]).includes('aa-empty') && !AA.histogramSvg([{ label: 'a', count: 0 }]).includes('<svg'));
+});
+test('stackedBarsSvg: legend names every series with its total, empty when all zero', () => {
+  const weeks = [{ week: '2026-W44', counts: { quiz: 1 } }, { week: '2026-W45', counts: { quiz: 4, study: 2 } }];
+  const out = AA.stackedBarsSvg(weeks, [{ key: 'quiz', label: 'Quiz' }, { key: 'study', label: 'Study Hub' }]);
+  assert.ok(out.includes('<svg') && out.includes('Quiz') && out.includes('Study Hub') && out.includes('5') && out.includes('2026-W45'));
+  assert.ok(AA.stackedBarsSvg([{ week: 'w', counts: {} }], [{ key: 'quiz', label: 'Quiz' }]).includes('aa-empty'));
+});
+test('SECTION_LABELS names every section the usage counter can record', () => U.SECTIONS.forEach(k => assert.ok(AA.SECTION_LABELS[k], 'missing label for ' + k)));
+const people = [
+  { uid: '1', name: 'bob', email: '', sessions: 3, recentAvg: 60, trend: -2, weakest: 'U1', lessonsDone: 1, cardsReviewed: 0, lastActive: NOW - DAYMS },
+  { uid: '2', name: 'Ann <img src=x>', email: 'ann@x.com', sessions: 9, recentAvg: 90, trend: 4, weakest: null, lessonsDone: 5, cardsReviewed: 20, lastActive: NOW - 30 * DAYMS },
+  { uid: '3', name: 'cy', email: '', sessions: 0, recentAvg: null, trend: null, weakest: null, lessonsDone: 0, cardsReviewed: 0, lastActive: 0 },
+];
+test('sortStudents: numeric with nulls last, names case-insensitive, input untouched', () => {
+  assert.deepEqual(AA.sortStudents(people, 'recentAvg', 'desc').map(x => x.uid), ['2', '1', '3']);
+  assert.deepEqual(AA.sortStudents(people, 'recentAvg', 'asc').map(x => x.uid), ['1', '2', '3']);
+  assert.deepEqual(AA.sortStudents(people, 'name', 'asc').map(x => x.uid), ['2', '1', '3']);
+  assert.deepEqual(people.map(x => x.uid), ['1', '2', '3']);
+});
+test('rosterHtml: escapes names, marks the sorted column, filters, flags inactive students', () => {
+  const html = AA.rosterHtml(people, { sort: 'recentAvg', dir: 'desc', filter: '' }, NOW);
+  assert.ok(!html.includes('<img src=x>') && html.includes('Ann &lt;img src=x&gt;'));
+  assert.ok(/aria-sort="descending"/.test(html) && (html.match(/aria-sort="none"/g) || []).length >= 5);
+  assert.equal((html.match(/data-aa-uid=/g) || []).length, 3);
+  assert.ok(html.includes('aa-badge') && html.includes('inactive') && html.includes('never'));
+  const filtered = AA.rosterHtml(people, { sort: 'name', dir: 'asc', filter: 'ANN@' }, NOW);
+  assert.equal((filtered.match(/data-aa-uid=/g) || []).length, 1);
+  assert.ok(AA.rosterHtml([], { sort: 'name', dir: 'asc', filter: '' }, NOW).includes('aa-empty'));
+});
+test('describeError separates missing rules from other failures', () => {
+  const denied = AA.describeError({ code: 'permission-denied', message: 'Missing or insufficient permissions.' });
+  assert.equal(denied.kind, 'denied'); assert.ok(denied.message.includes('firebase deploy --only firestore:rules'));
+  const other = AA.describeError(new Error('network down')); assert.equal(other.kind, 'error'); assert.ok(other.message.includes('network down'));
+  assert.equal(AA.describeError(null).kind, 'error');
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
