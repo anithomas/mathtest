@@ -162,5 +162,23 @@ test('describeError separates missing rules from other failures', () => {
   assert.equal(AA.describeError(null).kind, 'error');
 });
 
+/* ---------- Task 6: Admin page mounts the analytics panel ---------- */
+for (const c of ['MPT', 'LMCA', 'MHF4U', 'MCR3U', 'SCH4U']) {
+  const html = fs.readFileSync(new URL('../' + c + '/index.html', import.meta.url), 'utf8');
+  test(c + ': Admin mounts analytics after rendering, for admins only', () => {
+    assert.match(html, /function mountAnalytics\(\)\{\s*\n\s*if \(!adminMode\) return;/);
+    assert.match(html, /mountAnalytics\(\);\s*\n\s*\$\("#ad-add"\)\.onclick/);
+  });
+  test(c + ': the admin script is loaded on demand, never as a static student script', () => {
+    assert.ok(html.includes('s.src = "/admin-analytics.js"'));
+    assert.ok(!/<script[^>]*src="\/admin-analytics\.js"/.test(html));
+  });
+  test(c + ': fetches only the progress collections and profiles, read-only', () => {
+    const body = html.slice(html.indexOf('function mountAnalytics(){'), html.indexOf('async function renderAdmin()'));
+    assert.ok(body.includes('f.getDocs(f.collection(cloud.db, coll))') && body.includes('"profiles"'));
+    assert.ok(!/setDoc|updateDoc|deleteDoc|addDoc/.test(body));
+  });
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
