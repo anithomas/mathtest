@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
 <script src="/clinic.js"></script>
+<script src="/usage.js"></script>
 <title>LogicManse Study · MPT Prep</title>
 <style>
 :root{
@@ -1565,7 +1566,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [] };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; store.usage = store.usage || {}; }
 let quizState = null;        // active quiz/mock session
 let saveTimer = null;
 
@@ -1627,7 +1628,7 @@ function persist(){
     clearTimeout(saveTimer);
     saveTimer = setTimeout(async () => {
       try {
-        const data = { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), clinic: store.clinic || {}, mlog: store.mlog || {}, updated: Date.now() };
+        const data = { email: user.email, attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), clinic: store.clinic || {}, mlog: store.mlog || {}, usage: store.usage || {}, updated: Date.now() };
         if (PUBLIC_ENROLLMENT_ENABLED){
           await cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), data, { merge: true });
         } else {
@@ -1639,7 +1640,7 @@ function persist(){
   }
 }
 async function loadCloud(){
-  let data = null; const lc = store.clinic, lm = store.mlog;
+  let data = null; const lc = store.clinic, lm = store.mlog, lu = store.usage;
   if (PUBLIC_ENROLLMENT_ENABLED){
     try {
       const snap = await cloud.fns.getDoc(cloud.fns.doc(cloud.db, COLL, user.uid));
@@ -1660,6 +1661,7 @@ async function loadCloud(){
     else { if (data.profile && !store.profile) store.profile = data.profile; if (data.notes && !(store.notes || []).length) store.notes = data.notes; }
   }
   if (data){ store.clinic = CL.mergeClinic(data.clinic, lc); store.mlog = CL.mergeLog(data.mlog, lm); }
+  store.usage = LMUsage.merge(data && data.usage, lu);
   normalizeStore();
   persist();
 }
@@ -1856,6 +1858,7 @@ const tabs = document.querySelectorAll("nav.tabs button");
 tabs.forEach(b => b.onclick = () => go(b.dataset.view));
 function go(view){
   if (view === "study" && !adminMode && window.lmTrackEvent) window.lmTrackEvent("study_hub_opened");
+  if (!adminMode){ LMUsage.bump(store, view); persist(); }
   tabs.forEach(b => b.classList.toggle("active", b.dataset.view === view));
   if (view === "home") renderHome();
   else if (view === "quiz") quizState && quizState.kind === "quiz" && !quizState.done ? renderQuestion() : renderQuizSetup();
@@ -2180,6 +2183,7 @@ function renderMockIntro(){
 
 /* ================= session engine ================= */
 function startSession(kind, questions, label){
+  if (!adminMode && /Challenge/.test(label || "")) LMUsage.bump(store, "challenge");
   quizState = {
     kind, label,
     qs: questions.map(q => {

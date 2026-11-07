@@ -36,5 +36,14 @@ for (const c of ['MHF4U', 'MCR3U', 'SCH4U']) {
   });
 }
 
+for (const c of ['MPT', 'LMCA']) {
+  const html = fs.readFileSync(new URL('../' + c + '/index.html', import.meta.url), 'utf8');
+  test(c + ': loads /usage.js', () => assert.match(html, /<script src="\/usage\.js"><\/script>/));
+  test(c + ': normalizeStore defaults usage', () => assert.match(html, /function normalizeStore\(\)\{[^\n]*store\.usage = store\.usage \|\| \{\};/));
+  test(c + ': persist saves usage', () => assert.match(html, /mlog: store\.mlog \|\| \{\}, usage: store\.usage \|\| \{\}, updated: Date\.now\(\) \};/));
+  test(c + ': loadCloud merges usage from both devices', () => assert.match(html, /store\.usage = LMUsage\.merge\(data && data\.usage, lu\)/));
+  test(c + ': go() counts the section only for students', () => assert.match(html, /function go\(view\)\{[\s\S]{0,400}!adminMode[\s\S]{0,80}LMUsage\.bump\(store, view\)/));
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
