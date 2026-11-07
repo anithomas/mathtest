@@ -44,6 +44,10 @@ answered questions in that unit. These are study aids, not grades.
 - **Names**: from the `profiles` collection (administrators can already list it); a student with no profile is
   shown by email, else "Unknown student".
 
+Administrators can read the whole saved record, which also includes students' notes and profile settings (the
+rules cannot hide single fields). `privacy.html` says so. The Analytics card shows only the summaries described above.
+"Last active" is the latest of a student's last quiz or exam and their last saved activity of any kind.
+
 All aggregation runs in the administrator's browser (`admin-analytics.js`, loaded only when an administrator opens
 Admin). Nothing is written back.
 

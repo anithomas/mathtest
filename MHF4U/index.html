@@ -7,6 +7,7 @@
 <script src="/analytics.js" defer></script>
 <script src="/clinic.js"></script>
 <script src="/usage.js"></script>
+<script>window.LMUsage = window.LMUsage || { SECTIONS: [], bump: function () {}, merge: function (a, b) { return Object.assign({}, a, b); } };</script>
 <title>MathTest Trail · MHF4U Advanced Functions</title>
 <style>
 :root{
@@ -3964,12 +3965,13 @@ function mountAnalytics(){
     try { (await f.getDocs(f.collection(cloud.db, "profiles"))).forEach(d => { const v = d.data(); profiles[d.id] = { email: v.email, displayName: v.displayName }; }); } catch (_) { /* names are optional */ }
     return { docs, profiles };
   };
-  const describe = id => {
+  const describe = (id, courseId) => {
+    if (courseId !== COURSE_ID) return id; // question text only exists in the page of its own course
     const q = typeof QB !== "undefined" ? QB[id] : typeof BANK !== "undefined" ? BANK.find(x => x.id === id) : null;
     const text = q ? String(q.p || q.q || "") : "";
     return text ? (typeof plain === "function" ? plain(text) : text) : id;
   };
-  const order = typeof D !== "undefined" && D.UNITS ? D.UNITS.map(u => u.name) : null;
+  const order = courseId => (courseId === COURSE_ID && typeof D !== "undefined" && D.UNITS ? D.UNITS.map(u => u.name) : null);
   const ready = window.LMAdminAnalytics ? Promise.resolve() : new Promise((ok, bad) => {
     const s = document.createElement("script"); s.src = "/admin-analytics.js"; s.onload = ok; s.onerror = () => bad(new Error("couldn't load /admin-analytics.js")); document.head.appendChild(s);
   });

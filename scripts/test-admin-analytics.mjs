@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 let failed = 0, passed = 0;
-function test(name, fn){ try { fn(); passed++; console.log('  ok   ' + name); } catch (e){ failed++; console.error('  FAIL ' + name + '\n       ' + (e && e.message)); } }
+const queue = [];
+function test(name, fn){ queue.push([name, fn]); } // run in order at the end so async tests are awaited
 
 /* ---------- Task 1: usage counters ---------- */
 const U = require('../usage.js');
@@ -251,5 +252,65 @@ for (const c of ['MHF4U', 'MCR3U', 'SCH4U']) {
   });
 }
 
+/* ---------- Final review fixes ---------- */
+test('privacy: tells students every administrator can see all courses, including notes', () => {
+  const html = fs.readFileSync(new URL('../privacy.html', import.meta.url), 'utf8');
+  assert.match(html, /administrators? can view[^<]*every course/i);
+  assert.match(html, /your notes/i);
+  assert.ok(!/for the students in their courses/.test(html), 'old, narrower wording must be gone');
+});
+test('aggregate: any saved activity counts as active, not only quiz and exam sessions', () => {
+  const r = AA.aggregate([{ uid: 'l', data: { updated: NOW - 2 * DAYMS, lessons: { a: true } } }, { uid: 'z', data: { updated: 0 } }, { uid: 'f', data: { updated: NOW + 9 * DAYMS } }], {}, { now: NOW });
+  const by = Object.fromEntries(r.students.map(x => [x.uid, x]));
+  assert.equal(by.l.lastActive, NOW - 2 * DAYMS); assert.equal(r.overview.active7, 2); assert.deepEqual(Array.from(r.overview.inactive), ['z']);
+  const both = AA.aggregate([{ uid: 'b', data: { updated: NOW - 5 * DAYMS, attempts: [att(1, 70)] } }], {}, { now: NOW });
+  assert.equal(both.students[0].lastActive, NOW - 1 * DAYMS);
+});
+const tick = () => new Promise(r => setTimeout(r, 0));
+const fakeHost = () => ({ innerHTML: '', onclick: null, onchange: null, oninput: null, onkeydown: null, querySelector() { return null; } });
+const COURSES2 = [{ id: 'SCH4U', label: 'Chem', coll: 'sch4u' }, { id: 'MHF4U', label: 'Math', coll: 'mhf4u' }];
+test('render: a slow earlier load cannot overwrite a later course choice', async () => {
+  const resolvers = {};
+  const ctx = { courses: COURSES2, courseId: 'SCH4U', now: NOW, fetchCourse: coll => new Promise(res => { resolvers[coll] = res; }) };
+  const host = fakeHost(); const first = AA.render(host, ctx); await tick();
+  host.onchange({ target: { value: 'MHF4U', matches: () => true } }); await tick();
+  resolvers.mhf4u({ docs: [{ uid: 'm', data: { email: 'mhf@x.com' } }], profiles: {} }); await tick();
+  resolvers.sch4u({ docs: [{ uid: 's', data: { email: 'sch@x.com' } }], profiles: {} }); await first; await tick();
+  assert.ok(host.innerHTML.includes('mhf@x.com') && !host.innerHTML.includes('sch@x.com'), 'shows the last chosen course only');
+  assert.match(host.innerHTML, /<option value="MHF4U" selected>/);
+});
+test('render: a failed older load cannot replace newer data with an error', async () => {
+  const resolvers = {}, rejecters = {};
+  const ctx = { courses: COURSES2, courseId: 'SCH4U', now: NOW, fetchCourse: coll => new Promise((res, rej) => { resolvers[coll] = res; rejecters[coll] = rej; }) };
+  const host = fakeHost(); const first = AA.render(host, ctx); await tick();
+  host.onchange({ target: { value: 'MHF4U', matches: () => true } }); await tick();
+  resolvers.mhf4u({ docs: [{ uid: 'm', data: { email: 'mhf@x.com' } }], profiles: {} }); await tick();
+  rejecters.sch4u(new Error('late failure')); await first; await tick();
+  assert.ok(!host.innerHTML.includes('late failure') && host.innerHTML.includes('mhf@x.com'));
+});
+test('render: question wording and unit order are asked for the course being shown', async () => {
+  const asked = [], orderAsked = [];
+  const data = { docs: [{ uid: 'a', data: { email: 'a@x.com', mlog: { q1: { n: 2 } } } }], profiles: {} };
+  const ctx = { courses: COURSES2, courseId: 'SCH4U', now: NOW, fetchCourse: async () => data,
+    describe: (id, courseId) => { asked.push(courseId); return courseId === 'SCH4U' ? 'Chem wording' : id; }, order: courseId => { orderAsked.push(courseId); return null; } };
+  const host = fakeHost(); await AA.render(host, ctx);
+  assert.ok(host.innerHTML.includes('Chem wording') && !host.innerHTML.includes('Open that course'));
+  host.onchange({ target: { value: 'MHF4U', matches: () => true } }); await tick(); await tick();
+  assert.ok(asked.includes('MHF4U') && orderAsked.includes('MHF4U'));
+  assert.ok(host.innerHTML.includes('Open that course') && !host.innerHTML.includes('Chem wording'), 'explains why other-course questions show as ids');
+});
+for (const c of ['MPT', 'LMCA', 'MHF4U', 'MCR3U', 'SCH4U']) {
+  const html = fs.readFileSync(new URL('../' + c + '/index.html', import.meta.url), 'utf8');
+  test(c + ': a page that cannot load /usage.js still works (safe fallback)', () => {
+    assert.match(html, /<script src="\/usage\.js"><\/script>\s*\n<script>window\.LMUsage = window\.LMUsage \|\| \{ SECTIONS: \[\], bump: function \(\) \{\}, merge: function \(a, b\) \{ return Object\.assign\(\{\}, a, b\); \} \};<\/script>/);
+  });
+  test(c + ': Analytics asks for question text and unit order per course', () => {
+    assert.ok(html.includes('const describe = (id, courseId) =>') && html.includes('courseId !== COURSE_ID') && html.includes('const order = courseId =>'));
+  });
+}
+
+for (const [name, fn] of queue) {
+  try { await fn(); passed++; console.log('  ok   ' + name); } catch (e) { failed++; console.error('  FAIL ' + name + '\n       ' + (e && e.message)); }
+}
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

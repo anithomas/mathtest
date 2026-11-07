@@ -63,7 +63,7 @@
       weakest: weakest,
       lessonsDone: Object.keys(lessons).filter(k => lessons[k]).length,
       cardsReviewed: num(d.reviews) || 0,
-      lastActive: attempts.reduce((m, a) => Math.max(m, a.t), 0),
+      lastActive: Math.max(attempts.reduce((m, a) => Math.max(m, a.t), 0), num(d.updated) || 0),
       unitAcc: unitAcc,
       series: attempts.slice(-20).map(a => ({ t: a.t, pct: a.pct, kind: a.kind })),
       topMissed: Object.keys(counts).map(id => ({ id: id, n: counts[id] })).sort((a, b) => b.n - a.n || (a.id < b.id ? -1 : 1)).slice(0, 5),
@@ -278,7 +278,9 @@
       const st = { courseId: ctx.courseId, tab: "overview", sort: "lastActive", dir: "desc", filter: "", uid: null, data: null, err: null, loading: true };
       const now = () => ctx.now || Date.now();
       const course = () => courses.find(c => c.id === st.courseId) || courses[0];
-      const describe = id => { try { return (ctx.describe && ctx.describe(id)) || id; } catch (_) { return id; } };
+      let seq = 0; // each load gets a number so a slow older one can never overwrite a newer choice
+      const describe = id => { try { return (ctx.describe && ctx.describe(id, st.courseId)) || id; } catch (_) { return id; } };
+      const foreignNote = () => (ctx.describe && st.courseId !== ctx.courseId ? '<p class="aa-note">Question wording is only available for the course whose Admin page you opened. Open that course and use its Admin tab to read the questions.</p>' : "");
 
       const kpis = o => '<div class="aa-kpis">' + [[o.total, "students with progress"], [o.active7, "active in 7 days"], [o.active30, "active in 30 days"], [o.classAvg === null ? "–" : o.classAvg + "%", "class average (last 5 sessions)"]]
         .map(k => '<div class="aa-kpi"><b>' + escapeHtml(k[0]) + "</b><span>" + escapeHtml(k[1]) + "</span></div>").join("") + "</div>";
@@ -288,7 +290,7 @@
           '<div class="aa-card"><h4>Sessions per week</h4>' + (o.sessionsPerWeek.some(w => w.count > 0) ? lineChartSvg(o.sessionsPerWeek.map(w => ({ label: w.week, value: w.count })), { max: Math.max(4, ...o.sessionsPerWeek.map(w => w.count)) }) : empty("No sessions yet.")) + '<p class="aa-note">Completed quizzes and exam simulations per week, last 12 weeks.</p></div>' +
           '<div class="aa-card"><h4>Score distribution</h4>' + histogramSvg(o.histogram) + '<p class="aa-note">Each student counted once, by their last 5 sessions.</p></div>' +
           '<div class="aa-card"><h4>Accuracy by unit</h4>' + barChartSvg(o.unitAcc.map(u => ({ label: u.unit, value: u.p })), { max: 100, unit: "%" }) + "</div>" +
-          '<div class="aa-card"><h4>Most missed questions</h4>' + (o.mostMissed.length ? '<ol class="aa-list">' + o.mostMissed.map(m => "<li>" + escapeHtml(clip(describe(m.id), 90)) + " <b>×" + m.n + "</b></li>").join("") + "</ol>" : empty("No missed questions recorded yet.")) + "</div>" +
+          '<div class="aa-card"><h4>Most missed questions</h4>' + (o.mostMissed.length ? '<ol class="aa-list">' + o.mostMissed.map(m => "<li>" + escapeHtml(clip(describe(m.id), 90)) + " <b>×" + m.n + "</b></li>").join("") + "</ol>" + foreignNote() : empty("No missed questions recorded yet.")) + "</div>" +
           "</div>" + '<div class="aa-card"><h4>Not active in the last 7 days <span class="aa-badge">' + o.inactive.length + "</span></h4>" +
           (o.inactive.length ? "<p>" + o.inactive.slice(0, 12).map(u => escapeHtml(names[u] || u)).join(", ") + (o.inactive.length > 12 ? " and " + (o.inactive.length - 12) + " more" : "") + "</p>" : empty("Everyone has been active this week.")) + "</div>";
       };
@@ -320,9 +322,10 @@
         container.innerHTML = '<div class="aa">' + head + body + "</div>";
       }
       async function load() {
+        const mine = ++seq, cid = st.courseId, coll = course().coll;
         st.loading = true; st.err = null; draw();
-        try { const r = await ctx.fetchCourse(course().coll); st.data = aggregate(r && r.docs, r && r.profiles, { now: now(), order: ctx.order }); }
-        catch (e) { st.err = describeError(e); st.data = null; }
+        try { const r = await ctx.fetchCourse(coll); if (mine !== seq) return; st.data = aggregate(r && r.docs, r && r.profiles, { now: now(), order: typeof ctx.order === "function" ? ctx.order(cid) : ctx.order }); }
+        catch (e) { if (mine !== seq) return; st.err = describeError(e); st.data = null; }
         st.loading = false; draw();
       }
       const pick = uid => { st.uid = uid; st.tab = "students"; draw(); const el = container.querySelector("[data-aa-detail]"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" }); };
