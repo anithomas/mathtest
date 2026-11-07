@@ -20,5 +20,21 @@ test('merge: larger count per week and section', () => assert.deepEqual(U.merge(
 test('merge: undefined inputs give {}', () => assert.deepEqual(U.merge(undefined, undefined), {}));
 test('merge: ignores non-object and non-numeric values', () => assert.deepEqual(U.merge({ w: { quiz: 'x' } }, null), {}));
 
+/* ---------- Tasks 2-3: students' pages record usage ---------- */
+import fs from 'node:fs';
+for (const c of ['MHF4U', 'MCR3U', 'SCH4U']) {
+  const html = fs.readFileSync(new URL('../' + c + '/index.html', import.meta.url), 'utf8');
+  test(c + ': loads /usage.js', () => assert.match(html, /<script src="\/usage\.js"><\/script>/));
+  test(c + ': normalizeStore defaults usage', () => assert.match(html, /function normalizeStore\(\)\{[^\n]*store\.usage = store\.usage \|\| \{\};/));
+  test(c + ': payload saves usage', () => assert.match(html, /function payload\(\)\{[^\n]*usage: store\.usage \|\| \{\}/));
+  test(c + ': mergeInto merges usage from both devices', () => assert.match(html, /store\.usage = LMUsage\.merge\(d\.usage, localUsage\)/));
+  test(c + ': go() counts the section only for students', () => assert.match(html, /function go\(view, opt\)\{[\s\S]{0,400}!adminMode[\s\S]{0,80}LMUsage\.bump\(store, view\)/));
+  test(c + ': Challenge, guided and model starts are counted', () => {
+    assert.match(html, /LMUsage\.bump\(store, "challenge"\)/);
+    assert.match(html, /LMUsage\.bump\(store, "guided"\)/);
+    assert.match(html, /LMUsage\.bump\(store, "model"\)/);
+  });
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

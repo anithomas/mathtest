@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <script src="/analytics.js" defer></script>
 <script src="/clinic.js"></script>
+<script src="/usage.js"></script>
 <title>MathTest Trail · SCH4U Chemistry</title>
 <style>
 :root{
@@ -1748,7 +1749,7 @@ let user = null;             // {uid, name, email, photo}
 let cloud = null;            // {db, fns} when Firebase is live
 let store = { attempts: [], seen: {}, profile: null, notes: [], lessons: {}, missed: {} };
 let adminMode = false;
-function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; }
+function normalizeStore(){ store.attempts = store.attempts || []; store.seen = store.seen || {}; store.notes = store.notes || []; store.lessons = store.lessons || {}; store.missed = store.missed || {}; store.cards = store.cards || {}; store.reviews = store.reviews || 0; store.recalled = store.recalled || 0; store.clinic = store.clinic || {}; store.mlog = store.mlog || {}; store.usage = store.usage || {}; }
 let quizState = null;
 let saveTimer = null;
 
@@ -1825,7 +1826,7 @@ let syncMode = "local";          // "primary" | "fallback" | "local"
 let lastSync = 0, syncState = "idle";
 const lsKey = () => "sch4u-" + (user?.uid || "anon");
 function loadLocal(){ try { const d = JSON.parse(localStorage.getItem(lsKey()) || "null"); if (d && Array.isArray(d.attempts)) store = d; } catch(e){} normalizeStore(); }
-function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, mlog: store.mlog || {}, updated: Date.now() }; }
+function payload(){ return { attempts: store.attempts.slice(-200), seen: store.seen, profile: store.profile || null, notes: (store.notes || []).slice(-400), lessons: store.lessons || {}, missed: store.missed || {}, cards: store.cards || {}, reviews: store.reviews || 0, recalled: store.recalled || 0, clinic: store.clinic || {}, mlog: store.mlog || {}, usage: store.usage || {}, updated: Date.now() }; }
 async function writeCloud(mode){
   if (mode === "primary") return cloud.fns.setDoc(cloud.fns.doc(cloud.db, COLL, user.uid), { email: user.email, ...payload() });
   if (PUBLIC_ENROLLMENT_ENABLED) throw new Error("Legacy shared progress writes are disabled for public enrollment accounts.");
@@ -1868,11 +1869,11 @@ function markSyncBlocked(){
 }
 function mergeInto(d){
   if (!d) return;
-  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {}, localMlog = store.mlog || {};
+  const localCards = store.cards || {}, localReviews = store.reviews || 0, localRecalled = store.recalled || 0, localClinic = store.clinic || {}, localMlog = store.mlog || {}, localUsage = store.usage || {};
   const cloudN = (d.attempts || []).length, localN = store.attempts.length;
   if (cloudN >= localN) store = { attempts: d.attempts || [], seen: d.seen || {}, profile: d.profile || store.profile || null, notes: d.notes || store.notes || [], lessons: Object.assign({}, store.lessons, d.lessons || {}), missed: Object.assign({}, d.missed || {}, store.missed || {}) };
   else { if (d.profile && !store.profile) store.profile = d.profile; if (d.notes && !(store.notes || []).length) store.notes = d.notes; store.lessons = Object.assign({}, d.lessons || {}, store.lessons); store.missed = Object.assign({}, d.missed || {}, store.missed || {}); }
-  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = CL.mergeClinic(d.clinic, localClinic); store.mlog = CL.mergeLog(d.mlog, localMlog);
+  store.cards = mergeCards(d.cards, localCards); store.reviews = Math.max(d.reviews || 0, localReviews); store.recalled = Math.max(d.recalled || 0, localRecalled); store.clinic = CL.mergeClinic(d.clinic, localClinic); store.mlog = CL.mergeLog(d.mlog, localMlog); store.usage = LMUsage.merge(d.usage, localUsage);
 }
 async function loadCloud(){
   let primaryData = null, fallbackData = null, primaryOK = false, fallbackOK = false;
@@ -2082,6 +2083,7 @@ const tabs = document.querySelectorAll("nav.tabs button");
 tabs.forEach(b => b.onclick = () => go(b.dataset.view));
 function go(view, opt){
   if (view === "study" && !adminMode && window.lmTrackEvent) window.lmTrackEvent("study_hub_opened");
+  if (!adminMode){ LMUsage.bump(store, view); persist(); }
   tabs.forEach(b => b.classList.toggle("active", b.dataset.view === view));
   if (view === "home") renderHome();
   else if (view === "quiz") quizState && quizState.kind === "quiz" && !quizState.done ? renderQuestion() : renderQuizSetup();
@@ -2492,7 +2494,7 @@ function wireGuided(){
   const g = D.GUIDED.find(x => x.id === guidedSel) || D.GUIDED[0], st = guided[g.id];
   views.querySelectorAll("[data-gsel]").forEach(b => b.onclick = () => { guidedSel = b.dataset.gsel; refreshStudy(); });
   const inp = $("#gd-in");
-  const advance = (val, missed) => { st.vals[st.step] = val; st.step++; st.wrong = 0; if (missed) st.miss = (st.miss || 0) + 1; refreshStudy(); const n = $("#gd-in"); if (n) n.focus({ preventScroll: true }); };
+  const advance = (val, missed) => { st.vals[st.step] = val; st.step++; if (st.step === g.steps.length && !adminMode) LMUsage.bump(store, "guided"); st.wrong = 0; if (missed) st.miss = (st.miss || 0) + 1; refreshStudy(); const n = $("#gd-in"); if (n) n.focus({ preventScroll: true }); };
   if (inp){
     const s = g.steps[st.step];
     const check = () => { const v = parseNum(inp.value); if (!inp.value.trim()) return; if (numOk(s, v)) advance(inp.value.trim(), st.wrong > 0); else { st.wrong++; refreshStudy(); const n = $("#gd-in"); if (n){ n.value = inp.value; n.focus({ preventScroll: true }); } } };
@@ -2506,7 +2508,9 @@ function wireGuided(){
 /* ================= interactive models (loaded from models.js) ================= */
 const MODEL_LIST = [["energy", "🔥 Energy diagram & temperature"], ["titration", "⚖️ Titration curve"], ["cell", "⚡ Galvanic cell"], ["vsepr", "⚛️ VSEPR shapes"], ["qnum", "🎯 Quantum numbers & orbitals"]];
 let modelSel = "energy", modelsMod = null;
+let modelBumpAt = 0;
 function mountModels(){
+  if (!adminMode && views.querySelector("[data-model]") && Date.now() - modelBumpAt > 60000){ modelBumpAt = Date.now(); LMUsage.bump(store, "model"); }
   if (!views.querySelector("[data-model],[data-cmap]")) return;
   (modelsMod = modelsMod || import("./models.js"))
     .then(m => m.mountAll(views))
@@ -2585,6 +2589,7 @@ function renderMockIntro(){
 
 /* ================= session engine ================= */
 function startSession(kind, questions, label){
+  if (!adminMode && /Challenge/.test(label || "")) LMUsage.bump(store, "challenge");
   quizState = {
     kind, label,
     qs: questions.map(q => ({ q, order: q.t === "mc" ? shuffle(q.o.map((_, i) => i)) : null, sel: null, val: "", correct: null, answered: false, hint: false, chk: {} })),
