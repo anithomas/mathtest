@@ -104,7 +104,7 @@ for (const [file, name, marker, variable] of courses) {
   try {
     vm.runInNewContext(`${source}${exportCode}`, context, { timeout: 5000, filename: file });
     if (name === 'MPT' || name === 'LMCA') {
-      const additions = [...html.matchAll(/BANK\.push\([\s\S]*?\n\);/g)];
+      const additions = [...blocks.join('\n').matchAll(/BANK\.push\([\s\S]*?\n\]?\);/g)].filter(m => !source.includes(m[0])); // only pushes outside the content script itself; `]);` closes spread pushes
       for (const addition of additions) vm.runInNewContext(addition[0], context, { timeout: 5000, filename: `${file}:extension` });
     }
   } catch (error) {
