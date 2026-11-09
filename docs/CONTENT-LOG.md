@@ -174,3 +174,41 @@ Driven by the kinds of errors students make on graded organic-chemistry and atom
 - **MCR3U (+17 cards, +34 questions):** function notation, shift direction, vertex sign, completing the square, discriminant, inverses, rational restrictions, radicals, exponent laws, rational exponents, growth factor, common bases, nth term, geometric sums, annuity periods, ambiguous case, cosine law.
 - **MPT (+14 cards, +28 questions `MX01-28`) and LMCA (+12 cards, +24 questions `MX01-24`):** fractions, decimals, percent change, order of operations, signed numbers, distributing negatives, equations, median, independent probability, area and perimeter, area conversion, discounts and tax, unit rates, ratio sharing, markup vs margin.
 - Question counts re-counted from the code: MHF4U 277, MCR3U 218, MPT 218, LMCA 104 (SCH4U 326 unchanged).
+
+## 2026-11-09: Weekly content refresh (+28 questions)
+
+MHF4U 277→287, MCR3U 218→226, SCH4U 326→336. Each unit gets one Challenge (`h2:1`) and one Thinking question. All numeric answers independently recomputed.
+
+**MHF4U** (`w261109h01`–`h10`)
+- h01 (u1): integer solutions of a cubic inequality
+- h02 (u1): find f(3) from y-intercept
+- h03 (u2): rational function from asymptotes and point
+- h04 (u2): two pipes filling a tank
+- h05 (u3): tide depth sinusoid, hours above threshold
+- h06 (u3): tan 2θ from sin θ, quadrant II
+- h07 (u4): equal value of two compounding investments
+- h08 (u4): decibel difference from intensity ratio
+- h09 (u5): image point under combined transformations
+- h10 (u5): even and odd function values combined
+
+**MCR3U** (`w261109f01`–`f08`)
+- f01 (u1): maximum fenced area beside a river
+- f02 (u1): reading f(2x − 6) + 1 transformations
+- f03 (u2): when halving and doubling cultures match
+- f04 (u2): range of a reflected exponential
+- f05 (u3): arithmetic series from t4 and S10
+- f06 (u3): total distance of a bouncing ball
+- f07 (u4): quadrilateral side using sine then cosine law
+- f08 (u4): cosine law, side from SAS
+
+**SCH4U** (`w261109c01`–`c10`)
+- c01 (u1): alcohol oxidation mass with percent yield
+- c02 (u1): which alkene has cis/trans isomers
+- c03 (u2): Balmer 5→2 transition wavelength
+- c04 (u2): identifying the polar molecule
+- c05 (u3): first-order time via three half-lives
+- c06 (u3): final temperature mixing hot, cold water
+- c07 (u4): pH after strong acid/base excess
+- c08 (u4): ICE table for N2O4 dissociation quadratic
+- c09 (u5): count cells above 1.00 V
+- c10 (u5): changes during a Zn/Cu voltaic cell
