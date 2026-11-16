@@ -1,5 +1,42 @@
 # Weekly content log
 
+## 2026-11-16 (weekly content refresh)
+MHF4U 287→297, MCR3U 226→234, SCH4U 336→346. One Challenge (`h2:1`) and one Knowledge question per unit. All numeric answers independently recomputed (sympy/Python) and checked against the page data.
+
+**MHF4U** (`w261116h01`–`h10`)
+- h01 (u1): geometric-progression roots, find k
+- h02 (u1): identify a factor with factor theorem
+- h03 (u2): boat upstream/downstream rational equation
+- h04 (u2): vertical asymptotes after factoring denominator
+- h05 (u3): cos(A + B) from quadrant-restricted ratios
+- h06 (u3): exact value of tan(2π/3)
+- h07 (u4): mixed-base logarithm equation, base 4 and 2
+- h08 (u4): bacteria doubling over three periods
+- h09 (u5): even/odd parts h and k evaluated
+- h10 (u5): product of functions evaluated at x = 2
+
+**MCR3U** (`w261116f01`–`f08`)
+- f01 (u1): line tangent to parabola via discriminant
+- f02 (u1): evaluating a quadratic at x = −2
+- f03 (u2): solving 2^(x+3) + 2^x = 72
+- f04 (u2): growth versus decay for 5(0.8)^x
+- f05 (u3): sum of multiples of 7 between 100–500
+- f06 (u3): seventh term, negative-ratio geometric sequence
+- f07 (u4): ambiguous case, larger triangle side c
+- f08 (u4): wheelchair ramp angle of inclination
+
+**SCH4U** (`w261116c01`–`c10`)
+- c01 (u1): esterification with limiting reagent, percent yield
+- c02 (u1): IUPAC name of branched pentane
+- c03 (u2): photoelectric effect, maximum electron speed
+- c04 (u2): identify element from [Ar] configuration
+- c05 (u3): Hess's law hydrogenation, mass for 500 kJ
+- c06 (u3): meaning of the activated complex
+- c07 (u4): K_eq from initial moles and one equilibrium concentration
+- c08 (u4): effect of temperature on endothermic K_eq
+- c09 (u5): nickel electroplating time (Faraday enrichment)
+- c10 (u5): identifying the reducing agent
+
 ## 2026-11-02 (Unit 2 renumbering, concept map and lesson animations)
 **SCH4U (Unit 2 reordered, concept map extended, +6 animations)**
 
